@@ -1,13 +1,13 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Engineering problems / LaTeX Template
-%		Semester 5
+%		Semester 6
 %		Institut d'Optique Graduate School
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%	5N-ONIP-Block3	/ AM Modulation
+%	6N-ONIP-Block4	/ Project A - LEDs sources
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 % Created by:
-%	Julien VILLEMEJANE - 08/dec/2022
+%	Julien VILLEMEJANE - 22/nov/2023
 % Modified by:
 %	
 %
@@ -32,7 +32,7 @@
 
 \input{../../_latex_assets/5N_ONIP_structure.tex} % Include the document which specifies all packages and structural customizations for this template
 
-\def\dirName{5N-ONIP-bloc3_sujet_AM}
+\def\dirName{6N-ONIP-bloc4_sujetA}
 
 \begin{document}
 
@@ -264,56 +264,70 @@ En résolvant ce problème, les étudiant$\cdot$e$\cdot$s seront capables de  :
 
 \hypertarget{stepbystep}{\heading{Etapes}{6pt}}
 
+\textit{Les représentations graphiques à produire à chacune des étapes seront accompagnées de \textbf{renseignements quantitatifs} comme la valeur moyenne de l'éclairement, son écart-type et son écart Pic à Vallée, absolus et relatifs, sur l'ensemble de la zone représentée (ou sur une sous-partie rectangulaire ou circulaire de celle-ci). Par ailleurs, une \textbf{représentation en 3D de la position et de l'orientation des N sources} sera utile.}
+
+\qquad
+
+\qquad
+
 \begin{description}
-	\item[Etape 1] \textbf{Lecture d'un fichier de points}
+	\item[Etape 1] \textbf{Carte d'éclairement pour une source ponctuelle - direction perpendiculaire par rapport au plan éclairé}
 	
 	\begin{itemize}
-		\item \textit{Fichier : B3\_data\_01.csv} provenant d'un enregistrement sur un oscilloscope numérique.
-		\item Lire un fichier texte / tableur
-		\item Récupérer les données dans un vecteur
-		\item Afficher les signaux contenus dans le fichier
+		\item Création d'une classe LED\_source
+		\item Création d'une classe Carte
+		\item Affichage 2D d'une carte avec une source ponctuelle
+		\item Affichage position des sources sur la carte
+		\item Validation du modèle
 	\end{itemize}
 	
 
 \qquad
 	
-	\item[Etape 2] \textbf{Calcul et affichage de la transformée de Fourier}
+	\item[Etape 2] \textbf{Carte d'éclairement pour une source ponctuelle - direction quelconque par rapport au plan éclairé}
+	
 	\begin{itemize}
-		\item Générer un signal périodique sinusoïdal
-		\item Calculer la FFT d'un signal simple
-		\item Afficher la FFT de ce signal
-		\item Générer des signaux plus complexes et valider l'affichage de la FFT
+		\item Modification de la classe LED\_source
+		\item Affichage 2D d'une carte avec une source ponctuelle
+		\item Affichage position des sources sur la carte
+		\item Validation du modèle
 	\end{itemize}
 	
 \qquad
 
-	\item[Etape 3] \textbf{Simulation du phénomène de modulation/démodulation AM}
+	\item[Etape 3] \textbf{Carte d'éclairement pour N sources ponctuelles - direction quelconque par rapport au plan éclairé}
+	
 	\begin{itemize}
-		\item Générer des signaux de tests
-		\item Afficher la FFT de ces signaux
-		\item Démoduler le signal et afficher la FFT
-		\item Générer un fichier de points
+		\item Modification de la classe LED\_source
+		\item Affichage 2D d'une carte avec une source ponctuelle
+		\item Affichage position des sources sur la carte
+		\item Validation du modèle
 	\end{itemize}
 
 \qquad
 
-	\item[Etape 4] \textbf{Démodulation d'un signal quelconque} 
+	\item[Bonus A] \textbf{Carte d'éclairement 3D}
+	
 	\begin{itemize}
-		\item \textit{Fichier : B3\_data\_02.txt} provenant d'une génération d'un fichier en base 64 (fichier sonore initial en 24 kHz et 16 bits).
-		\item Lire un fichier en base 64
-		\item Récupérer les données dans un vecteur
-		\item Afficher les signaux contenus dans le fichier
-		\item Jouer le son décodé	
+		\item Affichage 3D d'une carte avec une source ponctuelle avec position des sources sur la carte
 	\end{itemize}	
+
+\qquad
+
+	\item[Bonus B] \textbf{Optimisation d'un éclairement}
 	
+	\begin{itemize}
+		\item Optimisation du nombre et de l'orientation de LEDs pour obtenir un flux lumineux donné sur un plan de travail
+	\end{itemize}	
+
 \qquad
 	
-	\item[Bonus 1] \textbf{Démodulation multi-porteuse}
+	\item[Bonus C] \textbf{Réalisation d'une IHM / PyQt6}
 	\begin{itemize}
-		\item \textit{Fichier : B3\_data\_03.txt} provenant d'une génération d'un fichier en base 64 (fichier sonore initial en 160 kHz et 16 bits). Multi-porteuses sinusoïdales.
+		\item Utilisation de PyQt6 pour l'intégration des précédentes fonctions dans une IHM
+		\item Intégration des graphiques avec pyqtgraph
+		\item Possibilité d'ajouter des sources et d'afficher la contribution indépendante de chacune des sources		
 	\end{itemize}
-	
-	\item[Bonus 2] \textbf{Génération de fichiers modulés}
 	
 \end{description}
 
@@ -360,6 +374,11 @@ En résolvant ce problème, les étudiant$\cdot$e$\cdot$s seront capables de  :
 		\begin{itemize}
 			\item paramètres et retours des fonctions sont documentés
 		\end{itemize}
+		\item Création de classes et d'objets
+		\begin{itemize}
+			\item classe contenant des attributs et méthodes pertinents
+			\item aucune fonction n'est appelée en dehors d'un objet
+		\end{itemize}
 	\end{itemize}
 	
 
@@ -376,27 +395,61 @@ En résolvant ce problème, les étudiant$\cdot$e$\cdot$s seront capables de  :
 		\end{itemize}
 		\item \textbf{Génération de données pertinentes de tests}
 		\begin{itemize}
-			\item données de test (amplitudes, fréquences...) pertinentes
+			\item choix de la position des sources pertinent
 		\end{itemize}
 		\item \textbf{Analyse des données et validation modèle}
 		\begin{itemize}
 			\item comparaison avec la théorie
-			\item analyse pertinente des signaux (temporels et fréquentiels)
+			\item analyse pertinente des cartes obtenues
 		\end{itemize}
 	\end{itemize}
 	
 	\item \textbf{AVANCEMENT}
 	\begin{itemize}
-		\item Etapes 1 et 2 : D
-		\item Etapes 1, 2 et 3 : C
-		\item Etapes 1, 2, 3 et 4 : B
-		\item Bonus 1 : A
-		\item Bonus 1 et 2 : A+
+		\item Etapes 1 et 2 : C
+		\item Etapes 1, 2 et 3 : B
+		\item Un des bonus : A
+		\item Tous les bonus : A+++++
 	\end{itemize}
 \end{itemize}
 
+
+
+%----------------------------------------------------------------------------------------
+\newpage
+
+\hypertarget{stepbystep}{\heading{Quelques éléments supplémentaires}{6pt}}
+
+\textbf{Modélisation d'une diode électroluminescente}
+
+Les sources (par exemple des LEDs) seront modélisées de manière approchée (valable si l'on n'est pas trop près du composant) comme des \textbf{sources ponctuelles}. Ces sources ont un \textbf{diagramme de rayonnement} possédant une \textbf{symétrie de révolution} autour d'un axe orienté. 
+
+\qquad
+
+L'indicatrice de rayonnement pourra être considérée comme gaussienne, et caractérisée par son intensité visuelle vers l'avant sur l'axe $I_0$ (en candela) et sa largeur totale à mi-hauteur $\Delta$.
+
+Cette indicatrice peut-être modélisée par l'équation suivante : $$I(\alpha) = I_0 \cdot \exp(-(4 \cdot \ln(2)) \cdot (\alpha/\Delta)^2)$$
+
+où $\alpha$ est l'angle entre la direction d'émission et l'axe de la source ($\alpha \in [0^{\circ}, 180^{\circ}]$). 
+
+\qquad 
+
+\textbf{Positionnement d'une source}
+
+Le positionnement de la source dans l'espace sera caractérisé par ses coordonnées $(x, y, z)$ et l'orientation de son axe de symétrie par deux angles ($\theta$ et $\phi$). 
 	
 
+\qquad 
+
+\textbf{Eclairement / Formule de Bouguer}
+
+L'éclairement fourni par une source ponctuelle en un point M de l'espace séparé d'une distance $d$ et d'une inclinaison de $\psi$ par rapport à la direction de la source ponctuelle, est données par la relation photométrique suivante : 
+
+$$E = \frac{I \cdot \cos(\psi)}{d^2}$$
+
+\qquad 
+
+L'éclairement produit par N sources (incohérentes) est la somme des éclairements produits par chaque source.
 %----------------------------------------------------------------------------------------
 
 \end{document} 
