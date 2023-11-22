@@ -7,6 +7,7 @@ Help at : https://www.hindawi.com/journals/mpe/2021/8099757/
 
 import numpy as np
 from matplotlib import pyplot as plt
+from mpl_toolkits.mplot3d import proj3d
 
 
 class working_plan:
@@ -58,14 +59,42 @@ class working_plan:
         angle = np.arctan(np.sqrt((x_s-x)**2 + (y_s-y)**2)/(z_s-z))
         return radius, angle
 
-    def display_global_cart(self):
+    def get_global_map(self):
         zz_f = np.zeros((len(self.x_len), len(self.y_width)))
         for k in range(len(self.sources_list)):
             xx, yy, zz = wp.calculate_source_cart(source=self.sources_list[k])
             zz_f += zz
+        return xx, yy, zz_f
+
+    def display_global_map(self):
+        xx, yy, zz_f = self.get_global_map()
         plt.figure()
         h = plt.pcolormesh(yy, xx, zz_f)
         plt.colorbar()
+        plt.show()
+
+    def display_working_space(self):
+        x, y, z = [], [], []
+        for k in range(len(self.sources_list)):
+            xx, yy, zz = self.sources_list[k].get_coords()
+            x.append(xx)
+            y.append(yy)
+            z.append(zz)
+
+        fig = plt.figure()
+        ax = plt.axes(projection='3d')  # Affichage en 3D
+        ax.scatter(x, y, z, marker='d')
+
+        x_mesh, y_mesh = self.get_mesh()
+        z = x_mesh*0 + y_mesh*0
+        ax.plot_surface(x_mesh, y_mesh, z, alpha=0.5)
+
+        # Print map in 2D...
+        xx, yy, zz_f = self.get_global_map()
+        max = np.max(zz_f)
+        # cset = ax.contour(xx, yy, zz_f, zdir='z', offset=0.1)
+        # ax.plot_surface(xx, yy, zz_f, alpha=0.3)
+
         plt.show()
 
 class LED_source:
@@ -134,9 +163,9 @@ class LED_source:
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    led1 = LED_source(1, 30, x=0.5, y=1)
-    led2 = LED_source(2, 20, x=0.2, y=0.2)
-    led3 = LED_source(5, 90, x=0.8, y=1.8)
+    led1 = LED_source(1, 30, x=0.5, y=1, z=2)
+    led2 = LED_source(1, 20, x=0.2, y=0.2, z=0.5)
+    led3 = LED_source(2, 90, x=0.8, y=1.8)
 
     led1.display_radiation_diagram()
 
@@ -150,4 +179,6 @@ if __name__ == '__main__':
     grid_x, grid_y = wp.get_mesh()
     print(grid_x.shape)
 
-    wp.display_global_cart()
+    wp.display_global_map()
+
+    wp.display_working_space()
