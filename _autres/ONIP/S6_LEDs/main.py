@@ -169,6 +169,7 @@ if __name__ == '__main__':
 
     led1.display_radiation_diagram()
 
+    # Plan 1
     wp = working_plan(2, 1, 0.001)
 
     wp.add_source(led1)
@@ -182,3 +183,15 @@ if __name__ == '__main__':
     wp.display_global_map()
 
     wp.display_working_space()
+
+    # Plan 2
+    wp = working_plan(2, 1, 0.001)
+
+    led1 = LED_source(1, 30, x=0.5, theta=20, y=1, z=2)
+    wp.add_source(led1)
+    wp.print_sources_list()
+
+    grid_x, grid_y = wp.get_mesh()
+    print(grid_x.shape)
+
+    wp.display_global_map()
