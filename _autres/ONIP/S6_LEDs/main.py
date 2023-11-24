@@ -120,11 +120,14 @@ class LED_source:
         self.delta_deg = delta
         self.delta = self.delta_deg*np.pi / 180
 
-        self.x, self.y, self.z, self.theta, self.zeta = x, y, z, np.radians(theta), np.radians(zeta)
+        self.x, self.y, self.z, self.theta, self.zeta = x, y, z, np.radians(theta), np.radians(zeta+90)
         # definition of ux, uy, uz = unitary vector of the main source direction
-        self.ux = np.cos(self.theta)*np.sin(self.zeta)
+        self.ux = np.cos(self.theta)*np.cos(self.zeta)
         self.uy = np.sin(self.theta)*np.cos(self.zeta)
-        self.uz = -(1-(self.ux**2+self.uy**2))**(1/2)
+        self.uz = -np.sin(self.zeta)
+
+        norm = (self.ux)**2 + (self.uy)**2 + (self.uz)**2
+        print(norm)
 
     def __str__(self):
         return f'LED (I0={self.I0} / delta={self.delta_deg})'
@@ -176,7 +179,7 @@ if __name__ == '__main__':
     led2 = LED_source(1, 20, x=0.2, y=0.2, z=0.5)
     led3 = LED_source(2, 90, x=0.8, y=1.8)
 
-    led1.display_radiation_diagram()
+    # led1.display_radiation_diagram()
 
     # Plan 1
     '''
@@ -198,8 +201,8 @@ if __name__ == '__main__':
     # Plan 2
     wp = working_plan(2, 1, 0.001)
 
-    led1 = LED_source(1, 30, x=0.5, theta=0, y=1, z=2)
-    led2 = LED_source(1, 40, x=0.25, theta=30, zeta=0, y=0.5, z=2)
+    led1 = LED_source(1, 30, x=0.5, theta=0, zeta=10, y=1, z=2)
+    led2 = LED_source(1, 40, x=0.25, theta=0, zeta=50, y=0.5, z=2)
     led3 = LED_source(1, 40, x=0.25, theta=90, zeta=30, y=0.5, z=1)
     wp.add_source(led1)
     wp.add_source(led2)
