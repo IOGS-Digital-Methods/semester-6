@@ -41,7 +41,7 @@ class working_plan:
         for k in range(len(self.sources_list)):
             print(f'{k+1}: {self.sources_list[k]}')
 
-    def calculate_source_cart(self, source):
+    def calculate_source_map(self, source):
         x_mesh, y_mesh = self.get_mesh()
         zout = np.sqrt(x_mesh ** 2 + y_mesh ** 2)
 
@@ -62,7 +62,7 @@ class working_plan:
     def get_global_map(self):
         zz_f = np.zeros((len(self.x_len), len(self.y_width)))
         for k in range(len(self.sources_list)):
-            xx, yy, zz = wp.calculate_source_cart(source=self.sources_list[k])
+            xx, yy, zz = wp.calculate_source_map(source=self.sources_list[k])
             zz_f += zz
         return xx, yy, zz_f
 
@@ -75,15 +75,21 @@ class working_plan:
 
     def display_working_space(self):
         x, y, z = [], [], []
+        u, v, w = [], [], []
         for k in range(len(self.sources_list)):
             xx, yy, zz = self.sources_list[k].get_coords()
             x.append(xx)
             y.append(yy)
             z.append(zz)
+            ux, vy, wz = self.sources_list[k].get_direction_vector()
+            u.append(0.3*ux)
+            v.append(0.3*vy)
+            w.append(0.3*wz)
 
         fig = plt.figure()
         ax = plt.axes(projection='3d')  # Affichage en 3D
         ax.scatter(x, y, z, marker='d')
+        ax.quiver(x, y, z, u, v, w)
 
         x_mesh, y_mesh = self.get_mesh()
         z = x_mesh*0 + y_mesh*0
@@ -107,14 +113,14 @@ class LED_source:
         :param x:   float, x position of the source
         :param y:   float, y position of the source
         :param z:   float, z position of the source
-        :param theta:   float, angle of emission
-        :param zeta:   float, angle of emission
+        :param theta:   float, angle of emission (in degree)
+        :param zeta:   float, angle of emission (in degree)
         '''
         self.I0 = I0
         self.delta_deg = delta
         self.delta = self.delta_deg*np.pi / 180
 
-        self.x, self.y, self.z, self.theta, self.zeta = x, y, z, theta, zeta
+        self.x, self.y, self.z, self.theta, self.zeta = x, y, z, np.radians(theta), np.radians(zeta)
         # definition of ux, uy, uz = unitary vector of the main source direction
         self.ux = np.cos(self.theta)*np.sin(self.zeta)
         self.uy = np.sin(self.theta)*np.cos(self.zeta)
@@ -151,6 +157,9 @@ class LED_source:
     def get_params(self):
         return self.I0, self.zeta, self.theta
 
+    def get_direction_vector(self):
+        return self.ux, self.uy, self.uz
+
     def display_radiation_diagram(self):
         alpha = np.linspace(0, np.pi, 101)
         led_intens = self.led_intensity(alpha)
@@ -170,6 +179,7 @@ if __name__ == '__main__':
     led1.display_radiation_diagram()
 
     # Plan 1
+    '''
     wp = working_plan(2, 1, 0.001)
 
     wp.add_source(led1)
@@ -183,15 +193,18 @@ if __name__ == '__main__':
     wp.display_global_map()
 
     wp.display_working_space()
-
+    '''
+    
     # Plan 2
     wp = working_plan(2, 1, 0.001)
 
-    led1 = LED_source(1, 30, x=0.5, theta=20, y=1, z=2)
+    led1 = LED_source(1, 30, x=0.5, theta=0, y=1, z=2)
+    led2 = LED_source(1, 40, x=0.25, theta=30, zeta=0, y=0.5, z=2)
+    led3 = LED_source(1, 40, x=0.25, theta=90, zeta=30, y=0.5, z=1)
     wp.add_source(led1)
+    wp.add_source(led2)
+    wp.add_source(led3)
     wp.print_sources_list()
 
-    grid_x, grid_y = wp.get_mesh()
-    print(grid_x.shape)
-
     wp.display_global_map()
+    wp.display_working_space()
