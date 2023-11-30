@@ -1,0 +1,196 @@
+\enteteThematiqueObligatoire{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\encadreTDExo{1 - Boucle ouverte et boucle fermée}{
+\begin{itemize}[label=$\triangleright$,leftmargin=*]
+	\item Modélisation d'un Amplificateur Linéaire Linéaire - ordre 1
+	\item Intérêt du rebouclage d'un ALI
+\end{itemize}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Boucle ouverte et boucle fermée}
+
+On s'intéresse au système bouclé suivant :
+
+\begin{center}
+	\includegraphics[width=13cm]{images/syst_asservi.png}
+\end{center}
+
+où :
+
+\begin{itemize}
+	\item $A(p)$ : système à asservir
+	\item $B(p)$ : système de mesure (retour) de la grandeur à asservir
+	\item $C(p)$ : correcteur de l'asservissement
+	\item $G_e(p)$ : grandeur physique de consigne
+	\item $G_s(p)$ : grandeur physique de sortie
+	\item $\varepsilon(p)$ : erreur entre la consigne et la sortie
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Boucle ouverte}
+\begin{enumerate}
+	\item Calculez la fonction de transfert en boucle ouverte : $TF_{BO}(p) = \frac{G_m(p)}{\varepsilon{}(p)}$
+	\item Calculez la fonction de transfert en boucle fermée, entre la consigne et la grandeur contrôlée : $TF_{BF}(p) = \frac{G_s(p)}{G_e(p)}$
+	
+	\medskip 
+	
+	On notera $L(p) = A(p) \cdot B(p) \cdot C(p)$.
+	
+	\item Que devient l'expression précédente $TF_{BF}(p)$ ?
+	\item Ce système peut-il être instable ?
+	\item Est-ce qu'un système d'ordre 1 non corrigé mais rebouclé peut devenir instable ? Un système d'ordre supérieur à 1 ?
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Boucle fermée}
+
+En boucle fermée, on désire que le système :
+
+\begin{itemize}
+	\item suive la consigne en régime établi (précision)
+	\item élimine les perturbations (rejet des perturbations)
+	\item ait une dynamique rapide
+\end{itemize}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Stabilité d'un système}
+
+Certains systèmes bouclés peuvent devenir instable si la fonction de transfert en boucle ouverte devient réelle (pour certaines fréquences) et de valeur inférieure à -1. En ajoutant des éléments correcteurs, il est possible de modifier le comportement et ainsi éviter que le système ne devienne instable, tout en essayant de le rendre plus rapide et plus robuste. 
+
+Pour estimer les risques d'instabilité, on s'intéresse aux marges de gain et de phase d'un système en boucle ouverte, qui déterminera ensuite sa robustesse en boucle fermée.
+
+Le point critique à ne pas franchir est le point -1, c'est à dire la pulsation pour laquelle $\lvert L(p) \rvert = 1 = 0dB$ et $arg(L(p)) = -\pi$.
+
+On propose d'étudier le système dont on donne le diagramme de Bode suivant :
+
+\begin{center}
+	\includegraphics[width=15cm]{images/TD/sys_stable2.png}
+\end{center}
+
+\begin{enumerate}
+	\item Mesurez les marges de gain et de phase et concluez sur sa stabilité en boucle fermée.
+	\item Qu'en est-il de ce nouveau système dont on donne le diagramme de Bode ?
+
+\begin{center}
+	\includegraphics[width=15cm]{images/TD/sys_instable2.png}
+\end{center}
+
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Correction d'un système}
+
+Dans cette partie, on utilisera comme exemple un système du premier ordre de la forme : 
+
+$$H(p) = \frac{H_0}{1 + \tau \cdot p}$$
+
+On prendra $H_0 = 0.5$ et $\tau = 2 \cdot 10^{-3}$
+
+\begin{enumerate}
+	\item Parmi les réponses en fréquence proposées par la suite, laquelle correspond :
+\begin{enumerate}
+	\item au système en boucle ouverte 
+	\item au système en boucle fermée, avec un retour unitaire ($B(p) = 1$) et sans correction ($C(p) = 1$)
+	\item au système en boucle fermée, avec un retour unitaire ($B(p) = 1$) et une correction proportionnelle ($C(p) = G$ avec $G = 10$)
+	\item au système en boucle fermée, avec un retour unitaire ($B(p) = 1$) et une correction proportionnelle et intégrale ($C(p) = G + 1/(\tau_i \cdot p)$ avec $G = 10$ et $\tau_i = 3 \cdot 10^{-5}$)
+\end{enumerate}
+
+\begin{center}
+	\includegraphics[width=15cm]{images/TD/sys_boucle_bode.png}
+\end{center}
+
+	\item Même question avec les réponses indicielles suivantes.
+
+\begin{center}
+	\includegraphics[width=15cm]{images/TD/sys_boucle_step.png}
+\end{center}
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Correction et stabilité}
+
+On se base sur le système précédent, $H(p) = \frac{H_0}{1 + \tau \cdot p}$, rebouclé de manière unitaire ($B(p) = 1$) et une correction proportionnelle et intégrale ($C(p) = G + 1/(\tau_i \cdot p)$ avec $G = 10$).
+
+Précisez si la correction intégrale est bien choisie dans les 4 cas suivants (réponse indicielle et réponse fréquentielle).
+
+\begin{center}
+	\includegraphics[width=8cm]{images/TD/sys_boucle_corrige_step.png} \includegraphics[width=8cm]{images/TD/sys_boucle_corrige_bode.png} 
+\end{center}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\encadreTDExo{2 - Exemple 1 : Amplificateur non-inverseur}{
+\begin{itemize}[label=$\triangleright$,leftmargin=*]
+	\item Système rebouclé basé sur les ALI
+\end{itemize}
+}
+
+On rappelle qu'un ALI (Amplificateur Linéaire Intégré) peut être modélisé par une fonction de transfert du premier ordre du type : 
+
+$$A(p) = \frac{A_0}{1 + \frac{p}{\omega_0}}$$
+
+où $A_0$ est l'amplification différentielle statique et $\omega_0 = \frac{GBP}{A_0}$ la pulsation de coupure, avec $GBP$ la bande-passante unitaire.
+
+On réalise autour de cet ALI un montage non-inverseur, dont le schéma est donné par la suite.
+
+\begin{center}
+	\includegraphics[width=10cm]{images/TD/noninverseur.png}
+\end{center}
+
+
+\begin{enumerate}
+	\item Proposez un schéma bloc pour un \textbf{montage amplificateur non-inverseur}.
+	\item Calculez la fonction de transfert en boucle fermée de ce montage. 
+	\item Que valent à présent le gain statique et la pulsation caractéristique de ce système (pour les mêmes valeurs de $A_0$ et $GBP$) ?	
+\end{enumerate}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\encadreTDExo{3 - Exemple 2 : Montage transimpédance}{
+\begin{itemize}[label=$\triangleright$,leftmargin=*]
+	\item Modélisation du montage transimpédance
+\end{itemize}
+}
+
+On propose le montage transimpédance suivant :
+
+\begin{figure}[!h]
+\centering
+\begin{circuitikz} 
+	\node [op amp](A1) at (0,0){\texttt{ALI1}};
+	\draw (A1.-) to[short] ++(-.5,0) coordinate(A) to[short] ++(0,1.5) coordinate(B) to[R=$R_F$, i=$i_R$] (B -| A1.out) to[short, -*] (A1.out);
+	\draw (A1.- -| -5,0) node[ground]{};
+	\draw (A1.- -| -5,0) to[I, invert, i=$i_{Phd}$, *-*] (A);
+	\draw (A1.- -| -5,0) -- ++(0,1.5) to[C, l=$C_{Phd}$, i=$i_C$, -*] (B);
+	\draw (A1.+) to[short] ++(0,-0.5) node[ground]{};
+	\draw (A1.out) -- ++(1,0) coordinate(D);
+	\draw (2.2,-2.1) edge[->, color={red}] (2.2,-0.3);
+	\node[text={red}] (Vs) at (1.7,-1.2){$V_s$};
+	\draw (2.2, -2.4) to[short, o-] ++(0,0.1) node[ground]{}; 
+\end{circuitikz}
+\end{figure}
+
+On rappelle la fonction de transfert obtenue au TD précédent :
+
+$$\frac{V_S}{i_{Phd}} = K \cdot \frac{R_F}{1 + p \cdot \frac{1}{1 + A_0} (\frac{\omega_c + \omega_0}{\omega_c \cdot \omega_0}) + (p)^2 \cdot \frac{1}{1 + A_0} \frac{1}{\omega_c \cdot \omega_0}}$$
+
+où $\omega_0 = GBP / A_0$, $\omega_c = \frac{1}{R_F \cdot C_{Phd}}$ et $K = \frac{A_0}{1 + A_0}$
+
+Il est possible de la mettre sous la forme d'un système rebouclé.
+
+\begin{enumerate}
+	\item Que valent alors les blocs $A(p)$ et $B(p)$ ?
+
+	\medskip
+	
+	On rappelle le résultat d'un précédent TD : $$V^- = (V_S + R_F \cdot i_{Phd}) \cdot \frac{1}{1 + p \cdot R_F \cdot C_{Phd}}$$.
+	
+	\medskip		
+
+	\item Ce système peut-il devenir instable ?
+	
+\end{enumerate}
