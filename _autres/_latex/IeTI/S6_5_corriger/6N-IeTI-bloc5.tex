@@ -1,15 +1,40 @@
+\documentclass[a4paper,french]{paper}
+\usepackage{../../_latex_assets/villemejane_iogs_ceti}
+
+%Informations about this document 
+%------------------------------------------
+\def\module{Ingénierie Electronique pour le Traitement de l'Information}
+\def\moduleAbrege{6N-047-SCI / IéTI}
+\def\annee{}
+
+\def\titre{TD 5 / Corriger un "vrai" système}
+\author{Julien VILLEMEJANE}
+
+\subtitle{TD 5}
+\institution{LEnsE / Institut d'Optique Graduate School}
+
+\title{\titre}
+\begin{document} 
+%Beginning First Page. 
+%------------------------------------------
 \enteteThematiqueObligatoire{}
+
+%Beginning Content. 
+%------------------------------------------
+\vspace{-1cm}
+%%%%%%%%%%%%%%%%%%%
+
 
 \subsection*{Système d'asservissement de position d'un faisceau LASER}
 
 Dans ce TD, on se propose d'étudier un \textbf{système réel}, son \textbf{modèle} et son \textbf{asservissement corrigé}.
 
 \begin{center}
-	\includegraphics[width=12cm]{images/TD/systBoucle.png}
+	\includegraphics[width=10cm]{images/TD/systBoucle.png}
 \end{center}
 
 
-Le système à étudier permet de positionner un \textbf{pointeur LASER} à l'aide de deux moteurs galvanométriques (eux-mêmes asservis en position) selon deux directions (X et Y). L'information est récupérée par une photodiode 4 quadrants.
+Le système à étudier permet de positionner un \textbf{pointeur LASER} à l'aide de deux moteurs galvanométriques selon deux directions (X et Y). L'information est récupérée par une photodiode 4 quadrants.
 
 \begin{center}
 	\includegraphics[width=8cm]{images/TD/4q_photodiode.png}
@@ -25,22 +50,18 @@ Le capteur de position (la photodiode 4 quadrants) renvoie une tension en lien a
 
 Dans de nombreuses applications, on utilise des lasers dont le faisceau doit être pointé sur une cible avec une grande précision. Par exemple lorsque l'on crée des étoiles artificielles pour l'observation astronomique par optique adaptative, les étoiles artificielles doivent être créées à une certaine position angulaire et à une certaine altitude. La présence de l'atmosphère fait dévier le faisceau, et ces déviations peuvent être compensées par des petits miroirs plans dits de basculement (ou de tip/tilt) grâce à un asservissement utilisant la mesure des écarts à la position voulue.
 
-\textit{Voir TP de 3A en optique adaptative.}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\encadreTDExo{1 - Modèle du système}{
-\begin{itemize}[label=$\triangleright$,leftmargin=*]
-	\item Caractérisation en fréquence d'un système et identification de paramètres
-	\item Lien avec la réponse à un échelon
-\end{itemize}
-}
+\subsection*{Modèle du système}
 
 Il a été montré expérimentalement que le système complet (servomoteur) pouvait être modélisé par la relation suivante (dans sa zone de fonctionnement linéaire) :
 
 $$T(p) = \frac{G_0}{1 + \frac{2 \cdot m \cdot p}{w_c} + \frac{p^2}{w_c^2}}$$
 
 Le capteur peut être modélisé par un simple gain qu'on notera $K_{capt} = 10$.
+
+\newpage
+%%%%%%%%%%%%%%%%%%%
+\encadreTDExo{1 - Modèle du système}{
+
 
 \begin{enumerate}
 	\item Tracez le schéma bloc du système.
@@ -58,13 +79,11 @@ Le capteur peut être modélisé par un simple gain qu'on notera $K_{capt} = 10$
 	\item On obtient une valeur de $m = 0.8$ et de fréquence caractéristique $f_c = 55\operatorname{Hz}$. Est-ce cohérent avec la réponse obtenue ?
 	\item Tracez le diagramme de Bode de ce système.
 \end{enumerate}
+}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \encadreTDExo{2 - Système asservi non corrigé}{
-\begin{itemize}[label=$\triangleright$,leftmargin=*]
-	\item Caractérisation en fréquence d'un système asservi
-\end{itemize}
-}
 
 On souhaite maintenant étudié le système asservi, sans correcteur pour l'instant ($C(p) = 1$).
 
@@ -77,13 +96,10 @@ On souhaite maintenant étudié le système asservi, sans correcteur pour l'inst
 			\includegraphics[width=14cm]{images/TD/step_BF.png}
 		\end{center}	
 \end{enumerate}
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \encadreTDExo{3 - Correcteur PID}{
-\begin{itemize}[label=$\triangleright$,leftmargin=*]
-	\item Caractérisation en fréquence d'un correcteur Proportionnel Intégral Dérivé
-\end{itemize}
-}
 
 On souhaite corriger ce système avec un correcteur de type Proportionnel Intégral Dérivé (PID). Une forme, dite idéale, de ce correcteur est donné par la relation suivante :
 
@@ -110,7 +126,12 @@ On ne s'intéressera pas ici au réglage de ce correcteur. Il existe pour cela d
 	
 	\item Que devient la fonction de transfert en boucle fermée du système asservi et corrigé ? 
 	
-	\medskip	
+\end{enumerate}
+}
+
+\newpage
+
+\subsection*{Correction PI}
 	
 	Selon le choix des coefficients $K$ et $K_i$, le système peut être corrigé, mais peut également devenir instable...
 	
@@ -121,5 +142,5 @@ On ne s'intéressera pas ici au réglage de ce correcteur. Il existe pour cela d
 	\begin{center}
 		\includegraphics[width=14cm]{images/TD/step_PI_corr.png}
 	\end{center}
-	
-\end{enumerate}
+
+\end {document}
