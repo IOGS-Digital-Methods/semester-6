@@ -1,0 +1,149 @@
+\enteteThematiqueObligatoire{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\encadreTDExo{1 - Conversion de signaux courants}{
+\begin{itemize}[label=$\triangleright$,leftmargin=*]
+	\item rappel des fréquences mises en jeu dans les signaux habituels
+\end{itemize}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Signal audio}
+
+\begin{enumerate}
+	\item Rappeler l'intervalle de fréquences des signaux audibles par l'être humain.
+	\item Quelle est la fréquence minimale pour échantillonner correctement un signal audio ?
+
+Les signaux audio "classiques" (CD audio par exemple) sont échantillonnés à une fréquence $F_{Eclassique} = 44.1\operatorname{kHz}$ et chaque échantillon est codé sur 16~bits. 
+
+Les signaux HRA (Audio Haute Résolution) sont échantillonnés à une fréquence $F_{EHRA1} = 96\operatorname{kHz}$ ou $F_{EHRA2} = 192\operatorname{kHz}$ et chaque échantillon est codé sur 24~bits.
+
+	\item Ces fréquences sont-elles bien choisies ?
+	\item Combien de niveau logique différent y a-t-il pour chacune de ces normes ?
+
+	\item Quelle quantité d'espace numérique (en octets) faut-il prévoir pour stocker une heure de données sonores :
+	\begin{enumerate}
+		\item au format "classique", stéréo ?
+		\item au format HRA-192, en 5.1 ?
+	\end{enumerate}
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Signal vidéo}
+
+On s'intéresse au capteur \textbf{CMV50000} de la société \textit{CMOSIS}, capteur 8K@30fps - au prix d'environ 3500\$ (juin 2018) dont la documentation est donnée en annexe.
+
+\begin{enumerate}
+	\item Quelle est la taille de l'image de ce capteur ? Combien cela fait-il de pixels ?
+	\item Combien de convertisseurs analogique-numérique embarquent ce capteur ? Quelle est la résolution des ADC ?
+	\item La vitesse de transfert donnée est-elle suffisante pour prendre des images en 8K (7680 x 4320 pixels) à 30 images/seconde ?
+\end{enumerate}
+
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\encadreTDExo{2 - Système numérique}{
+\begin{itemize}[label=$\triangleright$,leftmargin=*]
+	\item étude d'un signal échantillonné
+	\item critère de Shannon-Nyquist
+\end{itemize}
+}
+
+Que peut-on dire des signaux suivants ?
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics{images/TD/signal_num_1.png}
+	\caption{Sortie d'un filtre numérique}
+\end{figure}
+
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics{images/TD/signal_num_2.png}
+	\caption{Sortie d'un filtre numérique}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\encadreTDExo{3 - Entrées/Sorties Numériques}{
+\begin{itemize}[label=$\triangleright$,leftmargin=*]
+	\item étude de la documentation technique d'un CAN
+	\item entrée/sortie série/parallèle
+\end{itemize}
+}
+
+
+On s'intéresse à présent à 2 convertisseurs analogiques-numériques différents, dont une partie des documentations techniques sont données en annexe :
+\begin{itemize}
+	\item \textbf{TLC548} de \textit{Texas Instruments} (environ 3\$ - juin 2018)
+	\item \textbf{AD9230} de \textit{Analog Devices} (environ 80\$ - juin 2018)
+\end{itemize}
+
+\begin{enumerate}
+	\item A partir de ces deux documentations, remplir le tableau suivant :
+
+\begin{tabular}{|c|p{3cm}|p{3cm}|}
+\hline 
+ & TLC548 & AD9230 \\ 
+\hline 
+Type de sortie &  &  \\ 
+\hline 
+$F_{Emax}$ &  &  \\ 
+\hline 
+Résolution &  &  \\ 
+\hline 
+Alimentation &  &  \\ 
+\hline 
+\end{tabular} 
+	
+	\item A l'aide de la documentation technique du \textbf{TLC548}, 
+	\begin{enumerate}
+		\item Expliquer à quoi correspondent les différents éléments du \textbf{diagramme fonctionnel} donnée en page 2.
+		\item Expliquer l'opération de conversion et de récupération des données à partir de la \textbf{séquence} donnée en page 3.
+		\item Combien de temps faut-il entre chaque conversion (pour $F_{CLOCK} = 2.048\operatorname{MHz}$ ?
+	\end{enumerate}
+	
+\end{enumerate}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\encadreTDExo{4 - Convertisseur R-2R}{
+\begin{itemize}[label=$\triangleright$,leftmargin=*]
+	\item étude de la structure d'un CNA
+\end{itemize}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Montage R-2R}
+
+On s'intéresse à ce montage :
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics{images/TD/convAN_R2R_a.png}
+\end{figure}
+
+
+\begin{enumerate}
+	\item Que vaut le courant $I_1$ en fonction du courant $I_0$ (courant passant par la résistance $2R$ ?
+	\item Que vaut le courant $I_2$ en fonction du courant $I_0$ (courant passant par la résistance $2R$ ?	
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Montage complet}
+
+On s'intéresse à présent au montage suivant : 
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics{images/TD/convAN_R2R_b.png}
+\end{figure}
+
+On supposera que lorsque $A_i = 0$, l'interrupteur $i$ est en position 3 et que lorsque $A_i = 1$, l'interrupteur $i$ est en position 1.
+
+\begin{enumerate}
+	\item Quel est le type de montage autour de l'ALI ?
+	\item En quoi la structure vue précédemment peut nous aider ?
+	\item Que vaut alors le courant $I_{tot}$ dans la contre-réaction de l'ALI en fonction des courants $I_i$ ?	
+	\item Que vaut alors le courant $I_{tot}$ dans la contre-réaction de l'ALI en fonction du courant $I0i$ et des valeurs des $A_i$ ?
+
+\end{enumerate}

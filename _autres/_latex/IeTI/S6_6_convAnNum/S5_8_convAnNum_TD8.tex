@@ -1,0 +1,39 @@
+\documentclass[a4paper,french]{paper}
+\usepackage{../_assets/villemejane_iogs_ceti}
+
+%Informations about this document 
+%------------------------------------------
+\def\module{Conception Electronique pour le Traitement de l'Information}
+\def\moduleAbrege{5N-027-SCI / CéTI}
+\def\annee{Année universitaire 2020-2021}
+
+\def\titre{TD 8 / Convertir un signal analog. en données num.}
+\author{Julien VILLEMEJANE}
+
+\subtitle{TD8}
+\institution{LEnsE / Institut d'Optique Graduate School}
+
+\title{\titre}
+\begin{document} 
+%Beginning First Page. 
+%------------------------------------------
+\enteteThematiqueObligatoire{}
+
+\input{S5_8_convAnNum_intro}
+
+
+\bibliography{../_assets/references}
+\bibliographystyle{abbrv}
+
+%Beginning Content. 
+%------------------------------------------
+\newpage
+\input{S5_8_convAnNum_TD8_content}
+\includepdf[pages=-]{docs/CMOSIS_CMV5000.pdf}
+\includepdf[pages=-]{docs/AD9230_ADC_12bits.pdf}
+\includepdf[pages=-]{docs/TLC548_ADC_8bits.pdf}
+\newpage
+\input{S5_8_convAnNum_TD8_content_correction}
+
+
+\end {document}
