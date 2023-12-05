@@ -179,7 +179,7 @@ if __name__ == '__main__':
     led2 = LED_source(1, 20, x=0.2, y=0.2, z=0.5)
     led3 = LED_source(2, 90, x=0.8, y=1.8)
 
-    # led1.display_radiation_diagram()
+    led1.display_radiation_diagram()
 
     # Plan 1
     '''
