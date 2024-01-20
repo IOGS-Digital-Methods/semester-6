@@ -1,0 +1,458 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Engineering problems / LaTeX Template
+%		Semester 6
+%		Institut d'Optique Graduate School
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	6N-ONIP-Block4	/ Project A - LEDs sources
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Created by:
+%	Julien VILLEMEJANE - 22/nov/2023
+% Modified by:
+%	
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Professional Newsletter Template
+% LaTeX Template
+% Version 1.0 (09/03/14)
+%
+% Created by:
+% Bob Kerstetter (https://www.tug.org/texshowcase/) and extensively modified by:
+% Vel (vel@latextemplates.com)
+% 
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[10pt]{article} % The default font size is 10pt; 11pt and 12pt are alternatives
+
+\input{../../_latex_assets/5N_ONIP_structure.tex} % Include the document which specifies all packages and structural customizations for this template
+
+\def\dirName{6N-ONIP-bloc4_intro}
+
+\begin{document}
+
+
+%----------------------------------------------------------------------------------------
+%	DOCUMENT INFORMATIONS
+%----------------------------------------------------------------------------------------
+\input{ \dirName /_fr_info.tex}
+
+
+%----------------------------------------------------------------------------------------
+%	HEADER IMAGE
+%----------------------------------------------------------------------------------------
+
+\begin{figure}[H]
+\centering\includegraphics[width=0.5\linewidth]{../../_latex_assets/logo_iogs.png}
+\end{figure}
+
+%----------------------------------------------------------------------------------------
+%	SIDEBAR - FIRST PAGE
+%----------------------------------------------------------------------------------------
+
+\begin{minipage}[t]{.35\linewidth} % Mini page taking up 30% of the actual page
+\begin{mdframed}[style=sidebar,frametitle={\module}] % Sidebar box
+
+%-----------------------------------------------------------
+%	DOCUMENT DESCRIPTION
+\begin{center}
+
+\textit{\large \centering \year}
+\end{center}
+
+
+\centerline {\rule{.70\linewidth}{.25pt}} % Horizontal line
+
+\begin{center}
+	\textit{\large \moduleSmall}
+\end{center}
+
+\centerline {\rule{.70\linewidth}{.25pt}} % Horizontal line
+
+\begin{center}
+	\textbf{\problem} ( \validation )
+\end{center}
+
+\centerline {\rule{.70\linewidth}{.25pt}} % Horizontal line
+
+%-----------------------------------------------------------
+
+\textbf{Concepts étudiés}
+
+\begin{itemize}
+\input{ \dirName /_fr_concepts.tex}
+\end{itemize}
+
+\centerline {\rule{.70\linewidth}{.25pt}} % Horizontal line
+
+%-----------------------------------------------------------
+
+\textbf{Mots clefs}
+
+\keywords
+
+\centerline {\rule{.70\linewidth}{.25pt}} % Horizontal line
+
+%-----------------------------------------------------------
+
+\textbf{Sessions}
+
+\begin{itemize}
+\item[\textbf{\scheduleCM}] Cours(s) - 1h30
+\item[\textbf{\scheduleTD}] TD(s) - 1h30
+\item[\textbf{\scheduleTDcomputer}] TD(s) Machine - 2h00
+\item[\textbf{\scheduleTP}] TP(s) - 4h30
+\end{itemize}
+
+\centerline {\rule{.70\linewidth}{.25pt}} % Horizontal line
+
+{\large Travail}
+
+\textbf{\workingTeam}
+
+\textbf{\workingSpecial}
+
+
+%-----------------------------------------------------------
+
+\end{mdframed}
+
+
+\centering
+\begin{minipage}[t]{.95\linewidth}
+\textbf{Institut d'Optique}\\
+Graduate School, \textit{France}\\
+\href{https://www.institutoptique.fr}{https://www.institutoptique.fr}
+
+\medskip
+\textbf{GitHub - Digital Methods}
+
+\href{https://github.com/IOGS-Digital-Methods}{https://github.com/IOGS-Digital-Methods}
+
+\end{minipage}
+
+\end{minipage}\hfill % End the sidebar mini page 
+%
+%----------------------------------------------------------------------------------------
+%	MAIN BODY - FIRST PAGE
+%----------------------------------------------------------------------------------------
+%
+\begin{minipage}[t]{.60\linewidth} % Mini page taking up 66% of the actual page
+
+\hypertarget{context}{\heading{\huge \problemName}{6pt}} % \hypertarget provides a label to reference using \hyperlink{label}{link text}
+
+\centerline {\rule{.70\linewidth}{.25pt}} % Horizontal line
+
+%% Short introduction 
+\input{ \dirName /_fr_intro.tex}
+
+%%
+
+\bigskip
+
+%----------------------------------------------------------------------------------------
+%	IN-TEXT BOX / Intended learning outcomes
+%----------------------------------------------------------------------------------------
+
+\begin{mdframed}[style=aavbox,frametitle={Acquis d'Apprentissage Visés}]
+
+En résolvant ce problème, les étudiant$\cdot$e$\cdot$s seront capables de  :
+
+\centerline {\rule{.40\linewidth}{.1pt}} % Horizontal line
+
+\begin{center}
+{\large \textsc{Côté Numérique}}
+\end{center}
+
+\begin{enumerate}
+\input{ \dirName /_fr_aav_num.tex}
+\end{enumerate}
+
+\centerline {\rule{.40\linewidth}{.1pt}} % Horizontal line
+
+\begin{center}
+{\large \textsc{Côté Physique}}
+\end{center}
+
+\begin{enumerate}
+\input{ \dirName /_fr_aav_phys.tex}
+\end{enumerate}
+
+\end{mdframed}
+\medskip
+
+
+
+%\begin{wrapfigure}[7]{l}[0pt]{0pt} % In-line figure with text wrapping around it
+%\includegraphics[width=0.3\textwidth]{engPb_S5_01/placeholder.jpg}
+%\end{wrapfigure}
+
+\end{minipage} % End the main body - first page mini page
+
+%----------------------------------------------------------------------------------------
+%	MAIN BODY - SECOND PAGE
+%----------------------------------------------------------------------------------------
+
+\begin{minipage}[t]{.66\linewidth} % Mini page taking up 66% of the actual page
+
+%----------------------------------------------------------------------------------------
+%	IN-TEXT BOX / Deliverables
+%----------------------------------------------------------------------------------------
+
+
+\begin{mdframed}[style=intextbox,frametitle={Livrables attendus}] % Sidebar box
+
+\input{ \dirName /_fr_livrables.tex}
+
+
+\end{mdframed}
+
+%-----------------------------------------------------------
+
+\hypertarget{stepbystep}{\heading{Programmation orientée objet}{6pt}} % \hypertarget provides a label to reference using \hyperlink{label}{link text}
+
+\input{ \dirName /_fr_steps.tex}
+
+\centerline {\rule{.70\linewidth}{.25pt}} % Horizontal line
+
+%-----------------------------------------------------------
+
+\hypertarget{ressources}{\heading{Ressources}{6pt}} % \hypertarget provides a label to reference using \hyperlink{label}{link text}
+
+\input{ \dirName /_fr_ressources.tex}
+
+
+%----------------------------------------------------------------------------------------
+
+\end{minipage}\hfill % End of the main body - second page mini page
+\begin{minipage}[t]{.30\linewidth} % Mini page taking up 30% of the actual page
+
+%----------------------------------------------------------------------------------------
+%	SIDEBAR - SECOND PAGE
+%----------------------------------------------------------------------------------------
+
+\begin{mdframed}[style=sidebar,frametitle={}] % Sidebar box
+
+\heading{Outils Numériques}{0pt}
+
+\centerline {\rule{.40\linewidth}{.1pt}} % Horizontal line
+
+\textbf{Fonctions et bibliothèques conseillées} :
+
+\input{ \dirName /_fr_num_basics.tex}
+
+\centerline {\rule{.40\linewidth}{.1pt}} % Horizontal line
+
+
+\textbf{Outils avancés} :
+
+\input{ \dirName /_fr_num_advanced.tex}
+
+\end{mdframed}\hfill
+
+%----------------------------------------------------------------------------------------
+
+\end{minipage} % End of the sidebar mini page
+
+%----------------------------------------------------------------------------------------
+\newpage
+
+\hypertarget{stepbystep}{\heading{Etapes}{6pt}}
+
+\textit{Les représentations graphiques à produire à chacune des étapes seront accompagnées de \textbf{renseignements quantitatifs} comme la valeur moyenne de l'éclairement, son écart-type et son écart Pic à Vallée, absolus et relatifs, sur l'ensemble de la zone représentée (ou sur une sous-partie rectangulaire ou circulaire de celle-ci). Par ailleurs, une \textbf{représentation en 3D de la position et de l'orientation des N sources} sera utile.}
+
+\qquad
+
+\qquad
+
+\begin{description}
+	\item[Etape 1] \textbf{Carte d'éclairement pour une source ponctuelle - direction perpendiculaire par rapport au plan éclairé}
+	
+	\begin{itemize}
+		\item Création d'une classe LED\_source
+		\item Création d'une classe Carte
+		\item Affichage 2D d'une carte avec une source ponctuelle
+		\item Affichage position des sources sur la carte
+		\item Validation du modèle
+	\end{itemize}
+	
+
+\qquad
+	
+	\item[Etape 2] \textbf{Carte d'éclairement pour une source ponctuelle - direction quelconque par rapport au plan éclairé}
+	
+	\begin{itemize}
+		\item Modification de la classe LED\_source
+		\item Affichage 2D d'une carte avec une source ponctuelle
+		\item Affichage position des sources sur la carte
+		\item Validation du modèle
+	\end{itemize}
+	
+\qquad
+
+	\item[Etape 3] \textbf{Carte d'éclairement pour N sources ponctuelles - direction quelconque par rapport au plan éclairé}
+	
+	\begin{itemize}
+		\item Modification de la classe LED\_source
+		\item Affichage 2D d'une carte avec une source ponctuelle
+		\item Affichage position des sources sur la carte
+		\item Validation du modèle
+	\end{itemize}
+
+\qquad
+
+	\item[Ouverture A] \textbf{Carte d'éclairement 3D}
+	
+	\begin{itemize}
+		\item Affichage 3D d'une carte avec une source ponctuelle avec position des sources sur la carte
+	\end{itemize}	
+
+\qquad
+
+	\item[Ouverture B] \textbf{Optimisation d'un éclairement}
+	
+	\begin{itemize}
+		\item Optimisation du nombre et de l'orientation de LEDs pour obtenir un flux lumineux donné sur un plan de travail
+	\end{itemize}	
+
+\qquad
+	
+	\item[Ouverture C] \textbf{Réalisation d'une IHM / PyQt6}
+	\begin{itemize}
+		\item Utilisation de PyQt6 pour l'intégration des précédentes fonctions dans une IHM
+		\item Intégration des graphiques avec pyqtgraph
+		\item Possibilité d'ajouter des sources et d'afficher la contribution indépendante de chacune des sources		
+	\end{itemize}
+	
+\end{description}
+
+\newpage
+
+\hypertarget{stepbystep}{\heading{Critères d'évaluation}{6pt}}
+
+\textbf{Grille à simplifier (bilan Semestre 5)}
+
+\begin{itemize}
+	\item \textbf{METHODES NUMERIQUE}
+	\begin{itemize}
+		\item \textbf{Ecriture Matricielle / Vectorielle}
+		\begin{itemize}
+			\item utilisation des méthodes liées aux vecteurs/matrices (Numpy)
+			\item aucune boucle \textbf{for} inutile
+		\end{itemize}		 
+		\item \textbf{Organisation en actions élémentaires}
+		\begin{itemize}
+			\item les étapes sont découpées en fonctionnalité plus simple à tester
+		\end{itemize}
+		\item \textbf{Description des tests de validation}
+		\begin{itemize}
+			\item chaque fonction a été testée
+			\item chaque étape a été validée
+		\end{itemize}
+		\item \textbf{Organisation des informations à traiter}
+		\begin{itemize}
+			\item les données sont rangées dans des objets bien identifiés
+		\end{itemize}
+	\end{itemize}
+
+
+	\item \textbf{PROGRAMMATION}
+	\begin{itemize}
+		\item \textbf{Ecriture globale du code et commentaires (PEP 8)}
+		\begin{itemize}
+			\item variables et fonctions respectant les conventions d'écriture standard
+			\item commentaires utiles
+		\end{itemize}		 
+		\item \textbf{Utilisation, écriture de fonctions}
+		\begin{itemize}
+			\item paramètres et retours pertinents des fonctions
+		\end{itemize}
+		\item \textbf{Documentation des fonctions (PEP257)}
+		\begin{itemize}
+			\item paramètres et retours des fonctions sont documentés
+		\end{itemize}
+		\item Création de classes et d'objets
+		\begin{itemize}
+			\item classe contenant des attributs et méthodes pertinents
+			\item aucune fonction n'est appelée en dehors d'un objet
+		\end{itemize}
+	\end{itemize}
+	
+
+	\item \textbf{INGENIEUR.E PHYSIQUE}
+	\begin{itemize}
+		\item \textbf{Graphiques pertinents et légendés}
+		\begin{itemize}
+			\item graphiques scientifiques (axes, titre...)
+			\item axes des graphiques légendés (passage temps/fréquence)
+		\end{itemize}		 
+		\item \textbf{Organisation en actions élémentaires}
+		\begin{itemize}
+			\item les étapes sont découpées en fonctionnalité plus simple à tester
+		\end{itemize}
+		\item \textbf{Génération de données pertinentes de tests}
+		\begin{itemize}
+			\item choix de la position des sources pertinent
+		\end{itemize}
+		\item \textbf{Analyse des données et validation modèle}
+		\begin{itemize}
+			\item comparaison avec la théorie
+			\item analyse pertinente des cartes obtenues
+		\end{itemize}
+	\end{itemize}
+	
+\medskip	
+	
+	\item \textbf{AVANCEMENT}
+	\begin{itemize}
+		\item Etapes 1 et 2 : x 0.5
+		\item Etapes 1, 2 et 3 : x 0.7
+		\item Une des ouvertures : x 1.0
+	\end{itemize}
+\end{itemize}
+
+
+
+%----------------------------------------------------------------------------------------
+\newpage
+
+\hypertarget{stepbystep}{\heading{Quelques éléments supplémentaires}{6pt}}
+
+\textbf{Modélisation d'une diode électroluminescente}
+
+Les sources (par exemple des LEDs) seront modélisées de manière approchée (valable si l'on n'est pas trop près du composant) comme des \textbf{sources ponctuelles}. Ces sources ont un \textbf{diagramme de rayonnement} possédant une \textbf{symétrie de révolution} autour d'un axe orienté. 
+
+\qquad
+
+L'indicatrice de rayonnement pourra être considérée comme gaussienne, et caractérisée par son intensité visuelle vers l'avant sur l'axe $I_0$ (en candela) et sa largeur totale à mi-hauteur $\Delta$.
+
+Cette indicatrice peut-être modélisée par l'équation suivante : $$I(\alpha) = I_0 \cdot \exp(-(4 \cdot \ln(2)) \cdot (\alpha/\Delta)^2)$$
+
+où $\alpha$ est l'angle entre la direction d'émission et l'axe de la source ($\alpha \in [0^{\circ}, 180^{\circ}]$). 
+
+\qquad 
+
+\textbf{Positionnement d'une source}
+
+Le positionnement de la source dans l'espace sera caractérisé par ses coordonnées $(x, y, z)$ et l'orientation de son axe de symétrie par deux angles ($\theta$ et $\phi$). 
+	
+
+\qquad 
+
+\textbf{Eclairement / Formule de Bouguer}
+
+L'éclairement fourni par une source ponctuelle en un point M de l'espace séparé d'une distance $d$ et d'une inclinaison de $\psi$ par rapport à la direction de la source ponctuelle, est données par la relation photométrique suivante : 
+
+$$E = \frac{I \cdot \cos(\psi)}{d^2}$$
+
+\qquad 
+
+L'éclairement produit par N sources (incohérentes) est la somme des éclairements produits par chaque source.
+%----------------------------------------------------------------------------------------
+
+\end{document} 
