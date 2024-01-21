@@ -151,40 +151,43 @@ Graduate School, \textit{France}\\
 %% Short introduction 
 \input{ \dirName /_fr_intro.tex}
 
+
 %%
 
 \bigskip
 
 %----------------------------------------------------------------------------------------
-%	IN-TEXT BOX / Intended learning outcomes
+%	progress session by session
 %----------------------------------------------------------------------------------------
 
-\begin{mdframed}[style=aavbox,frametitle={Acquis d'Apprentissage Visés}]
+\begin{mdframed}[style=intextbox,frametitle={Déroulement du module}] % Sidebar box
 
-En résolvant ce problème, les étudiant$\cdot$e$\cdot$s seront capables de  :
+Ce module se déroule sur \textbf{6 séances} :
 
-\centerline {\rule{.40\linewidth}{.1pt}} % Horizontal line
+\begin{description}
+	\item[Séance 1] Découverte de la programmation objet 
+	\item[Séances 2 à 5] Réalisation du mini-projet en binôme
+	\item[Séance 6] Evaluation du mini-projet en binôme
+\end{description}
 
-\begin{center}
-{\large \textsc{Côté Numérique}}
-\end{center}
-
-\begin{enumerate}
-\input{ \dirName /_fr_aav_num.tex}
-\end{enumerate}
-
-\centerline {\rule{.40\linewidth}{.1pt}} % Horizontal line
-
-\begin{center}
-{\large \textsc{Côté Physique}}
-\end{center}
-
-\begin{enumerate}
-\input{ \dirName /_fr_aav_phys.tex}
-\end{enumerate}
 
 \end{mdframed}
-\medskip
+
+%%
+
+\bigskip
+
+%----------------------------------------------------------------------------------------
+%	IN-TEXT BOX / Deliverables
+%----------------------------------------------------------------------------------------
+
+
+\begin{mdframed}[style=intextbox,frametitle={Livrables attendus}] % Sidebar box
+
+\input{ \dirName /_fr_livrables.tex}
+
+
+\end{mdframed}
 
 
 
@@ -200,25 +203,46 @@ En résolvant ce problème, les étudiant$\cdot$e$\cdot$s seront capables de  :
 
 \begin{minipage}[t]{.66\linewidth} % Mini page taking up 66% of the actual page
 
-%----------------------------------------------------------------------------------------
-%	IN-TEXT BOX / Deliverables
-%----------------------------------------------------------------------------------------
-
-
-\begin{mdframed}[style=intextbox,frametitle={Livrables attendus}] % Sidebar box
-
-\input{ \dirName /_fr_livrables.tex}
-
-
-\end{mdframed}
-
 %-----------------------------------------------------------
 
-\hypertarget{stepbystep}{\heading{Programmation orientée objet}{6pt}} % \hypertarget provides a label to reference using \hyperlink{label}{link text}
+\hypertarget{stepbystep}{\heading{Séance 1 - Programmation orientée objet}{6pt}} % \hypertarget provides a label to reference using \hyperlink{label}{link text}
 
 \input{ \dirName /_fr_steps.tex}
 
 \centerline {\rule{.70\linewidth}{.25pt}} % Horizontal line
+
+%----------------------------------------------------------------------------------------
+%	IN-TEXT BOX / Intended learning outcomes
+%----------------------------------------------------------------------------------------
+
+\begin{mdframed}[style=aavbox,frametitle={Acquis d'Apprentissage Visés}]
+
+A travers les exemples proposés, vous serez capables de  :
+
+\centerline {\rule{.40\linewidth}{.1pt}} % Horizontal line
+
+\begin{center}
+{\large \textsc{Côté Numérique}}
+\end{center}
+
+\begin{enumerate}
+\input{ \dirName /_fr_aav_num.tex}
+\end{enumerate}
+
+\centerline {\rule{.40\linewidth}{.1pt}} % Horizontal line
+
+
+%\begin{center}
+%{\large \textsc{Côté Physique}}
+%\end{center}
+%
+%\begin{enumerate}
+%\input{ \dirName /_fr_aav_phys.tex}
+%\end{enumerate}
+
+\end{mdframed}
+\medskip
+
 
 %-----------------------------------------------------------
 
