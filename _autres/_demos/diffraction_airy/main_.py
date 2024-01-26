@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import scipy.special as sp
 
-tacheDiffraction = Image.open("airy_1mm.bmp")
+tacheDiffraction = Image.open("data/airy_1mm.bmp")
 
 tacheDiffractionGris = tacheDiffraction.convert("L")
 data = np.asarray(tacheDiffractionGris)
