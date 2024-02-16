@@ -62,7 +62,7 @@ class working_plan:
     def get_global_map(self):
         zz_f = np.zeros((len(self.x_len), len(self.y_width)))
         for k in range(len(self.sources_list)):
-            xx, yy, zz = wp.calculate_source_map(source=self.sources_list[k])
+            xx, yy, zz = self.calculate_source_map(source=self.sources_list[k])
             zz_f += zz
         return xx, yy, zz_f
 
@@ -70,6 +70,16 @@ class working_plan:
         xx, yy, zz_f = self.get_global_map()
         plt.figure()
         h = plt.pcolormesh(yy, xx, zz_f)
+        plt.colorbar()
+        plt.show()
+
+    def display_global_map_contour(self):
+        xx, yy, zz_f = self.get_global_map()
+        plt.figure()
+        max_zz = np.max(zz_f)
+        nb_levels = 20
+        levels = np.linspace(0, max_zz, nb_levels)
+        h = plt.contour(yy, xx, zz_f, levels=levels)
         plt.colorbar()
         plt.show()
 
@@ -179,7 +189,7 @@ if __name__ == '__main__':
     led2 = LED_source(1, 20, x=0.2, y=0.2, z=0.5)
     led3 = LED_source(2, 90, x=0.8, y=1.8)
 
-    led1.display_radiation_diagram()
+    # led1.display_radiation_diagram()
 
     # Plan 1
     '''
@@ -198,16 +208,31 @@ if __name__ == '__main__':
     wp.display_working_space()
     '''
     
-    # Plan 2
-    wp = working_plan(2, 1, 0.001)
+    # Plan 2 - Simu 01
+    wp0 = working_plan(2, 2, 0.001)
+    led0 = LED_source(1, 30, x=1, theta=0, zeta=0, y=1, z=2)
 
-    led1 = LED_source(1, 30, x=0.5, theta=0, zeta=10, y=1, z=2)
-    led2 = LED_source(1, 40, x=0.25, theta=0, zeta=50, y=0.5, z=2)
-    led3 = LED_source(1, 40, x=0.25, theta=90, zeta=30, y=0.5, z=1)
+    wp0.add_source(led0)
+    wp0.display_global_map()
+    wp0.display_global_map_contour()
+    wp0.display_working_space()
+
+
+    # Plan 2 - Simu 02
+    wp = working_plan(2, 2, 0.001)
+    led1 = LED_source(1, 30, x=1, theta=0, zeta=0, y=0.4, z=2)
+    led1.display_radiation_diagram()
+    angle_dif = 30*np.pi/180  # radians
+    print(f'X={1 + 0.6 * np.cos(angle_dif)}')
+    print(f'X={1 - 0.6 * np.cos(angle_dif)}')
+    print(f'Y={1 + 0.6 * np.sin(angle_dif)}')
+    led2 = LED_source(1, 30, x=1+0.6*np.cos(angle_dif), theta=0, zeta=0, y=1+0.6*np.sin(angle_dif), z=2)
+    led3 = LED_source(1, 30, x=1-0.6*np.cos(angle_dif), theta=0, zeta=0, y=1+0.6*np.sin(angle_dif), z=2)
     wp.add_source(led1)
     wp.add_source(led2)
     wp.add_source(led3)
     wp.print_sources_list()
 
     wp.display_global_map()
+    wp.display_global_map_contour()
     wp.display_working_space()

@@ -1,0 +1,26 @@
+/***************************************************************
+ * 	ONIP-2 / Projet Cartographie d'éclairement de sources
+ ***************************************************************
+ *	Démo réalisée par Julien Villemejane / LEnsE
+ ***************************************************************
+ *	Institut d'Optique - 2024
+ **************************************************************/
+
+
+Simulation 2
+============
+
+3 LEDs placées sur un cercle de rayon 0.6m à égale distance, à 2m de hauteur
+Plan de travail de 2m par 2m
+
+Sources
+-------
+1 - I0 = 1 / demi-angle = 30 / X = 1m / Y = 0.4m / z = 2m
+2 - I0 = 1 / demi-angle = 30 / X = 1.52m / Y = 1.3m / z = 2m
+3 - I0 = 1 / demi-angle = 30 / X = 0.48m / Y = 1.3m / z = 2m
+
+
+Plans
+-----
+1 - L = 2m / H = 2m / Résolution = 0.001m
+
