@@ -1,0 +1,104 @@
+
+
+STM32 sous Arduino
+==================
+
+Gestionnaire de cartes
+----------------------
+
+- Fichier / Préférences
+- URL de gestionnaire de cartes supplémentaires
+- Ajouter : https://github.com/stm32duino/BoardManagerFiles/raw/main/package_stmicroelectronics_index.json
+
+
+Création d'un nouveau programme
+===============================
+
+Choix d'une carte
+-----------------
+
+- Outils / Cartes ...
+- STM32 MCU based boards / Nucleo-64 (ou autre format si 32 ou 144 broches)
+- Outils / Board part number... / Nucleo L476RG (ou autre sélection si autre carte)
+
+Connexion d'une carte Nucléo
+----------------------------
+
+- Connecter la carte en USB
+- Dans la barre des actions possibles sous Arduino, sélectionner le port de communication sur lequel est connectée la carte Nucléo.
+
+
+Premier code
+============
+
+- Sélectionner Fichier / Exemples / 01.Basics / Blink
+- Compiler le code à l'aide du bouton ...
+- Téléverser le programme compilé dans la carte Nucléo à l'aide du bouton ...
+
+Sur la carte Nucléo la sortie LED_BUILTIN correspond à la LED nommée LD2.
+
+Q? Que fait ce code ?
+
+Q? A quoi servent les fonctions setup() et loop() ?
+
+Entrées numériques / Sorties numériques
+=======================================
+
+- Sélectionner Fichier / New Sketch
+- Copier le fichier digital_input_output.ino dans un répertoire de travail accessible en écriture et ouvrir ce fichier à l'aide du logiciel Arduino.
+- Exécuter ce code (compilation et téléversement)
+
+Q? A quoi servent les lignes 8 et 9 ?
+
+Q? Comment est appelée la fonction blink() ?
+
+- Ajouter une LED rouge externe (avec une résistance de protection de 220 Ohms en série) sur la sortie D5 (ou PB4) de la carte Nucléo.
+
+/!\ Ne décabler pas cette LED !
+
+- Modifier le code précédent pour ajouter la possibilité d'allumer cette LED de manière complémentaire à celle déjà présente sur la carte.
+
+Entrées analogiques
+===================
+
+- Connecter un potentiomètre selon le schéma suivant (entrée analogique A3 ou PB0 de la Nucléo) :
+
+Q? Quelle tension sera appliquée sur l'entrée A3 ?
+
+/!\ Ne décabler pas le potentiomètre !
+
+- Copier le fichier analog_input.ino dans un répertoire de travail accessible en écriture et ouvrir ce fichier à l'aide du logiciel Arduino.
+- Exécuter ce code (compilation et téléversement).
+- Ouvrir le moniteur série depuis Outils / Moniteur Série
+
+Q? Expliquer ce code.
+
+Q? A quoi correspond la valeur affichée ?
+
+- Modifier le code pour afficher un message du type : "La tension vaut 1.5 V" (où 1.5 V correspond à la valeur de la tension réellement mesurée).
+
+Q? Quelles sont les limites en tension des entrées analogiques ?
+
+
+Sorties modulées
+================
+
+Le code suivant utilise la LED rouge externe cablée sur la sortie D5 (ou PB4) de la carte Nucléo.
+
+- Copier le fichier pwm_output.ino dans un répertoire de travail accessible en écriture et ouvrir ce fichier à l'aide du logiciel Arduino.
+- Exécuter ce code (compilation et téléversement).
+- Ouvrir le moniteur série depuis Outils / Moniteur Série
+
+Q? Que se passe-t-il sur la LED ?
+
+- Visualiser le signal sur D5 à l'aide d'un oscilloscope.
+
+Q? Expliquer le principe physique associé. Est-ce une vraie sortie analogique ?
+
+Note : Il existe une version plus poussée de ce code permettant d'utiliser les possibilités offertes par la carte Nucléo : pwm_output_stm32.ino
+
+
+Liaison Série et communication
+==============================
+
+??
