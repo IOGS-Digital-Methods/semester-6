@@ -7,7 +7,7 @@
  *    Author : Julien VILLEMEJANE / 14/sep/2024
  */
 
-#define   ANALOG3   PC3    // PB0
+#define   ANALOG3   PB0
 #define   LED2      PB4
 
 int val = 0;

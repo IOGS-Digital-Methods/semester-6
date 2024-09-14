@@ -101,4 +101,38 @@ Note : Il existe une version plus poussée de ce code permettant d'utiliser les 
 Liaison Série et communication
 ==============================
 
+Moniteur Série
+--------------
+
+Le code suivant utilise la LED rouge externe cablée sur la sortie D5 (ou PB4) de la carte Nucléo.
+
+- Copier le fichier serial_event.ino dans un répertoire de travail accessible en écriture et ouvrir ce fichier à l'aide du logiciel Arduino.
+- Exécuter ce code (compilation et téléversement).
+- Ouvrir le moniteur série depuis Outils / Moniteur Série
+- Tester d'envoyer la commande 'A!' ou 'E!' (l'option Pas de fin de ligne doit être sélectionnée dans le moniteur série).
+
+Q? Que se passe-t-il ?
+
+- Envoyer une instruction permettant de modifier le rapport cyclique de la sortie D5.
+
+Script Python et PySerial
+-------------------------
+
+- Fermer l'onglet Moniteur Série.
+- Ouvrir le script python serial_test_script.py dans un IDE Python (type PyCharm).
+- Lancer le script.
+- Ajouter une option d'envoi permettant de transmettre un rapport cyclique de 30% à la carte Nucléo.
+
+Q? Expliquer alors le fonctionnement de ce code.
+
+IHM PyQt6
+---------
+
+- Ouvrir le script python serial_mini_gui.py dans un IDE Python (type PyCharm).
+- Lancer le script.
+
+- Ajouter deux boutons permettant d'allumer la LED respectivement à 30 et 60% de sa luminosité.
+
 ??
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+AJOUTER ECHANGE DANS L'AUTRE SENS !!
