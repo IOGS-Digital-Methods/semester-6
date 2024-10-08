@@ -97,6 +97,9 @@ Q? Expliquer le principe physique associé. Est-ce une vraie sortie analogique ?
 
 Note : Il existe une version plus poussée de ce code permettant d'utiliser les possibilités offertes par la carte Nucléo : pwm_output_stm32.ino
 
+Servomoteur
+-----------
+
 
 Liaison Série et communication
 ==============================
