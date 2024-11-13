@@ -27,12 +27,16 @@ plt.grid()
 
 ## Voltage divider - Radiation board
 # 3.3V --[Rwb]-OUT-[R1]-GND
-R1 = 10e3
-Vout = R1 / (R1 + Rwb) * 3.3
+R1a = 1e3
+Vouta = R1a / (R1a + Rwb) * 3.3
+R1b = 10e3
+Voutb = R1b / (R1b + Rwb) * 3.3
 # Display Rwb evolution
 plt.figure()
-plt.plot(Vout, '.')
+plt.plot(Vouta, '.', label='R1=1k')
+plt.plot(Voutb, '.', label='R1=10k')
 plt.ylabel('Vout (V)')
 plt.xlabel('N (from 0 to 128)')
+plt.legend()
 plt.grid()
 plt.show()
