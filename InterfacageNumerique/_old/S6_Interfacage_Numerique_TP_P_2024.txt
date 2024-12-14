@@ -1,0 +1,64 @@
+Digital Interfacing / Labworks
+##############################
+
+Nucleo-L476RG (same USB connector) or Nucleo-G431KB
+
+Examples of codes : gmail.com account, S6_Interface_Remote_vX
+
+	==> (deliverables)
+
+TO CHANGE ON THE BOARD
+======================
+
+- Invert Led on MCP23008 - Active on low-level
+
+
+STEP BY STEP
+============
+
+Step 1 / MBED Project and Blinky builtin LED
+--------------------------------------------
+
+> Change the period of blinking of the builtin LED
+> Add the "ledOut" output to the list of inputs and outputs of the board 
+	==> 
+> Create libs directory to the project
+> Create remote.h and remote.cpp files to the libs directory
+> Modify your code to migrate the "ledOut" output definition to the .h/.cpp files
+	==> Explain the difference between the .h file and the .cpp file
+	
+Step 2 / Read a digital input (Interrupt)
+-----------------------------------------
+
+> Add the "swIn" input to the list of inputs and outputs of the board, in the remote.h and remote.cpp files
+> Update the state of the "ledOut" output on the rising edge of the "swIn" input (use interruption)
+	==> Explain the principle of an external interrupt event
+	
+Step 3 / Read an analog input (Ticker)
+--------------------------------------
+
++ Joystick X and Y-axis
++ Ticker
++ Display information of X and Y values outside ISR function (in the while loop) using a global variable
++ Measure time of execution (read analog input, display information on a console...)
+
+
+Step 4 / LCD screen
+-------------------
+
++ include library for LCD screen
++ display welcome message
++ display X and Y-axis values (! clear a line)
++ measure time of execution (display on LCD)
+
+
+Step 5 / GPIO Expander in I2C
+-----------------------------
+
++ create a library for MCP23008 / distinction between MCP functions and global application variables/functions
++ create functions to write a register (with acknowledgement verification), to init the I2C, to init the MCP, to init IODIR, GPIO...
++ create a program that permits the blinking of the 4 LEDs on the MCP23008 with a period of 1s (with a second Ticker)
++ write a MCPReadRegister(...) function that allows to read a register of the MCP23008
+
+
+

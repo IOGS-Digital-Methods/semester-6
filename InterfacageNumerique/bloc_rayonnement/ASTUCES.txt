@@ -1,0 +1,7 @@
+Arduino avec Nucléo L476RG
+##########################
+
+D13 - analogWrite utilise le DAC et non le PWM
+
+La fréquence du PWM sur la broche D5 est de 1kHz (sûrement identique sur toutes les broches, à vérifier)
+

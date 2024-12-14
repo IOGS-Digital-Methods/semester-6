@@ -13,6 +13,8 @@ Authors
 
 """
 
+import numpy as np
+
 class Point:
     """Class to represent a point with its coordinates in a two-dimensional space
 
@@ -24,25 +26,39 @@ class Point:
     :type y: float number
     """
     
-    def __init__(self, x_init=0, y_init=0, name_init=''):
+    def __init__(self, x_init: float=0, y_init: float=0, name_init: str='') -> None:
         """Constructor method
         """
-        self.name = name_init
-        self.x = x_init
-        self.y = y_init
+        self.name: str = name_init
+        self.x: float = x_init
+        self.y: float = y_init
         
-    def __str__(self):        
+    def __str__(self) -> str:        
         """Display with print method
         """
         return f'Point {self.name} - X={self.x} / Y={self.y}'
     
-    def rename(self, value):
+    def rename(self, value: str) -> None:
         """Renames the point
         
         :param value: Name of the point
         :type value: str
         """
         self.name = value
+        
+    def distance(self, point: 'Point' = None) -> None:
+        """Return the distance between this point and the point given as parameter.
+        
+        :param point: Point to calculate the distance.
+        :type point: Point
+        :return: Return the distance between this point and the point given as parameter.
+        :rtype: float
+        
+        """
+        if point is None:
+            return np.sqrt((self.x**2) + (self.y**2))
+        else:
+            return np.sqrt(((self.x-point.x)**2) + ((self.y-point.y)**2))
 
     def move(self, x_new, y_new):
         """Changes the coordonate of the point
@@ -64,3 +80,5 @@ if __name__ == '__main__':
     
     pointB = Point(2, 3, 'B')
     print(pointB)
+    
+    print(pointB.distance(pointA))

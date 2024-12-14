@@ -1,0 +1,15 @@
+Radiation diagram - Project
+###########################
+
+Components list
+***************
+
+- LED driver : BCR430-UW6 - 100mA
+- MCP4132 : SPI digital potentiometer - to control LED current
+- Photodiode input - standard circuit with a 100k resistor and a 100k potentiometer to set up the gain
+- Thermistance 10k in a voltage divider
+
+- Switchs (x 2)
+- LEDs (x 2)
+- Potentiometer
+- MCP4132 : SPI digital potentiometer - voltage divider to analog input

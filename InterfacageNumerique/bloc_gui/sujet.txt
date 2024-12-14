@@ -1,0 +1,36 @@
+
+
+--> start_gui.py
+- lancer l'application et visualiser le résultat
+- ajouter un bouton (QPushButton) nommé first_button au menu principal
+- ajouter une action à ce bouton qui appelle la fonction action_clicked lorsqu'on clique dessus
+- ajouter un second bouton nommé second_button au menu principal, qui appelle la fonction action_clicked lorsqu'on clique dessus
+- modifier les actions associées selon le bouton appuyé :
+-- first_button : renomme le nom du menu principal
+-- second_button : renomme le nom de la fenêtre principale
+
+--> signal_gui.py
+- lancer l'application et visualiser le résultat
+- ajouter une fonction set_title à la classe MainWidget pour modifier le titre de la section principale
+- modifier l'application pour obtenir les mêmes interactions que précédemment avec les deux boutons, mais sans modifier
+la fonction action_clicked de la classe MainMenuWidget
+
+--> image_gui.py
+- lancer l'application et visualiser le résultat
+- ouvrir une image à l'aide de l'interface
+- ajouter un bouton dans le menu principal permettant d'inverser l'affichage des couleurs de l'image
+- ajouter un bouton dans le menu principal permettant d'afficher dans la console la taille de l'image et la moyenne de
+l'ensemble de ses pixels
+- modifier le code de l'application pour que les boutons d'inversion et d'affichage des informations de l'image soit par
+ défaut non utilisable et qu'ils le deviennent uniquement lorsqu'une image est chargée
+- modifier le comportement du bouton d'affichage des informations pour qu'il affiche en plus l'histogramme (pour les 3
+couleurs de l'image) dans une fenêtre Matplotlib classique (hors interface pyQt6)
+
+--> graph_gui.py
+- lancer l'application et visualiser le résultat
+
+
+--> complete_gui.py
+- lancer l'application et visualiser le résultat
+
+- histogramme de l'image
