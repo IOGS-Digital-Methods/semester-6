@@ -170,7 +170,7 @@ Vous aurez à votre disposition une \textbf{maquette} permettant la mise en mouv
 
 \textit{Afin de faciliter la réutilisation des codes, il pourra être intéressant de définir des fonctions pour le pilotage des différents éléments.}
 
-\subsection{Séance 1 / Arduino et Nucléo-STM32}
+\subsection{Séance 1 / Arduino et Nucléo-STM32 (sans maquette !!)}
 
 	\begin{description}
 		\item[Etape 0 - 30 min] Installer les drivers STM32 et tester un premier programme
@@ -512,6 +512,202 @@ pinMode(led1, OUTPUT);
 \begin{lstlisting}
 digitalWrite(led1, LOW);
 \end{lstlisting}
+
+
+\subsection{Travail à réaliser}
+
+\Manip Réaliser un programme qui permet d'allumer deux LEDs rouges cablées sur les sorties D10 et D11. Les LEDs devront s'allumer de manière complémentaire chaque seconde.
+
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%    Premier programme
+\section{Etape 2 / Acquérir des données numériques - Bouton-poussoirs}
+
+
+\subsection{Câblage d'un bouton-poussoir}
+
+Nous allons voir ici comment brancher un bouton-poussoir à la carte Nucléo sur la broche D7 par exemple de la carte (ou PA8 - port A, broche 8).
+
+Le schéma de câblage est le suivant :
+
+\begin{center}
+	\includegraphics[width=0.4\textwidth]{images/MINE_Nucleo_BoutonPoussoir.png}
+	
+	Exemple de la broche D7 reliée à un bouton-poussoir (ou PA8 - port A, broche 8)
+\end{center}
+
+Avant de câbler la sortie du bouton-poussoir à l'entrée de la carte, vérifier que vous avez bien une tension de $0\operatorname{V}$ lorsque le bouton-poussoir n'est pas activé et une tension de $3.3\operatorname{V}$.
+
+\subsection{Programme}
+
+Pour récupérer la valeur d'une entrée numérique, on pourra s'inspirer du programme \textsc{02. Digital / DigitalInputPullup}.
+
+\subsubsection{Paramétrage}
+
+Pour \textbf{configurer une broche en entrée}, il faut ajouter l'instruction suivante dans la fonction \textsl{setup()} :
+
+\begin{lstlisting}
+pinMode(PA8, INPUT_PULLUP);
+\end{lstlisting}
+
+\subsubsection{Utilisation}
+
+Pour \textbf{affecter une valeur à une broche en sortie}, il faut utiliser une des deux instructions suivantes (où \textsl{LED1} est le nom d'une broche du composant) selon que l'on veut mettre la sortie à l'état bas (\textit{LOW}) ou à l'état haut (\textit{HIGH}) :
+
+\begin{lstlisting}
+int bpVal = digitalRead(PA8);
+\end{lstlisting}
+
+La variable \textsl{bpVal} peut valoir \textsc{HIGH} ou \textsc{LOW}.
+
+\subsection{Travail à réaliser}
+
+\Manip Réaliser un programme qui permet d'allumer chacune des LEDs rouges précédentes à l'aide de deux bouton-poussoirs cablés sur les entrées D6 et D7. Lors d'un premier appui les LEDs s'allumeront, lors d'un second appui, les LEDs s'éteindront.
+
+
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%    Premier programme
+\section{Etape 3 / Mettre en \oe{}uvre des interruptions sur des événements externes}
+
+\subsection{Scrutation}
+
+La \textbf{scrutation} (ou \textit{polling} en anglais) est une méthode de \textbf{vérification régulière de l'état des périphériques ou des capteurs} dans un système embarqué pour détecter si un événement spécifique s'est produit. 
+
+Dans ce contexte, le programme principal exécute une boucle continue (fonction \textsl{loop()} sous Arduino) où il interroge périodiquement chaque périphérique pour voir s'il nécessite une action. 
+
+\begin{center}
+	\includegraphics[width=0.8\textwidth]{images/gen_polling.png}
+\end{center}
+
+La \textbf{scrutation} ne permet pas de gérer d'un événement rapidement et monopolise le microcontrôleur pour vérifier constamment l'état des capteurs ou des périphériques.
+
+
+\subsection{Interruptions}
+
+Une \textbf{interruption} est un signal envoyé au microcontrôleur pour lui demander d'\textbf{arrêter temporairement l'exécution de son programme principal} et de \textbf{s'occuper d'une tâche prioritaire spécifique}. Lorsque l'interruption est terminée, le microcontrôleur reprend son programme là où il s'était arrêté.
+
+\begin{center}
+	\includegraphics[width=0.8\textwidth]{images/gen_isr.png}
+\end{center}
+
+
+Cette méthode permet au système de \textbf{réagir rapidement à des événements externes} - changement de signal sur une broche, compteur qui atteint une certaine valeur - sans avoir besoin de vérifier constamment si l'événement a eu lieu, contrairement à la scrutation. 
+
+Pour en savoir plus sur les interruptions, vous pouvez consulter le document à l'adresse suivante :
+
+\href{https://iogs-lense-training.github.io/nucleo-basics/contents/polling_interrupts_rtos.html}{https://iogs-lense-training.github.io/nucleo-basics/contents/polling\_interrupts\_rtos.html}
+
+\textit{Les interruptions sont également souvent utilisées dans les applications où un timing précis est nécessaire (par exemple, un compteur de temps).}
+
+
+\subsubsection{Paramétrage}
+
+Pour \textbf{configurer une broche en entrée permettant une interruption}, il faut ajouter l'instruction suivante dans la fonction \textsl{setup()} (où \textsl{LED1} est le nom d'une broche du composant) :
+
+\begin{lstlisting}
+pinMode(PA8, INPUT_PULLUP);
+attachInterrupt(digitalPinToInterrupt(PA8), swInt, FALLING); 
+\end{lstlisting}
+
+Il existe 3 modes possibles pour les interruptions sur des signaux externes (entrées numériques) : 
+
+\begin{itemize}
+	\item \textbf{RISING} - front montant d'un signal
+	\item \textbf{FALLING} - front descendant d'un signal
+	\item \textbf{CHANGE} - fronts montant et descendant d'un signal
+\end{itemize}
+
+
+\subsubsection{Routine d'interruption}
+
+Une \textbf{routine d'interruption}, aussi appelée \textbf{ISR} (\textit{Interrupt Service Routine}), est la fonction qui s'exécute automatiquement en réponse à une interruption. 
+
+C'est une fonction classique, mais qui ne retourne pas de donnée.
+
+\begin{lstlisting}
+void swInt(void){
+  bool ledState = digitalRead(led1);
+  digitalWrite(led1, !ledState);
+} 
+\end{lstlisting}
+
+Dans cet exemple, à chaque front descendant sur l'entrée \textsl{PA8}, la fonction \textsl{swInt()} est appelée. Elle lit alors l'état de la sortie \textsl{led1} pour ensuite l'inverser.
+
+\subsection{Travail à réaliser}
+
+On se propose de tester le code \textsl{compare\_blur\_fft()}. Ce fichier est disponible sur le site du LEnsE dans la rubrique \textit{Année / Première Année / Interfaçage Numérique S6 / Bloc Rayonnement / Répertoire vers codes à tester}.
+
+\Manip Tester le code fourni. 
+
+\Quest A quel moment est appelée la fonction \textsl{swInt()} ?
+
+\Manip Réaliser un programme qui permet d'allumer à l'aide d'un premier interrupteur, cablé sur l'entrée D7, une LED cablée sur la sortie D10 et de l'éteindre à l'aide d'un second interrupteur cablé sur l'entrée D6. \textbf{Votre programme devra utiliser uniquement le principe d'interruption.}
+
+
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%    Premier programme
+\section{Etape 4 / Utiliser des sorties modulées en largeur d'impulsion (PWM) - LEDs}
+
+La \textbf{modulation en largeur d'impulsions} (MLI ou \textit{PWM – Pulsed Witdh Modulation} – en anglais) est une méthode permettant de générer un signal rectangulaire de \textbf{période $T$ fixe} (ou de fréquence $1/T$ fixe) et dont le \textbf{rapport cyclique}, i.e. le rapport du temps haut sur la période, noté $RC = \frac{th}{T}$, est variable.
+
+\begin{center}
+	\includegraphics[width=0.6\textwidth]{images/MINE_ElecNum_PWM_SignalPrincipe.png}
+\end{center}
+
+\subsection{Choix de la broche de sortie}
+
+Toutes les broches du microcontroleur ne sont pas utilisables comme sortie modulée en largeur d'impulsion. Cela nécessite l'utilisation de modules internes spécifiques (\textit{timer} et comparateur notamment).
+
+Il faut choisir une broche où le terme \textit{PWM} est mentionné.
+
+\begin{center}
+	\includegraphics{images/nucleo_pin_functions.png}
+	
+	Exemple de la broche PA\_7 (port A, broche 7), utilisable en PWM
+\end{center}
+
+
+\subsection{Programme}
+
+Pour appliquer un signal modulé en largeur d'impulsion sur une sortie, on pourra s'inspirer du programme \textsc{01. Basics / Fade}.
+
+
+
+\subsection{Travail à réaliser}
+
+On se propose de tester le code \textsl{compare\_blur\_fft()}. Ce fichier est disponible sur le site du LEnsE dans la rubrique \textit{Année / Première Année / Interfaçage Numérique S6 / Bloc Rayonnement / Répertoire vers codes à tester}.
+
+\Manip Tester le code \textsl{Fade} fourni par Arduino, en adaptant la sortie utilisée à celle déjà câblée sur l'une des LEDs précédentes. 
+
+\Manip Visualiser à l'aide d'un oscilloscope le signal électrique appliqué sur la LED.
+
+\Quest Expliquer le principe de fonctionnement de ce système. Pourquoi parle-t-on d'une sortie analogique ? (fonction \textsl{analogWrite()}
+
+\Manip Réaliser un programme qui permet de modifier la luminosité de la LED câblée sur la sortie D7 à l'aide des deux bouton-poussoirs, câblés sur D10 et D11 (un pour augmenter, l'autre pour diminuer la luminosité). \textbf{Votre programme devra utiliser uniquement le principe d'interruption.}
+
+
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%    Premier programme
+\section{Etape 5 / Acquérir des données analogiques - Potentiomètre}
+
+Sur les systèmes numériques, et les microcontrôleurs en particulier, les broches sont naturellement des entrées/sorties numériques.
+
+Or, la plupart des signaux qui nous entourent et que l'on cherche à mesurer (luminosité, température, vitesse…) sont des \textbf{grandeurs analogiques}. Pour palier à ce problème, la plupart des fabricants de microcontrôleurs ont intégré des \textbf{convertisseurs analogiques-numériques} (\textit{ADC – Analog to Digital Converter}) à leur système, afin d'éviter de passer par des composants externes.
+
+
+\subsection{Câblage d'un potentiomètre}
+
+Afin de pouvoir générer une tension analogique dont la tension est variable, nous allons utiliser un potentiomètre.
+
+\begin{center}
+	\includegraphics[width=0.6\textwidth]{images/MINE_Nucleo_CablagePotentiometre.png}
+\end{center}
+
+
+
 
 
 
