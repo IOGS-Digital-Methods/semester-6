@@ -30,6 +30,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage{opto_elec_villemejane}
+\usetikzlibrary{positioning}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -254,20 +255,29 @@ Cette seconde séance est consacrée à la \textbf{prise en main de la maquette}
 
 \subsection{Eléments constitutifs}
 
+La maquette est constituée :
 
+\begin{itemize}
+	\item d'une source de lumière, une LED de puissance
+	\item d'une photodiode, associée à un circuit de photodétection simple
+	\item d'un servomoteur, permettant de positionner le bras supportant la photodiode au dessus de la source lumineuse selon un angle donné
+	\item d'une carte de contrôle
+	\item d'une carte Nucléo L476RG
+\end{itemize}
+
+PHOTO !!
 
 \subsection{Alimentation électrique}
 
+Les bornes d'alimentation notées \textbf{Alim} $5\operatorname{V}$ permet d'alimenter le servomoteur.
+
+Les bornes notées \textbf{anode} et \textbf{cathode} permettent d'alimenter la LED de puissance.
 
 \noindent \rule{\linewidth}{1pt}
-
-\bigskip
 
 {\LARGE La tension maximale admissible par le servomoteur est de $6\operatorname{V}$ !}
 
 {\Large Le courant maximal admissible par la LED de puissance est de $200\operatorname{mA}$ !}
-
-\bigskip
 
 \noindent \rule{\linewidth}{1pt}
 
@@ -324,23 +334,81 @@ LL_GPIO_SetAFPin_0_7(GPIOB,  GPIO_PIN_7,  GPIO_AF1_TIM2);
 %%%%%%%%%%%%%    Etape 6
 \section{Etape 6 / Piloter l'intensité des LEDs de la maquette}
 
+\Manip Réaliser un programme qui permet de modifier la luminosité des diodes LED1 et LED2 de la maquette à l'aide des deux bouton-poussoirs SW1 et SW2 (un pour augmenter, l'autre pour diminuer la luminosité). \textbf{Votre programme devra utiliser uniquement le principe d'interruption.}
 
+\newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%    Etape 7
 \section{Etape 7 / Piloter le servomoteur de la maquette}
+
+Un servomoteur est un actionneur qui réalise une rotation d'un angle calibré en fonction d'une commande externe.
+
+\begin{center}
+	\includegraphics[width=0.3\textwidth]{images/MINE_Nucleo_servomoteur-redohm.jpg}
+	
+	Servomoteur - coupe interne (Crédit : redohm.fr)
+\end{center}
+
+Le pilotage d'un servomoteur se fait à l'aide d'un \textbf{signal modulé en largeur d'impulsions}. Le signal de commande est un \textbf{signal rectangulaire} (numérique) de période fixée à 20 ms. C'est ensuite la durée du temps haut qui permet de modifier l'angle de sortie du servomoteur :
+
+\begin{center}
+	\includegraphics[width=0.9\textwidth]{images/MINE_Nucleo_servomoteur.png}
+\end{center}
+
+\subsection{Bibliothèque Servo.h}
+
+Pour piloter un servomoteur, il existe une bibliothèque nommée \textsl{Servo.h}. On pourra s'inspirer du programme d'exemple pour Nucleo-64 \textsc{Servo / Sweep}.
+
+
+\subsection{Travail à réaliser}
+
+\Manip Tester le code \textsl{Sweep} fourni par Arduino, en adaptant la sortie utilisée par le servomoteur sur la maquette.
+
+\Manip Créer une fonction permettant de positionner le servomoteur à un angle particulier. Tester votre fonction. 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%    Etape 8
 \section{Etape 8 / Définir et tester une première structure de code}
 
+On cherche à présent à \textbf{automatiser l'acquisition des données} de luminosité en fonction de l'angle d'observation.
+
+\Manip Réaliser une fonction qui, à partir d'un \textbf{angle de départ}, d'un \textbf{angle d'arrivée} et d'un \textbf{pas angulaire}, permet, pour tous les angles concernés, de :
+
+\begin{itemize}
+	\item déplacer le servomoteur au prochain angle ;
+	\item faire l'acquisition de la luminosité dans un tableau de données.
+\end{itemize}
+
+\textit{Le servomoteur ne réagit pas instantanément. Il est donc nécessaire d'ajouter un temps de pause entre le déplacement et l'acquisition.}
+
+\Manip Tester votre fonction.
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%    Etape 9
 \section{Etape 9 / Récupérer les données à l'aide du moniteur Série du logiciel Arduino}
 
+\subsection{Transmission des données par liaison série}
+
+Il est possible de transmettre des données par l'intermédiaire d'une \textbf{liaison dite Série} entre le microcontroleur et l'ordinateur.
+
+C'est un protocole asynchrone de transfert de données point à point. Les échanges se font en \textbf{Full-Duplex} grâce à deux signaux distincts \textbf{RX} (réception) et \textbf{TX} (transmission).
+
+\medskip
+
+Pour tester la liaison Série ainsi que l'affichage, on pourra utiliser le programme \textsc{01. Basics / AnalogReadSerial} et l'outil \textbf{Traceur Série} (dans \textsc{Outils / Traceur Série} du logiciel Arduino).
 
 
+\Manip Réaliser une fonction qui permet de transmettre par la liaison série les valeurs sauvegardées dans le tableau de données précédemment acquis.
+
+\Manip Tester votre fonction.
+
+\subsection{Premier diagramme de rayonnement}
+
+\Manip Alimenter la LED de puissance avec un courant d'environ 50mA.
+
+\Manip Faire l'acquisition des valeurs d'intensité lumineuse pour des angles allant de $0$ à $180\deg{}$ par pas de $10\deg{}$ et transmettre les données par liaison Série afin d'afficher le diagramme résultant sur le traceur Série.
 
 
 \cleardoublepage
@@ -379,35 +447,136 @@ LL_GPIO_SetAFPin_0_7(GPIOB,  GPIO_PIN_7,  GPIO_AF1_TIM2);
 
 Cette séance a pour but de mettre en place un \textbf{protocole de communication} entre la carte embarquée et l'ordinateur, d'abord à l'aide d'un moniteur série puis à l'aide d'un script en Python.
 
+L'ordinateur, maitre de la communication, devra envoyer des commandes à la carte embarquée, qui devra les exécuter puis acquitter du bon déroulement de l'opération.
 
 
-L'ordinateur, maitre de la communication, devra envoyer des commandes à la carte embarquée, qui devra les exécuter puis acquitter du bon déroulement de l'opération.\
+% Diagramme
+\begin{center}
+\begin{tikzpicture}
+
+%% Locations
+\def\PCToMCU{++(6,0)}
+\def\MCUToPC{++(-6,0)}
+\def\Lifeline{++(0,-3)}
+
+%% Lifelines
+\path (0,0)           node[draw] (PC) {Ordinateur}
+      \PCToMCU node[draw] (MCU) {Nucléo};
+\draw (PC) -- \Lifeline (MCU) -- \Lifeline;
+
+%% Blocks
+\path (PC)
+      ++(0,-0.5) node (BeginProcess1) {} node[below right] {}
+      ++(0,-0.5) node (EndProcess1)   {};
+\filldraw[fill=orange!80] (BeginProcess1.east) rectangle (EndProcess1.west);
+
+\path (MCU)
+      ++(0,-1) node (BeginProcess2) {} node[below right] {}
+      ++(0,-1) node (EndProcess2)   {};
+\filldraw[fill=orange!80] (BeginProcess2.west) rectangle (EndProcess2.east);
+
+\path (PC)
+      ++(0,-2) node (BeginProcess3) {} node[below right] {}
+      ++(0,-0.5) node (EndProcess3)   {};
+\filldraw[fill=orange!80] (BeginProcess3.east) rectangle (EndProcess3.west);
+
+%% Calls
+\draw[->, line width=0.8mm, >=latex] (EndProcess1.east) -- node[above] {\textsc{commande}} (BeginProcess2.west);
+\draw[->, line width=0.8mm, >=latex] (EndProcess2.west) -- node[above] {\textsc{réponse}} (BeginProcess3.east);
+
+\end{tikzpicture}
+\end{center}
 
 \textit{Un exemple de code pour la transmission des commandes A et D, à analyser et à tester, est fourni.}
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%    Etape 10
-\section{Etape 10 / Mettre en place un protocole de communication basé sur une liste de commandes}
+%%%%%%%%%%%%%    Objectifs
+\section{Protocole de communication}
 
-Code de base avec les commandes A et D
+Un \textbf{protocole de communication} est un ensemble de règles, de conventions et de formats définis pour permettre l'échange d'informations entre différents systèmes. Il détermine comment les données sont structurées, envoyées, reçues et interprétées par les parties communicantes.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%    Etape 11
-\section{Etape 11 / Utiliser la bibliothèque pySerial en Python pour envoyer les commandes à la carte Arduino}
+\medskip
 
-Code de base pySerial pour envoyer les commandes A et D et récupérer des données.
+Il est important lorsqu'on souhaite \textbf{construire un protocole de communication} de :
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%    Etape 12
-\section{Etape 12 / Tester la communication entre la carte Arduino et le script Python pour afficher les données}
-
-A faire : mettre en place la structure de base.
-
-
+\begin{itemize}
+	\item \textbf{choisir un protocole de bas niveau} pour la transmission des commandes et des réponses
+	\item définir la \textbf{structure des commandes}
+	\item planifier la \textbf{liste des commandes}
+	\item coder la récupération des données sur la carte Nucléo (et tester avec un moniteur Série)
+	\item coder l'envoi des commandes sur le PC (en Python par exemple)
+\end{itemize}
 
 
-\subsection{Liste des commandes - côté maitre}
+\subsection{Choix du protocole de bas niveau}
+
+Nous utiliserons dans le cas de notre application la \textbf{liaison Série} (ou RS232) qui nous a déjà servi à afficher des données depuis la carte Nucléo.
+
+\subsection{Structure des commandes}
+
+Chaque commande doit avoir un \textbf{format bien défini} pour que le microcontroleur puisse la comprendre et la traiter.
+
+\begin{center}
+\begin{tikzpicture}[font=\sffamily]
+
+%% Styles des blocs
+\tikzstyle{block} = [rectangle, draw, minimum width=2.5cm, minimum height=1.0cm, align=center, font=\bfseries]
+
+%% Blocs
+\node[block, fill=blue!30] (start) {START};
+\node[block, fill=green!30, right=0.3cm of start] (command) {COMMAND};
+\node[block, fill=yellow!30, right=0.3cm of command] (arguments) {ARGUMENTS};
+\node[block, fill=red!30, right=0.3cm of arguments] (end) {END};
+
+\end{tikzpicture}
+\end{center}
+
+La liaison Série étant asynchrone, il est indispensable de prévoir dans le protocole des \textbf{caractères de début et de fin} de chaines de commande et de réponse.
+
+\subsubsection{Commande}
+
+Par exemple, on pourra se baser sur la structure suivante pour le cas d'une commande (entre le PC et le microcontroleur) :
+
+\begin{center}
+\begin{tikzpicture}[font=\sffamily]
+
+%% Styles des blocs
+\tikzstyle{block} = [rectangle, draw, minimum height=1.0cm, align=center, font=\bfseries]
+
+%% Blocs
+\node[block, fill=blue!30] (start) {!};
+\node[block, fill=green!30, right=0.1cm of start] (command) {X};
+\node[block, fill=yellow!30, right=0.1cm of command] (arguments) {:a:b...};
+\node[block, fill=red!30, right=0.1cm of arguments] (end) {?};
+
+\end{tikzpicture}
+\end{center}
+
+\textit{Les arguments sont facultatifs, selon les commandes.}
+
+\subsubsection{Réponse}
+
+Par exemple, on pourra se baser sur la structure suivante pour le cas d'une réponse (entre le PC et le microcontroleur) :
+
+\begin{center}
+\begin{tikzpicture}[font=\sffamily]
+
+%% Styles des blocs
+\tikzstyle{block} = [rectangle, draw, minimum height=1.0cm, align=center, font=\bfseries]
+
+%% Blocs
+\node[block, fill=blue!30] (start) {!};
+\node[block, fill=green!30, right=0.1cm of start] (command) {X};
+\node[block, fill=yellow!30, right=0.1cm of command] (arguments) {:a:b...};
+\node[block, fill=red!30, right=0.1cm of arguments] (end) {;};
+
+\end{tikzpicture}
+\end{center}
+
+\textit{Les arguments sont facultatifs, selon les commandes.}
+
+
+\subsection{Liste des commandes}
 
 \begin{center}
 
@@ -443,6 +612,28 @@ A faire : mettre en place la structure de base.
 \end{tabular} 
 
 \end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%    Etape 10
+\section{Etape 10 / Mettre en place un protocole de communication basé sur une liste de commandes}
+
+Code de base avec les commandes A et D
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%    Etape 11
+\section{Etape 11 / Utiliser la bibliothèque pySerial en Python pour envoyer les commandes à la carte Arduino}
+
+Code de base pySerial pour envoyer les commandes A et D et récupérer des données.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%    Etape 12
+\section{Etape 12 / Tester la communication entre la carte Arduino et le script Python pour afficher les données}
+
+A faire : mettre en place la structure de base.
+
+
+
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
