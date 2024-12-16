@@ -75,7 +75,7 @@ Semestre 6
 \bigskip
 
 \begin{center}
-%	\includegraphics[width=0.5\textwidth]{images/image_gui.png}
+	\includegraphics[width=0.7\textwidth]{images/rayonnement.png}
 \end{center}
 
 \vfill
@@ -259,13 +259,16 @@ La maquette est constituée :
 
 \begin{itemize}
 	\item d'une source de lumière, une LED de puissance
-	\item d'une photodiode, associée à un circuit de photodétection simple
+	\item d'une photodiode BPX65, associée à un circuit de photodétection simple
 	\item d'un servomoteur, permettant de positionner le bras supportant la photodiode au dessus de la source lumineuse selon un angle donné
 	\item d'une carte de contrôle
 	\item d'une carte Nucléo L476RG
 \end{itemize}
 
-PHOTO !!
+\begin{center}
+	\includegraphics[width=0.9\textwidth]{images/maquette_rayon.png}
+\end{center}
+
 
 \subsection{Alimentation électrique}
 
@@ -283,6 +286,16 @@ Les bornes notées \textbf{anode} et \textbf{cathode} permettent d'alimenter la 
 
 
 \subsection{Brochage}
+
+La \textbf{photodiode BPX65} est polarisée. L'\textbf{anode} est représentée par un ergot. Sur cette maquette, l'\textbf{anode} est reliée par un fil \textbf{ORANGE}, la \textbf{cathode} par un file \textbf{ROUGE}.
+
+Le servomoteur est standard. Sa connectique est constituée de 3 broches : BLANC = signal de pilotage, ROUGE = Alimentation de 5 à 6V, NOIR = masse (GND).
+
+
+\begin{center}
+	\includegraphics[width=0.7\textwidth]{images/maquette_rayon_nucleo.png}
+\end{center}
+
 
 \begin{center}
 \begin{tabular}{|l|l|l|l|}
@@ -327,7 +340,6 @@ Maquette & \textbf{Broche Nucléo} & Type & Description \\
 \begin{lstlisting}
 LL_GPIO_SetAFPin_0_7(GPIOB,  GPIO_PIN_7,  GPIO_AF1_TIM2);
 \end{lstlisting}
-
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
