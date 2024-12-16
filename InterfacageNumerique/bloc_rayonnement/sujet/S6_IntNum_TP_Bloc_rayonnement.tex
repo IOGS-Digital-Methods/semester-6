@@ -316,30 +316,8 @@ Maquette & \textbf{Broche Nucléo} & Type & Description \\
 \hline 
 \textsc{Résistance Thermique} & PC1 & Entrée analogique & Résistance Thermique CT10k\\ 
 \hline 
-\textsc{SPI} & & & \\ 
-\textit{SCK} & PA5 & Sortie & Signal d'horloge\\
-\textit{MISO} & PA6 & Entrée & Données entrantes\\
-\textit{MOSI} & PA7 & Sortie & Données sortantes\\
-\hline 
-\textsc{Pot Num} & SPI & MCP4132 & Potentiomètre Numérique\\ 
- & & & Monté dans un pont diviseur\\ 
-\textit{CS} & PB9 & Sortie & \\ 
-\textit{Pot Num In} & PB0 & Entrée analogique & Sortie du pont diviseur\\ 
-\hline 
-\textsc{LED Puissance} & SPI & MCP4132 & Potentiomètre numérique / Contrôle\\ 
- & & & courant dans Driver BCR430-UW6\\ 
-\textit{CS} & PB5 & Sortie & \\
-\hline 
 \end{tabular} 
 \end{center}
-
-
-
-\subsubsection{Utilisation de la sortie modulée PB7}
-	
-\begin{lstlisting}
-LL_GPIO_SetAFPin_0_7(GPIOB,  GPIO_PIN_7,  GPIO_AF1_TIM2);
-\end{lstlisting}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -629,25 +607,83 @@ Par exemple, on pourra se baser sur la structure suivante pour le cas d'une rép
 %%%%%%%%%%%%%    Etape 10
 \section{Etape 10 / Mettre en place un protocole de communication basé sur une liste de commandes}
 
-Code de base avec les commandes A et D
+\subsection{Structure de base}
 
+On se propose de tester le code \textsl{test\_version\_a\_d.ino}. Ce fichier est disponible sur le site du LEnsE dans la rubrique \textit{Année / Première Année / Interfaçage Numérique S6 / Banc de mesure de rayonnement lumineux / Exemples de Codes}.
+
+\Manip Compiler ce code et le téléverser sur la carte Nucléo.
+
+\Quest A quoi sert la fonction \textsl{is\_angle\_ok()} ?
+
+\Quest A quel moment est appelée la fonction \textsl{serialEvent} ?
+
+\Manip Ouvrir le moniteur Série et envoyer la commande suivante : \textsc{!A:10?}.
+
+\Quest Que renvoie la carte Nucléo ? Expliquer les fonctions \textsl{serialEvent} (vis-à-vis du choix de la structure d'une commande) et \textsl{loop()}. On s'intéressera notamment aux changements de valeur des variables \textsl{string\_complete} et \textsl{input\_cnt}.
+
+\Quest Que se passe-t-il lorsqu'on transmet une mauvaise valeur (soit avec la commande A, soit avec la commande D) ?
+
+\Quest Faire un algorigramme du code.
+
+\subsection{Ajout des autres commandes}
+
+On souhaite à présent compléter ce code pour pouvoir traiter l'ensemble des commandes mentionnées dans la section précédente (T, A, B, C, S, E, D).
+
+\Manip Compléter le code précédent et le tester.
+
+\Quest A quel moment doit-on utiliser la \textbf{fonction d'acquisition} réalisée à l'étape 8 ? D'autres commandes sont-elles acceptables lors de l'acquisition ? Comment bloquer l'exécution des autres commandes ?
+
+\Manip Mettre en place ce blocage.
+
+\Quest A quel moment doit-on utiliser la \textbf{fonction de transmission} des données réalisée à l'étape 9 ?
+
+
+\subsection{Test complet}
+
+\Quest Quelle est la suite de commandes à transmettre à la carte Nucléo pour permettre l'acquisition de données pour des angles allant de $-40\deg{}$ à $+60\deg{}$ par pas de $10\deg{}$ et la récupération des données sur le moniteur Série ?
+
+\Quest Tracer le diagramme de séquence associé à ces échanges de commandes et de réponses entre le PC et la carte Nucléo.
+
+\Manip Tester l'acquisition de cette série de données.
+
+\newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%    Etape 11
 \section{Etape 11 / Utiliser la bibliothèque pySerial en Python pour envoyer les commandes à la carte Arduino}
 
-Code de base pySerial pour envoyer les commandes A et D et récupérer des données.
+
+\begin{mdframed}[style=sidebar,frametitle={}]
+\large
+\textbf{ATTENTION} / Lors de l'utilisation d'un script Python nécessitant l'accès à la liaison Série, les outils \textbf{Moniteur Série} et \textbf{Traceur Série} d'Arduino doivent être \textbf{fermés}.
+\end{mdframed}
+
+
+\medskip
+
+On se propose à présent d'utiliser un script en langage Python pour pouvoir transmettre les commandes et recevoir les données sur l'ordinateur. Nous utiliserons la bibliothèques \textbf{pySerial} (à installer par la commande \textsl{pip install pyserial} dans une console ou un prompt d'Anaconda).
+
+\medskip
+
+Un code de base, nommé \textsl{python\_to\_Nucleo\_via\_Serial.py}, est disponible sur le site du LEnsE dans la rubrique \textit{Année / Première Année / Interfaçage Numérique S6 / Banc de mesure de rayonnement lumineux / Exemples de Codes}.
+
+\medskip
+
+\Manip Exécuter ce code et tester les deux commandes pré-configurées ('a' et 'd').
+
+\Manip A partir de cet exemple, réaliser un script qui permette de lancer l'acquisition de données pour des angles allant de $-40\deg{}$ à $+60\deg{}$ par pas de $10\deg{}$ et la récupération des données acquises dans une liste en Python.
+
+\Manip Afficher les données obtenues sur un graphique à l'aide de Matplotlib. Générer l'axe des angles.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%    Etape 12
 \section{Etape 12 / Tester la communication entre la carte Arduino et le script Python pour afficher les données}
 
-A faire : mettre en place la structure de base.
+On souhaite enfin créer une application en console complète permettant à l'utilisateur de saisir les angles de départ et de fin, le pas angulaire et de lancer l'acquisition. Votre application devra ensuite afficher les données acquises.
+
+Vous pourrez faire plusieurs essais avec des courants dans la LED de puissance de $50\operatorname{mA}$, $100\operatorname{mA}$ et $200\operatorname{mA}$ par exemple.
 
 
-
-
-
-
+\newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% RESSOURCES COMPLEMENTAIRES		
 
@@ -696,8 +732,37 @@ Semestre 6
 
 \vfill
 
-\newpage
-\strut % empty page
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%    Autres
+\section{Autres fonctionnalités}
+
+\begin{center}
+\begin{tabular}{|l|l|l|l|}
+\hline 
+Maquette & \textbf{Broche Nucléo} & Type & Description \\ 
+\hline 
+\textsc{SPI} & & & \\ 
+\textit{SCK} & PA5 & Sortie & Signal d'horloge\\
+\textit{MISO} & PA6 & Entrée & Données entrantes\\
+\textit{MOSI} & PA7 & Sortie & Données sortantes\\
+\hline 
+\textsc{Pot Num} & SPI & MCP4132 & Potentiomètre Numérique\\ 
+ & & & Monté dans un pont diviseur\\ 
+\textit{CS} & PB9 & Sortie & \\ 
+\textit{Pot Num In} & PB0 & Entrée analogique & Sortie du pont diviseur\\ 
+\hline 
+\textsc{LED Puissance} & SPI & MCP4132 & Potentiomètre numérique / Contrôle\\ 
+ & & & courant dans Driver BCR430-UW6\\ 
+\textit{CS} & PB5 & Sortie & \\
+\hline 
+\end{tabular} 
+\end{center}
+
+	
+\begin{lstlisting}
+LL_GPIO_SetAFPin_0_7(GPIOB,  GPIO_PIN_7,  GPIO_AF1_TIM2);
+\end{lstlisting}
+
 % Ressources
 \titleformat{\section}
   {\null}{}{0pt}{}
