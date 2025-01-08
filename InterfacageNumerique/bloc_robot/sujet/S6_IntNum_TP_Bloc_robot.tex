@@ -184,7 +184,8 @@ Vous aurez à votre disposition une \textbf{maquette} basée sur un robot Joy-It
 	\begin{description}
 		\item[Etape 6 - 60 min] Piloter l'intensité des LEDs de la maquette
 		\item[Etape 7 - 90 min] Piloter les moteurs à courant continu
-		\item[Etape 8 - 60 min] Acquérir des données des capteurs de ligne				\item[Etape 9 - 60 min] Piloter les phares du robot à l'aide de la bibliothèque WS2812 (NeoPixel)
+		\item[Etape 8 - 60 min] Acquérir des données des capteurs de ligne				
+		\item[Etape 9 - 60 min] Piloter les phares du robot à l'aide de la bibliothèque WS2812 (NeoPixel)
 	\end{description}
 
 
@@ -245,6 +246,7 @@ Cette seconde séance est consacrée à la \textbf{prise en main de la maquette}
 %%%%%%%%%%%%%    Maquette
 \section{Description de la maquette}
 
+PHOTO MAQUETTE + CARTE
 
 \subsection{Eléments constitutifs}
 
@@ -269,6 +271,7 @@ La maquette est basée sur une plateforme robotique \textbf{Joy-It} \textit{Joy-
 
 \textit{Un schéma de la carte et le brochage des différents éléments sont donnés en annexe de ce document.}
 
+\newpage
 \subsection{Alimentation électrique}
 
 La plateforme robotique est utilisable dans deux configurations différentes :
@@ -281,9 +284,14 @@ La plateforme robotique est utilisable dans deux configurations différentes :
 
 La carte Nucléo ainsi que la carte de commande (incluant les phares et les capteurs du robot) peut être \textbf{alimentée à l'aide du câble USB} (permettant également la programmation du microcontroleur embarqué sur la carte Nucléo).
 
+
+\noindent \rule{\linewidth}{1pt}
+
 \textbf{Attention !} Dans ce régime de fonctionnement, les moteurs et servomoteur ne sont pas utilisables (car non alimentés).
 
-Le jumper \textbf{JP5} de la carte Nucléo doit être positionné du côté \textbf{U5V}.
+\noindent \rule{\linewidth}{1pt}
+
+Le cavalier \textbf{JP5} de la carte Nucléo doit être positionné du côté \textbf{U5V}.
 
 \textbf{Attention !} Lors de la programmation de la carte Nucléo, il est préconisé de \textbf{ne pas utiliser la partie puissance} !
 
@@ -293,20 +301,31 @@ Le jumper \textbf{JP5} de la carte Nucléo doit être positionné du côté \tex
 
 \medskip
 
-{\large La tension maximale admissible par les moteurs est de $7\operatorname{V}$ !}
-
-\medskip
+\textbf{\large La tension maximale admissible par les moteurs est de $7\operatorname{V}$ !}
 
 \noindent \rule{\linewidth}{1pt}
 
 L'alimentation de cette partie se fait à l'aide du connecteur \textbf{J8}. La broche \textbf{VIN} correspond à la tension positive (comprise entre 5 et 7V) et l'autre broche est reliée à la masse du système.
 
-\textbf{Attention !} Il est conseillé de tester la motorisation du robot à l'aide d'une alimentation stabilisée - et surtout protégée en courant ! - avant de passer à l'utilisation totalement autonome sur batterie.
+IMAGE CONNECTEUR ?
 
 \medskip
 
-Pour utiliser
+\noindent \rule{\linewidth}{1pt}
 
+\textbf{Attention !} Il est conseillé de tester la motorisation du robot à l'aide d'une alimentation stabilisée - et surtout protégée en courant ! - avant de passer à l'utilisation totalement autonome sur batterie.
+
+
+\noindent \rule{\linewidth}{1pt}
+
+\textbf{Attention !} Pour utiliser la partie puissance, il est préconisé de passer la \textbf{carte Nucléo en utilisation autonome} (sur alimentation externe) et ainsi supprimer le lien par le câble USB.
+
+Pour cela, il faut placer le cavalier \textbf{JP5} de la carte Nucléo du côté \textbf{E5V} (E = externe).
+
+\noindent \rule{\linewidth}{1pt}
+
+
+\newpage
 \subsection{Brochage}
 
 \subsubsection{Entrées-Sorties standard}
@@ -385,7 +404,307 @@ Maquette & \textbf{Broche Nucléo} & Type & Description \\
 \end{center}
 
 
-\subsubsection{Accéléromètre / MikroE-6DOF IMU 3 Click}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%    Etape 6
+\section{Etape 6 / Piloter l'intensité des LEDs de la maquette}
+
+\Manip Réaliser un programme qui permet de modifier la luminosité des diodes LED1 et LED2 de la maquette à l'aide des deux bouton-poussoirs SW1 et SW2 (un pour augmenter, l'autre pour diminuer la luminosité). \textbf{Votre programme devra utiliser uniquement le principe d'interruption.}
+
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%    Etape 7
+\section{Etape 7 / Piloter les moteurs à courant continu}
+
+Un \textbf{moteur à courant continu} est un système permettant de \textbf{transformer une énergie électrique en mouvement de rotation} continue. Ce type de moteur doit être parcouru par un courant continu.
+
+La \textbf{vitesse de rotation} d'un tel moteur est liée à la \textbf{tension d'alimentation} de ce dernier. 
+
+\subsection{Conversion de puissance}
+
+Ces composants de puissance nécessitent souvent des alimentations externes pour fonctionner et ne peuvent pas être directement alimentés par des microcontroleurs (tel que celui présent sur la carte Nucléo). Il est donc indispensable d'ajouter des \textbf{étages de conversion de puissance} permettant de passer des signaux de commande (basse puissance) sortant des organes de controle (microcontroleur par exemple) à des signaux de puissance.
+
+
+\subsubsection{Transistor}
+
+Dans le schéma ci-dessous, on peut noter l'utilisation d'un \textbf{transistor de puissance} pour pouvoir piloter le moteur.
+
+\begin{center}
+	\includegraphics[width=0.3\textwidth]{images/MINE_Nucleo_MCC_Pilotage.png}
+\end{center}
+
+Selon la valeur de la tension $V_{GS}$ (et donc de la valeur de la sortie $D10$ de la carte Nucléo), il est possible de piloter le passage de courant entre les broches D(rain) et S(ource) du transistor, permettant ainsi du passage de courant dans le moteur. Le moteur est alors pilotable dans un sens de rotation.
+
+
+\subsubsection{Pont en H}
+
+Il existe une autre structure (souvent intégrée dans ce qu'on appelle des drivers) permettant le pilotage d'un moteur dans les deux directions. Cette structure se nomme un \textbf{pont en H} et utilise 4 transistors (au lieu d'un dans la structure précédente).
+
+
+\begin{center}
+	\includegraphics[width=0.6\textwidth]{images/MINE_Composants_PontH_Fonctionnement.png}
+\end{center}
+
+
+Il faut alors piloter en même temps deux des quatre transistors pour laisser passer du courant dans une direction particulière dans le moteur :
+
+\begin{itemize}
+	\item piloter T1 et T4 (figure a) permet de faire tourner le moteur dans un sens ;
+	\item piloter T2 et T3 (figure b) permet de faire tourner le moteur dans l'autre sens.
+\end{itemize}
+
+\subsubsection{L293D ou SN754410NE}
+
+Le composant \textbf{L293D} (ou son cousin \textbf{SN754410NE}) intègre deux structures de ce type pour pouvoir piloter 2 moteurs indépendamment dans deux directions (ou 4 moteurs dans une direction).
+
+\begin{center}
+	\includegraphics[width=0.6\textwidth]{images/L293D_TI.png}
+	
+	Schéma de cablage du L293D / Documentation Texas Instrument
+\end{center}
+
+Les \textbf{entrées 2 et 7} du composant permettent de faire \textbf{tourner le moteur dans un sens ou dans l'autre}. L'\textbf{entrée 1} est un \textbf{interrupteur général} des modules 1 et 2.
+
+Les signaux des entrées 1, 2 et 7 sont des signaux de faible puissance provenant de la carte Nucléo. Les sorties 3 et 6 sont des sorties de puissance, qui tirent leur énergie de l'alimentation $V_{CC2}$. Une alimentation de faible puissance (typiquement 5V) - qui doit être indépendante de la source de puissance - doit également être fournie au composant sur $V_{CC1}$.
+
+\newpage
+\subsection{Utilisation de signaux modulés en largeur d'impulsion}
+
+Les \textbf{moteurs à courant continu} se pilotent grâce à des \textbf{tensions continues}. Or dans les deux structures vues précédemment, la tension appliquée au moteur ne peut prendre que 3 valeurs : $-V_{CC}$, $0V$ ou $V_{CC}$, ne laissant alors que 3 réactions possibles du moteur : tourner à une vitesse fixe $\Omega$ (dépendant de la valeur de $V_{CC}$) dans une direction ou dans une autre, ou être à l'arrêt.
+
+\medskip
+
+En utilisant le \textbf{principe de la modulation en largeur d'impulsions} (\textit{PWM} en anglais) de signaux numériques "rapides", il est toutefois possible de contrôler la vitesse de rotation des moteurs à courant continu. 
+
+\begin{center}
+	\includegraphics[width=0.6\textwidth]{images/MINE_ElecNum_PWM_Signal.png}
+	
+	Signal PWM et sa valeur moyenne
+\end{center}
+
+
+En effet, les systèmes mécaniques, que sont les moteurs, ont des \textbf{constantes de temps de réaction assez élevées} (de l'ordre de la centaine de millisecondes pour les moteurs de ce robot). En leur appliquant un signal rectangulaire suffisamment rapide, le moteur n'aura pas le temps de réagir aux fluctuations rapides du signal. Seul le \textbf{signal moyen} sera alors traduit par le moteur en consigne (système passe-bas).
+
+
+\subsection{Travail à réaliser}
+
+\Manip Créer un nouveau projet Arduino. 
+
+\Manip Paramétrer les broches de commande du moteur de gauche en sortie modulée (\textsc{MOT\_L\_1} et \textsc{MOT\_L\_2}). Forcer le signal à un rapport cyclique de 0 dans la fonction d'initialisation.
+
+\Manip Paramétrer la broche \textsc{MOT\_EN} en sortie standard. Forcer la sortie à 0 pour ce signal dans la fonction d'initialisation.
+
+\Manip Ecrire une fonction qui permet de faire tourner le moteur gauche dans une direction à un rapport cyclique donné en argument (entre 0 et 100\%).
+
+\Manip Ecrire une fonction qui permet de stopper le moteur.
+
+\Manip Ecrire une boucle infinie qui permette de tester vos différentes fonctions :
+
+\begin{itemize}
+	\item lancer le moteur à 80\% pendant 2 secondes
+	\item stopper le moteur pendant 3 secondes
+	\item lancer le moteur à 50\% pendant 4 secondes
+	\item stopper le moteur pendant 1 seconde
+\end{itemize}
+
+\Manip Connecter l'alimentation externe sur l'entrée d'alimentation du robot (connecteur J8 - voir partie \textbf{Alimentation électrique} de ce document).
+
+\Manip Tester votre programme.
+
+
+\noindent \rule{\linewidth}{1pt}
+
+\textbf{Attention ! Couper l'alimentation externe lorsque vous n'utilisez pas le robot (en particulier lorsque vous modifier et téléverser votre programme dans la carte).}
+
+\noindent \rule{\linewidth}{1pt}
+
+\medskip
+
+\Manip Faire le même travail pour le moteur droit.
+
+\Manip Ajouter des fonctions permettant de faire avancer et reculer votre robot. Tester ces fonctions.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%    Etape 8
+\section{Etape 8 / Acquérir des données des capteurs de ligne}
+
+Les capteurs de ligne utilisés sur cette plateforme sont des capteurs optiques. Une LED infrarouge émet un signal vers le bas du robot qui est ensuite réfléchie plus ou moins fortement par le matériau présent au sol. Cette réflexion est alors captée par une photodiode ou un phototransistor.
+
+\begin{center}
+	\includegraphics[width=0.6\textwidth]{images/capteur_ligne_gedgayblog.png}
+	
+	Principe du capteur de ligne / gedgeyblog.wordpress.com
+\end{center}
+
+Un comparateur est ensuite ajouté en sortie pour transmettre uniquement un signal numérique : '0' si ligne détectée, '1' sinon (ou inversement selon le type de compareteur utilisé). Un potentiomètre de réglage du seuil de détection est présent sur les capteurs. Une LED visible est également présente permettant de visualiser l'état du capteur (cela permet notamment de régler le seuil plus facilement).
+
+\subsection{Travail à réaliser}
+
+\Manip Créer un nouveau projet Arduino. 
+
+\Manip Paramétrer les broches des \textbf{capteurs de ligne} en entrée d'interruption (\textsc{Line\_L}, \textsc{Line\_C} et \textsc{Line\_R}).
+
+\Manip Ajouter une fonction d'interruption, exécutée lors de l'activation d'un des capteurs de ligne, permettant de stocker l'état des 3 capteurs dans 3 variables indépendantes (booléennes par exemple) et d'afficher leur valeur sur la console.
+
+\Manip Tester votre programme à l'aide d'une feuille blanche contenant une ligne noire de largeur 2 à 3 cm.
+
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%    Etape 9
+\section{Etape 9 / Piloter les phares du robot}
+
+Les phares du robot utilisent des LED trichromes "intelligentes" de type \textbf{WS2812}. Ces LEDs peuvent être mises en cascade et se pilotent à l'aide d'une trame numérique. Chaque LED nécessite 24 bits de données (8 bits par couleur - R/G/B).
+
+\begin{center}
+	\includegraphics[width=0.9\textwidth]{images/W2812.png}
+	
+	Données et cablage WS2812 / Documentation Adafruit
+\end{center}
+
+
+\subsection{Bibliothèque Adafruit\_NeoPixel}
+
+Pour piloter ce type de LED, il existe une bibliothèque conçue pour Arduino nommée \textbf{Adafruit\_NeoPixel}.
+
+L'installation se fait par le gestionnaire de bibliothèques (\textsl{Outils / Gérer les bibliothèques}). Vous devez ensuite chercher \textsl{neopixel} puis sélectionner la bibliothèque \textbf{Adafruit\_NeoPixel} et enfin cliquer sur installer.
+
+Vous pourrez ensuite vous baser sur l'exemple, nommé \textsc{Simple}, fourni par Adafruit (\textsl{Fichier / Exemples / Adafruit Neopixel / Simple}).
+
+\subsection{Travail à réaliser}
+
+\Manip Tester l'exemple \textsc{Simple}, fourni par Adafruit (\textsl{Fichier / Exemples / Adafruit Neopixel / Simple}) en modifiant la broche utilisée par l'une des broches associées aux phares (\textsc{Din\_1} correspondant à \textbf{PC0} par exemple) et le nombre de "pixels" (ici seulement 2 par phare).
+
+\Manip Modifier la couleur des deux LEDs présentes sur ce phare.
+
+\Manip Ajouter la configuration des 3 autres phares.
+
+\Manip Créer une fonction qui permet d'allumer les phares avant, une autre fonction qui permet d'allumer les phares arrière.
+
+\Manip Tester vos différentes fonctions.
+
+
+\newpage
+\strut % empty page
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%    Séances 3 et 4 détaillées
+\begin{minipage}[c]{.25\linewidth}
+	\includegraphics[width=4cm]{images/Logo-LEnsE.png}
+\end{minipage} \hfill
+\begin{minipage}[c]{.4\linewidth}
+
+\begin{center}
+\vspace{0.3cm}
+{\Large \textsc{Interfaçage Numérique}}
+
+\medskip
+
+6N-047-SCI \qquad \textbf{\Large Bloc Robot}
+
+\end{center}
+\end{minipage}\hfill
+
+\vspace{0.5cm}
+
+\noindent \rule{\linewidth}{1pt}
+
+{\noindent\Large \rule[-7pt]{0pt}{30pt} \textbf{Séances 3 et 4} / Robot suiveur de ligne autonome} 
+
+\noindent \rule{\linewidth}{1pt}
+
+Les deux séances suivantes seront consacrées au pilotage du robot pour lui permettre de suivre une ligne ou/et d'éviter les obstacles qu'il rencontre sur son chemin.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%    Etape 10
+\section{Etape 10 / Définir et tester une première structure de code}
+
+On souhaite à présent réaliser le \textbf{programme principal} du robot lui permettant de \textbf{se déplacer de manière autonome} en suivant une ligne.
+
+
+\subsection{Travail à réaliser}
+
+\Manip En vous basant sur les différentes fonctions que vous avez écrites précédemment (avancer, reculer, tourner...) et des valeurs des différents capteurs de ligne, réaliser le programme permettant au robot de suivre une ligne.
+
+\Manip Tester la robustesse de votre application sur un parcours plus grand.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%    Etape 11
+\section{Etape 11 / Acquérir les signaux du capteur ultrason}
+
+
+
+\subsection{Travail à réaliser}
+
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%    Etape 12
+\section{Etape 12 / Piloter le servomoteur associé au capteur ultrason}
+
+
+Un servomoteur est un actionneur qui réalise une rotation d'un angle calibré en fonction d'une commande externe.
+
+\begin{center}
+	\includegraphics[width=0.3\textwidth]{images/MINE_Nucleo_servomoteur-redohm.jpg}
+	
+	Servomoteur - coupe interne (Crédit : redohm.fr)
+\end{center}
+
+Le pilotage d'un servomoteur se fait à l'aide d'un \textbf{signal modulé en largeur d'impulsions}. Le signal de commande est un \textbf{signal rectangulaire} (numérique) de période fixée à 20 ms. C'est ensuite la durée du temps haut qui permet de modifier l'angle de sortie du servomoteur :
+
+\begin{center}
+	\includegraphics[width=0.8\textwidth]{images/MINE_Nucleo_servomoteur.png}
+\end{center}
+
+\subsection{Bibliothèque Servo.h}
+
+Pour piloter un servomoteur, il existe une bibliothèque nommée \textsl{Servo.h}. On pourra s'inspirer du programme d'exemple pour Nucleo-64 \textsc{Servo / Sweep}.
+
+
+\subsection{Travail à réaliser}
+
+\Manip Tester le code \textsl{Sweep} fourni par Arduino, en adaptant la sortie utilisée par le servomoteur sur la maquette.
+
+\Manip Créer une fonction permettant de positionner le servomoteur à un angle particulier. Tester votre fonction. 
+
+
+
+\newpage
+\strut % empty page
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%    Autres possibilités
+\begin{minipage}[c]{.25\linewidth}
+	\includegraphics[width=4cm]{images/Logo-LEnsE.png}
+\end{minipage} \hfill
+\begin{minipage}[c]{.4\linewidth}
+
+\begin{center}
+\vspace{0.3cm}
+{\Large \textsc{Interfaçage Numérique}}
+
+\medskip
+
+6N-047-SCI \qquad \textbf{\Large Bloc Robot}
+
+\end{center}
+\end{minipage}\hfill
+
+\vspace{0.5cm}
+
+\noindent \rule{\linewidth}{1pt}
+
+{\noindent\Large \rule[-7pt]{0pt}{30pt} Autres fonctionnalités} 
+
+\noindent \rule{\linewidth}{1pt}
+
+
+\section{Acquérir des données de l'accéléromètre (I2C)}
+
+Le composant présent sur le robot est un \textbf{accéléromètre et magnétomètre} intégrés sur une même puce de silicium. Sa référence est \textbf{FXOS8700CQ}. Ce composant est intégré au module \textit{MikroE} \textbf{DOF6 - IMU Click}.
+
+\subsection{Brochage}
 
 Ce module fonctionne à l'aide du protocole I2C.
 
@@ -402,6 +721,38 @@ Maquette & \textbf{Broche Nucléo} & Type & Description \\
 \hline 
 \end{tabular} 
 \end{center}
+
+
+\subsection{Protocole I2C}
+
+DESCRIPTION PROTOCOLE et CONNECTIQUES !
+
+\bigskip
+
+\textsc{Attention !} Les broches utilisées sur la carte Nucléo pour l'I2C ne sont pas celles par défaut. Il est indispensable de préciser les broches SDA et SCL à l'aide des méthodes suivantes :
+
+\begin{lstlisting}
+Wire.setSDA( PB9 );    
+Wire.setSCL( PB8 ); 
+\end{lstlisting}
+
+\bigskip
+
+\Manip Ouvrir le code \textsl{09\_accelero.ino} fourni. Compiler ce code et téléverser ce code dans la carte Nucléo.
+
+Ce code contient les fonctions \textsl{test\_FXOS()} et \textsl{read\_i2c\_buffer()}, ainsi que des définitions des registres internes du composant.
+
+\Manip 
+
+\subsection{Configuration}
+
+
+\subsection{Récupération des données}
+
+\textit{These registers contain the X-axis, Y-axis, and Z-axis 14-bit left-justified sample data expressed as 2's complement numbers.} [NXP Doc p.52 of 113] 
+
+
+\section{Autres fonctionnalités de la carte}
 
 \subsubsection{Capteur température numérique / TC74A2}
 
@@ -448,46 +799,6 @@ LL_GPIO_SetAFPin_0_7(GPIOB,  GPIO_PIN_7,  GPIO_AF1_TIM2);
 \end{lstlisting}
 
 
-
-
-
-\newpage
-
-
-\section{Etape 9 - Acquérir des données de l'accéléromètre (I2C)}
-
-\begin{center} \textbf{\textit{Temps conseillé : 90 min}} \end{center}
-
-Le composant que nous allons étudier est un \textbf{accéléromètre et magnétomètre} intégrés sur une même puce de silicium. Sa référence est \textbf{FXOS8700CQ}. Ce composant est intégré au module \textit{MikroE} \textbf{DOF6 - IMU Click}.
-
-\subsection{Protocole I2C}
-
-DESCRIPTION PROTOCOLE et CONNECTIQUES !
-
-\bigskip
-
-\textsc{Attention !} Les broches utilisées sur la carte Nucléo pour l'I2C ne sont pas celles par défaut. Il est indispensable de préciser les broches SDA et SCL à l'aide des méthodes suivantes :
-
-\begin{lstlisting}
-Wire.setSDA( PB9 );    
-Wire.setSCL( PB8 ); 
-\end{lstlisting}
-
-\bigskip
-
-\Manip Ouvrir le code \textsl{09\_accelero.ino} fourni. Compiler ce code et téléverser ce code dans la carte Nucléo.
-
-Ce code contient les fonctions \textsl{test\_FXOS()} et \textsl{read\_i2c\_buffer()}, ainsi que des définitions des registres internes du composant.
-
-\Manip 
-
-\subsection{Configuration}
-
-
-\subsection{Récupération des données}
-
-\textit{These registers contain the X-axis, Y-axis, and Z-axis 14-bit left-justified sample data expressed as 2's complement numbers.} [NXP Doc p.52 of 113] 
-
 \subsection{Traceur Série}
 
 \begin{lstlisting}
@@ -500,43 +811,6 @@ Ce code contient les fonctions \textsl{test\_FXOS()} et \textsl{read\_i2c\_buffe
   Serial.print(valeur4);
   Serial.println();
 \end{lstlisting}
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%    Présentation de la maquette
-\newpage
-\begin{minipage}[c]{.25\linewidth}
-	\includegraphics[width=4cm]{images/Logo-LEnsE.png}
-\end{minipage} \hfill
-\begin{minipage}[c]{.4\linewidth}
-
-\begin{center}
-\vspace{0.3cm}
-{\Large \textsc{Interfaçage Numérique}}
-
-\medskip
-
-6N-047-SCI \qquad \textbf{\Large Bloc Robot}
-
-\end{center}
-\end{minipage}\hfill
-
-\vspace{0.5cm}
-
-\noindent \rule{\linewidth}{1pt}
-
-{\noindent\Large \rule[-7pt]{0pt}{30pt} \textbf{Robot Joy-It Car} / Présentation du matériel}
-
-\noindent \rule{\linewidth}{1pt}
-
-\bigskip
-
-{\LARGE La tension maximale admissible par les moteurs est de $7\operatorname{V}$ !}
-
-\bigskip
-
-\noindent \rule{\linewidth}{1pt}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
