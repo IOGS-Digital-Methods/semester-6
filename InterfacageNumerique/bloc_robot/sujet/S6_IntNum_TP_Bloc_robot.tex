@@ -234,17 +234,6 @@ Vous pourrez également ajouter d'autres éléments présents sur la carte : enc
 \noindent \rule{\linewidth}{1pt}
 
 
-
-
-	\begin{description}
-		\item[Etape 6 - 60 min] Piloter l'intensité des LEDs de la maquette
-		\item[Etape 7 - 90 min] Piloter les moteurs à courant continu
-		\item[Etape 8 - 60 min] Acquérir des données des capteurs de ligne				\item[Etape 9 - 60 min] Piloter les phares du robot à l'aide de la bibliothèque WS2812 (NeoPixel)
-	\end{description}
-
-
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%    Objectifs
 \section{Objectifs de la séance}
@@ -259,21 +248,64 @@ Cette seconde séance est consacrée à la \textbf{prise en main de la maquette}
 
 \subsection{Eléments constitutifs}
 
+La maquette est basée sur une plateforme robotique \textbf{Joy-It} \textit{Joy-Car} (\href{https://joy-it.net/en/products/mb-joy-car}{joy-it.net/en/products/mb-joy-car}) constituée :
 
+\begin{itemize}
+	\item de \textbf{deux moteurs à courant continu} indépendants, contrôlés par un driver de type L293DN - tension maximale $7\operatorname{V}$ associés à deux encodeurs de position sur les roues motrices ;
+	\item de \textbf{trois capteurs de ligne} (en dessous du robot) ;
+	\item d'un \textbf{capteur à ultrason} (obstacles) monté sur un servomoteur ;
+	\item de \textbf{4 phares}, composés de 2 LEDs RGB de type WS2812 ;
+	\item d'une \textbf{carte de contrôle}, composée :
+	\begin{itemize}
+		\item de deux bouton-poussoirs ;
+		\item de deux LEDs standard ;
+		\item d'un potentiomètre ;
+		\item de deux capteurs de température (un analogique - MCP9700 - et un numérique - TC74A2) ;
+		\item d'un accéléromètre MikroE-6DOF IMU 3 Click ;
+		\item d'un module de communication nRF24L01 ;
+		\item d'une carte Nucléo L476RG.
+	\end{itemize}
+\end{itemize}
+
+\textit{Un schéma de la carte et le brochage des différents éléments sont donnés en annexe de ce document.}
 
 \subsection{Alimentation électrique}
 
+La plateforme robotique est utilisable dans deux configurations différentes :
+\begin{itemize}
+	\item \textbf{non-autonome}, reliée en USB, lors de la phase de programmation de la carte de commande ;
+	\item \textbf{autonome}, sur batterie ou alimentation externe.
+\end{itemize}
+
+\subsubsection{Carte Nucléo}
+
+La carte Nucléo ainsi que la carte de commande (incluant les phares et les capteurs du robot) peut être \textbf{alimentée à l'aide du câble USB} (permettant également la programmation du microcontroleur embarqué sur la carte Nucléo).
+
+\textbf{Attention !} Dans ce régime de fonctionnement, les moteurs et servomoteur ne sont pas utilisables (car non alimentés).
+
+Le jumper \textbf{JP5} de la carte Nucléo doit être positionné du côté \textbf{U5V}.
+
+\textbf{Attention !} Lors de la programmation de la carte Nucléo, il est préconisé de \textbf{ne pas utiliser la partie puissance} !
+
+\subsubsection{Utilisation de la partie puissance (motorisation)}
 
 \noindent \rule{\linewidth}{1pt}
 
-\bigskip
+\medskip
 
-{\LARGE La tension maximale admissible par les moteurs est de $7\operatorname{V}$ !}
+{\large La tension maximale admissible par les moteurs est de $7\operatorname{V}$ !}
 
-\bigskip
+\medskip
 
 \noindent \rule{\linewidth}{1pt}
 
+L'alimentation de cette partie se fait à l'aide du connecteur \textbf{J8}. La broche \textbf{VIN} correspond à la tension positive (comprise entre 5 et 7V) et l'autre broche est reliée à la masse du système.
+
+\textbf{Attention !} Il est conseillé de tester la motorisation du robot à l'aide d'une alimentation stabilisée - et surtout protégée en courant ! - avant de passer à l'utilisation totalement autonome sur batterie.
+
+\medskip
+
+Pour utiliser
 
 \subsection{Brochage}
 
