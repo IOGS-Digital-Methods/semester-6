@@ -179,12 +179,10 @@ On s'intéressera à l'impact du \textbf{temps d'intégration}, de la \textbf{r�
 \subsection{Séance 1 - Modélisation primaire d'une chaine d'acquisition}
 \begin{description}
 	\item[Etape 0 - 30 min] Prendre en main l'interface de pilotage
-	\item[Etape 1 - 30 min] Décrire le rôle des principales caractéristiques d'une caméra CMOS (temps d'intégration, black level...) 
-	\item[Etape 2 - 30 min] Analyser la pertinence de l'éclairage sur une scène à l'aide de l'histogramme d'une image
+	\item[Etape 1 - 30 min] Décrire le rôle des principales caractéristiques d'une caméra CMOS (AOI/ROI, temps d'intégration, échantillonnage, quantification...) 
+	\item[Etape 2 - 60 min] Analyser l'impact des outils de base de la manipulation d'images (\textit{Contraste, luminosité, seuillage et filtrage})
 	\item[Etape 3 - 30 min] Analyser l'impact du choix de la couleur de l'éclairage en fonction des caractéristiques d'un objet
-	\item[Etape 4 - 30 min] Analyser l'impact de l'échantillonnage et la quantification sur les images
-	\item[Etape 5 - 30 min] \textit{Réponse de la caméra}
-	\item[Etape 6 - 60 min] Analyser l'impact des outils de base de la manipulation d'images (\textit{Contraste, luminosité, seuillage et filtrage})
+	\item[Etape 5 - 90 min] Détecter des objets dans une image
 \end{description}
 	
 \subsection{Séance 2 - Manipulation d'images}
@@ -245,7 +243,7 @@ Les documentations de la caméra et de l'éclairage sont disponibles aux adresse
 %%%%%%%%%%%%%    Déroulement détaillé
 
 %%%%%%%%%%%%%    Etape 0
-\section{Prise en main de l'interface}
+\section{Prendre en main l'interface de pilotage}
 
 \begin{center} \textbf{\textit{Temps conseillé : 30 min}} \end{center}
 
@@ -274,11 +272,18 @@ https://github.com/IOGS-LEnsE-ressources/camera-gui
 
 \Manip Ajuster la zone d'intérêt (ou \textit{Area of Interest} - AOI) à l'aide de l'onglet \textsc{Zone d'Intérêt} pour ne sélectionner qu'une partie de l'image autour de l'objet.
 
-\Quest Que pouvez-vous dire des deux histogrammes affichés ?
+\Quest Que pouvez-vous dire des deux histogrammes affichés ? Quelles sont les valeurs minimale et maximale prises par les pixels de la caméra ? Quelle est alors la résolution de la caméra utilisée ?
+
+\medskip
 
 
+\noindent \rule{\linewidth}{1pt}
+
+\textit{\textbf{Pour la suite du TP, on s'assurera de prendre une zone d'intérêt à peu près centrée dans l'image et d'une taille d'environ 500 par 500 pixels.}}
+
+
+\newpage
 %%%%%%%%%%%%%    Etape 1
-
 \section{Décrire le rôle des principales caractéristiques d'une caméra CMOS}
 
 \begin{center} \textbf{\textit{Temps conseillé : 30 min}} \end{center}
@@ -300,65 +305,166 @@ https://github.com/IOGS-LEnsE-ressources/camera-gui
 
 \Quest Que peut-on conclure de l'intérêt du black level ?
 
+\subsection{Echantillonnage et quantification}
 
+\Manip Replacer l'objectif sur la caméra. Placer des objets dans le champ de la caméra. Sélectionner une zone d'intérêt d'environ 500 pixels par 500 pixels autour de l'objet à visualiser. Ajuster le temps d'intégration pour obtenir une image non saturée avec un éclairage blanc. 
+
+\Manip Dans la section \textsc{Quantif./Echant.}, modifier la profondeur de quantification des informations. 
+
+\Quest Que peut-on conclure sur l'effet de la quantification sur l'image ? Vous pourrez vous appuyer sur l'histogramme pour analyser le résultat.
+
+\Manip De la même façon, dans la section \textsc{Quantif./Echant.}, modifier le nombre de pixels de sous-échantillonnage. 
+
+On parle ici d'un phénomène de \textbf{binning}. La résolution de l'image est "dégragée" numériquement dans ce cas et les nouveaux pixels affichés sont la moyenne de N x N pixels de l'image initiale.
+
+\textit{Dans le cas présent, ce phénomène peut simuler le changement de résolution de la caméra sur l'acquisition d'une image numérique.}
+
+\Quest Que peut-on conclure sur l'effet de la résolution de la caméra sur l'image ? Vous pourrez vous appuyer sur l'histogramme pour analyser le résultat.
+
+
+\newpage
 %%%%%%%%%%%%%    Etape 2
-\section{Analyser la pertinence de l'éclairage d'une scène}
+\section{Analyser l'impact des outils de base de la manipulation d'images}
 
-\begin{center} \textbf{\textit{Temps conseillé : 30 min}} \end{center}
+\begin{center} \textbf{\textit{Temps conseillé : 60 min}} \end{center}
 
-Utilisation de l'histogramme et du seuillage par exemple pour définir le bon éclairage permettant de séparer l'objet du fond ?
+Dans cette section, nous allons nous intéresser à quelques fonctionnalités permettant de \textbf{manipuler des images} pour les rendre utilisables : suppression du bruit, seuillage, amélioration du contraste...
 
-Trouver des échantillons pertinents.
+\subsection{Contraste et Luminosité}
+
+\Manip Placer un objet dans le champ de la caméra. Sélectionner une zone d'intérêt d'environ 500 pixels par 500 pixels autour de l'objet à visualiser. Ajuster le temps d'intégration pour obtenir un histogramme dont le pixel maximum a une valeur de l'ordre des 2/3 de la valeur maximale de la caméra. 
+
+\Manip Dans la section \textsc{Pré-Traitement}, puis sous-section \textsc{Contraste / Luminosité}, modifier les valeurs de contraste et de luminosité de l'image.
+
+\Quest Quelles sont les opérations mathématiques réalisées sur les pixels par ces deux fonctionnalités ? Vous pourrez vous appuyer sur les histogrammes des images brutes et modifiées pour analyser vos résultats.
+
+\Manip Dans la sous-section \textsc{Amélioration du Contraste}, tester l'effet des deux curseurs.
+
+\Quest Proposer une interprétation de l'opération effectuée sur chacun des pixels.
 
 
+\subsection{Seuillage}
+
+\Manip Dans la section \textsc{Pré-Traitement}, puis sous-section \textsc{Seuillage}, sélectionner le seuillage \textsl{Normal} et modifier la valeur du seuil.
+
+\Quest Que pouvez-vous conclure sur l'intérêt du seuillage ? Vous pourrez essayer avec des objets de taille, de forme et de couleurs différentes.
+
+\Manip Tester également le mode \textsl{Inversé} et \textsl{Double}.
+
+\Quest Que pouvez-vous conclure sur ces deux modes ?
+ 
+
+\subsection{Filtrage}
+
+\Manip Dans la section \textsc{Filtres}, puis sous-section \textsc{Filtre de lissage}, sélectionner le filtre \textsl{Blur Moyen} et un noyau de taille 15.
+
+\Quest Que se passe-t-il sur l'image ? Vous pourrez également vous appuyer sur la différence entre l'image de base et l'image modifiée, en cliquant sur l'option \textsl{Image - Effet}, pour analyser les effets sur l'image.
+
+\Quest Quel est l'effet de la taille du noyau sur le filtrage ?
+
+\Quest Qu'en est-il avec le filtre de type \textsl{Médian} ? 
+
+\medskip
+
+\textit{Les aspects théoriques liés au filtrage de données (signaux et images) sont abordés dans les modules \textsc{Maths et Signal} (semestre 5) et \textsc{Traitement du Signal} (semestre 6).}
+
+\textit{La mise en oeuvre de ces filtres sur des images sera abordée en TD de ce module et également dans des modules de traitement d'images dans vos prochaines années de formation.}
+
+
+\newpage
 %%%%%%%%%%%%%    Etape 3
 \section{Analyser l'impact du choix de la couleur de l'éclairage}
 
 \begin{center} \textbf{\textit{Temps conseillé : 30 min}} \end{center}
 
+L'acquisition d'image réalisée par l'interface est monochrome. Il est toutefois possible de détecter des couleurs dans les objets à analyser en jouant sur le choix de l'éclairage et sa couleur.
 
-Caméra monochrome : quelle couleur d'éclairage pour détecter la couleur d'un objet ? (premier pas vers colorimétrie/photométrie)
+Vous avez à votre disposition plusieurs objets de couleurs différentes.
 
-Trouver des objets qui ont des comportements similaires en GRAY avec des couleurs différentes.
+IMAGES AVEC CUBES ?
 
+\Manip Placer des cubes de différentes couleurs dans le champ de la caméra.
 
+\Manip Visualiser les images acquises par la caméra en utilisant des couleurs d'éclairage différentes sur les objets.
+
+\textit{Il est préférable de faire ces analyses dans une environnement sombre, voir dépourvu de tout éclairage parasite.}
+
+\Quest Est-il possible de distinguer des couleurs différentes à l'aide de prise d'images successives dans des environnements lumineux différents ? On pourra s'intéresser aux histogrammes des image mais également au procédé de seuillage...
+
+\newpage
 %%%%%%%%%%%%%    Etape 4
-\section{Analyser l'impact de l'échantillonnage et la quantification sur les images}
+\section{Détecter des objets dans une image}
 
-\begin{center} \textbf{\textit{Temps conseillé : 30 min}} \end{center}
+On se propose de détecter les \textbf{veines de nos mains} à l'aide de la caméra et de l'éclairage présent sur le banc. \textit{Et peut-être ainsi vérifier si des aliens se cachent parmi nos troupes...}
+
+EXEMPLE D'IMAGE (Julien M. ?)
+
+Pour cela, nous allons devoir trouver une spécificité dans la couleur de l'objet que l'on cherche à identifier par rapport au reste de la scène (le sang qui coule dans nos veines est plutôt de couleur rouge...).
+
+On peut montrer expérimentalement que l'image résultante ($I$) du calcul suivant permet d'obtenir une image relativement exploitable :
+
+$$I = \frac{I_R}{\sqrt{I_G^2 + I_B^2}}$$
+
+où $I_X = X_{main} - X_{blanc}$ correspond à l'image de la main prise en éclairage R-G-B (rouge, vert ou bleu) sur un fond blanc, à laquelle on a retranché le fond blanc prise dans les mêmes conditions d'éclairage et de temps d'exposition.
+
+\subsection{Protocole}
+
+\textbf{L'ensemble des images devront être prises dans les mêmes conditions géométriques (vous ne devrez pas bouger ni le fond blanc ni votre main) et d'acquisition (temps d'intégration notamment).}
+
+On se placera dans la section \textsc{Histogrammes}, sous-section \textsc{Répartition spatiale} de l'interface de pilotage. Cette section permet de régler le temps d'intégration mais également de sauvegarder une image au format PNG.
+
+\medskip
+
+Le protocole proposé est le suivant :
+
+\begin{itemize}
+	\item Régler le temps d'intégration pour ne pas saturer l'image mais garantir une bonne dynamique d'acquisition, quelques soient les conditions d'éclairage (R, G, B). \textit{Il faudra également vérifier cette dynamique sur fond blanc et en présence de votre main.}
+	\item Acquérir les images sur fond blanc \textbf{sans} l'objet à analyser avec un éclairage rouge, puis bleu, puis vert et les sauvegarder indépendamment au format PNG.
+	\item Acquérir les images sur fond blanc \textbf{avec} l'objet à analyser avec un éclairage rouge, puis bleu, puis vert et les sauvegarder indépendamment au format PNG.
+	\item Ouvrir les images avec un script (Python par exemple).
+	\item Réaliser le traitement proposé précédemment.
+	\item Afficher l'image résultante.
+\end{itemize}
+
+\newpage
+\subsection{Ouverture d'une image avec OpenCV}
+
+Pour ouvrir les images, nous allons utiliser la bibliothèque \textbf{OpenCV} (plus de détails dans la séance 2 de ce TP). Nous utiliserons la version développée pour le langage Python.
+
+Pour installer cette extension sous Python, il faut exécuter la commande suivante dans un terminal (ou Invite de commande sous Windows) :
+
+\begin{lstlisting}
+pip install opencv-python
+\end{lstlisting}
+
+\medskip
+
+Si l'on souhaite ouvrir l'image \textsl{test.png} stockée dans le même que votre script en Python, à l'aide de la bibliothèque OpenCV et l'afficher, il faut utiliser les instructions suivantes :
+
+\begin{lstlisting}
+import cv2
+from matplotlib import pyplot as plt
+
+grayscale_image = cv2.imread('test.png', cv2.IMREAD_GRAYSCALE)
+plt.imshow(grayscale_image, cmap='gray')
+plt.show()
+\end{lstlisting}
+
+L'objet \textsl{grayscale\_image} est une matrice en deux dimensions, issue de la bibliothèque \textsl{Numpy}. Il est alors possible de faire des calculs sur cette matrice : moyenne, somme, addition et autres opérations mathématiques avec d'autres matrices...).
+
+Il sera également possible d'appliquer d'autres fonctionnalités de pré-traitement ou de filtrage. Ces notions seront abordées dans la séance de TP suivante.
 
 
-\subsection{Matériel}
+\subsection{Traitement avec OpenCV}
 
-Objets de tailles différentes, de formes différentes...
+\Manip Réaliser les premières étapes du protocole afin de prendre des images exploitables du fond blanc choisi dans les 3 conditions d'éclairage proposées (R, G et B) ainsi que les images d'une main dans les mêmes conditions d'éclairage et d'acquisition pour la caméra.
 
-Mire papier dans le champ de la caméra pour faire des mesures ?
+\Manip Réaliser un script Python permettant d'ouvrir et d'afficher les 6 images.
 
-Trouver un échantillon (ou une image préenregistrée) permettant par sous-échantillonnage d'obtenir un autre motif (Moiré)
+\Manip Ajouter à ce script la possibilité de calculer l'image résultante du traitement proposé pour détecter les veines.
 
-\subsection{Questions }
+\Quest Est-ce concluant ? Vous pourrez répéter ces étapes afin d'obtenir une meilleure qualité d'image (en jouant sur le temps d'intégration notamment).
 
---> Quelle est l'influence du choix d'un pas de quantification ?
-
---> Quelle est l'influence du choix d'un pas d'échantillonnage ?
-
-
-%%%%%%%%%%%%%    Etape 5
-\section{Réponse de la caméra}
-
-\begin{center} \textbf{\textit{Temps conseillé : 30 min}} \end{center}
-
-A partir des spectres des sources RGB, essayer (sur un même objet - ayant des propriétés quasi équivalentes en reflexion quelque soit la longueur d'onde du visible) de caractériser la courbe de réponse de la caméra ? 
-
-Avec une lumière blanche et des filtres ?
-
-
-%%%%%%%%%%%%%    Etape 6
-\section{Analyser l'impact des outils de base de la manipulation d'images}
-
-\begin{center} \textbf{\textit{Temps conseillé : 60 min}} \end{center}
-
-Via l'interface, jouer sur \textit{Contraste, luminosité, seuillage et filtrage} et voir l'effet sur l'histogramme et sur l'image.
 
 \newpage
 \strut % empty page
