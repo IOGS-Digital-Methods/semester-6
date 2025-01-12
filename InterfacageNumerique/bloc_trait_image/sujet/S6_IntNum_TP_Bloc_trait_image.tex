@@ -700,12 +700,16 @@ Pour en savoir plus sur l'algorithme de détection de contours de Harris :
 
 La méthode de \textbf{Watershed} (littéralement "ligne de partage des eaux") est une technique de \textbf{segmentation d'image} utilisée pour diviser une image en différentes régions ou objets. Elle est basée sur l'idée de traiter l'image comme une topographie où les niveaux de gris représentent des altitudes. L'objectif est de séparer les régions connectées tout en identifiant les limites précises entre elles.
 
-L'algorithme est le suivant :
+Cette méthode nécessite au préalable quelques étapes de pré-traitement, basées sur les méthodes vues au cours de ce TP. 
+
+L'algorithme complet, que vous allez mettre en oeuvre à présent, est le suivant :
 
 \begin{enumerate}
 	\item Ouverture de l'image en niveau de gris et seuillage (par la méthode d'Otsu)
-	\item Réduction du bruit ()
-	
+	\item Réduction du bruit (ouverture morphologique)
+	\item Identification des zones inconnues (ni fond, ni objets)
+	\item Identification des objets	
+	\item Application de l'algorithme de Watershed
 \end{enumerate}
 
 Pour le test et la compréhension de l'algorithme, il est intéressant d'afficher les images obtenues à chaque étape et de comprendre les différences avec l'étape précédente.
@@ -716,11 +720,69 @@ Pour le test et la compréhension de l'algorithme, il est intéressant d'affiche
 
 \subsection{Réduction du bruit}
 
-\Manip Créer un élément structurant elliptique (\textsl{cv2.MORPH\_ELLIPSE}) de taille 5 par 5.
+\Manip Créer un élément structurant elliptique (\textsl{cv2.MORPH\_ELLIPSE}) de taille 3 par 3.
 
 \Manip Utiliser ce noyau pour réaliser une opération morphologique d'ouverture sur l'image binaire précédemment obtenue. 
 
+\subsection{Identification des zones inconnues}
 
+Afin de pouvoir distinguer les objets sur l'image et ainsi les extraire du fond, nous allons chercher à séparer le fond (\textit{background}) des objets (\textit{foreground}).
+
+\Manip Tester le code suivant sur l'image obtenue lors de l'étape précédente :
+
+\begin{lstlisting}
+# sure background area
+sure_bg = cv2.dilate(opening, kernel, iterations=1)
+
+# Finding sure foreground area
+k_dist = 0.4
+dist_transform = cv2.distanceTransform(opening, cv2.DIST_L1, 5)
+ret, sure_fg = cv2.threshold(dist_transform, 
+			k_dist * dist_transform.max(), 255, 0)
+
+# Finding unknown region
+sure_fg = np.uint8(sure_fg)
+unknown = cv2.subtract(sure_bg, sure_fg)
+\end{lstlisting}
+
+\Quest A quoi correspondent les images : \textsl{sure\_bg}, \textsl{sure\_fg}, \textsl{unknown} et \textsl{dist\_transform} ?
+
+\Quest Que se passe-t-il en modifiant le coefficient \textsl{k\_dist} ?
+
+\subsection{Identification des objets}
+
+Les pixels connectés dans les zones identifiées précédemment (\textsl{sure\_fg}) peuvent alors être considérés comme faisant partie d'un même objet. Il s'agit à présent de les identifier comme étant des objets différents.
+
+\Manip Tester le code suivant sur l'image obtenue lors de l'étape précédente :
+
+\begin{lstlisting}
+# Marker labelling
+ret, markers = cv2.connectedComponents(sure_fg)
+# Add one to all labels so that sure background is not 0, but 1
+markers = markers + 1
+# Now, mark the region of unknown with zero
+markers[unknown == 255] = 0
+\end{lstlisting}
+
+\Manip Afficher l'image \textsl{markers}.
+
+\Quest A quoi correspond-elle ? La détection des objets est-elle optimale ? Pourquoi ?
+
+\subsection{Application de l'algorithme de Watershed}
+
+\Manip Tester le code suivant sur l'image obtenue lors de l'étape précédente (\textsl{markers}) et sur l'image RGB originale (\textsl{image\_rgb}) :
+
+\begin{lstlisting}
+image_rgb2 = image_rgb.copy()
+markers2 = cv2.watershed(image_rgb, markers)
+image_rgb[markers2 == -1] = [255, 0, 0]
+\end{lstlisting}
+
+\Quest A quoi sert la première ligne de ce code ?
+
+\Manip Comparer l'image originale, l'image marquée par la méthode de Watershed et l'image finale.
+
+\Quest Concluer sur l'intérêt d'un tel procédé et sur les paramètres qui peuvent modifier le résultat final.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% RESSOURCES COMPLEMENTAIRES		
