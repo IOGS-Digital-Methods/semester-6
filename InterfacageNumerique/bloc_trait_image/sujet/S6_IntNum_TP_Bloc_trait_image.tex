@@ -216,7 +216,6 @@ Par exemple :
 
 
 
-
 \newpage
 %%%%%%%%%%%%%    Etape 0
 \section{Ouvrir une image sous OpenCV et afficher son histogramme}
@@ -224,14 +223,13 @@ Par exemple :
 \begin{center} \textbf{\textit{Temps conseillé : 30 min}} \end{center}
 
 \begin{mdframed}[style=sidebar,frametitle={}]
-Notions : \href{https://iogs-lense-training.github.io/image-processing/contents/opencv.html#open-an-image
-}{\textit{Open an image}} - \href{https://iogs-lense-training.github.io/image-processing/contents/opencv.html#display-an-image
-}{\textit{Display an image}} - \href{https://iogs-lense-training.github.io/image-processing/contents/opencv.html#enhance-the-image-contrast-and-brightness}{\textit{Calculate the histogram}}
+Notions : \href{https://iogs-lense-training.github.io/image-processing/contents/opencv.html#open-an-image}{\textit{Ouvrir une image}} - \href{https://iogs-lense-training.github.io/image-processing/contents/opencv.html#display-an-image
+}{\textit{Afficher une image}} - \href{https://iogs-lense-training.github.io/image-processing/contents/opencv.html#enhance-the-image-contrast-and-brightness}{\textit{Calculer l'histogramme}}
 \end{mdframed}
  
 \Manip Créer un nouveau projet sous PyCharm et impoter la bibliothèque OpenCV2.
 
-\Manip Ouvrir l'image \textsl{robot.jpg} du kit d'images fourni, en niveau de gris. Afficher l'image.
+\Manip Ouvrir et afficher l'image \textsl{robot.jpg} du kit d'images fourni, en niveau de gris.
 
 \Quest Quelle est la taille de l'image ? Quel est le type d'un élément ?
 
@@ -247,15 +245,154 @@ Notions : \href{https://iogs-lense-training.github.io/image-processing/contents/
 
 \begin{center} \textbf{\textit{Temps conseillé : 30 min}} \end{center}
 
-Voir l'impact de la loi de transformation de RGB vers Gray.
+\Manip Ouvrir et afficher l'image \textsl{robot.jpg} du kit d'images fourni, au format RGB.
+
+\Quest Quelle est la taille de l'image ? Quel est le type de données d'un élément ?
+
+\Manip Créer une copie de la matrice image (fonction \textsl{copy()} de Numpy). 
+
+\Manip Forcer à 0 tous les pixels du canal bleu de la copie de l'image et afficher la nouvelle image.
+
+\Quest Est-il possible d'afficher un histogramme de l'image ? 
 
 
+\subsection{RVB vs Niveau de gris}
+
+Une image RVB contient 3 canaux (Rouge, Vert, Bleu ou \textit{RGB} en anglais), tandis qu'une image en niveaux de gris n'en a qu'un. Une image en niveau de gris sera \textbf{3 fois plus rapide} à analyser qu'une image en couleur RVB mais toute notion de couleur sera alors perdue.
+
+\begin{center}
+	\includegraphics[width=0.8\textwidth]{images/images_array_gray_rgb.png}
+\end{center}
+
+
+La couleur des objets peut s'avérer inutile lorsqu'on cherche, par exemple, à détecter des formes particulières ou des contours dans une image.
+
+De nombreux algorithmes d'analyse d'image ou de vision par ordinateur travaillent plus efficacement sur des images en niveaux de gris, permettant notamment d'uniformiser l'entrée des algorithmes et de réduire les informations redondantes liées à la couleur.
+
+\subsection{Plusieurs méthodes de conversion}
+
+Plusieurs méthodes existent pour passer d'une image RVB à une image en niveau de gris :
+
+\begin{itemize}
+	\item Calculer la \textbf{moyenne des valeurs} des trois canaux de couleur (Rouge, Vert, Bleu) pour chaque pixel.
+	\item Utiliser des \textbf{poids spécifiques pour les canaux R, V et B}, basés sur leur contribution relative à la perception humaine.
+	\item Convertir l'image dans un \textbf{autre espace de couleur}, comme YUV, HSL ou HSV, et extraire la composante de luminosité.
+\end{itemize}
+
+\subsubsection{Moyenne des canaux R,V,B}
+
+Cette méthode est la plus simple. Chaque pixel de l'image en gris est la moyenne des pixels des canaux rouge, vert et bleu de l'image en couleur :
+
+$$Pixel_{Gray} = \frac{Pixel_{R} + Pixel_{V} + Pixel_{B}}{3}$$ 
+
+\Manip Créer une image en nuance de gris utilisant la méthode de la moyenne des trois canaux.
+
+\Manip Afficher l'image résultante.
+
+
+\subsubsection{Pondération en fonction de la perception humaine}
+
+Cette méthode est une moyenne pondérée des valeurs des pixels R, V, B de l'image couleur : 
+
+$$Pixel_{Gray} = 0.299 \cdot Pixel_{R} + 0.587 \cdot Pixel_{V} + 0.114 \cdot Pixel_{B}$$ 
+
+
+Les coefficients de cette méthode proviennent de la sensibilité relative de l'œil humain aux différentes couleurs et ont été standardisés à l'origine pour la télévision analogique (NTSC). Ils sont aujourd'hui utilisés comme une approximation fidèle de la perception visuelle de la luminosité.
+
+La méthode de conversion fournie par la bibliothèque OpenCV se base sur cette pondération.
+
+\Manip Convertir l'image RVB en niveau de gris par l'instruction suivante :
+
+\begin{lstlisting}
+image_gray = cv2.cvtColor(image_rgb, cv2.COLOR_BGR2GRAY)
+\end{lstlisting}
+
+\Manip Comparer les images obtenues par la moyenne classique et cette moyenne pondérée.
+
+
+\subsubsection{Utilisation d'un espace colorimétrique différent}
+
+L'espace colorimétrique RVB est très utilisé dans le domaine du numérique (affichage, acquisition d'images) pour sa facilité de mise en oeuvre.
+
+Cependant, ce n'est \textbf{pas} le plus \textbf{adapté vis-à-vis de la perception humaine} où la luminance et la couleur sont séparées.
+
+Des espaces comme YUV, YIQ, ou YCbCr séparent la composante de luminance (Y) des composantes de chrominance (U et V).
+
+\Manip Convertir l'image RVB dans l'espace YUV par l'instruction suivante :
+
+\begin{lstlisting}
+image_yuv = cv2.cvtColor(image_rgb, cv2.COLOR_RGB2YUV)
+\end{lstlisting}
+
+\Manip Comparer alors l'image en niveau de gris obtenue par la méthode de moyennage pondérée et le canal Y de cette conversion.
+
+\Quest Que pouvez-vous conclure sur la méthode de calcul utiliser pour la luminance (Y) ?
+
+\medskip
+
+\noindent \rule{\linewidth}{1pt}
+
+Il existe d'autres espaces colorimétriques dans le domaine numérique. Voici un résumé non exhaustif :
+
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+\textbf{Espace colorimétrique} & \textbf{Avantages} \\ \hline
+\textbf{RGB} & Simple, utilisé pour les écrans et le rendu des couleurs. \\ \hline
+\textbf{HSV / HSL} & Intuitif pour manipuler la couleur (teinte, saturation). \\ \hline
+\textbf{YUV / YCbCr} & Sépare luminance et chrominance. \\ \hline
+\textbf{CIE-Lab} & Uniformité perceptuelle, idéal pour mesurer les différences de couleur. \\ \hline
+\textbf{CMY(K)} & Optimisé pour l'impression. \\ \hline
+\textbf{XYZ} & Modèle basé sur la perception humaine. \\ \hline
+\end{tabular}
+\end{center}
+
+\newpage
 %%%%%%%%%%%%%    Etape 2
 \section{Seuillage et binarisation}
 
 \begin{center} \textbf{\textit{Temps conseillé : 30 min}} \end{center}
 
+\begin{mdframed}[style=sidebar,frametitle={}]
+Notions : \href{https://iogs-lense-training.github.io/image-processing/contents/opencv.html#binarize-an-image}{\textit{Binarisation d'une image}} - \href{https://iogs-lense-training.github.io/python-for-science/contents/python_time.html}{\textit{Mesurer un temps d'exécution}}
+\end{mdframed}
 
+Le seuillage (ou binarisation) d'une image est une technique fondamentale en traitement d'image qui consiste à convertir une image en niveaux de gris en une image binaire, composée uniquement de deux niveaux (0 ou 1, ou encore noir et blanc).
+
+\begin{center}
+	\includegraphics[width=0.8\textwidth]{images/binarized_image.png}
+\end{center}
+
+\subsection{Méthode classique}
+
+\Manip Calculer l'image binarisée de l'image initiale - robot.jpg - (en niveau de gris) avec un seuil de 120, par la méthode \textsc{cv2.THRESH\_BINARY}.
+
+\Manip Afficher l'image résultante. 
+
+\Manip Tester également pour différente valeur de seuil. Tester également la méthode \textsc{cv2.THRESH\_BINARY\_INV}.
+
+\Quest Que pouvez-vous conclure sur l'utilisation de cette méthode.
+
+\subsection{Méthode d'Otsu}
+
+La \textbf{méthode d'Otsu} permet d'effectuer un seuillage global automatique d'une image. Cette méthode est idéale pour les images où les niveaux de gris des objets et de l'arrière-plan forment \textbf{deux classes} bien distinctes. Dans ce cas, le seuil optimal pour séparer les niveaux de gris en deux classes (par exemple, objets d'intérêt et arrière-plan) est trouvé automatiquement : le seuil doit minimiser la variance intra-classe (dispersion des niveaux de gris dans chaque classe) et maximiser la variance inter-classe (différence entre les classes).
+
+Cependant, son efficacité peut être limitée dans des cas de bruit ou de complexité multimodale.
+
+\medskip
+
+Il est possible d'utiliser cette méthode à l'aide de la fonction \textsl{threshold()} d'OpenCV de la façon suivante : 
+
+\begin{lstlisting}
+otsu_val, binary_image = cv2.threshold(image_gray, 0, 255, 
+					cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+\end{lstlisting}
+
+\Manip Tester cette méthode sur l'image \textbf{robot.jpg}. Comparer alors l'image résultante avec la méthode classique de seuillage.
+
+\Quest A quoi correspond la valeur \textsl{otsu\_val} ?
+
+\textit{Vous pourrez aussi comparer les temps d'exécution des deux méthodes...}
 
 
 %%%%%%%%%%%%%    Etape 3
@@ -450,23 +587,140 @@ On va chercher ici à détecter les lignes horizontales et verticales de l'image
 \Manip Tester ces deux exemples sur d'autres images.
 
 
-
-
+\newpage
 %%%%%%%%%%%%%    Etape 6
 \section{Détecter des contours et des points d'intérêt}
 
-Canny et Harrys
-
 \begin{center} \textbf{\textit{Temps conseillé : 90 min}} \end{center}
 
+Le traitement numérique des images, de manière automatisée, vise souvent à \textbf{extraire des informations} d'une image en se basant sur de la {détection des caractéristiques} très spécifiques (ou \textit{features detection}) : 
+
+\begin{itemize}
+	\item détection de coins (Harris...)
+	\item détection de bords (Canny, Sobel, Prewitt...)
+	\item détection de régions homogènes (Laplacien, Difference-of-Gaussian...)
+	\item détection de lignes (Hough...)
+\end{itemize}
+
+Il existe également d'autres procédés plus complexes, notamment invariants à l'échelle et à la rotation, pour détecter des objets dans une image (SIFT, SURF, BRIEF...) ou basés sur l'apprentissage profond (R-CNN...).
 
 
+\subsection{Détection de coins par la méthode de Harris}
+
+Un \textbf{coin} est un point dans une image où l'\textbf{intensité change fortement dans plusieurs directions} (par opposition aux bords, où l'intensité change principalement dans une seule direction).
+
+La \textbf{méthode de Harris} détecte ces coins en analysant les variations locales d'intensité des pixels. Elle repose sur une matrice appelée matrice de structure (ou matrice de Harris), qui résume la distribution locale des gradients dans une région autour d'un pixel. Cette matrice est définie comme suit :
+
+$$M = \begin{pmatrix}
+I_x^2 & I_x \cdot I_y \\
+I_x \cdot I_y & I_y^2\\
+\end{pmatrix}$$
+
+
+où : $I_x$ et $I_y$ sont les dérivées partielles de l'intensité de l'image dans les directions $x$ et $y$. Ces dérivées sont calculées à l'aide d'un filtre Sobel ou similaire.
+
+
+Pour chaque pixel, Harris calcule un score basé sur les valeurs propres ($\lambda_1$, $\lambda_2$) de $M$, en utilisant la formule suivante : 
+$$R = det(M) - k \cdot (trace(M))^2$$
+ 
+où : $det(M) = \lambda_1 \cdot \lambda_2$ est le déterminant de $M$, $trace(M) = \lambda_1 + \lambda_2$ est la trace de $M$ et $k$ est une constante (généralement entre 0.04 et 0.06).
+
+Le score $R$ permet de distinguer les caractéristiques suivantes :
+
+\begin{itemize}
+	\item $R > 0$ : Coin (les deux directions présentent une variation significative) ;
+	\item $R \approx 0$ : Région plate (pas de variation significative) ;
+	\item $R < 0$ : Bord (variation dans une seule direction). 
+\end{itemize}
+
+\medskip
+
+\Manip Ouvrir l'image \textsl{robot.jpg} du kit d'images fourni, en niveau de gris. 
+
+\Manip Appliquer le code suivant sur l'image ainsi ouverte et afficher l'image résultante :
+
+\begin{lstlisting}
+image_harris = cv2.cornerHarris(image_gray, 2, 3, 0.04)
+# result is dilated for marking the corners, not important
+image_harris = cv2.dilate(image_harris, None)
+# Threshold for an optimal value
+image_gray[image_harris > 0.01 * image_harris.max()] = 0
+\end{lstlisting}
+
+\Manip Afficher également le résultat de la méthode \textsl{cornerHarris()}.
+
+\Quest Que pouvez-vous conclure sur l'intérêt de la méthode de Harris ? Vous pourrez faire varier certains paramètres de la méthode \textsl{cornerHarris()}...
+
+
+\subsection{Détection de contour par la méthode de Canny}
+
+La méthode de Canny est un algorithme classique utilisé pour \textbf{détecter les bords} dans une image. On cherche ici à calculer des gradients d'intensité $G_x$ et $G_y$ pour estimer les changements d'intensité dans les directions horizontale et verticale (souvent à l'aide de filtres Sobel).
+
+On peut alors définir l'amplitude du gradient $G$ et sa direction $\theta$ par les formules suivantes : 
+
+$$G = \sqrt{G_x^2 + G_y^2}$$
+
+$$\theta = arctan \frac{G_y}{G_x}$$
+
+ 
+On souhaite ensuite ne conserver que les pixels correspondant aux crêtes (maxima locaux) des gradients dans la direction du gradient. Pour chaque pixel, on compare l'amplitude du gradient avec celles des pixels adjacents dans la direction $\theta$. Si ce n'est pas un maximum, le pixel est supprimé.
+
+Puis deux seuils ($T_{haut}$ et $T_{bas}$) sont alors appliqués pour classifier les pixels :
+
+\begin{itemize}
+	\item $G > T_{haut}$ : pixels forts
+	\item $T_{bas} < G < T_{haut}$ : pixels faibles
+	\item $T_{bas} > G$ : pixels supprimés
+\end{itemize}
+
+Enfin, on détecte les pixels faibles qui sont connectés à des pixels forts. Ces ensembles sont conservés comme bords. Cela permet de relier les fragments de bords discontinus tout en éliminant les bords isolés ou bruités.
+
+\medskip
+
+\Manip Ouvrir l'image \textsl{robot.jpg} du kit d'images fourni, en niveau de gris. 
+
+\Manip Appliquer le code suivant sur l'image ainsi ouverte et afficher l'image résultante :
+
+\begin{lstlisting}
+edges = cv2.Canny(image_gray, min_value, max_value)
+\end{lstlisting}
+
+\medskip
+
+Pour en savoir plus sur l'algorithme de détection de contours de Harris : 
+
+\href{https://docs.opencv.org/4.x/da/d22/tutorial_py_canny.html}{https://docs.opencv.org/4.x/da/d22/tutorial\_py\_canny.html} 
+
+
+\newpage
 %%%%%%%%%%%%%    Etape 7
 \section{Segmenter une image par la méthode de Watershed}
 
-Watershed
-
 \begin{center} \textbf{\textit{Temps conseillé : 90 min}} \end{center}
+
+La méthode de \textbf{Watershed} (littéralement "ligne de partage des eaux") est une technique de \textbf{segmentation d'image} utilisée pour diviser une image en différentes régions ou objets. Elle est basée sur l'idée de traiter l'image comme une topographie où les niveaux de gris représentent des altitudes. L'objectif est de séparer les régions connectées tout en identifiant les limites précises entre elles.
+
+L'algorithme est le suivant :
+
+\begin{enumerate}
+	\item Ouverture de l'image en niveau de gris et seuillage (par la méthode d'Otsu)
+	\item Réduction du bruit ()
+	
+\end{enumerate}
+
+Pour le test et la compréhension de l'algorithme, il est intéressant d'afficher les images obtenues à chaque étape et de comprendre les différences avec l'étape précédente.
+	
+\subsection{Ouverture et seuillage}
+
+\Manip Ouvrir l'image \textsl{bricks2.jpg} du kit d'images fourni, en niveau de gris. Puis appliquer un seuillage selon la méthode d'Otsu.
+
+\subsection{Réduction du bruit}
+
+\Manip Créer un élément structurant elliptique (\textsl{cv2.MORPH\_ELLIPSE}) de taille 5 par 5.
+
+\Manip Utiliser ce noyau pour réaliser une opération morphologique d'ouverture sur l'image binaire précédemment obtenue. 
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% RESSOURCES COMPLEMENTAIRES		
