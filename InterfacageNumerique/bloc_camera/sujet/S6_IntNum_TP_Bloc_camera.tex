@@ -247,13 +247,12 @@ Les documentations de la caméra et de l'éclairage sont disponibles aux adresse
 
 \begin{center} \textbf{\textit{Temps conseillé : 30 min}} \end{center}
 
-\Manip Lancer l'application CMOS\_Machine\_Vision depuis ...
+\Manip Lancer l'application CMOS\_Machine\_Vision depuis le bureau des ordinateurs.
 
-(pour l'instant dernière version officielle sur le github suivant : 
+La dernière version officielle est sur le dépôt GitHub suivant : 
 
-https://github.com/IOGS-LEnsE-ressources/camera-gui  
+https://github.com/IOGS-LEnsE-ressources/machine-vision-gui  (version Basler)
 
--  répertoire applis/CMOS-MachineVision\_v3  )
 
 \begin{center}
 	\includegraphics[width=0.9\textwidth]{./images/camera_gui.png}
@@ -301,7 +300,7 @@ https://github.com/IOGS-LEnsE-ressources/camera-gui
 
 \subsection{Black Level}
 
-\Manip Dans l'obscurité, relever l'histogramme de l'image ainsi que la moyenne et l'écart-type de la répartition de la luminosité des pixels pour différentes valeurs du \textit{black level} : 0, 10, 20, 50.
+\Manip Dans l'obscurité, relever l'histogramme de l'image ainsi que la moyenne et l'écart-type de la répartition de la luminosité des pixels pour différentes valeurs du \textit{black level} : 0, 5, 10, 15.
 
 \Quest Que peut-on conclure de l'intérêt du black level ?
 
@@ -375,25 +374,59 @@ Dans cette section, nous allons nous intéresser à quelques fonctionnalités pe
 %%%%%%%%%%%%%    Etape 3
 \section{Analyser l'impact du choix de la couleur de l'éclairage}
 
-\begin{center} \textbf{\textit{Temps conseillé : 30 min}} \end{center}
+\begin{center} \textbf{\textit{Temps conseillé : 60 min}} \end{center}
 
 L'acquisition d'image réalisée par l'interface est monochrome. Il est toutefois possible de détecter des couleurs dans les objets à analyser en jouant sur le choix de l'éclairage et sa couleur.
 
+
+\subsection{Acquisition à des longueurs d'onde différentes}
+
 Vous avez à votre disposition plusieurs objets de couleurs différentes.
 
-IMAGES AVEC CUBES ?
+\begin{center}
+	\includegraphics[width=0.4\textwidth]{images/cubes.jpg}
+\end{center}
 
-\Manip Placer des cubes de différentes couleurs dans le champ de la caméra.
 
-\Manip Visualiser les images acquises par la caméra en utilisant des couleurs d'éclairage différentes sur les objets.
+\Manip Placer les cubes de 4 couleurs différentes dans le champ de la caméra. Placer également la surface plane noire dans le champ.
+
+\Manip Eclairer successivement la scène en rouge, puis en bleu, puis en vert. Visualiser les images acquises ainsi que les histogrammes associées.
 
 \textit{Il est préférable de faire ces analyses dans une environnement sombre, voir dépourvu de tout éclairage parasite.}
 
-\Quest Est-il possible de distinguer des couleurs différentes à l'aide de prise d'images successives dans des environnements lumineux différents ? On pourra s'intéresser aux histogrammes des image mais également au procédé de seuillage...
+\Quest A partir des histogrammes, proposer une méthode de détection des couleurs des objets.
+
+\Manip Tester votre méthode. Faire valider par un$\cdot$e enseignant$\cdot$e.
+
+\medskip
+
+\Manip Placer à présent la feuille qui présente 3 carrés de couleurs différentes et un dessin.
+
+\begin{center}
+	\includegraphics[width=0.4\textwidth]{images/dessin.jpg}
+\end{center}
+
+\Quest Proposer une méthode de détection de ces couleurs, afin de n'extraire qu'un des carrés.
+
+\Manip Tester votre méthode. Faire valider par un$\cdot$e enseignant$\cdot$e.
+
+\Quest Quelle lettre se cache dans votre dessin ? 
+
+\textit{Vous pouvez également demander l'oeuvre de Thierry A. et rechercher la lettre mystère...}
+
+\subsection{Filtrage optique}
+
+Une autre solution est l'utilisation de filtre optique. Vous avez à votre disposition 3 filtres (R, G, B).
+
+\Manip Tester les différentes combinaisons filtre et éclairage en analysant les objets de couleurs dans le champ de la caméra.
+
+\Quest Est-il possible de renforcer la détection des couleurs des objets par ce principe ?
 
 \newpage
 %%%%%%%%%%%%%    Etape 4
 \section{Détecter des objets dans une image}
+
+\begin{center} \textbf{\textit{Temps conseillé : 60 min}} \end{center}
 
 On se propose de détecter les \textbf{veines de nos mains} à l'aide de la caméra et de l'éclairage présent sur le banc. \textit{Et peut-être ainsi vérifier si des aliens se cachent parmi nos troupes...}
 
