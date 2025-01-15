@@ -83,7 +83,7 @@ Semestre 6
 
 \vfill
 
-\textit{Ce sujet est disponible au format électronique sur le site du LEnsE - https://lense.institutoptique.fr/ dans la rubrique Année / Première Année / Interfaçage Numérique S6 / Bloc Caméra.}
+\textit{Ce sujet est disponible au format électronique sur le site du LEnsE - https://lense.institutoptique.fr/ dans la rubrique Année / Première Année / Interfaçage Numérique S6 / Bloc 2 Caméra, Images et Interfaces / Caméra}
 
 % Bottom of the page
 %{\textbf{\large {Année universitaire} 2024-2025}}
@@ -162,15 +162,6 @@ On s'intéressera à l'impact du \textbf{temps d'intégration}, de la \textbf{r�
 \textit{Le bloc \textbf{Images et OpenCV} (facultatif) de ce module permet d'aller également plus loin dans le pré-traitement des images et leur manipulation.}
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%    Ressources
-
-\section{Ressources}
-\begin{itemize}
-	\item ??
-\end{itemize}
-
-
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%    Déroulement
@@ -181,8 +172,8 @@ On s'intéressera à l'impact du \textbf{temps d'intégration}, de la \textbf{r�
 	\item[Etape 0 - 30 min] Prendre en main l'interface de pilotage
 	\item[Etape 1 - 30 min] Décrire le rôle des principales caractéristiques d'une caméra CMOS (AOI/ROI, temps d'intégration, échantillonnage, quantification...) 
 	\item[Etape 2 - 60 min] Analyser l'impact des outils de base de la manipulation d'images (\textit{Contraste, luminosité, seuillage et filtrage})
-	\item[Etape 3 - 30 min] Analyser l'impact du choix de la couleur de l'éclairage en fonction des caractéristiques d'un objet
-	\item[Etape 5 - 90 min] Détecter des objets dans une image
+	\item[Etape 3 - 60 min] Analyser l'impact du choix de la couleur de l'éclairage en fonction des caractéristiques d'un objet
+	\item[Etape 4 - 60 min] Détecter des objets dans une image
 \end{description}
 	
 \subsection{Séance 2 - Manipulation d'images}
@@ -243,7 +234,7 @@ Les documentations de la caméra et de l'éclairage sont disponibles aux adresse
 %%%%%%%%%%%%%    Déroulement détaillé
 
 %%%%%%%%%%%%%    Etape 0
-\section{Prendre en main l'interface de pilotage}
+\section{Etape 0 / Prendre en main l'interface de pilotage}
 
 \begin{center} \textbf{\textit{Temps conseillé : 30 min}} \end{center}
 
@@ -275,6 +266,8 @@ https://github.com/IOGS-LEnsE-ressources/machine-vision-gui  (version Basler)
 
 \medskip
 
+\Quest A quoi servent les deux bagues présentes sur l'objectif ?
+
 
 \noindent \rule{\linewidth}{1pt}
 
@@ -283,7 +276,7 @@ https://github.com/IOGS-LEnsE-ressources/machine-vision-gui  (version Basler)
 
 \newpage
 %%%%%%%%%%%%%    Etape 1
-\section{Décrire le rôle des principales caractéristiques d'une caméra CMOS}
+\section{Etape 1 / Décrire le rôle des principales caractéristiques d'une caméra CMOS}
 
 \begin{center} \textbf{\textit{Temps conseillé : 30 min}} \end{center}
 
@@ -297,6 +290,7 @@ https://github.com/IOGS-LEnsE-ressources/machine-vision-gui  (version Basler)
 \Manip Placer un cache devant la caméra (ou Prévoir une caméra annexe avec cache - pour éviter d'enlever l'objectif et mettre un cache...) pour vous placer dans l'obscurité.
 
 \Quest La répartition de la luminosité perçu par chaque pixel est-elle uniforme ? Que pouvez-vous en conclure ?
+
 
 \subsection{Black Level}
 
@@ -323,7 +317,7 @@ On parle ici d'un phénomène de \textbf{binning}. La résolution de l'image est
 
 \newpage
 %%%%%%%%%%%%%    Etape 2
-\section{Analyser l'impact des outils de base de la manipulation d'images}
+\section{Etape 2 / Analyser l'impact des outils de base de la manipulation d'images}
 
 \begin{center} \textbf{\textit{Temps conseillé : 60 min}} \end{center}
 
@@ -372,7 +366,7 @@ Dans cette section, nous allons nous intéresser à quelques fonctionnalités pe
 
 \newpage
 %%%%%%%%%%%%%    Etape 3
-\section{Analyser l'impact du choix de la couleur de l'éclairage}
+\section{Etape 3 / Analyser l'impact du choix de la couleur de l'éclairage}
 
 \begin{center} \textbf{\textit{Temps conseillé : 60 min}} \end{center}
 
@@ -424,15 +418,15 @@ Une autre solution est l'utilisation de filtre optique. Vous avez à votre dispo
 
 \newpage
 %%%%%%%%%%%%%    Etape 4
-\section{Détecter des objets dans une image}
+\section{Etape 4 / Détecter des objets dans une image}
 
 \begin{center} \textbf{\textit{Temps conseillé : 60 min}} \end{center}
 
-On se propose de détecter les \textbf{veines de nos mains} à l'aide de la caméra et de l'éclairage présent sur le banc. \textit{Et peut-être ainsi vérifier si des aliens se cachent parmi nos troupes...}
+On se propose de détecter les \textbf{veines de nos doigts} à l'aide de la caméra et de l'éclairage présent sur le banc. Pour cela, nous allons devoir trouver une spécificité dans la couleur de l'objet que l'on cherche à identifier par rapport au reste de la scène (le sang qui coule dans nos veines est plutôt de couleur rouge...).
 
-EXEMPLE D'IMAGE (Julien M. ?)
-
-Pour cela, nous allons devoir trouver une spécificité dans la couleur de l'objet que l'on cherche à identifier par rapport au reste de la scène (le sang qui coule dans nos veines est plutôt de couleur rouge...).
+\begin{center}
+	\includegraphics[width=0.4\textwidth]{images/hands.png}
+\end{center}
 
 On peut montrer expérimentalement que l'image résultante ($I$) du calcul suivant permet d'obtenir une image relativement exploitable :
 
@@ -496,7 +490,15 @@ Il sera également possible d'appliquer d'autres fonctionnalités de pré-traite
 
 \Manip Ajouter à ce script la possibilité de calculer l'image résultante du traitement proposé pour détecter les veines.
 
+Il pourra être intéressant de calculer le logarithme de l'image résultante et d'afficher le résultat. Afin d'isoler plus facilement les pixels intéressants, vous pourrez utiliser l'interface de la caméra en chargeant l'image du logarithme de $I$ et utiliser le seuillage double pour isoler les objets intéressants...
+
 \Quest Est-ce concluant ? Vous pourrez répéter ces étapes afin d'obtenir une meilleure qualité d'image (en jouant sur le temps d'intégration notamment).
+
+\begin{center}
+	\includegraphics[width=0.3\textwidth]{images/blood_detect.png}
+\end{center}
+
+
 
 
 \newpage
@@ -538,11 +540,8 @@ Un tutoriel sur les bases d'OpenCV est disponible à l’adresse suivante :
 Un \textbf{kit d'images} est disponible sur le site du LEnsE dans la rubrique \textit{Année / Première Année / Interfaçage Numérique S6 / Bloc Images et OpenCV / Kit d'images}. 
 
 
-Diapos : SC19 - Image Processing
-
-
 %%%%%%%%%%%%%    Etape 1
-\section{Ouvrir une image sous OpenCV}
+\section{Etape 1 / Ouvrir une image sous OpenCV}
 
 \begin{center} \textbf{\textit{Temps conseillé : 20 min}} \end{center}
 
@@ -571,7 +570,7 @@ différentes images et les bibliothèques de fonction (fichier \textsl{images\_m
 
 
 %%%%%%%%%%%%%    Etape 2
-\section{Calculer l'histogramme d'une image et l'afficher}
+\section{Etape 2 / Calculer l'histogramme d'une image et l'afficher}
 
 \begin{center} \textbf{\textit{Temps conseillé : 20 min}} \end{center}
 
@@ -587,7 +586,7 @@ Notions : \href{https://iogs-lense-training.github.io/image-processing/contents/
 
 
 %%%%%%%%%%%%%    Etape 3
-\section{Améliorer numériquement la qualité d'une image}
+\section{Etape 3 / Améliorer numériquement la qualité d'une image}
 
 \begin{center} \textbf{\textit{Temps conseillé : 20 min}} \end{center}
 
@@ -618,7 +617,7 @@ On utilisera la fonction \textsl{cv2.convertScaleAbs()} pour modifier le contras
 
 
 %%%%%%%%%%%%%    Etape 4
-\section{Appliquer un filtre moyenneur sur une image}
+\section{Etape 4 / Appliquer un filtre moyenneur sur une image}
 
 \begin{center} \textbf{\textit{Temps conseillé : 90 min}} \end{center}
 
@@ -705,7 +704,7 @@ On se propose d'étudier la fonction \textsl{generate\_uniform\_noise\_image()} 
 
 
 %%%%%%%%%%%%%    Etape 5
-\section{Appliquer un filtre passe-haut sur une image}
+\section{Etape 5 / Appliquer un filtre passe-haut sur une image}
 
 \begin{center} \textbf{\textit{Temps conseillé : 60 min}} \end{center}
 
@@ -780,7 +779,7 @@ $$\text{Amplitude} = \sqrt{G_x^2 + G_y^2}$$ où $G_x$ est le résultat de la con
 \Quest Que pouvez-vous conclure sur l'effet de ce filtre ?
 
 %%%%%%%%%%%%%    Etape 6
-\section{Appliquer un filtre par l'intermédiaire de la transformée de Fourier}
+\section{Etape 6 / Appliquer un filtre par l'intermédiaire de la transformée de Fourier}
 
 \begin{center} \textbf{\textit{Temps conseillé : 30 min}} \end{center}
 

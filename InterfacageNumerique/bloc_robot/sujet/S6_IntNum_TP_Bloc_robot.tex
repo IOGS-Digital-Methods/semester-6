@@ -79,7 +79,7 @@ Semestre 6
 
 \vfill
 
-\textit{Ce sujet est disponible au format électronique sur le site du LEnsE - https://lense.institutoptique.fr/ dans la rubrique Année / Première Année / Interfaçage Numérique S6 / Robotique.}
+\textit{Ce sujet est disponible au format électronique sur le site du LEnsE - https://lense.institutoptique.fr/ dans la rubrique Année / Première Année / Interfaçage Numérique S6 / Bloc 1 Systèmes embarqués / Robotique.}
 
 % Bottom of the page
 %{\textbf{\large {Année universitaire} 2024-2025}}
@@ -161,13 +161,13 @@ Vous aurez à votre disposition une \textbf{maquette} basée sur un robot Joy-It
 
 \section{Déroulement du bloc}
 
-\textit{La liste des étapes à suivre pour la réalisation du programme embarqué de la plateforme de rayonnement lumineux est donnée à titre indicatif. L'ordre et le choix des différentes étapes sont laissés à l'appréciation des différents binômes.}
+\textit{La liste des étapes à suivre pour la réalisation du programme embarqué de la plateforme robotique est donnée à titre indicatif. L'ordre et le choix des différentes étapes sont laissés à l'appréciation des différents binômes.}
 
 \textit{Afin de faciliter la réutilisation des codes, il pourra être intéressant de définir des fonctions pour le pilotage des différents éléments.}
 
 \subsection{Séance 1 / Arduino et Nucléo-STM32 (sans maquette !!)}
 
-\textit{Le sujet de cette séance est fourni dans un document annexe, disponible aussi sur le site du LEnsE - https://lense.institutoptique.fr/ dans la rubrique Année / Première Année / Interfaçage Numérique S6 / Bloc Systèmes embarqués / Intro Arduino et STM32.}
+\textit{Le sujet de cette séance est fourni dans un document annexe, disponible aussi sur le site du LEnsE - https://lense.institutoptique.fr/ dans la rubrique Année / Première Année / Interfaçage Numérique S6 / Bloc 1 Systèmes embarqués / Intro Arduino et STM32.}
 
 	\begin{description}
 		\item[Etape 0 - 30 min] Installer les drivers STM32 et tester un premier programme
@@ -246,9 +246,9 @@ Cette seconde séance est consacrée à la \textbf{prise en main de la maquette}
 %%%%%%%%%%%%%    Maquette
 \section{Description de la maquette}
 
-PHOTO MAQUETTE + CARTE
-
-\subsection{Eléments constitutifs}
+\begin{center}
+	\includegraphics[width=0.8\textwidth]{images/robot_maquette.png}
+\end{center}
 
 La maquette est basée sur une plateforme robotique \textbf{Joy-It} \textit{Joy-Car} (\href{https://joy-it.net/en/products/mb-joy-car}{joy-it.net/en/products/mb-joy-car}) constituée :
 
@@ -262,9 +262,6 @@ La maquette est basée sur une plateforme robotique \textbf{Joy-It} \textit{Joy-
 		\item de deux bouton-poussoirs ;
 		\item de deux LEDs standard ;
 		\item d'un potentiomètre ;
-		\item de deux capteurs de température (un analogique - MCP9700 - et un numérique - TC74A2) ;
-		\item d'un accéléromètre MikroE-6DOF IMU 3 Click ;
-		\item d'un module de communication nRF24L01 ;
 		\item d'une carte Nucléo L476RG.
 	\end{itemize}
 \end{itemize}
@@ -293,6 +290,10 @@ La carte Nucléo ainsi que la carte de commande (incluant les phares et les capt
 
 Le cavalier \textbf{JP5} de la carte Nucléo doit être positionné du côté \textbf{U5V}.
 
+\begin{center}
+	\includegraphics[width=0.5\textwidth]{images/nuc_alim.png}
+\end{center}
+
 \textbf{Attention !} Lors de la programmation de la carte Nucléo, il est préconisé de \textbf{ne pas utiliser la partie puissance} !
 
 \subsubsection{Utilisation de la partie puissance (motorisation)}
@@ -307,9 +308,6 @@ Le cavalier \textbf{JP5} de la carte Nucléo doit être positionné du côté \t
 
 L'alimentation de cette partie se fait à l'aide du connecteur \textbf{J8}. La broche \textbf{VIN} correspond à la tension positive (comprise entre 5 et 7V) et l'autre broche est reliée à la masse du système.
 
-IMAGE CONNECTEUR ?
-
-\medskip
 
 \noindent \rule{\linewidth}{1pt}
 
@@ -427,6 +425,13 @@ La \textbf{vitesse de rotation} d'un tel moteur est liée à la \textbf{tension 
 
 Ces composants de puissance nécessitent souvent des alimentations externes pour fonctionner et ne peuvent pas être directement alimentés par des microcontroleurs (tel que celui présent sur la carte Nucléo). Il est donc indispensable d'ajouter des \textbf{étages de conversion de puissance} permettant de passer des signaux de commande (basse puissance) sortant des organes de controle (microcontroleur par exemple) à des signaux de puissance.
 
+% A VOIR !!
+%Pour s'en convaincre, on se propose de ca
+\begin{center}
+	%\includegraphics[width=0.5\textwidth]{images/mcc.png}
+\end{center}
+%\Manip Câbler une alimentation de 
+%% 
 
 \subsubsection{Transistor}
 
@@ -532,7 +537,7 @@ En effet, les systèmes mécaniques, que sont les moteurs, ont des \textbf{const
 %%%%%%%%%%%%%    Etape 8
 \section{Etape 8 / Acquérir des données des capteurs de ligne}
 
-Les capteurs de ligne utilisés sur cette plateforme sont des capteurs optiques. Une LED infrarouge émet un signal vers le bas du robot qui est ensuite réfléchie plus ou moins fortement par le matériau présent au sol. Cette réflexion est alors captée par une photodiode ou un phototransistor.
+Les \textbf{capteurs de ligne} utilisés sur cette plateforme sont des \textbf{capteurs optiques}. Une \textbf{LED infrarouge} émet un signal vers le bas du robot qui est ensuite réfléchie plus ou moins fortement par le matériau présent au sol. Cette réflexion est alors captée par une \textbf{photodiode} ou un phototransistor.
 
 \begin{center}
 	\includegraphics[width=0.6\textwidth]{images/capteur_ligne_gedgayblog.png}
@@ -634,9 +639,51 @@ On souhaite à présent réaliser le \textbf{programme principal} du robot lui p
 %%%%%%%%%%%%%    Etape 11
 \section{Etape 11 / Acquérir les signaux du capteur ultrason}
 
+La maquette est équipée d'un capteur de distance à ultrasons. Le principe est décrit dans le schéma suivant :
 
+\begin{center}
+	\includegraphics[width=0.5\textwidth]{images/Principe_Ultrasons_1_arduino.blaisepascal.fr.jpg}
+	
+	Principe du capteur de distance à ultrasons / https://arduino.blaisepascal.fr/capteur-de-distance-a-ultrasons/
+\end{center}
+
+Un \textbf{émetteur} génère une \textbf{impulsion sonore brève} (à une fréquence non audible). Cette onde est \textbf{réfléchie} par la surface à détecter. L'onde retour, appelée \textsl{écho} est reçue par un \textbf{récepteur}. On mesure alors le \textbf{temps} entre le moment où l'onde est émise et le moment où l'écho revient - souvent nommé temps de vol. Ces ondes se propageant à la vitesse du son (environ 340m/s), il est alors possible de revenir sur la distance parcourue par cette onde.
+
+\newpage
+On se propose par la suite de tester le programme suivant pour la mise en oeuvre de ce type de capteur :
+
+\begin{lstlisting}
+const int trigPin = PB5; // Trigger (emission) 
+const int echoPin = PB3; // Echo (reception) 
+
+long duree; 		// duree de l'echo en ms
+
+void setup() { 
+   pinMode(trigPin, OUTPUT); 
+   pinMode(echoPin, INPUT); 
+   Serial.begin(9600); 
+} 
+void loop() { 
+   // emission d'une impulsion de 10 microsecondes 
+   digitalWrite(trigPin, LOW); 
+   delayMicroseconds(5); 
+   digitalWrite(trigPin, HIGH); 
+   delayMicroseconds(10); 
+   digitalWrite(trigPin, LOW); 
+   
+   duree = pulseIn(echoPin, HIGH);
+   
+   ...
+}
+\end{lstlisting}
 
 \subsection{Travail à réaliser}
+
+\Manip Tester ce code et afficher sur la console Série la durée obtenue en  plaçant un objet "plat" devant le robot. Recommencer l'expérience en faisant varier la distance entre l'objet et le robot.
+
+\Manip Afficher à présent la distance en cm entre le robot et l'objet. 
+
+\Quest Quelle est la limite de détection de ce capteur ?
 
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -753,6 +800,20 @@ Ce code contient les fonctions \textsl{test\_FXOS()} et \textsl{read\_i2c\_buffe
 
 
 \section{Autres fonctionnalités de la carte}
+
+La carte de contrôle est également équipée de 2 connecteurs permettant d'accueillir :
+
+\begin{itemize}
+	\item un \textbf{accéléromètre} MikroE-6DOF IMU 3 Click ;
+	\item un module de \textbf{communication} nRF24L01 ;
+\end{itemize}
+
+Elle est également équipée de \textbf{deux capteurs de température} :
+\begin{itemize}
+	\item un capteur analogique - MCP9700
+	\item un capteur à sortie numérique - TC74A2
+\end{itemize}
+
 
 \subsubsection{Capteur température numérique / TC74A2}
 

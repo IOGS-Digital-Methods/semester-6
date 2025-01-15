@@ -79,7 +79,7 @@ Semestre 6
 
 \vfill
 
-\textit{Ce sujet est disponible au format électronique sur le site du LEnsE - https://lense.institutoptique.fr/ dans la rubrique Année / Première Année / Interfaçage Numérique S6 / Bloc Systèmes embarqués / Intro Arduino et STM32.}
+\textit{Ce sujet est disponible au format électronique sur le site du LEnsE - https://lense.institutoptique.fr/ dans la rubrique Année / Première Année / Interfaçage Numérique S6 / Bloc 1 Systèmes embarqués / Intro Arduino et STM32.}
 
 % Bottom of the page
 %{\textbf{\large {Année universitaire} 2024-2025}}
@@ -269,7 +269,7 @@ Un programme Arduino (comme tout autre programme embarqué) est constitué de \t
 
 \subsection{Choix d'une carte}
 
-La compilation d'un tel programme se fait pour une cible particulière. Avant de pouvoir compilé, il est donc nécessaire de préciser sur quel microcontrôleur (ou quelle carte de prototypage) ce code sera exécuté.
+La compilation d'un tel programme se fait pour une cible particulière. Avant de pouvoir compiler, il est donc nécessaire de préciser sur quel microcontrôleur (ou quelle carte de prototypage) ce code sera exécuté.
 
 Pour cela, dans la barre de menu, sélectionner \textsc{\textbf{Outils} / \textbf{Cartes}}.
 
@@ -522,7 +522,7 @@ Dans cet exemple, à chaque front descendant sur l'entrée \textsl{PA8}, la fonc
 
 \subsection{Travail à réaliser}
 
-On se propose de tester le code \textsl{interrupt\_on\_input.ino}. Ce fichier est disponible sur le site du LEnsE dans la rubrique \textit{Année / Première Année / Interfaçage Numérique S6 / Blocs Systèmes embarqués / Exemples Arduino pour STM32}.
+On se propose de tester le code \textsl{interrupt\_on\_input.ino}. Ce fichier est disponible sur le site du LEnsE dans la rubrique \textit{Année / Première Année / Interfaçage Numérique S6 / Bloc 1 Systèmes embarqués / Exemples Arduino pour STM32}.
 
 \Manip Tester le code fourni. 
 
@@ -536,7 +536,8 @@ On se propose de tester le code \textsl{interrupt\_on\_input.ino}. Ce fichier es
 %%%%%%%%%%%%%    Premier programme
 \section{Etape 4 / Utiliser des sorties modulées en largeur d'impulsion (PWM) - LEDs}
 
-La \textbf{modulation en largeur d'impulsions} (MLI ou \textit{PWM – Pulsed Witdh Modulation} – en anglais) est une méthode permettant de générer un signal rectangulaire de \textbf{période $T$ fixe} (ou de fréquence $1/T$ fixe) et dont le \textbf{rapport cyclique}, i.e. le rapport du temps haut sur la période, noté $RC = \frac{th}{T}$, est variable.
+La \textbf{modulation en largeur d'impulsions} (MLI ou \textit{PWM – Pulsed Witdh Modulation} – en anglais) est une méthode permettant de générer un signal rectangulaire de \textbf{période $T$ fixe} (ou de fréquence $1/T$ fixe) et dont le \textbf{rapport cyclique}, i.e. le rapport du temps haut $t_h$ sur la période, noté $RC = \frac{t_
+h}{T}$, est variable.
 
 \begin{center}
 	\includegraphics[width=0.6\textwidth]{images/MINE_ElecNum_PWM_SignalPrincipe.png}
@@ -608,6 +609,10 @@ On pourra utiliser une des entrées notées \textbf{Ax} (x étant un entier de 0
 \Quest Expliquer le fonctionnement de ce code.
 
 \Manip Réaliser un programme qui permet de modifier la luminosité de la LED câblée sur la sortie D7 à l'aide de la valeur convertie du potentiomètre.
+
+
+\newpage
+\includepdf[pages=1, landscape=true, pagecommand={\section{\texorpdfstring{\hspace{-1em}}{PCB Robot}}}\label{doc:nucleo_pins_476RG}]{NucleoL476RG_pinout.pdf}
 
 \end{document}
 

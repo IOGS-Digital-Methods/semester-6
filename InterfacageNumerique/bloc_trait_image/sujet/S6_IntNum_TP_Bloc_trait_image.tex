@@ -83,7 +83,7 @@ Semestre 6
 
 \vfill
 
-\textit{Ce sujet est disponible au format électronique sur le site du LEnsE - https://lense.institutoptique.fr/ dans la rubrique Année / Première Année / Interfaçage Numérique S6 / Bloc Images et OpenCV.}
+\textit{Ce sujet est disponible au format électronique sur le site du LEnsE - https://lense.institutoptique.fr/ dans la rubrique Année / Première Année / Interfaçage Numérique S6 / Bloc 2 Caméra, Images et Interfaces / Images et OpenCV.}
 
 
 % Bottom of the page
@@ -140,12 +140,12 @@ Un tutoriel sur les bases d'OpenCV est disponible à l’adresse suivante :
 
 \href{https://iogs-lense-training.github.io/image-processing/}{https://iogs-lense-training.github.io/image-processing/}
 
-Un \textbf{kit d'images} est disponible sur le site du LEnsE dans la rubrique \textit{Année / Première Année / Interfaçage Numérique S6 / Bloc Images et OpenCV / Kit d'images}. 
+Un \textbf{kit d'images} est disponible sur le site du LEnsE dans la rubrique \textit{Année / Première Année / Interfaçage Numérique S6 / Bloc 2 Caméra, Images et Interfaces / Images et OpenCV / Kit d'images}. 
 
-Des \textbf{fichiers de fonctions} sont disponibles sur le site du LEnsE dans la rubrique\textit{Année / Première Année / Interfaçage Numérique S6 / Bloc Images et OpenCV / Répertoire vers codes à tester}. 
+Des \textbf{fichiers de fonctions} sont disponibles sur le site du LEnsE dans la rubrique\textit{Année / Première Année / Interfaçage Numérique S6 / Bloc 2 Caméra, Images et Interfaces / Images et OpenCV / Répertoire vers codes à tester}. 
 
 
-Quelques exemples et explications sur les différents pré-traitements d'images est disponible sur le site du LEnsE dans la rubrique \textit{Année / Première Année / Interfaçage Numérique S6 / Bloc Images et OpenCV / Image Processing with OpenCV}. 
+Quelques \textbf{exemples} et explications sur les différents pré-traitements d'images est disponible sur le site du LEnsE dans la rubrique \textit{Année / Première Année / Interfaçage Numérique S6 / Bloc 2 Caméra, Images et Interfaces / Images et OpenCV / Image Processing with OpenCV}. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%    Déroulement
@@ -498,7 +498,7 @@ gradient_image = cv2.morphologyEx(image, cv2.MORPH_GRADIENT, kernel)
 
 % Le gradient met en évidence les bords des objets dans une image, ce qui peut être utile pour détecter des contours ou des transitions nettes dans l'intensité des pixels.
 
-
+\newpage
 %%%%%%%%%%%%%    Etape 4
 \section{Lissage du bruit}
 
@@ -506,11 +506,9 @@ gradient_image = cv2.morphologyEx(image, cv2.MORPH_GRADIENT, kernel)
 
 \subsection{Générer du bruit sur des images}
 
-\begin{mdframed}[style=sidebar,frametitle={}]
-Notions : \href{https://iogs-lense-training.github.io/image-processing/contents/opencv.html#histogram-of-an-image}{\textit{Histogram of an image}} 
-\end{mdframed}
+On se propose d'étudier la fonction \textsl{generate\_gaussian\_noise\_image()} fournie dans le fichier 
 
-On se propose d'étudier la fonction \textsl{generate\_gaussian\_noise\_image()} fournie dans le fichier \textsl{images\_manipulation.py}.
+\textsl{images\_manipulation.py}.
 
 \Manip Tester l'exemple fourni dans le fichier \textsl{noise\_test1.py}.
 
@@ -518,17 +516,17 @@ On se propose d'étudier la fonction \textsl{generate\_gaussian\_noise\_image()}
 
 \medskip
 
-On se propose d'étudier la fonction \textsl{generate\_uniform\_noise\_image()} fournie dans le fichier \textsl{images\_manipulation.py}.
+On se propose d'étudier la fonction \textsl{generate\_uniform\_noise\_image()} fournie dans le fichier 
+
+\textsl{images\_manipulation.py}.
 
 \Manip Tester l'exemple fourni dans le fichier \textsl{noise\_test2.py}.
 
 \Quest La distribution du bruit généré par cette fonction est-elle uniforme ?
 
-\Manip A l'aide de la fonction \textsl{generate\_gaussian\_noise\_image\_percent()}, générer un bruit gaussien de moyenne 30 et d'écart-type 20 sur 10\% de l'image \textsl{robot.jpg} ouverte précédemment en nuance de gris. Visualiser le résultat.
+\Manip A l'aide de la fonction \textsl{generate\_gaussian\_noise\_image\_percent()}, générer un bruit gaussien de moyenne 30 et d'écart-type 20 sur 10\% de l'image \textsl{robot.jpg} ouverte précédemment en nuance de gris. 
 
 
-
-\newpage
 \subsection{Comparer différents filtres de lissage}
 
 On se propose à présent d'analyser l'impact de différents filtres de lissage  (flou gaussien, filtre médian et filtre moyenneur) sur une image.
@@ -537,9 +535,7 @@ Pour ces trois types de filtres, répéter les étapes suivantes :
 
 \Manip Appliquer une opération de lissage avec le filtre souhaité sur l'image \textsl{robot.jpg} avec un noyau de 15 x 15 pixels.
 
-\Manip Stocker dans une matrice la différence entre l'image originale et l'image lissée.
-
-\Manip Afficher l'image originale, l'image lissée et la différence de deux images sur un même graphique pour les comparer.
+\Manip Stocker dans une matrice la différence entre l'image originale et l'image lissée. Afficher l'image originale, l'image lissée et la différence de deux images sur un même graphique pour les comparer.
 
 \Manip Ajouter du bruit gaussien sur l'image et appliquer à nouveau le filtre gaussien. Afficher l'image originale, l'image lissée et la différence de deux images sur un même graphique pour les comparer.
 
