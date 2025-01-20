@@ -15,7 +15,7 @@
  #include "mbed.h"
 
 #define WAIT_TIME_MS 200
-DigitalOut led1(PB_6);
+PwmOut led1(PB_6);
 
 float val_rc = 0;
 
