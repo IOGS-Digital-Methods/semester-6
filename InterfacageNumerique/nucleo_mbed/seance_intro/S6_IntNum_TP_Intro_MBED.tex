@@ -168,7 +168,7 @@ Elles sont équipées d'un débogueur ST-LINK intégré, ce qui permet de progra
 %%%%%%%%%%%%%    Installation des cartes STM32
 \section{Etape 0a / Création d'un compte MBED}
 
-L'interface de développement \textbf{Keil Studio Cloud}, ainsi que les bibliothèques associées, est accessible depuis le site \href{https://www.keil.arm.com/}{https://www.keil.arm.com/} moyennant une inscription préalable (gratuite).
+L'interface de développement \textbf{Keil Studio Cloud}, ainsi que les bibliothèques associées, est accessible depuis le site \href{https://studio.keil.arm.com/}{https://studio.keil.arm.com/} moyennant une inscription préalable (gratuite).
 
 \begin{center}
 	\includegraphics[width=0.9\textwidth]{images/keil_arm_com.png}
@@ -468,7 +468,7 @@ Pour en savoir plus sur les interruptions, vous pouvez consulter le document à 
 Pour \textbf{configurer une broche en entrée permettant une interruption}, il faut ajouter l'instruction suivante \textbf{en dehors de toute fonction} :
 
 \begin{lstlisting}
-DigitalIn   sw1(PA_8);
+InterruptIn   sw1(PA_8);
 \end{lstlisting}
 
 \medskip
