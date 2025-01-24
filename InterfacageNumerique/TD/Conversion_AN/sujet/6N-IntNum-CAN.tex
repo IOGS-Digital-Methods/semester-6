@@ -1,0 +1,196 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Engineering problems / LaTeX Template
+%		Semester 5
+%		Institut d'Optique Graduate School
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	5N-ONIP-Block1	/ Python for Science
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Created by:
+%	Julien VILLEMEJANE - 25/sep/2024
+% Modified by:
+%	
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Professional Newsletter Template
+% LaTeX Template
+% Version 1.0 (09/03/14)
+%
+% Created by:
+% Bob Kerstetter (https://www.tug.org/texshowcase/) and extensively modified by:
+% Vel (vel@latextemplates.com)
+% 
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[10pt]{article} % The default font size is 10pt; 11pt and 12pt are alternatives
+
+\input{6N_ONIP_structure.tex} % Include the document which specifies all packages and structural customizations for this template
+\usepackage{amsmath}
+
+%----------------------------------------------------------------------------------------
+%	DOCUMENT INFORMATIONS
+%----------------------------------------------------------------------------------------
+\def\module{Interfaçage Numérique}
+\def\submodule{IntNum}
+\def\moduleSmall{6N-047-SCI / IN}
+\def\year{2024-2025}
+\def\problem{TD Conversion Analogique Numérique}
+\def\problemName{IntNum / TD Conversion Analogique Numérique}
+
+\def\validation{}
+
+\def\scheduleCM{0}
+\def\scheduleTD{1}
+\def\scheduleTDcomputer{0}
+\def\scheduleTP{0}
+
+\def\workingTeam{}
+
+\def\workingSpecial{}
+
+\def\keywords{Systèmes asservis;ALI;FFT}
+
+
+\begin{document}
+%----------------------------------------------------------------------------------------
+%	HEADER IMAGE
+%----------------------------------------------------------------------------------------
+
+\begin{figure}[h!]
+\centering\includegraphics[width=0.3\linewidth]{logo_iogs.png}
+\end{figure}
+
+%----------------------------------------------------------------------------------------
+%	MAIN BODY - FIRST PAGE
+%----------------------------------------------------------------------------------------
+%
+
+\hypertarget{context}{\heading{\huge \problemName}{6pt}} % \hypertarget provides a label to reference using \hyperlink{label}{link text}
+
+%-----------------------------------
+\centerline {\rule{.70\linewidth}{.25pt}} % Horizontal line
+%-----------------------------------
+\textbf{Exercice 1 / Données numériques}
+
+Les formats des images utilisées dans le domaine de la vidéo numérique sont les suivants (plateforme de \textit{streaming} par exemple) :
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{ 480p}  720 x 480 pixels & 
+\textbf{ 720p}  1280 x 720 pixels & 
+\textbf{Full HD}  1920 x 1080 pixels & 
+\textbf{4K}  3840 x 2160 pixels \\
+\hline
+\end{tabular}
+\end{center}
+
+Ces images sont composées de \textbf{pixels}, chacun codé en \textbf{R}ouge, \textbf{V}ert et \textbf{B}leu. Chacune des couleurs est codée sur \textbf{8 bits}.
+
+Ces images sont rafraichies à un rythme de \textbf{25 images/seconde}.
+
+\medskip
+
+\begin{enumerate}
+	\item Sur combien d'octets sont codés chacun des pixels ?
+	\item Quelle taille, en octets, faut-il pour stocker une image en 4K sur un support physique ? Une image en 720p ?
+	\item Quelle taille, en octets, faut-il pour stocker une seconde de vidéo en 4K sur un support physique ? Une seconde de vidéo en 720p ?
+	
+	\bigskip
+	
+	Les débits en réception des différents moyens de communication actuels sont les suivants (valeur moyenne - décembre 2024) :
+
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+\textbf{ Fibre Optique}  573 Mbits/s & 
+\textbf{ Réseau 5G}  500 Mbit/s \\
+\hline
+\end{tabular}
+\end{center}
+
+	\medskip
+	
+	Dans votre colocation, vous êtes 2 et vous souhaitez regarder deux vidéos différentes. 
+
+	\medskip	
+	
+	\item Quelle qualité vidéo pouvez-vous utiliser à l'aide de votre connexion par fibre optique ? Si l'une des deux personnes passe en mode 4K, quelle est la qualité vidéo maximale que pourra utiliser l'autre personne ? 
+	\item Une coupure de votre routeur vous oblige à passer sur votre téléphone 5G. Quelle est la qualité vidéo maximale utilisable ?
+\end{enumerate}
+
+\textit{On supposera dans cet exercice que les images sont \textbf{non compressées}. Il existe cependant des encodages permettant des réduction de 40\% sans perte en moyenne (\textbf{FFV1}) à 90\% avec perte (\textbf{H.264}).}
+
+\centerline {\rule{.70\linewidth}{.25pt}} % Horizontal line
+%-----------------------------------
+\textbf{Exercice 2 / Transmission numérique}
+
+Sur une fibre, 4 niveaux d'intensité lumineuse et 2 états de polarisation. En déduire la valence, la quantité de bits transmis par motif.
+
+Chaque motif reste un temps $\Delta_T$ sur la fibre. En déduire le débit binaire.
+
+\begin{enumerate}
+	\item ??
+
+\end{enumerate}
+
+\centerline {\rule{.70\linewidth}{.25pt}} % Horizontal line
+%-----------------------------------
+\textbf{Exercice 3 / Conversion analogique-numérique}
+
+Soit le signal suivant. 
+
+COURBE + Niveaux
+
+Il est codé sur 8 niveaux. Combien de bits faut-il pour transmettre un échantillon ? Quels sont les valeurs des premiers échantillons ?
+
+\begin{enumerate}
+	\item ??
+\end{enumerate}
+
+
+
+
+
+\centerline {\rule{.70\linewidth}{.25pt}} % Horizontal line
+%-----------------------------------
+\textbf{Exercice 4 / Conversion numérique-analogique}
+
+\textbf{Montage R-2R}
+
+On s'intéresse à ce montage :
+
+\begin{center}
+	\includegraphics[width=0.5\textwidth]{images/R_2R.png}
+\end{center}
+
+\begin{enumerate}
+	\item Que vaut le courant $I_1$ en fonction du courant $I_0$ (courant passant par la résistance $2R$) ?
+	\item Que vaut le courant $I_2$ en fonction du courant $I_0$ (courant passant par la résistance $2R$) ?
+\end{enumerate}
+
+\textbf{Montage complet}
+
+On s'intéresse à présent au montage suivant :
+
+\begin{center}
+	\includegraphics[width=0.8\textwidth]{images/R_2R_complet.png}
+\end{center}
+
+On supposera que lorsque $A_i = 0$, l'interrupteur $i$ est en position 3 et que lorsque Ai = 1, l'interrupteur $i$ est en position 1.
+
+\begin{enumerate}
+	\item Quel est le type de montage autour de l'ALI ?
+	\item En quoi la structure vue précédemment peut nous aider ?
+	\item Que vaut alors le courant $I_{tot}$ dans la contre-réaction de l'ALI en fonction des courants $I_i$ ?
+	\item Que vaut alors le courant $I_{tot}$ dans la contre-réaction de l'ALI en fonction du courant $I_0$ et des
+valeurs des $A_i$ ?
+\end{enumerate}
+
+\end{document} 
