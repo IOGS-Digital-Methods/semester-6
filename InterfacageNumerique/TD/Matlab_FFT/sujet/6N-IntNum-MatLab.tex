@@ -1,0 +1,153 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Engineering problems / LaTeX Template
+%		Semester 5
+%		Institut d'Optique Graduate School
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	5N-ONIP-Block1	/ Python for Science
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Created by:
+%	Julien VILLEMEJANE - 25/sep/2024
+% Modified by:
+%	
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Professional Newsletter Template
+% LaTeX Template
+% Version 1.0 (09/03/14)
+%
+% Created by:
+% Bob Kerstetter (https://www.tug.org/texshowcase/) and extensively modified by:
+% Vel (vel@latextemplates.com)
+% 
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[10pt]{article} % The default font size is 10pt; 11pt and 12pt are alternatives
+
+\input{6N_ONIP_structure.tex} % Include the document which specifies all packages and structural customizations for this template
+\usepackage{amsmath}
+
+%----------------------------------------------------------------------------------------
+%	DOCUMENT INFORMATIONS
+%----------------------------------------------------------------------------------------
+\def\module{Interfaçage Numérique}
+\def\submodule{IntNum}
+\def\moduleSmall{6N-047-SCI / IN}
+\def\year{2024-2025}
+\def\problem{TD Signaux, images et FFT}
+\def\problemName{IntNum / TD Signaux, images et FFT}
+
+\def\validation{}
+
+\def\scheduleCM{0}
+\def\scheduleTD{0}
+\def\scheduleTDcomputer{1}
+\def\scheduleTP{0}
+
+\def\workingTeam{Par binôme}
+
+\def\workingSpecial{}
+
+\def\keywords{Systèmes asservis;ALI;FFT}
+
+
+\begin{document}
+%----------------------------------------------------------------------------------------
+%	HEADER IMAGE
+%----------------------------------------------------------------------------------------
+
+\begin{figure}[h!]
+\centering\includegraphics[width=0.3\linewidth]{logo_iogs.png}
+\end{figure}
+
+%----------------------------------------------------------------------------------------
+%	MAIN BODY - FIRST PAGE
+%----------------------------------------------------------------------------------------
+%
+\begin{minipage}[t]{1.0\linewidth} % Mini page taking up 65% of the actual page
+
+\hypertarget{context}{\heading{\huge \problemName}{6pt}} % \hypertarget provides a label to reference using \hyperlink{label}{link text}
+
+%-----------------------------------
+\centerline {\rule{.70\linewidth}{.25pt}} % Horizontal line
+
+\medskip
+
+Pour ce TD, nous utiliserons l'environnement \textsc{\textbf{MatLab}} de \textbf{Mathworks}. Il utilise un langage de script destiné au \textbf{calcul scientifique}, au même titre que le langage \textit{Python} associé à des bibliothèques de type \textit{Numpy} et \textit{Matplotlib}.
+
+Des fichiers contenant des exemples sont disponibles sur le site du LEnsE dans la rubrique \textit{Année / Première Année / Interfaçage Numérique S6 / TD Interfaçage Numérique / TD Signaux, images et FFT / Codes Matlab}.
+
+\centerline {\rule{.70\linewidth}{.25pt}} % Horizontal line
+
+
+%-----------------------------------
+\textbf{Exercice 0 / Interface de MatLab}
+
+\begin{enumerate}
+	\item Lancer l'application MatLab 
+	\item Dans la fenêtre \textsl{Command Window} (au centre de l'interface), saisir l'instruction suivante : 
+
+\begin{lstlisting}
+v = linspace(0,1,101)
+\end{lstlisting}
+
+	\item Que réalise cette instruction ? A quoi correspond la zone \textsl{Workspace} (à droite de l'interface) ?
+
+\end{enumerate}
+
+
+\centerline {\rule{.70\linewidth}{.25pt}} % Horizontal line
+%-----------------------------------
+\textbf{Exercice 1 / FFT sur des signaux 1D}
+
+On se propose de tester le code \textsl{exercice1.m}. 
+
+\begin{enumerate}
+	\item Créer un script par la commande \textsl{New Script} (en haut à gauche de l'interface)
+	\item Tester le script fourni.
+	\item Quelle est la fréquence du signal \textsl{ySin1} ? Quelle est la période d'échantillonnage du signal ? Est-ce suffisant ?
+	\item A quoi correspond le second graphique ?
+
+	\medskip	
+	
+	\item Générer un second signal sinusoïdal \textsl{ySin2} de fréquence $287\operatorname{Hz}$ et d'amplitude $3$
+	
+	\item Tracer ces deux signaux sur un même graphique.
+
+	On se propose d'étudier un signal \textsl{ySinSom} correspondant à la somme de ces deux signaux : $ySinSom = ySin1 + ySin2$
+	
+	\item Tracer le signal $ySinSom$ sur un graphique.
+	
+	\medskip
+	
+	\item Calculer la FFT de ce signal et tracer cette réponse en fréquence sur un nouveau graphique. Construire l'axe des fréquences.
+\end{enumerate}
+
+
+
+\centerline {\rule{.70\linewidth}{.25pt}} % Horizontal line
+%-----------------------------------
+\textbf{Exercice 2 / FFT sur des images}
+
+On se propose d'étudier le script \textsl{exercice2.m} (associé à l'image \textsl{test\_image.png}).
+
+\begin{enumerate}
+	\item Tester ce script.
+	\item A quoi servent les différentes étapes de ce script ? Sont-elles très différentes de celles utilisées en \textit{Python} ?
+	
+	\medskip
+	
+	\item Appliquer la fonction \textsl{circular\_mask.py} à la transformée de Fourier de l'image, avec un rayon de 30 pixels.
+	\item Générer l'image associée à cette nouvelle transformée de Fourier (\textsl{ifft2()} - voir l'aide de MatLab) et l'afficher.
+	\item Tester avec plusieurs tailles de rayon. Inverser également le masque. Expliquer l'impact du choix du masque sur l'image finale.
+\end{enumerate}
+
+\end{minipage}
+
+\end{document} 
