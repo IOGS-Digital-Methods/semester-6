@@ -1,0 +1,76 @@
+\documentclass[a4paper]{book}%
+\input{6N_IntNum_structure.tex}
+\usepackage{amsmath}
+
+%----------------------------------------------------------------------------------------
+%	DOCUMENT
+%----------------------------------------------------------------------------------------
+\begin{document}
+
+%----------------------------------------------------------------------------------------
+% SUJET 1
+%----------------------------------------------------------------------------------------
+
+	\input{EnTete.tex}	
+
+
+
+
+	\noindent \hrulefill
+	
+	\begin{large}
+
+\textbf{ATTENTION}
+
+Les tensions admissibles par les entrées de la carte Nucléo doivent être comprises entre 0 et 3.3V.
+	
+	\end{large}
+
+	\noindent \hrulefill
+	
+	
+	\begin{large}
+
+On souhaite tester le fonctionnement du code fourni dans le fichier 
+\textsl{\textbf{test\_nucleo.cpp}}. Ce fichier est disponible sur le site du LEnsE dans la rubrique \textit{Année / Première Année / Interfaçage Numérique S6 / Bloc 1 Systèmes embarqués / Auto-Evaluation / Code de test}.
+	
+	\begin{enumerate}
+		\item Créer un nouveau projet sur \textbf{Keil Studio Cloud} (ou MBed Studio).
+		\item Remplacer le contenu du fichier \textsl{main.cpp} du projet par le contenu du fichier \textsl{test\_nucleo.cpp}.
+		\item Proposer un protocole de test de cette application embarquée. \textit{Vous pouvez vous inspirer de vos précédentes réalisations et utiliser des composants annexes (LED, bouton-poussoir, oscilloscope...).}
+		
+		\medskip
+		
+		\item Mettre en \oe{}uvre ce protocole.
+		\item Expliquer le fonctionnement de ce programme, en justifiant notamment le rôle du \textsf{Ticker} et de la sortie \textsl{outS2}.
+		
+	\bigskip
+	
+	
+On souhaite à présent ajouter la fonctionnalité suivante au programme.
+
+L'appui sur le bouton-poussoir bleu de la carte (entrée numérique \textsl{PC\_13}, nommée \textsl{inBP} dans le programme) permet de valider l'utilisation de la sortie \textsl{outS1} (LED LD2 de la carte). Lors d'un premier appui, le fonctionnement précédent
+est obtenu. Lors d'un second appui, on force la sortie \textsl{outS1} à 0.
+	
+	\medskip
+
+		\item Mettre en \oe{}uvre cette fonctionnalité. \textit{La boucle while(true) ne doit pas être modifiée...}
+	
+	\bigskip
+	
+	Question complémentaire :
+	
+	\medskip
+	
+		\item Proposer et mettre en \oe{}uvre un protocole de test permettant de mesurer le temps d'exécution de l'instruction de conversion analogique-numérique (\textls{read\_u16()}).
+	
+	\end{enumerate}
+
+	\end{large}
+	
+	
+\includepdf[pages=-,landscape=true]{../S6_IntNum_2025_AutoEval_Indiv.pdf}	
+
+
+
+\end{document}
