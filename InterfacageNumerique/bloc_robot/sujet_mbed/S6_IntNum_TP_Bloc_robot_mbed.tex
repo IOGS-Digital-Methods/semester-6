@@ -656,17 +656,13 @@ La maquette est équipée d'un capteur de distance à ultrasons. Le principe est
 Un \textbf{émetteur} génère une \textbf{impulsion sonore brève} (à une fréquence non audible). Cette onde est \textbf{réfléchie} par la surface à détecter. L'onde retour, appelée \textsl{écho} est reçue par un \textbf{récepteur}. On mesure alors le \textbf{temps} entre le moment où l'onde est émise et le moment où l'écho revient - souvent nommé temps de vol. Ces ondes se propageant à la vitesse du son (environ 340m/s), il est alors possible de revenir sur la distance parcourue par cette onde.
 
 \newpage
- TO DO : Code de base + diagramme timing (trig, echo...)
- 
- Basé sur ticker...
-
-
-
 \subsection{Travail à réaliser}
+
+On se propose de tester le code \textsl{dist\_us.cpp}. Ce fichier est disponible sur le site du LEnsE dans la rubrique \textit{Année / Première Année / Interfaçage Numérique S6 / Bloc 1 Systèmes embarqués / Robotique / Exemples MBED pour STM32}.
 
 \Manip Tester ce code et afficher sur la console Série la durée obtenue en  plaçant un objet "plat" devant le robot. Recommencer l'expérience en faisant varier la distance entre l'objet et le robot.
 
-\Manip Afficher à présent la distance en cm entre le robot et l'objet. 
+\Manip Visualiser les signaux des broches D4 et D3 à l'aide de l'oscilloscope.
 
 \Quest Quelle est la limite de détection de ce capteur ?
 
