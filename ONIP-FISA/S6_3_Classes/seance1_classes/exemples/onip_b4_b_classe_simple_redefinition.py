@@ -11,16 +11,18 @@ Created on 09/Apr/2023
 @author: Julien Villemejane
 """
 
+import datetime
+
 class Animal:
 	""" object class Animal
 	"""	
-	def __init__(self, name="Hello", sound="..."):
+	def __init__(self, name:str="Hello", birthyear:int=2000):
 		""" Animal class constructor
 		:name: name of the animal
+		:birthyear: year of birth of the animal
 		"""
 		self.name = name
-		self.sound = sound
-		self.birthyear = 2000
+		self.birthyear = birthyear
 		
 	def __str__(self):
 		""" Animal class display
@@ -30,8 +32,8 @@ class Animal:
 	def move(self):
 		print(f"\t[ {self.name} ] is moving")
 		
-	def speak(self):
-		print(f"\t[ {self.name} ] is saying {self.sound}")
+	def get_age(self) -> int:
+		return datetime.date.today().year - self.birthyear
         
         
 
@@ -43,3 +45,5 @@ if __name__ == '__main__':
     print("Animal 2 Name = ", animal2.name)
     
     print(animal1)
+    
+    print(f"Animal 2 is {animal2.get_age()} years old")
