@@ -18,8 +18,8 @@
 
 #include "mbed.h"
  
-DigitalOut outS1(PA_4);
-DigitalOut outS2(PA_5);
+DigitalOut outS1(PA_5);
+DigitalOut outS2(PA_4);
 InterruptIn inBP(PC_13);    // User button (onboard blue switch)
 AnalogIn inE1(PA_0);     
 
