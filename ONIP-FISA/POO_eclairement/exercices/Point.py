@@ -36,7 +36,8 @@ class Point:
     def __str__(self) -> str:        
         """Display with print method
         """
-        return f'Point {self.name} - X={self.x} / Y={self.y}'
+        return f'p_{self.name} ( {self.x}, {self.y} )'
+
     
     def rename(self, value: str) -> None:
         """Renames the point
@@ -82,3 +83,8 @@ if __name__ == '__main__':
     print(pointB)
     
     print(pointB.distance(pointA))
+    
+    
+    pA = Point(3, 6, 'A')
+    pB = Point(0, 10, 'B')
+    print(pA.distance(pB))

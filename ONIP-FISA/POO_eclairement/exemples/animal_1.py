@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Module Outils Numériques / Semestre 5 / Institut d'Optique
+Module Outils Numériques / Semestre 6 / Institut d'Optique
 
 Classe simple
 
@@ -16,10 +16,10 @@ import datetime
 class Animal:
 	""" object class Animal
 	"""	
-	def __init__(self, name:str="Hello", birthyear:int=2000):
+	def __init__(self, name:str, birthyear:int):
 		""" Animal class constructor
-		:name: name of the animal
-		:birthyear: year of birth of the animal
+		:param name: name of the animal
+		:param birthyear: year of birth of the animal
 		"""
 		self.name = name
 		self.birthyear = birthyear
@@ -32,12 +32,22 @@ class Animal:
 
 
 # Test of the class Animal
-if __name__ == '__main__':
-    animal1 = Animal()
-    print("Animal 1 Name = ", animal1.name)
-    animal2 = Animal("Garfield", 2015)
-    print("Animal 2 Name = ", animal2.name)
-    
-    print(animal1)
-    
-    print(f"Animal 2 is {animal2.get_age()} years old")
+animal1 = Animal("Felix", 2021)
+print("Animal 1 Name = ", animal1.name)
+animal1.name = "John"   # Modifying name of the animal
+print("Animal 1 Name = ", animal1.name)
+animal1.move()          # Calling a method of the Animal class
+
+# New instance of Animal
+animal2 = Animal("Garfield", 2015)
+print("Animal 2 Name = ", animal2.name)
+print(f"Animal 2 is {animal2.get_age()} years old")
+
+
+print(animal1)
+
+# List with objects
+animaux = []
+animaux.append(animal1)
+animaux.append(animal2)
+print(f"Name of animal [0] = {animaux[0].name}")
