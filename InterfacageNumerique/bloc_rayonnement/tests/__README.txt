@@ -13,6 +13,16 @@ Ils ont été compilés avec MBED-OS v6.17 pour des cartes Nucléo L476RG.
 Liste des fichiers
 ==================
 
+_IntNum_rayon_sw_leds.NUCLEO_L476RG.bin
+	Test des bouton-poussoirs et des LEDs de la carte.
+	L'appui sur SW1 change l'état de LED1, sur SW2 de LED2.
+	L'appui sur le bouton de la carte Nucléo éteint la LED de la carte Nucléo.
+
+_IntNum_rayon_pot_leds.NUCLEO_L476RG.bin
+	Test du potentiomètre et des sorties PWM.
+	Le potentiomètre RV1 modifie l'intensité lumineuse de la LED2.
+	Les bouton-poussoirs SW1 et SW2 modifient l'intensité lumineuse de la LED1.
+
 _IntNum_rayon_spi_led.NUCLEO_L476RG_200mA.bin
 _IntNum_rayon_spi_led.NUCLEO_L476RG_13mA.bin
 	Test de la commande de la LED de puissance - alimentation réglée à 200mA max
