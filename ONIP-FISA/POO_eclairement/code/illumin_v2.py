@@ -284,9 +284,17 @@ class WorkingPlan:
 if __name__ == '__main__':
     led1 = Source(100, 30, 1, 1.5, 1, 0, 0)
     led1.set_direction(120, 50)
-    led2 = Source(100, 10, 1.5, 2.5, 1, 90, 50)
+    led2 = Source(100, 60, 1.5, 2.5, 1, 90, 50)
 
-    w_plan = WorkingPlan(2, 3, 0.1)
+    alpha = np.linspace(-90, 90, 100)
+    led1_int = led1.get_intensity_deg(alpha)
+    led2_int = led2.get_intensity_deg(alpha)
+    plt.figure()
+    plt.plot(alpha, led1_int)
+    plt.plot(alpha, led2_int)
+    plt.show()
+
+    w_plan = WorkingPlan(2, 3, 0.3)
     w_plan.add_source(led1)
     #w_plan.add_source(led2)
     w_plan.print_sources_list()
