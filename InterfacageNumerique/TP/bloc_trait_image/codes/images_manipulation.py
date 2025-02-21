@@ -171,3 +171,19 @@ def circular_mask(radius, image, inverted: bool=False):
     else:
         mask = dist_from_center <= radius
     return image * mask
+	
+	
+def elliptic_mask(image, cx=0, cy=0, a=0.5, b=0.5):
+    """
+	Return elliptic mask from an image size.
+    :param image: initial image to mask
+    :param cx: X-axis center, from -1 to 1
+    :param cy: Y-axis center, from -1 to 1
+    :param a: X-axis dimension, from -1 to 1
+    :param b: Y-axis dimension, from -1 to 1
+    """
+    height, width = image.shape
+    x = np.linspace(-1, 1, width)
+    y = np.linspace(-1, 1, height)
+    X, Y = np.meshgrid(x, y)
+    return ((X - cx) ** 2) / a ** 2 + ((Y - cy) ** 2) / b ** 2 <= 1
