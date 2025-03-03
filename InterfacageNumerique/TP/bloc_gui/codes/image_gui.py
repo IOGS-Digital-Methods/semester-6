@@ -83,10 +83,14 @@ class MainWindow(QMainWindow):
         Display an image in the main section.
         :param pixmap: Image to display.
         """
-        height, width, channels = image_array.shape
-        if channels == 3:
+        if len(image_array.shape) == 3:
+            height, width, channels = image_array.shape
             qimage_format = QImage.Format.Format_RGB888
-        qimage = QImage(image_array.data, width, height, 3 * width, qimage_format)
+        else:
+            height, width = image_array.shape
+            channels = 1
+            qimage_format = QImage.Format.Format_Grayscale8
+        qimage = QImage(image_array.data, width, height, channels * width, qimage_format)
         pixmap = QPixmap.fromImage(qimage)
         label_size = self.main_section.size()
         label_size.setWidth(label_size.width() - 20)
@@ -97,6 +101,7 @@ class MainWindow(QMainWindow):
             Qt.TransformationMode.SmoothTransformation
         )
         self.main_section.image_label.setPixmap(scaled_pixmap)
+        
 
 class MainMenuWidget(QWidget):
     """
@@ -162,6 +167,8 @@ class MainWidget(QWidget):
         size = self.size()
         QWidget.resizeEvent(self, event)
         self.image_label.setFixedSize(size.width()-20, size.height()-20)
+        if self.parent.image_array is not None:
+            self.parent.display_image(self.parent.image_array)
 
 
 if __name__ == "__main__":
