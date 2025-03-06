@@ -1,0 +1,125 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Engineering problems / LaTeX Template
+%		Semester 5
+%		Institut d'Optique Graduate School
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	5N-ONIP-Block1	/ Python for Science
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Created by:
+%	Julien VILLEMEJANE - 25/sep/2024
+% Modified by:
+%	
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Professional Newsletter Template
+% LaTeX Template
+% Version 1.0 (09/03/14)
+%
+% Created by:
+% Bob Kerstetter (https://www.tug.org/texshowcase/) and extensively modified by:
+% Vel (vel@latextemplates.com)
+% 
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[10pt]{article} % The default font size is 10pt; 11pt and 12pt are alternatives
+
+\input{6N_ONIP_structure.tex} % Include the document which specifies all packages and structural customizations for this template
+\usepackage{amsmath}
+
+%----------------------------------------------------------------------------------------
+%	DOCUMENT INFORMATIONS
+%----------------------------------------------------------------------------------------
+\def\module{Interfaçage Numérique}
+\def\submodule{IntNum}
+\def\moduleSmall{6N-047-SCI / IN}
+\def\year{2024-2025}
+\def\problem{TD Caméra et Images}
+\def\problemName{IntNum / TD Caméra et Images}
+
+\def\validation{}
+
+\def\scheduleCM{0}
+\def\scheduleTD{1}
+\def\scheduleTDcomputer{0}
+\def\scheduleTP{0}
+
+\def\workingTeam{}
+
+\def\workingSpecial{}
+
+\def\keywords{Capteur CMOS; Images; Convolution; Erosion}
+
+
+\begin{document}
+%----------------------------------------------------------------------------------------
+%	HEADER IMAGE
+%----------------------------------------------------------------------------------------
+
+\begin{figure}[h!]
+\centering\includegraphics[width=0.3\linewidth]{logo_iogs.png}
+\end{figure}
+
+%----------------------------------------------------------------------------------------
+%	MAIN BODY - FIRST PAGE
+%----------------------------------------------------------------------------------------
+%
+
+\hypertarget{context}{\heading{\huge \problemName}{6pt}} % \hypertarget provides a label to reference using \hyperlink{label}{link text}
+
+%-----------------------------------
+\centerline {\rule{.70\linewidth}{.25pt}} % Horizontal line
+%-----------------------------------
+\textbf{Exercice 1 / Caméra CMOS}
+
+\begin{enumerate}
+	\item Faire un schéma représentant les éléments constitutifs d'un pixel d'une caméra CMOS.
+	
+	\bigskip
+	
+	On souhaite, à l'aide d'une caméra CMOS, visualiser un objet pouvant être contenu dans un carré de $4.5\operatorname{cm}$ de côté.
+	
+	On veut pouvoir mesurer des distances à une précision de l'ordre du $\operatorname{mm}$. On prendra une résolution de $5\operatorname{pixels/mm}$.
+	
+	\item Quelle doit être la résolution minimale du capteur ?
+	
+	On choisit une caméra dont les pixels font $3\operatorname{\mu{}m}$ de côté.
+	
+	\item Quelle est la taille du capteur ?
+	
+	L'objet sera placé à $20\operatorname{cm}$ du capteur. On souhaite à présent caractériser l'objectif à placer devant le capteur.
+	
+	\item Faire un schéma de principe de l'objet et de l'image de l'objet (optique instrumentale).	
+	\item Quel grandissement faut-il pour répondre au cahier des charges ?
+	\item Quelle focale faut-il choisir pour l'objectif ?
+	
+\end{enumerate}
+
+\centerline {\rule{.70\linewidth}{.25pt}} % Horizontal line
+%-----------------------------------
+\textbf{Exercice 2 / Opérations morphologiques - Erosion et Dilatation}
+
+L'\textbf{érosion} et la \textbf{dilatation} sont deux opérations de base en morphologie mathématique, utilisées pour le pré-traitement et l'analyse d'images.
+
+\medskip
+
+L'\textbf{érosion} est une opération qui réduit les objets présents dans l'image. Elle consiste à appliquer un \textbf{élément structurant} (ou noyau) à chaque pixel et à ne conserver un pixel que si tous les pixels couverts par l'élément structurant correspondent à l'objet (opération booléenne ET).
+
+La \textbf{dilatation} est l'opération inverse de l'érosion. Elle élargit les objets dans l'image. Un pixel devient un pixel de l'objet s'il y a au moins un pixel de l'objet sous l'élément structurant (opération booléenne OU).
+
+
+\begin{enumerate}
+	\item A partir des noyaux proposés dans les pages suivantes, réaliser l'opération morphologique d'érosion et de dilatation sur l'exemple donné.
+	\item Quel noyau utilisé pour détecter des lignes verticales ? Tester sur les exemples fournis en annexe.	
+\end{enumerate}
+
+\includepdf[pages={1,2}, pagecommand={\section{\texorpdfstring{\hspace{-1em}}{Image Processing}}}\label{doc:image_proc}]{../Feuille_exo_TD.pdf}
+
+
+\end{document} 
