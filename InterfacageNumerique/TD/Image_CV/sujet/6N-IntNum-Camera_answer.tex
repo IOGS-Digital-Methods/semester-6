@@ -1,13 +1,13 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Engineering problems / LaTeX Template
-%		Semester 5
+%		Semester 6
 %		Institut d'Optique Graduate School
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%	5N-ONIP-Block1	/ Python for Science
+%	6N-IntNum-CamIm	/ Camera et Images
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 % Created by:
-%	Julien VILLEMEJANE - 25/sep/2024
+%	Julien VILLEMEJANE - 10/march/2025
 % Modified by:
 %	
 %
@@ -40,8 +40,8 @@
 \def\submodule{IntNum}
 \def\moduleSmall{6N-047-SCI / IN}
 \def\year{2024-2025}
-\def\problem{TD Conversion Analogique Numérique}
-\def\problemName{IntNum / TD Conversion Analogique Numérique}
+\def\problem{TD Caméra et Images}
+\def\problemName{IntNum / TD Caméra et Images}
 
 \def\validation{}
 
@@ -54,7 +54,7 @@
 
 \def\workingSpecial{}
 
-\def\keywords{Systèmes asservis;ALI;FFT}
+\def\keywords{Capteur CMOS; Images; Convolution; Erosion}
 
 
 \begin{document}
@@ -76,252 +76,106 @@
 %-----------------------------------
 \centerline {\rule{.70\linewidth}{.25pt}} % Horizontal line
 %-----------------------------------
-\textbf{Exercice 1 / Données numériques}
-
-Les images couleurs sont composées de \textbf{pixels}, chacun codé en \textbf{R}ouge, \textbf{V}ert et \textbf{B}leu. Chacune des couleurs est codée sur \textbf{8 bits}. Les formats des images utilisées dans le domaine de la vidéo numérique sont les suivants (plateforme de \textit{streaming} par exemple) :
-
-\begin{center}
-\begin{tabular}{|c|c|c|c|}
-\hline
-\textbf{ 480p}  720 x 480 pixels & 
-\textbf{ 720p}  1280 x 720 pixels & 
-\textbf{Full HD}  1920 x 1080 pixels & 
-\textbf{4K}  3840 x 2160 pixels \\
-\hline
-\end{tabular}
-\end{center}
-
-Ces images sont rafraichies à un rythme de \textbf{25 images/seconde}.
-
-\medskip
+\textbf{Exercice 1 / Caméra CMOS}
 
 \begin{enumerate}
-	\item Sur combien d'octets sont codés chacun des pixels ?
-	\item Quelle taille, en octets, faut-il pour stocker une image en 4K sur un support physique ? Une image en 720p ?
-	\item Quelle taille, en octets, faut-il pour stocker une seconde de vidéo en 4K sur un support physique ? Une seconde de vidéo en 720p ?
+	\item Faire un schéma représentant les éléments constitutifs d'un pixel d'une caméra CMOS.
 	
 	\bigskip
 	
-	Les débits en réception des différents moyens de communication actuels sont les suivants (valeur moyenne - décembre 2024) :
-
-\begin{center}
-\begin{tabular}{|c|c|}
-\hline
-\textbf{ Fibre Optique}  573 Mbits/s & 
-\textbf{ Réseau 5G}  500 Mbit/s \\
-\hline
-\end{tabular}
-\end{center}
-
-	\medskip
+	On souhaite, à l'aide d'une caméra CMOS, visualiser un objet pouvant être contenu dans un carré de $4.5\operatorname{cm}$ de côté.
 	
-	\item Dans votre colocation, vous êtes 2 et vous souhaitez regarder deux vidéos différentes. Quelle qualité vidéo pouvez-vous utiliser à l'aide de votre connexion par fibre optique ?
-	\item Une coupure de votre routeur vous oblige à passer chacun sur votre téléphone 5G. Quelle est la qualité vidéo maximale utilisable ?
-\end{enumerate}
-
-\textit{On supposera dans cet exercice que les images sont \textbf{non compressées}. Il existe cependant des encodages permettant des réduction de 40\% sans perte en moyenne (\textbf{FFV1}) à 90\% avec perte (\textbf{H.264}).}
-
-
-\section*{Correction}
-
-1/ chaque pixel est codé sur 3 valeurs de 8 bits (R,G,B), soit \textbf{3 octets}.
-
-\medskip
-
-2/ Image \textbf{4K} = (3840 x 2160) pixels x 3 octets = \textbf{24.9 Mo = 23.7 Mio} 
-
-(1 Mio = 1024 x 1024 octets)
-
-Image \textbf{720p} = (1280 x 720) pixels x 3 octets = \textbf{2.8 Mo = 2.6 Mio}
-
-\medskip
-
-3/ \textbf{Une seconde de vidéo} à 25 images/seconde correspond à 25 images.
-
-Taille 1s \textbf{4K} = Image 4K x 25 = \textbf{622 Mo = 593 Mio}
- 
-Taille 1s \textbf{720p} = Image 720p x 25 = \textbf{69 Mo = 65.9 Mio}
-
-\medskip
-
-4/ En fibre, Débit = 573 Mbits/s = 71.6 Mo/s.
-
-Ce débit est à diviser en 2 soit 35.8 Mo/s par utilisateur.
-
-Taille 1s \textbf{480p} = (720 x 480 x 3) x 25 = \textbf{25.9 Mo}
-
-Il faut un débit de 66 Mo/s pour du 720p alors qu'il ne faut qu'un débit de 26 Mo/s pour du 480p.
-
-La qualité maximale sera du \textbf{480p}.
-
-\medskip
-
-5/ Le débit 5G est de 500 Mbits/s = 62.5 Mo/s. Uniquement en 480p (idem question 4).
-
-Si la coupure dure 1h, vous allez consommer, en 480p :
-
-Quantité = ((720 x 480) x 3) x 25 x 3600 = \textbf{93Go}
-
-
-\newpage
-\centerline {\rule{.70\linewidth}{.25pt}} % Horizontal line
-%-----------------------------------
-\textbf{Exercice 2 / Conversion analogique-numérique}
-
-Soit le signal suivant. 
-
-\begin{center}
-	\includegraphics[width=0.7\textwidth]{images/can_signal.png}
-\end{center}
-
-On souhaite l'encoder sur sur 8 niveaux entre les valeurs \textsl{MIN} et \textsl{MAX}. Les échantillons [i] sont pris à intervalle régulier
-
-
-
-\begin{enumerate}
-	\item Combien de bits faut-il pour transmettre un échantillon ?
-	\item Graduer l'axe des ordonnées avec les valeurs obtenues en sortie du convertisseur analogique-numérique (valeurs binaire et décimale).
-	\item Quelles sont les valeurs binaires et décimales des 8 premiers échantillons ?
-\end{enumerate}
-
-
-\section*{Correction}
-
-1/ Il faudra 3 bits, $2^3 = 8$.
-
-\medskip
-
-2/ 3/
-
-\begin{center}
-	\includegraphics[width=0.7\textwidth]{images/can_signal_corr.png}
-\end{center}
-
-
-\newpage
-%-----------------------------------
-\textbf{Exercice 3 / Transmission numérique}
-
-On souhaite transmettre des informations binaires sur une fibre. Le laser d'émission peut être piloté selon 4 niveaux d'intensité lumineuse. On ajoute également la possibilité de choisir 2 états de polarisation. 
-
-\textit{On supposera que le délai de changement de niveaux de luminosité et de polarisation n'est pas un facteur limitant de la transmission.}
-
-\begin{enumerate}
-	\item Quelle est la \textbf{valence} de ce mode de transmission ?
-	\item Quelle est la \textbf{quantité de bits transmis} par motif ?
-	\item Chaque motif reste un temps $\Delta_T$ sur la fibre. En déduire le \textbf{débit binaire} en bits/s puis en octets/s. 
+	On veut pouvoir mesurer des distances à une précision de l'ordre de $100\operatorname{\mu{}m}$. On prendra une résolution de $S = 4\operatorname{pixels}$ pour $100\operatorname{\mu{}m}$.
+	
+	\item Quelle doit être la résolution minimale du capteur ?
+	
+	\bigskip	
+	
+	On choisit une caméra dont les pixels font $3\operatorname{\mu{}m}$ de côté.
 	
 	\medskip	
 	
-	AN : $\Delta_T = 100\operatorname{ns}$
+	\item Quelle est la taille du capteur ?
+
+	\bigskip	
+	
+	L'objet sera placé à $10\operatorname{cm}$ de l'objectif. On souhaite à présent caractériser l'objectif à placer devant le capteur.	
+	
+	\medskip	
+	
+	\item Faire un schéma de principe de l'objet et de l'image de l'objet (optique instrumentale). \textit{On supposera que l'objectif peut-être modélisé par une lentille mince.}	
+
+	\medskip	
+	
+	\item Quel grandissement faut-il pour répondre au cahier des charges ?
+	\item Quelle focale faut-il choisir pour l'objectif ?
+	
 \end{enumerate}
 
 
 \section*{Correction}
 
-1/ La \textbf{valence} correspond au nombre de motifs différents qu'il est possible de transmettre indépendamment (nombre d'états possibles d'un signal transmis) : ici il y a 4 x 2 motifs possibles, soient 8 motifs.  \textbf{$v = 8$}
+1/ 
 
-\medskip
+\begin{center}
+	\includegraphics[width=\textwidth]{images/pixel_to_adc.png}
+\end{center}
 
-2/ Pour pouvoir coder 8 motifs différents, \textbf{3 bits} sont nécessaires ($n = log_2(v)$).
 
-\medskip
+2/
 
-3/ On peut noter $R$ la rapidité de modulation (en bauds) : $R = 1 / \Delta_T$
+\begin{center}
+	\includegraphics[width=0.5\textwidth]{images/camera_design.png}
+\end{center}
 
-Le débit binaire vaut : $D = n \cdot R$ 
+	$$N_x = \frac{Dx}{rx} \cdot S_x$$
 
-Ici : $D = n / \Delta_T = 3 / 10^{-7} = 30 \cdot 10^6 = 30\operatorname{Mbits/s} = 3.75\operatorname{Mo/s}$
+  $$N_x = N_y = \frac{45\operatorname{mm}}{100\operatorname{\mu{}m}} \cdot 4 = 1800\operatorname{pixels}$$ 
+  
+  Le capteur devra faire au minimum 1800 pixels de côté.
+  
+
+3/ Si chacun des pixels fait $3\operatorname{\mu{}m}$, le capteur fera au minimum : $c_x = N_x \cdot 3\operatorname{\mu{}m} = 5.4\operatorname{mm}$ de côté.
+
+4/ 
+
+\begin{center}
+	\includegraphics[width=0.5\textwidth]{images/objectif.png}
+\end{center}
+
+5/ Le grandissement vaut : $g_x = c_x / D_x = 5.4/45 = 0.12$
+
+6/ Le grandissement vaut également : $g_x = z' / z$.
+
+On peut alors calculer $z' = 12\operatorname{mm}$
+
+Les distances objet-objectif et objectif-image fixe la distance focale par la formule suivante : 
+
+$$\frac{1}{z'} - \frac{1}{z} = \frac{1}{f'}$$
+
+On obtient alors $f' = 13.6\operatorname{mm}$.
 
 
 \newpage
 \centerline {\rule{.70\linewidth}{.25pt}} % Horizontal line
 %-----------------------------------
-\textbf{Exercice 4 / Conversion numérique-analogique}
+\textbf{Exercice 2 / Opérations morphologiques - Erosion et Dilatation}
 
-\textbf{Montage R-2R}
+L'\textbf{érosion} et la \textbf{dilatation} sont deux opérations de base en morphologie mathématique, utilisées pour le pré-traitement et l'analyse d'images.
 
-On s'intéresse à ce montage :
+\medskip
 
-\begin{center}
-	\includegraphics[width=0.5\textwidth]{images/R_2R.png}
-\end{center}
+L'\textbf{érosion} est une opération qui réduit les objets présents dans l'image. Elle consiste à appliquer un \textbf{élément structurant} (ou noyau) à chaque pixel et à ne conserver un pixel que si tous les pixels couverts par l'élément structurant correspondent à l'objet (opération booléenne ET).
+
+La \textbf{dilatation} est l'opération inverse de l'érosion. Elle élargit les objets dans l'image. Un pixel devient un pixel de l'objet s'il y a au moins un pixel de l'objet sous l'élément structurant (opération booléenne OU).
+
 
 \begin{enumerate}
-	\item Que vaut le courant $I_1$ en fonction du courant $I_0$ (courant passant par la résistance $2R$) ?
-	\item Que vaut le courant $I_2$ en fonction du courant $I_0$ (courant passant par la résistance $2R$) ?
+	\item A partir des noyaux proposés dans les pages suivantes, réaliser l'opération morphologique d'érosion et de dilatation sur l'exemple donné.
+	\item Quel noyau utilisé pour détecter des lignes verticales ? Tester sur les exemples fournis en annexe.	
 \end{enumerate}
 
-\section*{Correction}
-
-1/  On peut s'intéresser à la résistance équivalente entre les points A et M.
-
-	On trouve entre A et M une résistance $R$ en série avec un ensemble en parallèle de 2 résistances de $2R$.
-	
-	$R_{AM} = R + (2R // 2R)$  avec $2R//2R = \frac{2R \cdot 2R}{2R + 2R} = R$
-	
-	On a alors : $R_{AM} = R + R = 2R$.
-
-\medskip
-
-Les deux résistances de $2R$ étant en parallèle, elles sont soumises à la même différence de potentiel. Comme elles ont également la même résistance, elles sont traversées par le même courant.
-
-La loi des noeuds au point d'intersection de $R$ et des deux résistances de $2R$ donne que $I_1 = 2 \cdot I_0$.
-
-\bigskip
-
-2/ En reprenant le modèle équivalent du montage entre A et M, on obtient alors un nouveau montage R-2R.
-
-On a alors $R_{BM} = R + (2R // 2R) = 2R$. Et ainsi de suite...
-
-De la même façon que précédemment, on obtient $I_2 = 2 \cdot I_1 = 2^2 \cdot I_0$.
-
-En généralisant, le courant : $$I_n = 2^{n+1} \cdot I_0$$
-
-
-\newpage
-\textbf{Montage complet}
-
-On s'intéresse à présent au montage suivant :
-
-\begin{center}
-	\includegraphics[width=0.8\textwidth]{images/R_2R_complet.png}
-\end{center}
-
-On supposera que lorsque $A_i = 0$, l'interrupteur $i$ est en position 3 et que lorsque Ai = 1, l'interrupteur $i$ est en position 1.
-
-\begin{enumerate}
-	\item Quel est le type de montage autour de l'ALI ?
-	\item En quoi la structure vue précédemment peut nous aider ?
-	\item Que vaut alors le courant $I_{tot}$ dans la contre-réaction de l'ALI en fonction des courants $I_i$ ?
-	\item Que vaut alors le courant $I_{tot}$ dans la contre-réaction de l'ALI en fonction du courant $I_0$ et des
-valeurs des $A_i$ ?
-\end{enumerate}
-
-
-\section*{Correction}
-
-1/ Il s'agit d'un montage transimpédance, qui permet de transformer $I_{tot}$ en une tension $V_S = - R_T \cdot I_{tot}$.
-
-\medskip
-
-2/ On remarque que la structure est de type R-2R.
-
-	En fonction de la position des $A_i$, le courant résultant des différentes branches va soit à la masse, soit dans le contre-réaction de l'ALI. Comme l'ALI est en mode linéaire, on a $V+ = V-$ et $V+ = 0$. Dans les deux cas, la masse est présente sur les interrupteurs $A_i$.
-
-\medskip
-
-3/ Si on calcule le courant au noeud en $V-$, on a $I_{tot} = A_0 \cdot I_0 + A_1 \cdot I_1 + A_2 \cdot I_2 + A_3 \cdot I_3$.
-	
-	De manière généralisée : 
-	
-	$$I_{tot} = \sum_{k = 0}^{N} A_k\cdot I_k$$
-	
-\medskip
-	
-4/ D'après la section précédente, on a vu que $I_1 = 2^1 \cdot I_0$, que $I_2 = 2^2 \cdot I_0$...
-	
-	On a alors : $$I_{tot} = I_0 \cdot \sum_{k = 0}^{N} A_k\cdot 2^k$$
+\includepdf[pages={1,2}, pagecommand={\section{\texorpdfstring{\hspace{-1em}}{Image Processing}}}\label{doc:image_proc}]{../Feuille_exo_TD.pdf}
 
 
 \end{document} 

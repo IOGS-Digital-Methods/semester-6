@@ -1,6 +1,0 @@
-Ajouter une partie sur les caméras ?
-
-Exercice à partir d'une matrice de pixels, d'un objet à une distance donnée dont on veut connaître avec une précision donnée la taille ?
-- Taille minimale du capteur 
-- Calcul de grandissement de l'objectif
-...
