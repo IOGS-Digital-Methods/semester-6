@@ -153,7 +153,7 @@ Cette première séance est consacrée à la découverte de la \textbf{programma
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%    Arduino
-\subsection{IDE Keil Studio Cloud et MBED}
+\subsection{IDE Keil uVision et MBED-OS}
 
 \textbf{Mbed-OS} est un système d'exploitation (\textit{Operating System}) pour des \textbf{systèmes embarqués}, conçu pour des \textbf{microcontroleurs de type ARM}. Cet ensemble de bibliothèques permet une abstraction des couches matérielles de bas niveau du microcontroleur. 
 
@@ -179,9 +179,7 @@ Elles sont équipées d'un débogueur ST-LINK intégré, ce qui permet de progra
 
 
 \cleardoublepage
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%    Premier programme
-\section{Etape 0 / Tester un premier programme}
+
 
 {\large \textbf{ATTENTION}} 
 
@@ -198,6 +196,11 @@ Une \textbf{série d'exemples de code} (ainsi qu'une code de base) est disponibl
 
 dans la section MBED\_os / boards / L476RG.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%    Premier programme
+\section{Etape 0 / Tester un premier programme}
+
+
 \subsection{Télécharger le projet de base}
 
 Avant de pouvoir programmer le microcontroleur présent sur les cartes Nucléo que nous allons utiliser, il faut au préalable \textbf{avoir un projet} pour \textsl{Keil uVision}.
@@ -210,14 +213,14 @@ Un exemple de base (en version archivée) est disponible au téléchargement ici
 
 \subsection{Changer le nom du projet (facultatif)}
 
-\Manip Dans le répertoire décompressé, renommer les fichiers :
+\Manip Dans le répertoire décompressé, renommer les fichiers (opération facultative) :
 
 \begin{itemize}
 	\item \textsl{hello-L476RG.uvprojx} en \textsl{nom\_de\_votre\_projet.uvprojx}
-	\item \textsl{hello-L476RG.uvprojx} en \textsl{nom\_de\_votre\_projet.uvprojx}
+	\item \textsl{hello-L476RG.uvoptx} en \textsl{nom\_de\_votre\_projet.uvoptx}
 \end{itemize}
 
-\Manip A l'aide d'un éditeur de texte (Notepad++ par exemple), ouvrir le fichier \textsl{nom\_de\_votre\_projet.uvprojx} puis remplacer toutes les occurences de \textsl{hello-L476RG} par \textsl{nom\_de\_votre\_projet}.
+\Manip A l'aide d'un éditeur de texte (Notepad++ par exemple), ouvrir le fichier \textsl{nom\_de\_votre\_projet.uvprojx} puis remplacer toutes les occurences de \textsl{hello-L476RG} par \textsl{nom\_de\_votre\_projet}. (opération facultative)
 
 
 \subsection{Lancer Keil uVision}
@@ -244,9 +247,9 @@ DigitalOut led1(LED1);
 
 int main()
 {
-    printf("This is the bare metal blinky example running on Mbed OS %d.%d.%d.\n", MBED_MAJOR_VERSION, MBED_MINOR_VERSION, MBED_PATCH_VERSION);
+    printf("Hello L476RG - LEnsE !!\r\n");
 
-    while (true)
+    while (1)
     {
         led1 = !led1;
         thread_sleep_for(WAIT_TIME_MS);
@@ -284,6 +287,10 @@ Le programme fourni est fonctionnel. Il suffit de le compiler. Pour cela, clique
 \end{center}
 
 A la fin de cette étape, si la compilation s'est terminée avec succès, un fichier binaire est créé.
+
+\bigskip
+
+\textbf{Remarque} \textit{La première compilation du projet peut être longue. L'intégralité des bibliothèques doit être compilée.}
 
 
 \subsection{Téléversement du programme}
