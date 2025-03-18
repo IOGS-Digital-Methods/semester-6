@@ -1,6 +1,0 @@
-Pour une pupille ronde
-
-R = 1.22 x (longueur d’onde) / Diamètre d’ouverture
-
-	R : rayon de la tache d'airy
-	
