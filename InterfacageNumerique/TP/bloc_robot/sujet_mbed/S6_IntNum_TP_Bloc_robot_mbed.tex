@@ -478,11 +478,13 @@ En effet, les systèmes mécaniques, que sont les moteurs, ont des \textbf{const
 \newpage
 \subsection{Travail à réaliser}
 
-\Manip Créer un nouveau projet dans \textbf{Keil Studio Cloud}, en vous basant sur l'exemple \textbf{\textsl{mbed-os-example-blinky-baremetal}} dans \textsc{Mbed OS 6}. 
+\Manip Télécharger le projet de base et décompresser l'archive dans un répertoire de votre ordinateur.
 
-\Manip Paramétrer les broches de commande du moteur de gauche en sortie modulée (\textsc{MOT\_L\_1} et \textsc{MOT\_L\_2}). Forcer le signal à un rapport cyclique de 0 dans la fonction d'initialisation.
+\href{https://lense.institutoptique.fr/ressources/mbed/hello-L476RG.zip}{https://lense.institutoptique.fr/ressources/mbed/hello-L476RG.zip}
 
-\Manip Paramétrer la broche \textsc{MOT\_EN} en sortie standard. Forcer la sortie à 0 pour ce signal dans la fonction d'initialisation.
+\Manip Paramétrer les broches de commande du moteur de gauche en sortie modulée (\textsc{MOT\_L\_1} et \textsc{MOT\_L\_2}). 
+
+\Manip Paramétrer la broche \textsc{MOT\_EN} en sortie standard. Forcer la sortie à 1 pour activer les sorties de puissance sur les moteurs.
 
 \Manip Ecrire une fonction qui permet de faire tourner le moteur gauche dans une direction à un rapport cyclique donné en argument (entre 0 et 100\%).
 
@@ -532,7 +534,9 @@ Un comparateur est ensuite ajouté en sortie pour transmettre uniquement un sign
 
 \subsection{Travail à réaliser}
 
-\Manip Créer un nouveau projet dans \textbf{Keil Studio Cloud}, en vous basant sur l'exemple \textbf{\textsl{mbed-os-example-blinky-baremetal}} dans \textsc{Mbed OS 6}.
+\Manip Télécharger le projet de base et décompresser l'archive dans un répertoire de votre ordinateur.
+
+\href{https://lense.institutoptique.fr/ressources/mbed/hello-L476RG.zip}{https://lense.institutoptique.fr/ressources/mbed/hello-L476RG.zip}
 
 \Manip Paramétrer les broches des \textbf{capteurs de ligne} en entrée d'interruption (\textsc{Line\_L}, \textsc{Line\_C} et \textsc{Line\_R}).
 
@@ -556,7 +560,7 @@ Les phares du robot utilisent des LED trichromes "intelligentes" de type \textbf
 
 \subsection{Bibliothèques }
 
-Pour piloter ce type de LED, le LEnsE a modifié deux bibliothèques disponibles dans le fichier \textsl{example\_WS2812.zip} :
+Deux bibliothèques modifiées sont disponibles dans le fichier \textsl{example\_WS2812.zip}, pour piloter ce type de LED :
 
 \begin{itemize}
 	\item \textbf{PixelArray} : permettant de créer des tableaux de pixels R,V,B (rouge, vert et bleu) ;
@@ -571,15 +575,23 @@ Ce fichier est disponible sur le site du LEnsE dans la rubrique \textit{Année /
 
 Il contient 5 fichiers dont les 4 fichiers des bibliothèques mentionnées précédemment (un fichier .h et un fichier .cpp par bibliothèque).
 
-\Manip Créer un nouveau projet dans \textbf{Keil Studio Cloud}, en vous basant sur l'exemple \textbf{\textsl{mbed-os-example-blinky-baremetal}} dans \textsc{Mbed OS 6}. 
 
-\bigskip
+\Manip Télécharger le projet de base et décompresser l'archive dans un répertoire de votre ordinateur.
+
+\href{https://lense.institutoptique.fr/ressources/mbed/hello-L476RG.zip}{https://lense.institutoptique.fr/ressources/mbed/hello-L476RG.zip}
+
+\medskip
 
 Vous devez importer les deux bibliothèques dans votre projet de la manière suivante :
 
 \begin{enumerate}
-	\item Créer un répertoire \textsl{\textbf{Libs}} dans votre projet \textbf{Keil Studio Cloud}
-	\item Déplacer les fichiers \textsl{PixelArray.h}, \textsl{PixelArray.cpp}, \textsl{WS2812.h} et \textsl{WS2812.cpp} dans ce répertoire.
+	\item Déplacer les fichiers \textsl{PixelArray.h}, \textsl{PixelArray.cpp}, \textsl{WS2812.h} et \textsl{WS2812.cpp} dans le répertoire \textsl{\textbf{libs}} de votre projet (disque dur).
+
+	\medskip	
+	
+	\item \textbf{Dans Keil uVision}, faire un clic droit sur le répertoire \textsl{\textbf{libs}}, puis sélectionner l'option \textsl{\textbf{Add Existing Files to Groupe 'libs'}}
+	
+	\item Sélectionner ensuite les 4 fichiers de la bibliothèque à ajouter à votre projet et cliquer sur \textsl{\textbf{ADD}}.
 \end{enumerate}
 
 \newpage
