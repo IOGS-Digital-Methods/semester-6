@@ -349,7 +349,7 @@ Le pilotage d'un servomoteur se fait à l'aide d'un \textbf{signal modulé en la
 
 \subsection{Travail à réaliser}
 
-On se propose de tester le code \textsl{pwm\_servo.cpp}. Ce fichier est disponible sur le site du LEnsE dans la rubrique \textit{Année / Première Année / Interfaçage Numérique S6 / Bloc 1 Systèmes embarqués / Exemples MBED pour STM32}.
+On se propose de tester le code \textsl{pwm\_servo.cpp}. Ce fichier est disponible sur le site du LEnsE dans la rubrique \textit{Année / Première Année / Interfaçage Numérique S6 / Bloc 1 Systèmes embarqués / Banc de mesure de rayonnement lumineux / Exemples MBED pour STM32}.
 
 \Manip Télécharger le projet de base et décompresser l'archive dans un répertoire de votre ordinateur.
 
@@ -398,11 +398,15 @@ C'est un protocole asynchrone de transfert de données point à point. Les écha
 
 \subsection{Pilotage de la LED de puissance}
 
-Le code \textsl{power\_led.cpp} fournit un ensemble d'instructions permettant de piloter l'intensité lumineuse de la LED de puissance de la maquette. Ce fichier est disponible sur le site du LEnsE dans la rubrique \textit{Année / Première Année / Interfaçage Numérique S6 / Bloc 1 Systèmes embarqués / Exemples MBED pour STM32}.
+\Manip Alimenter la LED de puissance avec un courant maximal de 200mA. 
 
-\Manip Alimenter la LED de puissance avec un courant maximal de 200mA. Elle ne s'allumera pas tant que le code n'aura pas été implémenté.
+\bigskip
 
-\Manip Tester alors le code fourni.
+\textbf{\textit{Attention ! Paramètrer l'alimentation de la LED pour ne pas dépasser 200mA !}}
+
+\textbf{\textit{Attention également à vos yeux...}}
+
+\textit{Et brancher la LED dans le bon sens... Cathode = point de plus faible potentiel.}
 
 \subsection{Premier diagramme de rayonnement}
 
@@ -619,9 +623,15 @@ Par exemple, on pourra se baser sur la structure suivante pour le cas d'une rép
 
 Avant de se lancer dans la mise en place du protocole complet, nous vous proposons de tester l'exemple donné dans le fichier \textsl{test\_comm\_led.cpp}.
 
-\Manip Tester le code fourni. 
+\Manip Tester le code fourni en envoyant des lettres par l'intermédiaire d'une console Série (logiciel TeraTerm par exemple).
 
 \Quest A quel moment est appelée la fonction \textsl{ISR\_my\_pc\_reception()} ? A quoi sert-elle ?
+
+\bigskip
+
+On propose de remplacer la console Série par un \textbf{script Python} contenu dans le fichier \textsl{test\_comm\_led.py}.
+
+\Manip Exécuter ce script python.
 
 
 \subsection{Structure de base}
@@ -652,16 +662,16 @@ On souhaite à présent compléter ce code pour pouvoir traiter l'ensemble des c
 
 \Quest A quel moment doit-on utiliser la \textbf{fonction de transmission} des données réalisée à l'étape 9 ?
 
-
+\newpage
 \subsection{Test complet}
 
-\Quest Quelle est la suite de commandes à transmettre à la carte Nucléo pour permettre l'acquisition de données pour des angles allant de $-40\deg{}$ à $+60\deg{}$ par pas de $10\deg{}$ et la récupération des données sur le moniteur Série ?
+\Quest Quelle est la suite de commandes à transmettre à la carte Nucléo pour permettre l'acquisition de données pour des angles allant de $-40^\circ{}$ à $+60^\circ{}$ par pas de $10^\circ{}$ et la récupération des données sur le moniteur Série ?
 
 \Quest Tracer le diagramme de séquence associé à ces échanges de commandes et de réponses entre le PC et la carte Nucléo.
 
 \Manip Tester l'acquisition de cette série de données.
 
-\newpage
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%    Etape 11
 \section{Etape 11 / Utiliser la bibliothèque pySerial en Python pour envoyer les commandes à la carte Nucléo}
