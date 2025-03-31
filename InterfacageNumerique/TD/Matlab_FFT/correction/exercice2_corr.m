@@ -27,6 +27,21 @@ imagesc(magnitude_spectrum);
 title('FFT de l''image originale');
 colormap(gca, 'gray');
 
+%% Modifier l'image par la TF
+% Masquer la FFT
+fft_masked_shifted = circular_mask(30, fft_shifted);
+figure('Name', 'Spectre FFT + masque');
+imagesc(log(abs(fft_masked_shifted+0.01)));
+title('FFT masqué de l''image originale');
+colormap(gca, 'gray');
+% Inversion de la TF
+new_image = real(ifft2(fftshift(fft_masked_shifted)));
+figure('Name', 'Nouvelle image');
+imagesc(new_image);
+title('Image modifiée');
+colormap(gca, 'gray');
+
+
 
 %% Définir une fonction pour créer un masque circulaire
 function masked_image = circular_mask(radius, image)
