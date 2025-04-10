@@ -18,7 +18,7 @@ from matplotlib import pyplot as plt
 
 height = 200
 width = 300
-# Gaussian Noise
+# Uniform Noise
 uniform_noise = generate_uniform_noise_image(height, width, 10, 20)
 plt.figure()
 plt.imshow(uniform_noise, cmap='gray')
