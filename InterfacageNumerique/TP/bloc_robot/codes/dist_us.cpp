@@ -46,7 +46,7 @@ void echo_rise_ISR(){
 
 void echo_fall_ISR(){
     tik.detach();
-    dist_us = tik_cnt;
+    dist_us = tik_cnt / 2;
     new_dist = true;
 }
 

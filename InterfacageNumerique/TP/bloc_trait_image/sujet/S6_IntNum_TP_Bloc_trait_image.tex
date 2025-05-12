@@ -639,7 +639,7 @@ Le score $R$ permet de distinguer les caractéristiques suivantes :
 \begin{lstlisting}
 image_harris = cv2.cornerHarris(image_gray, 2, 3, 0.04)
 # result is dilated for marking the corners, not important
-image_harris = cv2.dilate(image_harris, None)
+# image_harris = cv2.dilate(image_harris, None)
 # Threshold for an optimal value
 image_gray[image_harris > 0.01 * image_harris.max()] = 0
 \end{lstlisting}
