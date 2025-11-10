@@ -1,0 +1,188 @@
+---
+
+# 🧪 **TP3 – Éclairage et propriétés des objets**
+
+## 🎯 Objectifs pédagogiques
+
+À la fin du TP, l’étudiant est capable de :
+
+* Identifier les différents types d’éclairage utilisés en vision industrielle (direct, diffus, rasant, coaxial…).
+* Comprendre l’impact du **spectre lumineux** et de la **couleur de l’éclairage** sur le contraste.
+* Relier la **réflectance** d’un matériau (objet) à la qualité de l’image.
+* Choisir un éclairage optimal pour mettre en évidence un défaut ou une caractéristique.
+
+---
+
+## 🔧 Matériel
+
+* **Caméra CMOS couleur**.
+* **Ring RGB** (éclairage rouge, vert, bleu) ou plusieurs LEDs de couleurs distinctes.
+* Éclairage diffus / direct / rasant si possible (ou réalisation artisanale : papier calque, miroir, lampe inclinée).
+* Objets variés : plastique brillant, métal poli, pièce mate, étiquette colorée, pièce avec gravure.
+* PC avec `pypylon`, `opencv`, `numpy`, `matplotlib`.
+
+---
+
+## 🕓 **Déroulé (4h)**
+
+| Temps       | Étape                                   | Description                                                                                               |
+| ----------- | --------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| 0h00 – 0h20 | **Introduction**                        | Théorie sur la lumière : spectre, température de couleur, réflexion spéculaire vs diffuse.                |
+| 0h20 – 1h00 | **Types d’éclairage**                   | Expériences avec éclairage direct, rasant, diffus. Observation des effets sur le contraste et les ombres. |
+| 1h00 – 2h00 | **Influence de la couleur d’éclairage** | Acquisition d’images sous LED R/G/B, analyse de contraste et de canaux de couleur.                        |
+| 2h00 – 3h00 | **Réflectance et texture des objets**   | Observation de pièces mates/brillantes. Comparaison des intensités et histogrammes.                       |
+| 3h00 – 4h00 | **Mini-projet**                         | Choix du meilleur éclairage pour détecter un défaut ou un marquage. Discussion sur les compromis.         |
+
+---
+
+## 📄 **Sujet étudiant**
+
+### Partie 1 — Effet de la géométrie d’éclairage
+
+1. Placez une pièce mécanique brillante (ou une bille) sur un fond sombre.
+2. Capturez l’image avec :
+
+   * éclairage **direct frontal**,
+   * éclairage **rasant** (lampe inclinée),
+   * éclairage **diffus** (papier calque devant la lampe).
+3. Comparez les ombres, reflets, et contraste global.
+
+➡️ **Question :** quel type d’éclairage met le mieux en évidence la forme ? la texture ?
+
+---
+
+### Partie 2 — Influence de la couleur d’éclairage
+
+1. Allumez successivement les canaux R, G, B du ring.
+2. Capturez 3 images : `img_R`, `img_G`, `img_B`.
+3. Analysez les histogrammes de chaque image (intensité moyenne).
+4. Observez quel éclairage maximise le contraste entre deux zones colorées (par ex. rouge vs vert).
+
+🧮 *Idée :* mesurer la **différence de contraste** entre fond et marquage :
+[
+C = \frac{|I_{objet} - I_{fond}|}{I_{objet} + I_{fond}}
+]
+
+---
+
+### Partie 3 — Réflectance et texture
+
+1. Choisissez deux objets : un **mat** et un **brillant**.
+2. Sous le même éclairage, capturez et mesurez :
+
+   * l’intensité moyenne d’une zone (réflectance relative),
+   * la variance locale (texture).
+3. Comparez : pourquoi le métal sature-t-il plus vite ?
+4. Si possible, utilisez un **filtre polarisant** pour montrer la réduction des reflets.
+
+---
+
+### Partie 4 — Mini-projet industriel
+
+1. Choisissez un objet comportant un **défaut difficile à voir** (rayure, étiquette partielle, marquage faible).
+2. Testez au moins **3 configurations d’éclairage** (géométrie et couleur).
+3. Identifiez celle qui **maximise la détection** du défaut.
+4. Documentez avec images, histogrammes et mesure de contraste.
+
+---
+
+## 💻 **Éléments de code / correction**
+
+### 1️⃣ Séparation des canaux R, G, B
+
+```python
+import cv2, numpy as np
+import matplotlib.pyplot as plt
+
+img = cv2.imread("piece_rgb.png")
+b,g,r = cv2.split(img)
+
+plt.figure(figsize=(10,4))
+plt.subplot(1,3,1); plt.imshow(r, cmap='gray'); plt.title('Canal Rouge')
+plt.subplot(1,3,2); plt.imshow(g, cmap='gray'); plt.title('Canal Vert')
+plt.subplot(1,3,3); plt.imshow(b, cmap='gray'); plt.title('Canal Bleu')
+plt.show()
+```
+
+---
+
+### 2️⃣ Histogrammes et intensités moyennes
+
+```python
+def mean_intensity(channel):
+    return np.mean(channel)
+
+print("Intensité moyenne R:", mean_intensity(r))
+print("Intensité moyenne G:", mean_intensity(g))
+print("Intensité moyenne B:", mean_intensity(b))
+
+# Histogramme
+plt.hist(r.ravel(), 256, [0,256], color='r', alpha=0.5)
+plt.hist(g.ravel(), 256, [0,256], color='g', alpha=0.5)
+plt.hist(b.ravel(), 256, [0,256], color='b', alpha=0.5)
+plt.title("Histogrammes des canaux RGB")
+plt.show()
+```
+
+---
+
+### 3️⃣ Calcul de contraste entre deux zones
+
+```python
+# Définir deux zones manuellement (fond et objet)
+zone1 = img[100:150, 100:150]  # objet
+zone2 = img[200:250, 200:250]  # fond
+
+I1, I2 = np.mean(zone1), np.mean(zone2)
+C = abs(I1 - I2) / (I1 + I2)
+print(f"Contraste entre objet et fond : {C:.3f}")
+```
+
+---
+
+### 4️⃣ Mesure de texture (variance locale)
+
+```python
+gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+local_var = cv2.Laplacian(gray, cv2.CV_64F).var()
+print(f"Variance locale (texture) : {local_var:.2f}")
+```
+
+---
+
+### 5️⃣ Exemple de détection de défaut par contraste adaptatif
+
+```python
+gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+blur = cv2.GaussianBlur(gray, (11,11), 0)
+th = cv2.adaptiveThreshold(blur, 255, cv2.ADAPTIVE_THRESH_MEAN_C,
+                           cv2.THRESH_BINARY_INV, 25, 10)
+cv2.imshow("Défauts détectés", th)
+cv2.waitKey(0)
+```
+
+---
+
+## 🧠 **Questions de réflexion**
+
+1. Pourquoi un éclairage rouge améliore-t-il parfois le contraste d’un objet vert ?
+2. Quelle combinaison d’éclairage géométrie + spectre est optimale pour un objet brillant ?
+3. Quelles limitations physiques apparaissent avec un éclairage rasant ?
+
+---
+
+## 💡 **Extension possible**
+
+* Ajouter une expérience de **correction d’illumination non uniforme** :
+
+  ```python
+  # Correction d’éclairage (flat-field)
+  flat = cv2.imread("eclairage_uniforme.png", cv2.IMREAD_GRAYSCALE).astype(np.float32)
+  image = cv2.imread("piece.png", cv2.IMREAD_GRAYSCALE).astype(np.float32)
+  corrected = cv2.normalize(image / flat, None, 0, 255, cv2.NORM_MINMAX)
+  cv2.imshow("Image corrigée", corrected.astype(np.uint8))
+  cv2.waitKey(0)
+  ```
+* Permet d’introduire les notions d’**étalonnage photométrique** et de correction de fond.
+
+---
