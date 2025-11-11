@@ -7,52 +7,101 @@
 \catcode `!\active 
 \catcode `?\active 
 \providecommand\hyper@newdestlabel[2]{}
+\providecommand\HyperFirstAtBeginDocument{\AtBeginDocument}
+\HyperFirstAtBeginDocument{\ifx\hyper@anchor\@undefined
+\global\let\oldnewlabel\newlabel
+\gdef\newlabel#1#2{\newlabelxx{#1}#2}
+\gdef\newlabelxx#1#2#3#4#5#6{\oldnewlabel{#1}{{#2}{#3}}}
+\AtEndDocument{\ifx\hyper@anchor\@undefined
+\let\newlabel\oldnewlabel
+\fi}
+\fi}
+\global\let\hyper@last\relax 
+\gdef\HyperFirstAtBeginDocument#1{#1}
 \providecommand\HyField@AuxAddToFields[1]{}
 \providecommand\HyField@AuxAddToCoFields[2]{}
 \babel@aux{french}{}
-\@writefile{toc}{\contentsline {section}{\numberline {1}Ressources}{2}{section.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {2}Déroulement du bloc}{2}{section.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {3}Primitives}{3}{section.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Primitives de bas niveau}{3}{subsection.3.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Primitives de niveau intermédiaire}{3}{subsection.3.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Primitives de haut niveau}{3}{subsection.3.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {4}Ouvrir une image sous OpenCV et afficher son histogramme}{4}{section.4}\protected@file@percent }
-\pgfsyspdfmark {pgfid1}{2871607}{44652758}
-\@writefile{toc}{\contentsline {section}{\numberline {5}Couleur vers niveau de gris}{4}{section.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}RVB vs Niveau de gris}{4}{subsection.5.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Plusieurs méthodes de conversion}{5}{subsection.5.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.1}Moyenne des canaux R,V,B}{5}{subsubsection.5.2.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.2}Pondération en fonction de la perception humaine}{5}{subsubsection.5.2.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.3}Utilisation d'un espace colorimétrique différent}{5}{subsubsection.5.2.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {6}Seuillage et binarisation}{7}{section.6}\protected@file@percent }
-\pgfsyspdfmark {pgfid2}{2871607}{44787501}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Méthode classique}{7}{subsection.6.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Méthode d'Otsu}{7}{subsection.6.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {7}Erosion, dilatation et gradient}{8}{section.7}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {7.1}Opérations de pré-traitement}{8}{subsection.7.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {7.2}Eléments structurants d'une convolution (noyau)}{8}{subsection.7.2}\protected@file@percent }
-\pgfsyspdfmark {pgfid3}{2871607}{14146296}
-\@writefile{toc}{\contentsline {subsection}{\numberline {7.3}Opérations d'érosion et de dilatation}{9}{subsection.7.3}\protected@file@percent }
-\pgfsyspdfmark {pgfid4}{2871607}{47333397}
-\@writefile{toc}{\contentsline {subsection}{\numberline {7.4}Opérations d'ouverture et de fermeture}{9}{subsection.7.4}\protected@file@percent }
-\pgfsyspdfmark {pgfid5}{2871607}{34795487}
-\@writefile{toc}{\contentsline {subsection}{\numberline {7.5}Opération de gradient}{9}{subsection.7.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {8}Lissage du bruit}{10}{section.8}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {8.1}Générer du bruit sur des images}{10}{subsection.8.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {8.2}Comparer différents filtres de lissage}{10}{subsection.8.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {8.2.1}Filtre de type gaussien}{10}{subsubsection.8.2.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {8.2.2}Filtre de type médian}{10}{subsubsection.8.2.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {8.2.3}Filtre de type moyenneur (mean ou box)}{10}{subsubsection.8.2.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {9}Isoler des éléments d'une image grâce à des opérations linéaires}{11}{section.9}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {10}Détecter des contours et des points d'intérêt}{12}{section.10}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {10.1}Détection de coins par la méthode de Harris}{12}{subsection.10.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {10.2}Détection de contour par la méthode de Canny}{13}{subsection.10.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {11}Segmenter une image par la méthode de Watershed}{14}{section.11}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {11.1}Ouverture et seuillage}{14}{subsection.11.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {11.2}Réduction du bruit}{14}{subsection.11.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {11.3}Identification des zones inconnues}{14}{subsection.11.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {11.4}Identification des objets}{15}{subsection.11.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {11.5}Application de l'algorithme de Watershed}{15}{subsection.11.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {12}\hspace  {-1em}}{18}{section.12}\protected@file@percent }
-\newlabel{doc:image_proc}{{11.5}{18}{Application de l'algorithme de Watershed}{section.12}{}}
-\gdef \@abspage@last{27}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Acquis d'Apprentissages Visés (AAV)}{3}{section.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2}Ressources}{3}{section.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3}Déroulement}{4}{section.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}TP1 - Banc de vision industrielle}{4}{subsection.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}TP2 - Manipulations de base sous OpenCV}{4}{subsection.3.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}TP3 - Manipulations avancées sous OpenCV / Limites du banc de vision}{4}{subsection.3.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4}TP4 - Détection d'objets - Contrôle qualité}{5}{subsection.3.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4}Objectifs du bloc}{6}{section.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5}Etape 0 / Prendre en main l'interface de pilotage}{7}{section.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Eclairage et zone d'intérêt}{8}{subsection.5.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6}Etape 1 / Décrire le rôle des principales caractéristiques d'une caméra CMOS}{9}{section.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Temps d'intégration}{9}{subsection.6.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Echantillonnage et quantification}{9}{subsection.6.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {7}Etape 2 / Analyser l'impact des outils de base de la manipulation d'images}{10}{section.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.1}Contraste et Luminosité}{10}{subsection.7.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.2}Seuillage}{10}{subsection.7.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.3}Filtrage}{10}{subsection.7.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {8}Etape 3 / Analyser l'impact du choix de la couleur de l'éclairage}{11}{section.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.1}Acquisition à des longueurs d'onde différentes}{11}{subsection.8.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {9}Etape 4 / Modélisation simple d'une chaine d'acquisition}{12}{section.9}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.1}Ouverture d'une image avec OpenCV}{13}{subsection.9.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.2}Traitement avec OpenCV}{13}{subsection.9.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {10}Ressources}{14}{section.10}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {11}Etape 1 / Ouvrir une image sous OpenCV}{14}{section.11}\protected@file@percent }
+\pgfsyspdfmark {pgfid1}{2871607}{27776856}
+\@writefile{toc}{\contentsline {section}{\numberline {12}Etape 2 / Calculer l'histogramme d'une image et l'afficher}{14}{section.12}\protected@file@percent }
+\pgfsyspdfmark {pgfid2}{2871607}{10747859}
+\@writefile{toc}{\contentsline {section}{\numberline {13}Etape 3 / Améliorer numériquement la qualité d'une image}{15}{section.13}\protected@file@percent }
+\pgfsyspdfmark {pgfid3}{2871607}{44652758}
+\@writefile{toc}{\contentsline {section}{\numberline {14}Etape 4 / Appliquer un filtre moyenneur sur une image}{15}{section.14}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {14.1}Eléments structurants ou noyau}{15}{subsection.14.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {14.2}Filtre moyenneur gaussien}{16}{subsection.14.2}\protected@file@percent }
+\pgfsyspdfmark {pgfid4}{2871607}{33993366}
+\@writefile{toc}{\contentsline {subsection}{\numberline {14.3}Bruit sur une image}{16}{subsection.14.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {15}Etape 5 / Appliquer un filtre passe-haut sur une image}{17}{section.15}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {15.1}Opérateur de Roberts}{17}{subsection.15.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {15.2}Opérateur de Sobel}{18}{subsection.15.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {16}Etape 6 / Appliquer un filtre par l'intermédiaire de la transformée de Fourier}{18}{section.16}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {17}\hspace  {-1em}}{21}{section.17}\protected@file@percent }
+\newlabel{doc:image_proc}{{16}{21}{Etape 6 / Appliquer un filtre par l'intermédiaire de la transformée de Fourier}{section.17}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {18}Primitives}{29}{section.18}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {18.1}Primitives de bas niveau}{29}{subsection.18.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {18.2}Primitives de niveau intermédiaire}{29}{subsection.18.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {18.3}Primitives de haut niveau}{29}{subsection.18.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {19}Ouvrir une image sous OpenCV et afficher son histogramme}{30}{section.19}\protected@file@percent }
+\pgfsyspdfmark {pgfid5}{2871607}{44652758}
+\@writefile{toc}{\contentsline {section}{\numberline {20}Couleur vers niveau de gris}{30}{section.20}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {20.1}RVB vs Niveau de gris}{30}{subsection.20.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {20.2}Plusieurs méthodes de conversion}{31}{subsection.20.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {20.2.1}Moyenne des canaux R,V,B}{31}{subsubsection.20.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {20.2.2}Pondération en fonction de la perception humaine}{31}{subsubsection.20.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {20.2.3}Utilisation d'un espace colorimétrique différent}{31}{subsubsection.20.2.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {21}Seuillage et binarisation}{33}{section.21}\protected@file@percent }
+\pgfsyspdfmark {pgfid6}{2871607}{44787501}
+\@writefile{toc}{\contentsline {subsection}{\numberline {21.1}Méthode classique}{33}{subsection.21.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {21.2}Méthode d'Otsu}{33}{subsection.21.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {22}Erosion, dilatation et gradient}{34}{section.22}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {22.1}Opérations de pré-traitement}{34}{subsection.22.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {22.2}Eléments structurants d'une convolution (noyau)}{34}{subsection.22.2}\protected@file@percent }
+\pgfsyspdfmark {pgfid7}{2871607}{14146296}
+\@writefile{toc}{\contentsline {subsection}{\numberline {22.3}Opérations d'érosion et de dilatation}{35}{subsection.22.3}\protected@file@percent }
+\pgfsyspdfmark {pgfid8}{2871607}{47333397}
+\@writefile{toc}{\contentsline {subsection}{\numberline {22.4}Opérations d'ouverture et de fermeture}{35}{subsection.22.4}\protected@file@percent }
+\pgfsyspdfmark {pgfid9}{2871607}{34795487}
+\@writefile{toc}{\contentsline {subsection}{\numberline {22.5}Opération de gradient}{35}{subsection.22.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {23}Lissage du bruit}{36}{section.23}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {23.1}Générer du bruit sur des images}{36}{subsection.23.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {23.2}Comparer différents filtres de lissage}{36}{subsection.23.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {23.2.1}Filtre de type gaussien}{36}{subsubsection.23.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {23.2.2}Filtre de type médian}{36}{subsubsection.23.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {23.2.3}Filtre de type moyenneur (mean ou box)}{36}{subsubsection.23.2.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {24}Isoler des éléments d'une image grâce à des opérations linéaires}{37}{section.24}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {25}Détecter des contours et des points d'intérêt}{38}{section.25}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {25.1}Détection de coins par la méthode de Harris}{38}{subsection.25.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {25.2}Détection de contour par la méthode de Canny}{39}{subsection.25.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {26}Segmenter une image par la méthode de Watershed}{40}{section.26}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {26.1}Ouverture et seuillage}{40}{subsection.26.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {26.2}Réduction du bruit}{40}{subsection.26.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {26.3}Identification des zones inconnues}{40}{subsection.26.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {26.4}Identification des objets}{41}{subsection.26.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {26.5}Application de l'algorithme de Watershed}{41}{subsection.26.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {27}\hspace  {-1em}}{44}{section.27}\protected@file@percent }
+\newlabel{doc:image_proc}{{26.5}{44}{Application de l'algorithme de Watershed}{section.27}{}}
+\gdef \@abspage@last{52}
