@@ -406,7 +406,7 @@ Maquette & \textbf{Broche Nucléo} & Type & Description \\
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%    Etape 6
-\section{Etape 6 / Piloter l'intensité des LEDs de la maquette}
+\section{Etape 7 / Piloter l'intensité des LEDs de la maquette}
 
 \Manip Réaliser un programme qui permet de modifier la luminosité des diodes LED1 et LED2 de la maquette à l'aide des deux bouton-poussoirs SW1 et SW2 (un pour augmenter, l'autre pour diminuer la luminosité). \textbf{Votre programme devra utiliser uniquement le principe d'interruption.}
 
@@ -415,7 +415,7 @@ Maquette & \textbf{Broche Nucléo} & Type & Description \\
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%    Etape 7
-\section{Etape 7 / Piloter les moteurs à courant continu}
+\section{Etape 8 / Piloter les moteurs à courant continu}
 
 Un \textbf{moteur à courant continu} est un système permettant de \textbf{transformer une énergie électrique en mouvement de rotation} continue. Ce type de moteur doit être parcouru par un courant continu.
 
@@ -520,7 +520,7 @@ En effet, les systèmes mécaniques, que sont les moteurs, ont des \textbf{const
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%    Etape 8
-\section{Etape 8 / Acquérir des données des capteurs de ligne}
+\section{Etape 9 / Acquérir des données des capteurs de ligne}
 
 Les \textbf{capteurs de ligne} utilisés sur cette plateforme sont des \textbf{capteurs optiques}. Une \textbf{LED infrarouge} émet un signal vers le bas du robot qui est ensuite réfléchie plus ou moins fortement par le matériau présent au sol. Cette réflexion est alors captée par une \textbf{photodiode} ou un phototransistor.
 
@@ -547,7 +547,7 @@ Un comparateur est ensuite ajouté en sortie pour transmettre uniquement un sign
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%    Etape 9
-\section{Etape 9 / Piloter les phares du robot}
+\section{Etape 10 / Piloter les phares du robot}
 
 Les phares du robot utilisent des LED trichromes "intelligentes" de type \textbf{WS2812}. Ces LEDs peuvent être mises en cascade et se pilotent à l'aide d'une trame numérique. Chaque LED nécessite 24 bits de données (8 bits par couleur - R/G/B).
 
@@ -642,7 +642,7 @@ Les deux séances suivantes seront consacrées au pilotage du robot pour lui per
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%    Etape 10
-\section{Etape 10 / Définir et tester une première structure de code}
+\section{Etape 11 / Définir et tester une première structure de code}
 
 On souhaite à présent réaliser le \textbf{programme principal} du robot lui permettant de \textbf{se déplacer de manière autonome} en suivant une ligne.
 
@@ -655,7 +655,7 @@ On souhaite à présent réaliser le \textbf{programme principal} du robot lui p
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%    Etape 11
-\section{Etape 11 / Acquérir les signaux du capteur ultrason}
+\section{Etape 12 / Acquérir les signaux du capteur ultrason}
 
 La maquette est équipée d'un capteur de distance à ultrasons. Le principe est décrit dans le schéma suivant :
 
@@ -683,7 +683,7 @@ On se propose de tester le code \textsl{dist\_us.cpp}. Ce fichier est disponible
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%    Etape 12
-\section{Etape 12 / Piloter le servomoteur associé au capteur ultrason}
+\section{Etape 13 / Piloter le servomoteur associé au capteur ultrason}
 
 Un servomoteur est un actionneur qui réalise une rotation d'un angle calibré en fonction d'une commande externe.
 
@@ -708,161 +708,167 @@ On se propose de tester le code \textsl{pwm\_servo.cpp}. Ce fichier est disponib
 \Manip Créer une fonction permettant de positionner le servomoteur à un angle particulier. Tester votre fonction. 
 
 
-
 \newpage
-\strut % empty page
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%    Autres possibilités
-\begin{minipage}[c]{.25\linewidth}
-	\includegraphics[width=4cm]{images/Logo-LEnsE.png}
-\end{minipage} \hfill
-\begin{minipage}[c]{.4\linewidth}
+%%%%%%%%%%%%%    Mini Projet
+\section{Mini-Projet / Suivi de ligne et évitement d'obstacle}
 
-\begin{center}
-\vspace{0.3cm}
-{\Large \textsc{Interfaçage Numérique}}
+Maintenant que vous maitrisez les briques de base 
 
-\medskip
-
-6N-047-SCI \qquad \textbf{\Large Bloc Robot}
-
-\end{center}
-\end{minipage}\hfill
-
-\vspace{0.5cm}
-
-\noindent \rule{\linewidth}{1pt}
-
-{\noindent\Large \rule[-7pt]{0pt}{30pt} Autres fonctionnalités} 
-
-\noindent \rule{\linewidth}{1pt}
-
-
-\section{Acquérir des données de l'accéléromètre (I2C)}
-
-Le composant présent sur le robot est un \textbf{accéléromètre et magnétomètre} intégrés sur une même puce de silicium. Sa référence est \textbf{FXOS8700CQ}. Ce composant est intégré au module \textit{MikroE} \textbf{DOF6 - IMU Click}.
-
-\subsection{Brochage}
-
-Ce module fonctionne à l'aide du protocole I2C.
-
-\begin{center}
-\begin{tabular}{|l|l|l|l|}
-\hline 
-Maquette & \textbf{Broche Nucléo} & Type & Description \\ 
-\hline 
-\textsc{SDA} & PB9 & Entrée-Sortie & Signal de données bidirectionnel \\ 
-\textit{SCL} & PB8 & Sortie & Signal d'horloge\\
-\hline 
-\textsc{Reset} & PC4 & Sortie & Reset matériel du composant\\ 
-\textit{Interrupt} & PB10 & Entrée & Interruption sur réception\\ 
-\hline 
-\end{tabular} 
-\end{center}
-
-
-\subsection{Protocole I2C}
-
-DESCRIPTION PROTOCOLE et CONNECTIQUES !
-
-\bigskip
-
-\textsc{Attention !} Les broches utilisées sur la carte Nucléo pour l'I2C ne sont pas celles par défaut. Il est indispensable de préciser les broches SDA et SCL à l'aide des méthodes suivantes :
-
-\begin{lstlisting}
-Wire.setSDA( PB9 );    
-Wire.setSCL( PB8 ); 
-\end{lstlisting}
-
-\bigskip
-
-\Manip Ouvrir le code \textsl{09\_accelero.ino} fourni. Compiler ce code et téléverser ce code dans la carte Nucléo.
-
-Ce code contient les fonctions \textsl{test\_FXOS()} et \textsl{read\_i2c\_buffer()}, ainsi que des définitions des registres internes du composant.
-
-\Manip 
-
-\subsection{Configuration}
-
-
-\subsection{Récupération des données}
-
-\textit{These registers contain the X-axis, Y-axis, and Z-axis 14-bit left-justified sample data expressed as 2's complement numbers.} [NXP Doc p.52 of 113] 
-
-
-\section{Autres fonctionnalités de la carte}
-
-La carte de contrôle est également équipée de 2 connecteurs permettant d'accueillir :
-
-\begin{itemize}
-	\item un \textbf{accéléromètre} MikroE-6DOF IMU 3 Click ;
-	\item un module de \textbf{communication} nRF24L01 ;
-\end{itemize}
-
-Elle est également équipée de \textbf{deux capteurs de température} :
-\begin{itemize}
-	\item un capteur analogique - MCP9700
-	\item un capteur à sortie numérique - TC74A2
-\end{itemize}
-
-
-\subsubsection{Capteur température numérique / TC74A2}
-
-Ce module fonctionne à l'aide du protocole I2C.
-
-\begin{center}
-\begin{tabular}{|l|l|l|l|}
-\hline 
-Maquette & \textbf{Broche Nucléo} & Type & Description \\ 
-\hline 
-\textsc{SDA} & PB9 & Entrée-Sortie & Signal de données bidirectionnel \\ 
-\textit{SCL} & PB8 & Sortie & Signal d'horloge\\
-\hline 
-\end{tabular} 
-\end{center}
-
-
-\subsubsection{Communication nRF24L01}
-
-Ce module fonctionne selon le protocole SPI. \textit{Il doit nécessairement être utilisé avec un second module afin de pouvoir transmettre des données entre deux microcontroleurs.}
-
-\begin{center}
-\begin{tabular}{|l|l|l|l|}
-\hline 
-Maquette & \textbf{Broche Nucléo} & Type & Description \\ 
-\hline 
-\textsc{SPI} & & & \\ 
-\textit{SCK} & PC10 & Sortie & Signal d'horloge\\
-\textit{MISO} & PC11 & Entrée & Données entrantes\\
-\textit{MOSI} & PC12 & Sortie & Données sortantes\\ 
-\hline  
-\textit{CS} & PA14 & Sortie & Sélection du composant\\ 
-\textit{CE} & PD2 & Sortie & Validation du composant (puissance)\\ 
-\textit{INT} & PA15 & Entrée & Interruption sur réception\\ 
-\hline  
-\end{tabular} 
-\end{center}
-
-
-\subsubsection{Utilisation de la sortie modulée PB7}
-	
-\begin{lstlisting}
-LL_GPIO_SetAFPin_0_7(GPIOB,  GPIO_PIN_7,  GPIO_AF1_TIM2);
-\end{lstlisting}
-
-
-\subsection{Traceur Série}
-
-\begin{lstlisting}
-  Serial.print(valeur1);
-  Serial.print(",");
-  Serial.print(valeur2);
-  Serial.print(",");
-  Serial.print(valeur3);
-  Serial.print(",");
-  Serial.print(valeur4);
-  Serial.println();
-\end{lstlisting}
+%\newpage
+%\strut % empty page
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%    Autres possibilités
+%\begin{minipage}[c]{.25\linewidth}
+%	\includegraphics[width=4cm]{images/Logo-LEnsE.png}
+%\end{minipage} \hfill
+%\begin{minipage}[c]{.4\linewidth}
+%
+%\begin{center}
+%\vspace{0.3cm}
+%{\Large \textsc{Interfaçage Numérique}}
+%
+%\medskip
+%
+%6N-047-SCI \qquad \textbf{\Large Bloc Robot}
+%
+%\end{center}
+%\end{minipage}\hfill
+%
+%\vspace{0.5cm}
+%
+%\noindent \rule{\linewidth}{1pt}
+%
+%{\noindent\Large \rule[-7pt]{0pt}{30pt} Autres fonctionnalités} 
+%
+%\noindent \rule{\linewidth}{1pt}
+%
+%
+%\section{Acquérir des données de l'accéléromètre (I2C)}
+%
+%Le composant présent sur le robot est un \textbf{accéléromètre et magnétomètre} intégrés sur une même puce de silicium. Sa référence est \textbf{FXOS8700CQ}. Ce composant est intégré au module \textit{MikroE} \textbf{DOF6 - IMU Click}.
+%
+%\subsection{Brochage}
+%
+%Ce module fonctionne à l'aide du protocole I2C.
+%
+%\begin{center}
+%\begin{tabular}{|l|l|l|l|}
+%\hline 
+%Maquette & \textbf{Broche Nucléo} & Type & Description \\ 
+%\hline 
+%\textsc{SDA} & PB9 & Entrée-Sortie & Signal de données bidirectionnel \\ 
+%\textit{SCL} & PB8 & Sortie & Signal d'horloge\\
+%\hline 
+%\textsc{Reset} & PC4 & Sortie & Reset matériel du composant\\ 
+%\textit{Interrupt} & PB10 & Entrée & Interruption sur réception\\ 
+%\hline 
+%\end{tabular} 
+%\end{center}
+%
+%
+%\subsection{Protocole I2C}
+%
+%DESCRIPTION PROTOCOLE et CONNECTIQUES !
+%
+%\bigskip
+%
+%\textsc{Attention !} Les broches utilisées sur la carte Nucléo pour l'I2C ne sont pas celles par défaut. Il est indispensable de préciser les broches SDA et SCL à l'aide des méthodes suivantes :
+%
+%\begin{lstlisting}
+%Wire.setSDA( PB9 );    
+%Wire.setSCL( PB8 ); 
+%\end{lstlisting}
+%
+%\bigskip
+%
+%\Manip Ouvrir le code \textsl{09\_accelero.ino} fourni. Compiler ce code et téléverser ce code dans la carte Nucléo.
+%
+%Ce code contient les fonctions \textsl{test\_FXOS()} et \textsl{read\_i2c\_buffer()}, ainsi que des définitions des registres internes du composant.
+%
+%\Manip 
+%
+%\subsection{Configuration}
+%
+%
+%\subsection{Récupération des données}
+%
+%\textit{These registers contain the X-axis, Y-axis, and Z-axis 14-bit left-justified sample data expressed as 2's complement numbers.} [NXP Doc p.52 of 113] 
+%
+%
+%\section{Autres fonctionnalités de la carte}
+%
+%La carte de contrôle est également équipée de 2 connecteurs permettant d'accueillir :
+%
+%\begin{itemize}
+%	\item un \textbf{accéléromètre} MikroE-6DOF IMU 3 Click ;
+%	\item un module de \textbf{communication} nRF24L01 ;
+%\end{itemize}
+%
+%Elle est également équipée de \textbf{deux capteurs de température} :
+%\begin{itemize}
+%	\item un capteur analogique - MCP9700
+%	\item un capteur à sortie numérique - TC74A2
+%\end{itemize}
+%
+%
+%\subsubsection{Capteur température numérique / TC74A2}
+%
+%Ce module fonctionne à l'aide du protocole I2C.
+%
+%\begin{center}
+%\begin{tabular}{|l|l|l|l|}
+%\hline 
+%Maquette & \textbf{Broche Nucléo} & Type & Description \\ 
+%\hline 
+%\textsc{SDA} & PB9 & Entrée-Sortie & Signal de données bidirectionnel \\ 
+%\textit{SCL} & PB8 & Sortie & Signal d'horloge\\
+%\hline 
+%\end{tabular} 
+%\end{center}
+%
+%
+%\subsubsection{Communication nRF24L01}
+%
+%Ce module fonctionne selon le protocole SPI. \textit{Il doit nécessairement être utilisé avec un second module afin de pouvoir transmettre des données entre deux microcontroleurs.}
+%
+%\begin{center}
+%\begin{tabular}{|l|l|l|l|}
+%\hline 
+%Maquette & \textbf{Broche Nucléo} & Type & Description \\ 
+%\hline 
+%\textsc{SPI} & & & \\ 
+%\textit{SCK} & PC10 & Sortie & Signal d'horloge\\
+%\textit{MISO} & PC11 & Entrée & Données entrantes\\
+%\textit{MOSI} & PC12 & Sortie & Données sortantes\\ 
+%\hline  
+%\textit{CS} & PA14 & Sortie & Sélection du composant\\ 
+%\textit{CE} & PD2 & Sortie & Validation du composant (puissance)\\ 
+%\textit{INT} & PA15 & Entrée & Interruption sur réception\\ 
+%\hline  
+%\end{tabular} 
+%\end{center}
+%
+%
+%\subsubsection{Utilisation de la sortie modulée PB7}
+%	
+%\begin{lstlisting}
+%LL_GPIO_SetAFPin_0_7(GPIOB,  GPIO_PIN_7,  GPIO_AF1_TIM2);
+%\end{lstlisting}
+%
+%
+%\subsection{Traceur Série}
+%
+%\begin{lstlisting}
+%  Serial.print(valeur1);
+%  Serial.print(",");
+%  Serial.print(valeur2);
+%  Serial.print(",");
+%  Serial.print(valeur3);
+%  Serial.print(",");
+%  Serial.print(valeur4);
+%  Serial.println();
+%\end{lstlisting}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

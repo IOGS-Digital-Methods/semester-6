@@ -87,7 +87,7 @@ Semestre 6
 
 \medskip
 
-\href{https://github.com/IOGS-Digital-Methods/keil_stm32/tree/main/MBED_os/libs}{\large https://github.com/IOGS-Digital-Methods/keil\_stm32/tree/main/MBED\_os/libs}
+\href{https://github.com/IOGS-LEnsE-ressources/mbed6-libraries}{\large https://github.com/IOGS-LEnsE-ressources/mbed6-libraries} / Sections \textit{progs} et \textit{platforms}
 
 \medskip
 
@@ -181,18 +181,9 @@ Elles sont équipées d'un débogueur ST-LINK intégré, ce qui permet de progra
 \cleardoublepage
 
 
-{\large \textbf{ATTENTION}} 
+Une \textbf{série d'exemples de code} (ainsi qu'un projet de base) est disponible à l'adresse suivante : 
 
-\textit{La procédure décrite ici ne fonctionne que pour une installation très spécifique des différentes ressources, celles mises en place à l'Institut d'Optique - salles de TP d'électronique. La procédure d'installation est décrite à l'adresse suivante : }
-
-\href{https://github.com/IOGS-Digital-Methods/keil_stm32/blob/main/MBED_os/README.md}{https://github.com/IOGS-Digital-Methods/keil\_stm32/blob/main/MBED\_os/README.md}
-
-\bigskip
-
-
-Une \textbf{série d'exemples de code} (ainsi qu'une code de base) est disponible à l'adresse suivante : 
-
-\href{https://github.com/IOGS-Digital-Methods/keil_stm32}{https://github.com/IOGS-Digital-Methods/keil\_stm32}
+\href{https://github.com/IOGS-LEnsE-ressources/mbed6-libraries}{https://github.com/IOGS-LEnsE-ressources/mbed6-libraries}
 
 dans la section MBED\_os / boards / L476RG.
 
@@ -205,9 +196,9 @@ dans la section MBED\_os / boards / L476RG.
 
 Avant de pouvoir programmer le microcontroleur présent sur les cartes Nucléo que nous allons utiliser, il faut au préalable \textbf{avoir un projet} pour \textsl{Keil uVision}.
 
-Un exemple de base (en version archivée) est disponible au téléchargement ici : 
+Un exemple de base (en version archivée et pré-compilée) est disponible au téléchargement ici : 
 
-\href{https://lense.institutoptique.fr/ressources/mbed/hello-L476RG.zip}{https://lense.institutoptique.fr/ressources/mbed/hello-L476RG.zip}
+\href{https://lense.institutoptique.fr/ressources/mbed/hello-L476RG_pre.zip}{https://lense.institutoptique.fr/ressources/mbed/hello-L476RG\_pre.zip}
 
 \Manip Télécharger le fichier précédent et décompresser l'archive dans un répertoire de votre ordinateur.
 
@@ -243,7 +234,7 @@ Le programme \textsl{\textbf{main.cpp}} ressemble à celui-ci :
 #include "mbed.h"
 
 #define WAIT_TIME_MS 500 
-DigitalOut led1(LED1);
+DigitalOut led_ld2(LED1);
 
 int main()
 {
@@ -251,7 +242,7 @@ int main()
 
     while (1)
     {
-        led1 = !led1;
+        led_ld2 = !led_ld2;
         thread_sleep_for(WAIT_TIME_MS);
     }
 }
@@ -598,7 +589,59 @@ On se propose de tester le code \textsl{analog\_in.cpp}. Ce fichier est disponib
 
 \Manip Réaliser un programme qui permet de modifier la luminosité de la LED câblée sur la sortie D7 à l'aide de la valeur convertie du potentiomètre. Attention au type des variables... \textit{int} ou \textit{float} !
 
-\bigskip
+
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%    Premier programme
+\section{Etape 6 / Mettre en \oe{}uvre des interruptions sur des événements internes}
+
+Sur les microcontroleurs de type STM32, il existe un \textbf{mécanisme matériel de temporisation} qui permet d'exécuter du code de \textbf{manière périodique ou différée}, sans bloquer le programme principal.
+
+Le \textbf{\textsc{Ticker}} est un \textbf{timer matériel} utilisé par Mbed pour mesurer le temps et déclencher des interruptions à intervalles réguliers. 
+
+
+\subsection{Paramétrage}
+
+Pour \textbf{configurer une broche en entrée permettant une interruption}, il faut ajouter l'instruction suivante \textbf{en dehors de toute fonction} :
+
+\begin{lstlisting}
+Ticker   tik;
+\end{lstlisting}
+
+\medskip
+
+Il faut ensuite paramétrer l'action à réaliser lors d'un événements sur cette entrée.
+
+Pour cela, il faut ajouter l'instruction suivante au début de la fonction \textsl{main()} (phase d'initialisation) :
+
+\begin{lstlisting}
+tik.attach(&tik_ISR, 0.5);
+\end{lstlisting}
+
+où \textsl{tik\_ISR()} est une fonction, appelée \textbf{routine d'interruption}, qui sera exécutée ici toutes les 0.5 seconde.
+
+\subsection{Routine d'interruption}
+
+Une \textbf{routine d'interruption}, aussi appelée \textbf{ISR} (\textit{Interrupt Service Routine}), est la fonction qui s'exécute automatiquement en réponse à une interruption. 
+
+C'est une fonction classique, mais qui ne retourne pas de donnée.
+
+\begin{lstlisting}
+void tik_ISR(void){
+  bool led_state = led1;
+  led1 = !led_state;
+} 
+\end{lstlisting}
+
+Dans cet exemple, toutes les 0.5 secondes, la fonction \textsl{tik\_ISR()} est appelée. Elle lit alors l'état de la sortie \textsl{led1} pour ensuite l'inverser.
+
+\subsection{Travail à réaliser}
+
+On se propose de tester le code \textsl{interrupt\_on\_ticker.cpp}. Ce fichier est disponible sur le site du LEnsE dans la rubrique \textit{Année / Première Année / Interfaçage Numérique S6 / Bloc 1 Systèmes embarqués / Exemples MBED pour STM32}.
+
+\Manip Tester le code fourni. 
+
+\Manip Réaliser un programme qui permet d'activer (ou de désactiver) l'action effectuée par le code fourni précédemment par l'appui sur un bouton poussoir. \textbf{Votre programme devra utiliser uniquement le principe d'interruption.}
 
 
 \noindent \rule{\linewidth}{1pt}
