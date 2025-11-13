@@ -1,0 +1,161 @@
+
+---
+
+## 🧠 1. Structures de base du C++ pour l’embarqué
+
+### ⚙️ a) Variables et types
+
+* Types simples : `int`, `float`, `bool`, `char`, `uint8_t`, `uint16_t`, `uint32_t`, etc.
+* Types spécifiques au matériel : définis dans `<cstdint>` pour une **taille contrôlée**.
+  → Indispensable en embarqué (ex. : `uint8_t ledState = 0;`).
+
+### ⚙️ b) Structures (`struct`)
+
+* Utilisées pour **regrouper des données** liées, souvent pour des périphériques ou des capteurs.
+
+  ```cpp
+  struct SensorData {
+      float temperature;
+      float humidity;
+  };
+  SensorData data;
+  ```
+* Souvent manipulées avec des **références** ou des **pointeurs** pour limiter les copies.
+
+---
+
+## 🧩 2. Classes et objets
+
+Mbed OS est orienté objet : la plupart des éléments du framework sont des **classes** C++.
+
+### Exemple :
+
+```cpp
+DigitalOut led(LED1);
+DigitalIn button(BUTTON1);
+```
+
+* `DigitalOut` et `DigitalIn` sont des classes définies dans Mbed OS.
+* Chaque instance est **liée à un pin physique** du microcontrôleur.
+
+### Points clés :
+
+* **Encapsulation** : permet de cacher les détails bas niveau.
+* **Constructeurs** : configurent les périphériques.
+* **Méthodes** : manipulent le matériel (ex. `led = 1;` ou `led.write(0);`).
+* **Destructeurs** : rarement utilisés, mais importants pour libérer les ressources dans certains contextes RTOS.
+
+---
+
+## 🔁 3. Pointeurs, références et mémoire
+
+### Pourquoi importants :
+
+* Permettent de manipuler directement le matériel (registres, buffers DMA, etc.).
+* Nécessaires pour passer des objets lourds sans copie.
+
+```cpp
+void readSensor(SensorData* data);
+```
+
+### Bonnes pratiques :
+
+* Éviter l’allocation dynamique (`new`, `malloc`) — privilégier la **pile (stack)**.
+* En RTOS, utiliser des **buffers statiques** ou des **pools mémoire**.
+
+---
+
+## 🕹️ 4. Classes Mbed OS essentielles
+
+| Classe                       | Rôle                             | Exemple                                         |
+| ---------------------------- | -------------------------------- | ----------------------------------------------- |
+| `DigitalOut`                 | Gérer une sortie numérique       | `DigitalOut led(LED1); led = 1;`                |
+| `DigitalIn`                  | Lire une entrée numérique        | `DigitalIn button(BUTTON1); if (button) …`      |
+| `AnalogIn`                   | Lire une entrée analogique (ADC) | `AnalogIn sensor(A0); float v = sensor.read();` |
+| `PwmOut`                     | Générer un signal PWM            | `PwmOut motor(D3); motor.write(0.5f);`          |
+| `Serial` ou `BufferedSerial` | Communication UART               | `BufferedSerial pc(USBTX, USBRX);`              |
+| `Ticker`                     | Timer périodique (ISR)           | `Ticker tick; tick.attach(callback, 1.0);`      |
+| `Thread`                     | Tâche concurrente (RTOS)         | `Thread t; t.start(task_function);`             |
+| `Mutex`, `Semaphore`         | Synchronisation                  | `mutex.lock(); ... mutex.unlock();`             |
+
+---
+
+## 🧵 5. RTOS et multitâche (Mbed OS 6+)
+
+Mbed OS intègre **mbed::rtos**, basé sur **CMSIS-RTOS** (souvent FreeRTOS en backend).
+
+### Exemples :
+
+```cpp
+Thread thread1;
+void blink() {
+    while (true) {
+        led = !led;
+        ThisThread::sleep_for(500ms);
+    }
+}
+int main() {
+    thread1.start(blink);
+}
+```
+
+### Structures associées :
+
+* `Thread` → tâche indépendante
+* `Mutex`, `Semaphore` → synchronisation
+* `EventQueue` → gestion d’événements (plus efficace que `while(true)` avec `sleep_for`)
+
+---
+
+## ⏱️ 6. Structures temporelles
+
+* `ThisThread::sleep_for(chrono::milliseconds(500));`
+* `Timer` → mesure d’intervalles
+* `Ticker` → interruptions périodiques
+* `Timeout` → exécution différée
+
+---
+
+## ⚡ 7. Callbacks et lambdas
+
+Mbed OS utilise largement les **callbacks** (fonction à rappeler plus tard, souvent dans une interruption ou un event queue).
+
+```cpp
+Ticker tick;
+void toggle_led() { led = !led; }
+
+int main() {
+    tick.attach(callback(toggle_led), 500ms);
+}
+```
+
+Peut aussi être fait avec une **lambda** :
+
+```cpp
+tick.attach([] { led = !led; }, 500ms);
+```
+
+---
+
+## 🧰 8. Bonnes pratiques C++ pour l’embarqué
+
+* Utiliser des **const**, **constexpr**, **enum class**.
+* Éviter les exceptions et la STL complète (trop lourde).
+* Préférer `#define` ou `constexpr` pour les constantes.
+* Toujours surveiller l’usage mémoire et le temps d’exécution.
+
+---
+
+## 📘 En résumé
+
+| Catégorie         | Structure clé                                   | Utilisation typique        |
+| ----------------- | ----------------------------------------------- | -------------------------- |
+| Entrées/Sorties   | `DigitalIn`, `DigitalOut`, `AnalogIn`, `PwmOut` | Contrôle du matériel       |
+| Temps             | `Timer`, `Ticker`, `Timeout`                    | Mesures et interruptions   |
+| Concurrence       | `Thread`, `Mutex`, `Semaphore`, `EventQueue`    | RTOS                       |
+| Programmation C++ | `class`, `struct`, `callback`, `lambda`         | Architecture et modularité |
+| Types et mémoire  | `uint32_t`, `constexpr`, pointeurs              | Efficacité et sécurité     |
+
+---
+
+Souhaites-tu que je te fasse une **fiche condensée au format A4** (pour révision ou impression) avec les éléments essentiels et exemples minimalistes ?

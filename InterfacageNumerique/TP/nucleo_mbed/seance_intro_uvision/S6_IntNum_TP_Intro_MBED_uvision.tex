@@ -659,13 +659,130 @@ https://lense.institutoptique.fr/nucleo/
 %%%%%%%%%%%%%    Premier programme
 \section*{Annexe - Compléments de langage C++}
 
-\subsection*{Fonction main()}
+\subsection*{Structure d’un programme}
 
-\subsection*{Typage des données}
+\subsubsection*{C}
 
-\subsection*{Affichage sur la console}
+%#include <stdio.h>
+%
+%int main(void) {
+%    printf("Hello, world!\n");
+%    return 0;
+%}
 
-\subsection*{Utilisation d'un tableau}
+\subsubsection*{C++}
+
+%#include <iostream>
+%using namespace std;
+%
+%int main() {
+%    cout << "Hello, world!" << endl;
+%    return 0;
+%}
+
+
+\subsubsection*{C++ embarqué}
+
+(voir fiche C)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Types de base}
+
+
+%| Type           | Taille typique | Exemple               |
+%| -------------- | -------------- | --------------------- |
+%| `int`          | 4 octets       | `int a = 5;`          |
+%| `float`        | 4 octets       | `float x = 3.14f;`    |
+%| `double`       | 8 octets       | `double y = 2.71828;` |
+%| `char`         | 1 octet        | `char c = 'A';`       |
+%| `bool` *(C++)* | 1 octet        | `bool ok = true;`     |
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Opérateurs principaux}
+
+%* **Arithmétiques** : `+ - * / %`
+%* **Logiques** : `&& || !`
+%* **Comparaisons** : `== != < > <= >=`
+%* **Affectation** : `= += -= *= /= %=`
+%* **Incrémentation / Décrémentation** : `++ --`
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Structures de contrôle}
+
+\subsubsection*{Conditions}
+
+%if (x > 0) {
+%    printf("Positif\n");
+%} else if (x < 0) {
+%    printf("Négatif\n");
+%} else {
+%    printf("Zéro\n");
+%}
+
+
+\subsubsection*{Boucles}
+
+%for (int i = 0; i < 10; i++) { ... }
+%
+%while (condition) { ... }
+%
+%do { ... } while (condition);
+
+\subsubsection*{Switch}
+
+%switch (val) {
+%    case 1:
+%        printf("Un\n");
+%        break;
+%    case 2:
+%        printf("Deux\n");
+%        break;
+%    default:
+%        printf("Autre\n");
+%}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Tableaux et chaînes}
+
+%int t[5] = {1, 2, 3, 4, 5};
+%printf("%d\n", t[0]);
+%
+%char s[] = "Bonjour";
+%printf("%s\n", s);
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Fonctions}
+
+%int somme(int a, int b) {
+%    return a + b;
+%}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Structures (C) et classes (C++)}
+
+%struct Point {
+%    int x;
+%    int y;
+%};
+%
+%struct Point p1 = {2, 3};
+
+
+
+%class Point {
+%public:
+%    int x, y;
+%    void afficher() { cout << x << ", " << y << endl; }
+%};
+%
+%Point p1;
+%p1.x = 2;
+%p1.y = 3;
+%p1.afficher();
 
 
 

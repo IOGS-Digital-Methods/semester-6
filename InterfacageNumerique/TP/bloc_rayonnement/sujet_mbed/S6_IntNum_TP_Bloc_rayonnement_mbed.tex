@@ -161,6 +161,12 @@ Un diagramme de rayonnement lumineux est la \textbf{représentation graphique} d
 
 Vous aurez à votre disposition une \textbf{maquette} permettant la mise en mouvement d'un système de photodétection autour d'une source de puissance à LED. Cette maquette est pilotée par une carte Nucléo (contenant un microcontroleur).
 
+\noindent \rule{\linewidth}{1pt}
+
+Un exemple de base (en version archivée et pré-compilée) est disponible au téléchargement ici : 
+
+\href{https://lense.institutoptique.fr/ressources/mbed/hello-L476RG_pre.zip}{https://lense.institutoptique.fr/ressources/mbed/hello-L476RG\_pre.zip}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%    Déroulement
@@ -174,15 +180,6 @@ Vous aurez à votre disposition une \textbf{maquette} permettant la mise en mouv
 \subsection{Séance 1 / MBED et Nucléo-STM32 (sans maquette !!)}
 
 \textit{Le sujet de cette séance est fourni dans un document annexe, disponible aussi sur le site du LEnsE - https://lense.institutoptique.fr/ dans la rubrique Année / Première Année / Interfaçage Numérique S6 / Bloc 1 Systèmes embarqués / Intro MBED et STM32.}
-
-	\begin{description}
-		\item[Etape 0 - 30 min] Créer un compte MBED et tester un premier programme
-		\item[Etape 1 - 45 min] Piloter des sorties numériques - LED
-		\item[Etape 2 - 45 min] Acquérir des données numériques - Bouton-poussoirs
-		\item[Etape 3 - 45 min] Mettre en \oe{}uvre des interruptions sur des événements externes
-		\item[Etape 4 - 45 min] Utiliser des sorties modulées en largeur d'impulsion (PWM) - LEDs
-		\item[Etape 5 - 60 min] Acquérir des données analogiques - Potentiomètre
-	\end{description}	
 
 \subsection{Séance 2 / Prise en main de la maquette et automatisation de la mesure}
 
@@ -206,9 +203,32 @@ Vous aurez à votre disposition une \textbf{maquette} permettant la mise en mouv
 
 \subsection{Séance 4 / Application complète}
 
-Cette dernière séance sera consacrée à la finalisation des différents programmes : embarqué sur la carte Nucléo pour la mesure automatique et sur l'ordinateur pour le pilotage de la maquette et l'affichage des données.
+La dernière séance sera consacrée à la finalisation des différents programmes : embarqué sur la carte Nucléo pour la mesure automatique et sur l'ordinateur pour le pilotage de la maquette et l'affichage des données.
 
 Selon le temps restant, il sera possible d'intégrer les fonctions écrites en Python dans une interface graphique, dont la structure de base est fournie.
+
+
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%    DISC
+
+\section{DISC / Accumulation de preuves}
+
+Nous vous rappelons également que l'un des livrables final de ce module est un \textbf{Document Individuel de Suivi de Compétences} qui devra revendiquer votre progression dans l'acquisition des compétences suivantes :
+
+\begin{itemize}
+	\item C4 – Valider une solution technologique
+	\item C7 – Travailler en équipe
+\end{itemize}
+
+\subsection{Travail à réaliser}
+
+Vous devrez donc tout au long des séances de TP : 
+
+\begin{itemize}
+	\item Documenter les tests réalisés pour valider les fonctionnalités mise en oeuvre
+	\item Stocker les preuves pour revendiquer la montée en compétences (résultats, photos, vidéos...)
+\end{itemize}
 
 
 \cleardoublepage
@@ -252,9 +272,6 @@ Cette seconde séance est consacrée à la \textbf{prise en main de la maquette}
 %%%%%%%%%%%%%    Maquette
 \section{Description de la maquette}
 
-
-\subsection{Eléments constitutifs}
-
 La maquette est constituée :
 
 \begin{itemize}
@@ -266,7 +283,7 @@ La maquette est constituée :
 \end{itemize}
 
 \begin{center}
-	\includegraphics[width=0.9\textwidth]{images/maquette_rayon.png}
+	\includegraphics[width=0.8\textwidth]{images/maquette_rayon.png}
 \end{center}
 
 
@@ -326,7 +343,12 @@ Maquette & \textbf{Broche Nucléo} & Type & Description \\
 %%%%%%%%%%%%%    Etape 6
 \section{Etape 7 / Piloter l'intensité des LEDs de la maquette}
 
-\Manip Réaliser un programme qui permet de modifier la luminosité des diodes LED1 et LED2 de la maquette à l'aide des deux bouton-poussoirs SW1 et SW2 (un pour augmenter, l'autre pour diminuer la luminosité). \textbf{Votre programme devra utiliser uniquement le principe d'interruption.}
+
+Un exemple de base (en version archivée et pré-compilée) est disponible au téléchargement ici : 
+
+\href{https://lense.institutoptique.fr/ressources/mbed/hello-L476RG_pre.zip}{https://lense.institutoptique.fr/ressources/mbed/hello-L476RG\_pre.zip}
+
+\Manip A partir de cet exemple, réaliser un programme qui permet de \textbf{modifier la luminosité des diodes LED1 et LED2} de la maquette à l'aide des deux bouton-poussoirs SW1 et SW2 (un pour augmenter, l'autre pour diminuer la luminosité). \textbf{Votre programme devra utiliser uniquement le principe d'interruption.}
 
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -353,7 +375,7 @@ On se propose de tester le code \textsl{pwm\_servo.cpp}. Ce fichier est disponib
 
 \Manip Télécharger le projet de base et décompresser l'archive dans un répertoire de votre ordinateur.
 
-\href{https://lense.institutoptique.fr/ressources/mbed/hello-L476RG.zip}{https://lense.institutoptique.fr/ressources/mbed/hello-L476RG.zip}
+\href{https://lense.institutoptique.fr/ressources/mbed/hello-L476RG_pre.zip}{https://lense.institutoptique.fr/ressources/mbed/hello-L476RG\_pre.zip}
 
 \Manip Tester le code fourni en remplaçant le contenu du fichier \textit{main.cpp} par le code à tester.
 

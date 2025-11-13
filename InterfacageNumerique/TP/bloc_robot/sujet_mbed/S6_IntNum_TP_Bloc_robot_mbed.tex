@@ -154,6 +154,14 @@ L'objectif principal de ce mini-projet est de \textbf{développer le code embarq
 
 Vous aurez à votre disposition une \textbf{maquette} basée sur un robot Joy-It Car. Cette maquette est pilotée par une carte Nucléo (contenant un microcontroleur).
 
+\medskip
+
+\noindent \rule{\linewidth}{1pt}
+
+Un exemple de base (en version archivée et pré-compilée) est disponible au téléchargement ici : 
+
+\href{https://lense.institutoptique.fr/ressources/mbed/hello-L476RG_pre.zip}{https://lense.institutoptique.fr/ressources/mbed/hello-L476RG\_pre.zip}
+
 
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -167,16 +175,7 @@ Vous aurez à votre disposition une \textbf{maquette} basée sur un robot Joy-It
 
 \subsection{Séance 1 / MBED et Nucléo-STM32 (sans maquette !!)}
 
-\textit{Le sujet de cette séance est fourni dans un document annexe, disponible aussi sur le site du LEnsE - https://lense.institutoptique.fr/ dans la rubrique Année / Première Année / Interfaçage Numérique S6 / Bloc 1 Systèmes embarqués / Intro MBED et STM32.}
-
-	\begin{description}
-		\item[Etape 0 - 30 min] Créer un compte MBED et tester un premier programme
-		\item[Etape 1 - 45 min] Piloter des sorties numériques - LED
-		\item[Etape 2 - 45 min] Acquérir des données numériques - Bouton-poussoirs
-		\item[Etape 3 - 45 min] Mettre en \oe{}uvre des interruptions sur des événements externes
-		\item[Etape 4 - 45 min] Utiliser des sorties modulées en largeur d'impulsion (PWM) - LEDs
-		\item[Etape 5 - 60 min] Acquérir des données analogiques - Potentiomètre
-	\end{description}	
+\textit{Le sujet de cette séance est fourni dans un document annexe, disponible aussi sur le site du LEnsE - https://lense.institutoptique.fr/ dans la rubrique Année / Première Année / Interfaçage Numérique S6 / Bloc 1 Systèmes embarqués / Intro MBED et STM32.}	
 
 
 \subsection{Séance 2 / Prise en main de la maquette et déplacements élémentaires}
@@ -204,6 +203,26 @@ Les étapes possibles sont les suivantes :
 
 Vous pourrez également ajouter d'autres éléments présents sur la carte : encodeur de vitesse sur les roues, capteurs de température (analogique ou numérique en I2C), accéléromètre (I2C).
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%    DISC
+
+\section{DISC / Accumulation de preuves}
+
+Nous vous rappelons également que l'un des livrables final de ce module est un \textbf{Document Individuel de Suivi de Compétences} qui devra revendiquer votre progression dans l'acquisition des compétences suivantes :
+
+\begin{itemize}
+	\item C4 – Valider une solution technologique
+	\item C7 – Travailler en équipe
+\end{itemize}
+
+\subsection{Travail à réaliser}
+
+Vous devrez donc tout au long des séances de TP : 
+
+\begin{itemize}
+	\item Documenter les tests réalisés pour valider les fonctionnalités mise en oeuvre
+	\item Stocker les preuves pour revendiquer la montée en compétences (résultats, photos, vidéos...)
+\end{itemize}
 
 
 \newpage
@@ -403,15 +422,19 @@ Maquette & \textbf{Broche Nucléo} & Type & Description \\
 
 
 
+\newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%    Etape 6
 \section{Etape 7 / Piloter l'intensité des LEDs de la maquette}
 
-\Manip Réaliser un programme qui permet de modifier la luminosité des diodes LED1 et LED2 de la maquette à l'aide des deux bouton-poussoirs SW1 et SW2 (un pour augmenter, l'autre pour diminuer la luminosité). \textbf{Votre programme devra utiliser uniquement le principe d'interruption.}
+Un exemple de base (en version archivée et pré-compilée) est disponible au téléchargement ici : 
+
+\href{https://lense.institutoptique.fr/ressources/mbed/hello-L476RG_pre.zip}{https://lense.institutoptique.fr/ressources/mbed/hello-L476RG\_pre.zip}
+
+\Manip A partir de cet exemple, réaliser un programme qui permet de \textbf{modifier la luminosité des diodes LED1 et LED2} de la maquette à l'aide des deux bouton-poussoirs SW1 et SW2 (un pour augmenter, l'autre pour diminuer la luminosité). \textbf{Votre programme devra utiliser uniquement le principe d'interruption.}
 
 
-\newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%    Etape 7
@@ -480,7 +503,7 @@ En effet, les systèmes mécaniques, que sont les moteurs, ont des \textbf{const
 
 \Manip Télécharger le projet de base et décompresser l'archive dans un répertoire de votre ordinateur.
 
-\href{https://lense.institutoptique.fr/ressources/mbed/hello-L476RG.zip}{https://lense.institutoptique.fr/ressources/mbed/hello-L476RG.zip}
+\href{https://lense.institutoptique.fr/ressources/mbed/hello-L476RG_pre.zip}{https://lense.institutoptique.fr/ressources/mbed/hello-L476RG\_pre.zip}
 
 \Manip Paramétrer les broches de commande du moteur de gauche en sortie modulée (\textsc{MOT\_L\_1} et \textsc{MOT\_L\_2}). 
 
@@ -536,7 +559,7 @@ Un comparateur est ensuite ajouté en sortie pour transmettre uniquement un sign
 
 \Manip Télécharger le projet de base et décompresser l'archive dans un répertoire de votre ordinateur.
 
-\href{https://lense.institutoptique.fr/ressources/mbed/hello-L476RG.zip}{https://lense.institutoptique.fr/ressources/mbed/hello-L476RG.zip}
+\href{https://lense.institutoptique.fr/ressources/mbed/hello-L476RG_pre.zip}{https://lense.institutoptique.fr/ressources/mbed/hello-L476RG\_pre.zip}
 
 \Manip Paramétrer les broches des \textbf{capteurs de ligne} en entrée d'interruption (\textsc{Line\_L}, \textsc{Line\_C} et \textsc{Line\_R}).
 
@@ -578,7 +601,7 @@ Il contient 5 fichiers dont les 4 fichiers des bibliothèques mentionnées préc
 
 \Manip Télécharger le projet de base et décompresser l'archive dans un répertoire de votre ordinateur.
 
-\href{https://lense.institutoptique.fr/ressources/mbed/hello-L476RG.zip}{https://lense.institutoptique.fr/ressources/mbed/hello-L476RG.zip}
+\href{https://lense.institutoptique.fr/ressources/mbed/hello-L476RG_pre.zip}{https://lense.institutoptique.fr/ressources/mbed/hello-L476RG\_pre.zip}
 
 \medskip
 
@@ -680,7 +703,6 @@ On se propose de tester le code \textsl{dist\_us.cpp}. Ce fichier est disponible
 
 \Quest Quelle est la limite de détection de ce capteur ?
 
-\newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%    Etape 12
 \section{Etape 13 / Piloter le servomoteur associé au capteur ultrason}
@@ -708,12 +730,17 @@ On se propose de tester le code \textsl{pwm\_servo.cpp}. Ce fichier est disponib
 \Manip Créer une fonction permettant de positionner le servomoteur à un angle particulier. Tester votre fonction. 
 
 
-\newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%    Mini Projet
 \section{Mini-Projet / Suivi de ligne et évitement d'obstacle}
 
-Maintenant que vous maitrisez les briques de base 
+Maintenant que vous maitrisez les briques de base de la programmation embarquée, vous allez devoir mettre au point le programme complet permettant au robot :
+
+\begin{itemize}
+	\item de suivre une ligne noire sur un fond blanc, sur la plus grande distance possible
+	\item d'éviter les obstacles qui se dresseraient sur son chemin (s'arrêter à une distance raisonnable)
+	\item de contourner l'obstacle et de revenir sur la ligne
+\end{itemize}
 
 %\newpage
 %\strut % empty page

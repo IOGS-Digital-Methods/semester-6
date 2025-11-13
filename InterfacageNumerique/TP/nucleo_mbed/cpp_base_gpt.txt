@@ -1,0 +1,158 @@
+
+---
+
+## 🧩 1. Structure d’un programme
+
+### En **C** :
+
+```c
+#include <stdio.h>
+
+int main(void) {
+    printf("Hello, world!\n");
+    return 0;
+}
+```
+
+### En **C++** :
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int main() {
+    cout << "Hello, world!" << endl;
+    return 0;
+}
+```
+
+
+### En **C++ embarqué** :
+
+(voir fiche C)
+
+---
+
+## 🔤 2. Types de base
+
+| Type           | Taille typique | Exemple               |
+| -------------- | -------------- | --------------------- |
+| `int`          | 4 octets       | `int a = 5;`          |
+| `float`        | 4 octets       | `float x = 3.14f;`    |
+| `double`       | 8 octets       | `double y = 2.71828;` |
+| `char`         | 1 octet        | `char c = 'A';`       |
+| `bool` *(C++)* | 1 octet        | `bool ok = true;`     |
+
+⚠️ En C, pas de type `bool` natif avant C99 (`#include <stdbool.h>`).
+
+---
+
+## 🧮 3. Opérateurs principaux
+
+* **Arithmétiques** : `+ - * / %`
+* **Logiques** : `&& || !`
+* **Comparaisons** : `== != < > <= >=`
+* **Affectation** : `= += -= *= /= %=`
+* **Incrémentation / Décrémentation** : `++ --`
+
+---
+
+## 🔁 4. Structures de contrôle
+
+### Conditions
+
+```c
+if (x > 0) {
+    printf("Positif\n");
+} else if (x < 0) {
+    printf("Négatif\n");
+} else {
+    printf("Zéro\n");
+}
+```
+
+### Boucles
+
+```c
+for (int i = 0; i < 10; i++) { ... }
+
+while (condition) { ... }
+
+do { ... } while (condition);
+```
+
+### Switch
+
+```c
+switch (val) {
+    case 1:
+        printf("Un\n");
+        break;
+    case 2:
+        printf("Deux\n");
+        break;
+    default:
+        printf("Autre\n");
+}
+```
+
+---
+
+## 📦 5. Tableaux et chaînes
+
+```c
+int t[5] = {1, 2, 3, 4, 5};
+printf("%d\n", t[0]);
+
+char s[] = "Bonjour";
+printf("%s\n", s);
+```
+
+---
+
+## 🧱 6. Fonctions
+
+```c
+int somme(int a, int b) {
+    return a + b;
+}
+```
+
+En **C++**, mêmes principes :
+
+```cpp
+int somme(int a, int b) {
+    return a + b;
+}
+```
+
+---
+
+## 🧱 7. Structures (C) et classes (C++)
+
+### En **C** :
+
+```c
+struct Point {
+    int x;
+    int y;
+};
+
+struct Point p1 = {2, 3};
+```
+
+### En **C++** :
+
+```cpp
+class Point {
+public:
+    int x, y;
+    void afficher() { cout << x << ", " << y << endl; }
+};
+
+Point p1;
+p1.x = 2;
+p1.y = 3;
+p1.afficher();
+```
+
