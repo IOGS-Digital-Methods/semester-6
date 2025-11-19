@@ -38,7 +38,6 @@
 \begin{document}
 
 
-
 % Page de garde
 \begin{titlepage}
 
@@ -170,9 +169,9 @@ Un tutoriel sur les bases d'OpenCV est disponible à l’adresse suivante :
 
 \href{https://iogs-lense-training.github.io/image-processing/}{https://iogs-lense-training.github.io/image-processing/}
 
-Un \textbf{kit d'images} est disponible sur le site du LEnsE dans la rubrique \textit{Année / Première Année / Interfaçage Numérique S6 / Bloc 2 Caméra, Images et Interfaces / Images et OpenCV / Kit d'images}. 
+Un \textbf{kit d'images} est disponible sur le site du LEnsE dans la rubrique  \textit{Année / Première Année / Interfaçage Numérique S6 / Bloc 2 Caméra, Images et Interfaces / Images et OpenCV / Kit d'images}. 
 
-Des \textbf{fichiers de fonctions} sont disponibles sur le site du LEnsE dans la rubrique\textit{Année / Première Année / Interfaçage Numérique S6 / Bloc 2 Caméra, Images et Interfaces / Images et OpenCV / Répertoire vers codes à tester}. 
+Des \textbf{fichiers de fonctions} sont disponibles sur le site du LEnsE dans la rubrique \textit{Année / Première Année / Interfaçage Numérique S6 / Bloc 2 Caméra, Images et Interfaces / Images et OpenCV / Répertoire vers codes à tester}. 
 
 
 Quelques \textbf{exemples} et explications sur les différents pré-traitements d'images est disponible sur le site du LEnsE dans la rubrique \textit{Année / Première Année / Interfaçage Numérique S6 / Bloc 2 Caméra, Images et Interfaces / Images et OpenCV / Image Processing with OpenCV}. 
@@ -235,7 +234,7 @@ Codes fournis (à modifier ?)
 \end{itemize}
 
 
-
+\newpage
 \subsection{TP3 - Manipulations avancées sous OpenCV / Limites du banc de vision}
 
 Sous OpenCV :
@@ -319,7 +318,7 @@ On s'intéressera à l'impact du \textbf{temps d'intégration}, de la \textbf{r�
 
 \noindent \rule{\linewidth}{1pt}
 
-{\noindent\Large \rule[-7pt]{0pt}{30pt} \textbf{Séance 1} / Modélisation primaire d'une chaine d'acquisition} 
+{\noindent\Large \rule[-7pt]{0pt}{30pt} \textbf{Séance 1} / Banc de vision industrielle} 
 
 \noindent \rule{\linewidth}{1pt}
 
@@ -338,7 +337,7 @@ Les documentations de la caméra et de l'éclairage sont disponibles aux adresse
 %%%%%%%%%%%%%    Etape 0
 \section{Etape 0 / Prendre en main l'interface de pilotage}
 
-\begin{center} \textbf{\textit{Temps conseillé : 30 min}} \end{center}
+\begin{center} \textbf{\textit{Temps conseillé : 20 min}} \end{center}
 
 \Manip Lancer l'application CMOS\_Machine\_Vision depuis le bureau des ordinateurs.
 
@@ -364,7 +363,7 @@ https://github.com/IOGS-LEnsE-ressources/machine-vision-gui  (version Basler)
 
 \Manip Ajuster la zone d'intérêt (ou \textit{Area of Interest} - AOI) à l'aide de l'onglet \textsc{Zone d'Intérêt} pour ne sélectionner qu'une partie de l'image autour de l'objet.
 
-\Quest Que pouvez-vous dire des deux histogrammes affichés ? Quelles sont les valeurs minimale et maximale prises par les pixels de la caméra ? Quelle est alors la résolution de la caméra utilisée ?
+\Quest Que pouvez-vous dire des deux histogrammes affichés ? Quelles sont les valeurs minimale et maximale prises par les pixels de la caméra ? Quelle est alors la \textbf{profondeur binaire} de la caméra utilisée ?
 
 \medskip
 
@@ -375,13 +374,7 @@ https://github.com/IOGS-LEnsE-ressources/machine-vision-gui  (version Basler)
 
 \textit{\textbf{Pour la suite du TP, on s'assurera de prendre une zone d'intérêt à peu près centrée dans l'image et d'une taille d'environ 500 par 500 pixels.}}
 
-
-\newpage
-%%%%%%%%%%%%%    Etape 1
-\section{Etape 1 / Décrire le rôle des principales caractéristiques d'une caméra CMOS}
-
-\begin{center} \textbf{\textit{Temps conseillé : 30 min}} \end{center}
-
+\noindent \rule{\linewidth}{1pt}
 
 \subsection{Temps d'intégration}
 
@@ -389,14 +382,16 @@ https://github.com/IOGS-LEnsE-ressources/machine-vision-gui  (version Basler)
 
 \Quest Que constatez-vous sur l'histogramme de l'image ? Sur la moyenne et l'écart-type de la répartition de la luminosité des pixels ?
 
-\Manip Placer un cache devant la caméra (ou Prévoir une caméra annexe avec cache - pour éviter d'enlever l'objectif et mettre un cache...) pour vous placer dans l'obscurité.
+\Manip Placer un cache devant la caméra pour vous placer dans l'obscurité.
 
 \Quest La répartition de la luminosité perçu par chaque pixel est-elle uniforme ? Que pouvez-vous en conclure ?
+
+\Manip 
 
 
 \subsection{Echantillonnage et quantification}
 
-\Manip Replacer l'objectif sur la caméra. Placer des objets dans le champ de la caméra. Sélectionner une zone d'intérêt d'environ 500 pixels par 500 pixels autour de l'objet à visualiser. Ajuster le temps d'intégration pour obtenir une image non saturée avec un éclairage blanc. 
+\Manip Placer des objets dans le champ de la caméra. Sélectionner une zone d'intérêt d'environ 500 pixels par 500 pixels autour de l'objet à visualiser. Ajuster le temps d'intégration pour obtenir une image non saturée avec un éclairage blanc. 
 
 \Manip Dans la section \textsc{Quantif./Echant.}, modifier la profondeur de quantification des informations. 
 

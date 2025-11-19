@@ -639,10 +639,11 @@ Dans cet exemple, toutes les 0.5 secondes, la fonction \textsl{tik\_ISR()} est a
 
 On se propose de tester le code \textsl{interrupt\_on\_ticker.cpp}. Ce fichier est disponible sur le site du LEnsE dans la rubrique \textit{Année / Première Année / Interfaçage Numérique S6 / Bloc 1 Systèmes embarqués / Exemples MBED pour STM32}.
 
-\Manip Tester le code fourni. 
+\Manip Tester et expliquer le code fourni. \textit{En traçant des chronogrammes...}
 
 \Manip Réaliser un programme qui permet d'activer (ou de désactiver) l'action effectuée par le code fourni précédemment par l'appui sur un bouton poussoir. \textbf{Votre programme devra utiliser uniquement le principe d'interruption.}
 
+\Manip Tester et expliquer le code suivant : \textsl{interrupt\_on\_ticker\_bonus.cpp}
 
 \noindent \rule{\linewidth}{1pt}
 
@@ -654,136 +655,136 @@ https://lense.institutoptique.fr/nucleo/
 \end{center}
 
 
-\newpage
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%    Premier programme
-\section*{Annexe - Compléments de langage C++}
-
-\subsection*{Structure d’un programme}
-
-\subsubsection*{C}
-
-%#include <stdio.h>
+%\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%    Premier programme
+%\section*{Annexe - Compléments de langage C++}
 %
-%int main(void) {
-%    printf("Hello, world!\n");
-%    return 0;
-%}
-
-\subsubsection*{C++}
-
-%#include <iostream>
-%using namespace std;
+%\subsection*{Structure d’un programme}
 %
-%int main() {
-%    cout << "Hello, world!" << endl;
-%    return 0;
-%}
-
-
-\subsubsection*{C++ embarqué}
-
-(voir fiche C)
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection*{Types de base}
-
-
-%| Type           | Taille typique | Exemple               |
-%| -------------- | -------------- | --------------------- |
-%| `int`          | 4 octets       | `int a = 5;`          |
-%| `float`        | 4 octets       | `float x = 3.14f;`    |
-%| `double`       | 8 octets       | `double y = 2.71828;` |
-%| `char`         | 1 octet        | `char c = 'A';`       |
-%| `bool` *(C++)* | 1 octet        | `bool ok = true;`     |
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection*{Opérateurs principaux}
-
-%* **Arithmétiques** : `+ - * / %`
-%* **Logiques** : `&& || !`
-%* **Comparaisons** : `== != < > <= >=`
-%* **Affectation** : `= += -= *= /= %=`
-%* **Incrémentation / Décrémentation** : `++ --`
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection*{Structures de contrôle}
-
-\subsubsection*{Conditions}
-
-%if (x > 0) {
-%    printf("Positif\n");
-%} else if (x < 0) {
-%    printf("Négatif\n");
-%} else {
-%    printf("Zéro\n");
-%}
-
-
-\subsubsection*{Boucles}
-
-%for (int i = 0; i < 10; i++) { ... }
+%\subsubsection*{C}
 %
-%while (condition) { ... }
+%%#include <stdio.h>
+%%
+%%int main(void) {
+%%    printf("Hello, world!\n");
+%%    return 0;
+%%}
 %
-%do { ... } while (condition);
-
-\subsubsection*{Switch}
-
-%switch (val) {
-%    case 1:
-%        printf("Un\n");
-%        break;
-%    case 2:
-%        printf("Deux\n");
-%        break;
-%    default:
-%        printf("Autre\n");
-%}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection*{Tableaux et chaînes}
-
-%int t[5] = {1, 2, 3, 4, 5};
-%printf("%d\n", t[0]);
+%\subsubsection*{C++}
 %
-%char s[] = "Bonjour";
-%printf("%s\n", s);
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection*{Fonctions}
-
-%int somme(int a, int b) {
-%    return a + b;
-%}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection*{Structures (C) et classes (C++)}
-
-%struct Point {
-%    int x;
-%    int y;
-%};
+%%#include <iostream>
+%%using namespace std;
+%%
+%%int main() {
+%%    cout << "Hello, world!" << endl;
+%%    return 0;
+%%}
 %
-%struct Point p1 = {2, 3};
-
-
-
-%class Point {
-%public:
-%    int x, y;
-%    void afficher() { cout << x << ", " << y << endl; }
-%};
 %
-%Point p1;
-%p1.x = 2;
-%p1.y = 3;
-%p1.afficher();
-
+%\subsubsection*{C++ embarqué}
+%
+%(voir fiche C)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\subsection*{Types de base}
+%
+%
+%%| Type           | Taille typique | Exemple               |
+%%| -------------- | -------------- | --------------------- |
+%%| `int`          | 4 octets       | `int a = 5;`          |
+%%| `float`        | 4 octets       | `float x = 3.14f;`    |
+%%| `double`       | 8 octets       | `double y = 2.71828;` |
+%%| `char`         | 1 octet        | `char c = 'A';`       |
+%%| `bool` *(C++)* | 1 octet        | `bool ok = true;`     |
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\subsection*{Opérateurs principaux}
+%
+%%* **Arithmétiques** : `+ - * / %`
+%%* **Logiques** : `&& || !`
+%%* **Comparaisons** : `== != < > <= >=`
+%%* **Affectation** : `= += -= *= /= %=`
+%%* **Incrémentation / Décrémentation** : `++ --`
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\subsection*{Structures de contrôle}
+%
+%\subsubsection*{Conditions}
+%
+%%if (x > 0) {
+%%    printf("Positif\n");
+%%} else if (x < 0) {
+%%    printf("Négatif\n");
+%%} else {
+%%    printf("Zéro\n");
+%%}
+%
+%
+%\subsubsection*{Boucles}
+%
+%%for (int i = 0; i < 10; i++) { ... }
+%%
+%%while (condition) { ... }
+%%
+%%do { ... } while (condition);
+%
+%\subsubsection*{Switch}
+%
+%%switch (val) {
+%%    case 1:
+%%        printf("Un\n");
+%%        break;
+%%    case 2:
+%%        printf("Deux\n");
+%%        break;
+%%    default:
+%%        printf("Autre\n");
+%%}
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\subsection*{Tableaux et chaînes}
+%
+%%int t[5] = {1, 2, 3, 4, 5};
+%%printf("%d\n", t[0]);
+%%
+%%char s[] = "Bonjour";
+%%printf("%s\n", s);
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\subsection*{Fonctions}
+%
+%%int somme(int a, int b) {
+%%    return a + b;
+%%}
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\subsection*{Structures (C) et classes (C++)}
+%
+%%struct Point {
+%%    int x;
+%%    int y;
+%%};
+%%
+%%struct Point p1 = {2, 3};
+%
+%
+%
+%%class Point {
+%%public:
+%%    int x, y;
+%%    void afficher() { cout << x << ", " << y << endl; }
+%%};
+%%
+%%Point p1;
+%%p1.x = 2;
+%%p1.y = 3;
+%%p1.afficher();
+%
 
 
 \newpage
