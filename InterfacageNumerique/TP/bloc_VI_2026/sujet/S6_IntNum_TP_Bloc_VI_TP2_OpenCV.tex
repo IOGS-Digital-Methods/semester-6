@@ -1,0 +1,380 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Engineering problems / LaTeX Template
+%		Semester 6
+%		Institut d'Optique Graduate School
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	6N-IntNum-BlocVI
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Created by:
+%	Julien VILLEMEJANE - 20/nov/2025
+%	
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Professional Newsletter Template
+% LaTeX Template
+% Version 1.0 (09/03/14)
+%
+% Created by:
+% Bob Kerstetter (https://www.tug.org/texshowcase/) and extensively modified by:
+% Vel (vel@latextemplates.com)
+% 
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[a4paper,11pt,titlepage]{article} % The default font size is 10pt; 11pt and 12pt are alternatives
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{opto_elec_villemejane}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+
+% Page de garde
+\begin{titlepage}
+
+\begin{center}
+	\begin{minipage}{2.5cm}
+	\begin{center}
+		\includegraphics[width=8cm]{images/Logo-LEnsE.png}
+	\end{center}
+\end{minipage}\hfill
+\begin{minipage}{10cm}
+	\begin{center}
+	\textbf{Institut d'Optique Graduate School }\\[0.1cm]
+    \textbf{Interfaçage Numérique}
+
+
+	\end{center}
+\end{minipage}\hfill
+
+
+\vspace{3cm}
+
+
+{\huge \bfseries \textsc{Interfaçage Numérique}} \\[0.5cm]
+{\large \bfseries Travaux Pratiques} \\[0.2cm]
+Semestre 6
+
+\vspace{1.5cm}
+% Title
+\rule{\linewidth}{0.3mm} \\[0.4cm]
+{ \huge \bfseries\color{violet_iogs} Vision Industrielle \\[0.4cm] }
+\rule{\linewidth}{0.3mm} \\[0.2cm]
+{ \large \bfseries\color{violet_iogs} TP 2 / Bases de traitement d'images sous OpenCV}
+\rule{\linewidth}{0.3mm} \\[1cm]
+
+
+\bigskip
+
+\begin{center}
+	\includegraphics[width=0.7\textwidth]{images/vi_intro.png}
+\end{center}
+
+\vfill
+
+\textit{Ce sujet est disponible au format électronique sur le site du LEnsE - https://lense.institutoptique.fr/ dans la rubrique Année / Première Année / Interfaçage Numérique S6 / Bloc 2 Vision Industrielle.}
+
+
+% Bottom of the page
+%{\textbf{\large {Année universitaire} 2024-2025}}
+
+\end{center}
+\end{titlepage}
+
+\newpage
+\strut % empty page
+
+\newpage
+\pagestyle{empty}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%    A A V / Objectifs
+
+Lors de cette séance, vous devrez écrire vos propres scripts en \textbf{Python} (avec l'IDE PyCharm par exemple) permettant de réaliser des opérations de base de manipulation d'images, à l'aide notamment de la célèbre bibliothèque \textbf{OpenCV}.
+
+\section{Ressources}
+
+Un tutoriel sur les bases d'OpenCV est disponible à l’adresse suivante : 
+
+\href{https://iogs-lense-training.github.io/image-processing/}{https://iogs-lense-training.github.io/image-processing/}
+
+Des {codes en Python}, proposant des exemples à tester, sont disponibles sur le site du LEnsE dans la rubrique \textit{Année / Première Année / Interfaçage Numérique S6 / Bloc 2 Vision Industrielle / Répertoire vers codes à tester}. 
+
+\textit{Un fichier archivé, nommé \textsc{step\_by\_step.zip}, regroupe l'ensemble des codes à tester au cours de cette séance, ainsi que les images à traiter.}
+
+\medskip
+
+Un \textbf{kit d'images} est disponible sur le site du LEnsE dans la rubrique \textit{Année / Première Année / Interfaçage Numérique S6 / Bloc 2 Vision Industrielle / Kit d'images}. 
+
+
+\section{Accumulation de preuves / Méthode de travail}
+
+Il est conseillé pour ce TP de \textbf{créer un nouveau projet PyCharm} sur votre session (\textit{attention à l'endroit où vous stockerez ce projet - U: sur les sessions Windows de l'IOGS}).
+
+Les différents algorithmes proposés dans ce TP, ainsi que ceux que vous serez amenés à modifier ou créer, pourront vous resservir dans d'autres projets. Nous vous conseillons donc fortement de les \textbf{sauvegarder} précieusement et de les \textbf{commenter} autant que possible afin de retrouver rapidement les principes mis en jeu derrière les fonctionnalités de OpenCV.
+
+\medskip
+
+Il serait également pertinent de votre part de rédiger un \textbf{journal de bord} sur ce TP en incluant les résultats (images, histogrammes...) et vos analyses des fonctionnalités et de leur intérêt en traitement d'images.
+
+
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%    Etape par étape
+
+\section{Rappel sur les images numériques}
+
+Une image RVB contient 3 canaux (Rouge, Vert, Bleu ou \textit{RGB} en anglais), tandis qu'une image en niveaux de gris n'en a qu'un. Une image en niveau de gris sera \textbf{3 fois plus rapide} à analyser qu'une image en couleur RVB mais toute notion de couleur sera alors perdue.
+
+\begin{center}
+	\includegraphics[width=0.8\textwidth]{images/images_array_gray_rgb.png}
+\end{center}
+
+
+La couleur des objets peut s'avérer inutile lorsqu'on cherche, par exemple, à détecter des formes particulières ou des contours dans une image.
+
+De nombreux algorithmes d'analyse d'image ou de vision par ordinateur travaillent plus efficacement sur des images en niveaux de gris, permettant notamment d'uniformiser l'entrée des algorithmes et de réduire les informations redondantes liées à la couleur.
+
+
+\section{A - Ouvrir une image {[20 min]}}
+
+\begin{mdframed}[style=sidebar,frametitle={}]
+Notions : \href{https://iogs-lense-training.github.io/image-processing/contents/opencv.html#open-an-image
+}{\textit{Open an image}} - \href{https://iogs-lense-training.github.io/image-processing/contents/opencv.html#display-an-image
+}{\textit{Display an image}}
+\end{mdframed}
+
+\Manip Ouvrir le fichier \textsc{01\_open\_image.py} du répertoire des codes à tester.
+
+\Manip Exécuter ce code.
+
+\Quest Que fait ce programme ? Quelle est la taille de chacune des images ? Quel est le type de données d'un élément ?
+
+\Quest Que vaut le premier pixel de chacune des images ? A quoi correspondent les données fournies ?
+
+\newpage
+\section{B - Changement d'espace de couleur {[20 min]}}
+
+\Manip Ouvrir et afficher l'image \textsl{couleurs\_4.png} du kit d'images fourni, au format RGB.
+
+\Manip Créer une copie de la matrice image (fonction \textsl{copy()} de Numpy). 
+
+\Manip Forcer à 0 tous les pixels du canal bleu de la copie de l'image et afficher la nouvelle image.
+
+
+\subsection{Plusieurs méthodes de conversion}
+
+Plusieurs méthodes existent pour passer d'une image RVB à une image en niveau de gris :
+
+\begin{itemize}
+	\item Calculer la \textbf{moyenne des valeurs} des trois canaux de couleur (Rouge, Vert, Bleu) pour chaque pixel.
+	\item Utiliser des \textbf{poids spécifiques pour les canaux R, V et B}, basés sur leur contribution relative à la perception humaine.
+	\item Convertir l'image dans un \textbf{autre espace de couleur}, comme YUV, HSL ou HSV, et extraire la composante de luminosité.
+\end{itemize}
+
+\subsubsection{Moyenne des canaux R,V,B}
+
+Cette méthode est la plus simple. Chaque pixel de l'image en gris est la moyenne des pixels des canaux rouge, vert et bleu de l'image en couleur :
+
+$$Pixel_{Gray} = \frac{Pixel_{R} + Pixel_{V} + Pixel_{B}}{3}$$ 
+
+\Manip Créer une image en nuance de gris utilisant la méthode de la moyenne des trois canaux.
+
+\Manip Afficher l'image résultante.
+
+
+\subsubsection{Pondération en fonction de la perception humaine}
+
+Cette méthode est une moyenne pondérée des valeurs des pixels R, V, B de l'image couleur : 
+
+$$Pixel_{Gray} = 0.299 \cdot Pixel_{R} + 0.587 \cdot Pixel_{V} + 0.114 \cdot Pixel_{B}$$ 
+
+
+Les coefficients de cette méthode proviennent de la sensibilité relative de l'œil humain aux différentes couleurs et ont été standardisés à l'origine pour la télévision analogique (NTSC). Ils sont aujourd'hui utilisés comme une approximation fidèle de la perception visuelle de la luminosité.
+
+La méthode de conversion fournie par la bibliothèque OpenCV se base sur cette pondération.
+
+\Manip Convertir l'image RVB en niveau de gris par l'instruction suivante :
+
+\begin{lstlisting}
+image_gray = cv2.cvtColor(image_rgb, cv2.COLOR_BGR2GRAY)
+\end{lstlisting}
+
+\Manip Comparer les images obtenues par la moyenne classique et cette moyenne pondérée.
+
+
+\subsubsection{Utilisation d'un espace colorimétrique différent}
+
+L'espace colorimétrique RVB est très utilisé dans le domaine du numérique (affichage, acquisition d'images) pour sa facilité de mise en oeuvre.
+
+Cependant, ce n'est \textbf{pas} le plus \textbf{adapté vis-à-vis de la perception humaine} où la luminance et la couleur sont séparées.
+
+Des espaces comme YUV, YIQ, ou YCbCr séparent la composante de luminance (Y) des composantes de chrominance (U et V).
+
+\Manip Convertir l'image RVB dans l'espace YUV par l'instruction suivante :
+
+\begin{lstlisting}
+image_yuv = cv2.cvtColor(image_rgb, cv2.COLOR_RGB2YUV)
+\end{lstlisting}
+
+\Manip Comparer alors l'image en niveau de gris obtenue par la méthode de moyennage pondérée et le canal Y de cette conversion.
+
+\Quest Que pouvez-vous conclure sur la méthode de calcul utiliser pour la luminance (Y) ?
+
+\medskip
+
+\noindent \rule{\linewidth}{1pt}
+
+Il existe d'autres espaces colorimétriques dans le domaine numérique. Voici un résumé non exhaustif :
+
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+\textbf{Espace colorimétrique} & \textbf{Avantages} \\ \hline
+\textbf{RGB} & Simple, utilisé pour les écrans et le rendu des couleurs. \\ \hline
+\textbf{HSV / HSL} & Intuitif pour manipuler la couleur (teinte, saturation). \\ \hline
+\textbf{YUV / YCbCr} & Sépare luminance et chrominance. \\ \hline
+\textbf{CIE-Lab} & Uniformité perceptuelle, idéal pour mesurer les différences de couleur. \\ \hline
+\textbf{CMY(K)} & Optimisé pour l'impression. \\ \hline
+\textbf{XYZ} & Modèle basé sur la perception humaine. \\ \hline
+\end{tabular}
+\end{center}
+
+
+
+%%%%%%%%%%%%%    Etape 2
+\section{C - Calculer l'histogramme d'une image et l'afficher {[20 min]}}
+
+\begin{mdframed}[style=sidebar,frametitle={}]
+Notions : \href{https://iogs-lense-training.github.io/image-processing/contents/opencv.html#histogram-of-an-image}{\textit{Calculate the histogram}}
+\end{mdframed}
+
+\Manip Calculer l'histogramme de l'image précédente et l'afficher.
+
+\medskip
+
+\textit{Il peut être intéressant de \textbf{créer une fonction qui affiche automatiquement l'histogramme} d'une image à partir de ses données. Elle sera très utile dans la suite du TP pour voir l'impact des effets appliqués sur les images.}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% RESSOURCES COMPLEMENTAIRES		
+
+\newpage
+\begin{center}
+	\begin{minipage}{2.5cm}
+	\begin{center}
+		\includegraphics[width=5cm]{images/Logo-LEnsE.png}
+	\end{center}
+\end{minipage}\hfill
+\begin{minipage}{10cm}
+	\begin{center}
+	\textbf{Institut d'Optique Graduate School }\\[0.1cm]
+    \textbf{Interfaçage Numérique}
+
+
+	\end{center}
+\end{minipage}\hfill
+
+
+\vspace{2cm}
+
+
+{\Large \bfseries \textsc{Interfaçage Numérique}} \\[0.5cm]
+{\large \bfseries Travaux Pratiques} \\[0.2cm]
+Semestre 6
+
+\vspace{1cm}
+
+% Title
+\rule{\linewidth}{0.4mm} \\[0.4cm]
+{ \Large \bfseries\color{violet_iogs} Ressources \\[0.4cm] }
+\rule{\linewidth}{0.4mm} \\[1cm]
+{\large Bloc Vision Industrielle}
+
+\end{center}
+
+\vspace{3cm}
+
+\textbf{\large Liste des ressources}
+\begin{itemize}
+	\item Camera BASLER a2A1920-uc/umBAS
+	\item Source EFFI-Ring - Spectre et données / Version RGB
+	\item Cubes de couleur - Réflectance
+\end{itemize}
+
+\vfill
+
+\newpage
+\strut % empty page
+
+\section*{Camera BASLER a2A1920-uc/umBAS}
+
+\textit{La documentation complète se trouve sur le site du fabriquant - Basler}
+
+\begin{center}
+\begin{tabular}{|c|c|}
+	\hline
+	Marque & Basler\\
+	Modèle & a2A1920-160ucBAS\\
+	\hline
+	Résolution & 1920 px x 1200 px\\
+	Taille pixel & 3.45 x 3.45 $\operatorname{\mu{}m^2}$\\
+	Profondeur & 12 bits\\
+	\hline
+	Efficacité quantique & 62.22 \%\\
+	Gain (1/K) & 2.652 e-/DN\\
+	Capacité de saturation & 10492 e-\\
+	Capacité de saturation & 16862 p	\\
+\end{tabular}
+\end{center}
+
+
+\section*{Source EFFI-Ring - Spectre et données / Version RGB}
+
+\textit{La documentation complète se trouve sur le site du fabriquant - Effilux}
+
+\subsection*{Spectre} 
+
+Obtenu à l'aide d'un spectromètre 
+
+\begin{center}
+	\includegraphics[width=0.7\textwidth]{./images/effi_ring_spectre.png}
+\end{center}
+
+\newpage
+\subsection*{Taille du spot et éclairement en fonction de la distance de travail} 
+
+Données provenant de la documentation technique.
+
+\begin{center}
+	\includegraphics[width=0.65\textwidth]{./images/effi_ring_spot.png}
+\end{center}
+
+\begin{center}
+	\includegraphics[width=0.48\textwidth]{./images/effi_ring_illu.png}
+\end{center}
+
+
+\section*{Cubes de couleur - Réflectance}
+
+\begin{center}
+	\includegraphics[width=0.7\textwidth]{./images/cubes_reflectance.png}
+\end{center}
+
+%
+%
+%\includepdf[pages={1,4}, nup=1x2, pagecommand={\section{\texorpdfstring{\hspace{-1em}}{Image Processing}}}\label{doc:image_proc}]{../docs/Image_Processing.pdf}
+%\includepdf[pages={5,8,12,14,16,17,18,20,21,22,23,24,25,31}, nup=1x2]{../docs/Image_Processing.pdf}
+
+\end{document}
+
+

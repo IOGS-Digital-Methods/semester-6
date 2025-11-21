@@ -71,7 +71,6 @@ Semestre 6
 { \large \bfseries\color{violet_iogs} TP 1 / Banc de vision industrielle}
 \rule{\linewidth}{0.3mm} \\[1cm]
 
-4 séances
 
 \bigskip
 
@@ -94,6 +93,17 @@ Semestre 6
 \strut % empty page
 
 \textit{L'image de la page de garde provient du projet DEPhI Vision Industrielle de 2026. Crédits : Joséphine BECHU, Justine GABRIEL et Paul CHENEAU (Promo 2027).}
+
+\vfill
+
+Ce bloc de travaux pratiques utilise un \textbf{banc de vision industrielle} avec une lampe de type Effi-Ring RGB, une caméra Basler et une interface développée en \textbf{Python} (\textit{PyQt6}) et qui utilise des fonctionnalités de la bibliothèque \textbf{OpenCV}.
+
+Les documentations de la caméra et de l'éclairage sont disponibles aux adresses suivantes : 
+
+\begin{itemize}
+	\item Basler \textbf{a2A 1920 - 160ucBAS} : \href{https://docs.baslerweb.com/a2a1920-160ucbas#specifications}{https://docs.baslerweb.com/a2a1920-160ucbas\#specifications}
+	\item \textbf{Effi-Ring} : \href{https://www.effilux.com/fr/produits/annulaire/effi-ring}{https://www.effilux.com/fr/produits/annulaire/effi-ring}
+\end{itemize}
 
 \newpage
 \pagestyle{empty}
@@ -425,6 +435,14 @@ En normalisant ces mesures par rapport à la plus grande variation, on peut mesu
 \Manip Réduire le temps d'intégration et reprendre les mesures précédentes.
 
 \Quest Le contraste est-il dépendant du temps d'intégration de la caméra ?
+
+\noindent \rule{\linewidth}{1pt}
+
+\Quest Comment peut-on mesurer des objets à partir d'une image numérique de celui-ci ?
+
+\Manip Placer un cube de couleur dont vous aurez au préalable mesuré un des côtés. Tester la méthode proposée pour mesurer numériquement cet objet.
+
+\Quest Quelle est la précision de la mesure ?
 
 \newpage
 \section{F - Première modélisation {[50 min]}}
