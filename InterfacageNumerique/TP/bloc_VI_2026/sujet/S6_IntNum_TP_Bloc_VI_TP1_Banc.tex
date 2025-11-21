@@ -1,0 +1,478 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Engineering problems / LaTeX Template
+%		Semester 6
+%		Institut d'Optique Graduate School
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	6N-IntNum-BlocVI
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Created by:
+%	Julien VILLEMEJANE - 20/nov/2025
+%	
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Professional Newsletter Template
+% LaTeX Template
+% Version 1.0 (09/03/14)
+%
+% Created by:
+% Bob Kerstetter (https://www.tug.org/texshowcase/) and extensively modified by:
+% Vel (vel@latextemplates.com)
+% 
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[a4paper,11pt,titlepage]{article} % The default font size is 10pt; 11pt and 12pt are alternatives
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{opto_elec_villemejane}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+
+% Page de garde
+\begin{titlepage}
+
+\begin{center}
+	\begin{minipage}{2.5cm}
+	\begin{center}
+		\includegraphics[width=8cm]{images/Logo-LEnsE.png}
+	\end{center}
+\end{minipage}\hfill
+\begin{minipage}{10cm}
+	\begin{center}
+	\textbf{Institut d'Optique Graduate School }\\[0.1cm]
+    \textbf{Interfaçage Numérique}
+
+
+	\end{center}
+\end{minipage}\hfill
+
+
+\vspace{3cm}
+
+
+{\huge \bfseries \textsc{Interfaçage Numérique}} \\[0.5cm]
+{\large \bfseries Travaux Pratiques} \\[0.2cm]
+Semestre 6
+
+\vspace{1.5cm}
+% Title
+\rule{\linewidth}{0.3mm} \\[0.4cm]
+{ \huge \bfseries\color{violet_iogs} Vision Industrielle \\[0.4cm] }
+\rule{\linewidth}{0.3mm} \\[0.2cm]
+{ \large \bfseries\color{violet_iogs} TP 1 / Banc de vision industrielle}
+\rule{\linewidth}{0.3mm} \\[1cm]
+
+4 séances
+
+\bigskip
+
+\begin{center}
+	\includegraphics[width=0.8\textwidth]{images/vi_intro.png}
+\end{center}
+
+\vfill
+
+\textit{Ce sujet est disponible au format électronique sur le site du LEnsE - https://lense.institutoptique.fr/ dans la rubrique Année / Première Année / Interfaçage Numérique S6 / Bloc 2 Vision Industrielle.}
+
+
+% Bottom of the page
+%{\textbf{\large {Année universitaire} 2024-2025}}
+
+\end{center}
+\end{titlepage}
+
+\newpage
+\strut % empty page
+
+\newpage
+\pagestyle{empty}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%    A A V / Objectifs
+
+\section{Chaîne de vision industrielle}
+
+Cette séance se base sur un \textbf{banc de vision industrielle} contenant un éclairage annulaire, une caméra et son objectif, des objets à analyser et d'un logiciel de pilotage de la caméra.
+
+\medskip
+
+Cette séance a pour but :
+\begin{itemize}
+	\item d'\textbf{analyser l'impact des différents maillons} d'une chaîne d'acquisition sur la qualité de l'image
+	\item de \textbf{proposer des méthodes quantitatives de mesure} de la qualité d'image
+	\item de \textbf{modéliser cette chaine} de manière simple
+\end{itemize} 
+
+\begin{center}
+	\includegraphics[width=0.5\textwidth]{images/vi_chaine.png}
+\end{center}
+
+\textit{Ce document est complété par un diaporama présentant quelques notions de base de la vision industrielle / Disponible sur le site du LEnsE.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%    Ressources
+
+\section{Interface de pilotage}
+
+Une interface de pilotage de la caméra (incluant des outils d'analyse et de pré-traitement d'image) a été développée par le LEnsE.
+
+La dernière version officielle est sur le dépôt GitHub suivant : 
+
+https://github.com/IOGS-LEnsE-ressources/machine-vision-gui  (version Basler)
+
+
+\begin{center}
+	\includegraphics[width=0.7\textwidth]{./images/camera_gui.png}
+\end{center}
+
+
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%    Etape par étape
+
+\section{A - Prise en main de l'interface {[30 min]}}
+
+\Manip Allumer l'\textbf{éclairage annulaire} du banc (trois couleurs). Placer un \textbf{fond uniforme} sous l'éclairage (feuille blanche, paillasse...).
+
+\Quest Quelle couleur d'éclairage obtient-on ?
+
+\Manip Lancer l'application depuis \fbox{\textsc{S:/\_gui/Start\_VI.bat}}.
+
+\noindent \rule{\linewidth}{1pt}
+
+\Manip Ouvrir l'onglet \fbox{\textsc{Image ou Caméra}}.
+
+\textit{Si la caméra est bien connectée en USB à l'ordinateur, vous devriez voir s'afficher son flux.}
+
+\Manip Ouvrir l'onglet \fbox{\textsc{Zone d'intérêt}}. 
+
+\textit{Cet onglet servira par la suite à définir une zone d'acquisition plus restreinte.}
+
+\noindent \rule{\linewidth}{1pt}
+
+\Manip Ouvrir l'onglet \fbox{\textsc{Histogramme}} puis sélectionner le mode \fbox{\textsc{Répartition spatiale}}.
+
+\medskip
+
+Dans cette section, vous allez pouvoir :
+
+\begin{itemize}
+	\item visualiser l'histogramme de l'image acquise par la caméra, le sauvegarder
+	\item sauvegarder l'image acquise
+	\item modifier le temps d'exposition et le black level de la caméra
+\end{itemize}
+
+\medskip
+
+\Quest Que représente l'histogramme d'une image ? A quoi peut-il servir ?
+
+\Quest De quelle nature est l'image obtenue par l'acquisition ?
+
+\Manip Placer le \textit{black level} à 0. Modifier le \textbf{temps d'intégration} de la caméra. 
+
+\Quest Que se passe-t-il sur l'image ? Sur l'histogramme ?
+
+\Quest Quelles sont les valeurs minimale et maximale prises par les pixels de la caméra ? Quelle est alors la \textbf{profondeur binaire} de la caméra utilisée ?
+
+\noindent \rule{\linewidth}{1pt}
+
+L'objectif monté sur la caméra possède 2 bagues qui permettent de changer : l'\textbf{ouverture numérique de l'objectif} et la \textbf{mise au point}.
+
+\Manip Imposer un temps d'intégration qui ne sature pas le capteur (pour un éclairage blanc). Modifier l'ouverture numérique d'un cran. 
+
+\Quest Que se passe-t-il sur l'image ? Sur l'histogramme ?
+
+
+\subsection{Mise au point et zone d'intérêt}
+
+\Manip Placer un cube de couleur dans le champ de la caméra. Ajuster la seconde bague de l'objectif pour faire la mise au point sur l'objet.
+
+\Manip Dans l'onglet \fbox{\textsc{Zone d'intérêt}}, ajuster la zone d'intérêt (ou \textit{Area of Interest} - AOI) pour ne sélectionner qu'une partie de l'image autour de l'objet (environ 400 pixels par 400 pixels).
+
+\Quest Commenter l'image et l'histogramme obtenus. Que se passe-t-il avec un cube d'une autre couleur ?
+
+\noindent \rule{\linewidth}{1pt}
+
+\textit{\textbf{Pour la suite du TP, on s'assurera de prendre une zone d'intérêt à peu près centrée dans l'image et d'une taille d'environ 500 par 500 pixels.}}
+
+\noindent \rule{\linewidth}{1pt}
+
+\subsection{Profil dans l'image}
+
+\Manip Placer des cubes de couleur dans le champ de la caméra. Sélectionner une zone d'intérêt d'environ 500 pixels par 500 pixels autour des objets à visualiser. Ajuster le temps d'intégration pour obtenir une image non saturée avec un éclairage blanc. 
+
+\Manip Ouvrir l'onglet \fbox{\textsc{Outils pour Images}} puis sélectionner le mode \fbox{\textsc{Profil dans l'image}}.
+
+\Manip Déplacer les positions des profils horizontal et vertical. Observer les profils obtenus pour différentes positions.
+
+\Quest Quel est l'intérêt d'un tel outil ?
+
+
+\subsection{Echantillonnage et quantification}
+
+\textit{Conserver les objets dans le champ de la caméra.}
+
+\Manip Ouvrir l'onglet \fbox{\textsc{Quantif./Echant.}} puis sélectionner le mode \fbox{\textsc{Impact de la quantification}}.
+
+\Manip Modifier la profondeur de gris et visualiser l'effet sur l'image et sur l'histogramme après traitement.
+
+\Quest Que peut-on conclure sur l'effet de la quantification sur l'image ?
+
+\Manip De la même façon, avec le mode \fbox{\textsc{Impact de l'échantillonnage}}, modifier le nombre de pixels de sous-échantillonnage. 
+
+On parle ici d'un phénomène de \textbf{binning}. La résolution de l'image est "dégragée" numériquement dans ce cas et les nouveaux pixels affichés sont la moyenne de N x N pixels de l'image initiale.
+
+\textit{Dans le cas présent, ce phénomène peut simuler le changement de résolution de la caméra sur l'acquisition d'une image numérique.}
+
+\Quest Que peut-on conclure sur l'effet de la résolution de la caméra sur l'image ?
+
+
+\section{B - Outils de base numérique {[30 min]}}
+
+Dans cette section, nous allons nous intéresser à quelques fonctionnalités permettant de \textbf{manipuler des images} pour les rendre utilisables : amélioration du contraste, seuillage, suppression du bruit...
+
+\subsection{Contraste et Luminosité}
+
+\Manip Placer un cube de couleur dans le champ de la caméra. Sélectionner une zone d'intérêt d'environ 500 pixels par 500 pixels autour de l'objet à visualiser. Ajuster le temps d'intégration pour obtenir un histogramme dont le pixel maximum a une valeur de l'ordre des 2/3 de la valeur maximale de la caméra. 
+
+\Manip Ouvrir l'onglet \fbox{\textsc{Pré-Traitement}} puis sélectionner le mode \fbox{\textsc{Contraste / Luminosité}}.
+
+\Manip Modifier les valeurs de contraste et de luminosité de l'image.
+
+\Quest Quelles sont les opérations mathématiques réalisées sur les pixels par ces deux fonctionnalités ? Vous pourrez vous appuyer sur les histogrammes des images brutes et modifiées pour analyser vos résultats.
+
+\Manip Avec le mode \fbox{\textsc{Amélioration du Contraste}}, tester l'effet des deux curseurs.
+
+\Quest Proposer une interprétation de l'opération effectuée sur chacun des pixels.
+
+
+\subsection{Seuillage}
+
+\Manip Ouvrir l'onglet \fbox{\textsc{Pré-Traitement}} puis sélectionner le mode \fbox{\textsc{Seuillage}}.
+
+\Manip Sélectionner le seuillage \textsl{Normal} et modifier la valeur du seuil.
+
+\Quest Que pouvez-vous conclure sur l'intérêt du seuillage ? Vous pourrez essayer avec des objets de taille, de forme et de couleurs différentes.
+
+\Manip Tester également le mode \textsl{Inversé} et \textsl{Double}.
+
+\Quest Que pouvez-vous conclure sur ces deux modes ?
+ 
+
+\subsection{Filtrage}
+
+\Manip Ouvrir l'onglet \fbox{\textsc{Filtres}} puis sélectionner le mode \fbox{\textsc{Filtre de lissage}}.
+
+\Manip Sélectionner le filtre \textsl{Blur Moyen} et un noyau de taille 15.
+
+\Quest Que se passe-t-il sur l'image ? Vous pourrez également vous appuyer sur la différence entre l'image de base et l'image modifiée, en cliquant sur l'option \textsl{Image - Effet}, pour analyser les effets sur l'image.
+
+\Quest Quel est l'effet de la taille du noyau sur le filtrage ?
+
+\Quest Qu'en est-il avec le filtre de type \textsl{Médian} ? 
+
+\medskip
+
+\textit{Les aspects théoriques liés au filtrage de données (signaux et images) sont abordés dans les modules \textsc{Maths et Signal} (semestre 5) et \textsc{Traitement du Signal} (semestre 6).}
+
+\textit{La mise en oeuvre de ces filtres sur des images sera abordée en TD de ce module et également dans des modules de traitement d'images dans vos prochaines années de formation.}
+
+
+\newpage
+\section{C - Contrôle de l'uniformité de l'éclairage {[20 min]}}
+
+L'\textbf{éclairage} joue un rôle central dans tout système de vision industrielle, car il conditionne directement la qualité des images et, par conséquent, la fiabilité des algorithmes d'inspection ou de détection. Un choix d'éclairage adapté permet de révéler les caractéristiques pertinentes d'une scène — contrastes, reliefs, défauts de surface, contours — tout en minimisant les reflets indésirables, les ombres ou le bruit visuel. 
+
+Un choix raisonné de l'éclairage constitue un élément déterminant pour garantir la robustesse, la répétabilité et la précision du système de vision industrielle.
+
+\subsection{Uniformité de l'éclairage EFFI-Ring}
+
+Nous allons nous intéressé ici à l'éclairage Effilux EFFI-Ring, version RGB et en particulier à l'uniformité de celui-ci en fonction de la distance de travail.
+
+\textit{Quelques données sur cette source sont fournies en annexe de ce document.}
+
+\Manip Allumer l'\textbf{éclairage annulaire} du banc (trois couleurs). Placer un \textbf{fond uniforme} sous l'éclairage (feuille blanche, paillasse...).
+
+\Manip Sélectionner l'ensemble du champ visible par la caméra. Ajuster le temps d'intégration pour obtenir une image non saturée avec un éclairage blanc. 
+
+\Manip Ouvrir l'onglet \fbox{\textsc{Outils pour Images}} puis sélectionner le mode \fbox{\textsc{Profil dans l'image}}. Visualiser les profils vertical et horizontal au centre de l'image (environ).
+
+% A terme ! Outil de mesure du profil (ou sauvegarde du profil pour analyse par la suite)
+
+\Manip Mesurer l'écart entre le maximum et le minimum d'éclairement.
+
+\Quest Que pouvez-vous conclure sur l'éclairage à cette distance de travail ? 
+
+\noindent \rule{\linewidth}{1pt}
+
+\Manip Refaire ces mesures pour différentes hauteurs de travail.
+
+\Quest Retrouve-t-on une courbe de réponse proche de celle du constructeur ?
+
+
+\subsection{Autres éclairages}
+
+Selon la nature de la pièce à analyser (métallique, transparente, texturée...), de son mouvement et du type de défauts ou d'objets à détecter, différentes stratégies d'illumination (lumière rase, diffuse, coaxiale, structurée, stroboscopique...) peuvent être mises en oeuvre. 
+
+\textit{Une démonstration est possible ! environ 10 min}
+
+
+\newpage
+\section{D - Linéarité du capteur {[30 min]}}
+
+\Manip Placer un cube de couleur dans le champ de la caméra. Allumer l'éclairage annulaire en blanc. Ajuster la zone d'intérêt pour visualiser une zone quasiment uniforme de l'objet. Placer le \textit{black level} à 0.
+
+\Manip Ajuster le temps d'intégration pour obtenir un histogramme dont le pixel maximum a une valeur de l'ordre des 2/3 de la valeur maximale de la caméra. 
+
+\Quest Quel type de profil obtient-on ? Quelle forme d'histogramme ?
+
+\Manip Pour différentes valeurs de temps d'intégration, relever (graphiquement) sur l'histogramme le niveau de gris du pic le plus élevé.
+
+\Quest Quelle relation obtient-on entre ce niveau de gris et le temps d'intégration ? Que peut-on en conclure sur le capteur ?
+
+\Quest Est-ce vrai pour les 3 couleurs prises indépendamment ?
+
+
+\section{E - Contrôle du champ de vision et de la résolution spatiale {[40 min]}}
+
+
+\begin{figure}[!h]
+\begin{center}
+	\includegraphics[width=0.8\textwidth]{images/optique_champ_derossi.png}
+	\caption{Système optique et champ de vision d'une caméra numérique - illustration provenant du cours d'optique instrumentale de Sébastien de Rossi.}
+\end{center}
+\end{figure}
+
+objets / mires (Gray)
+
+- Champ de vision avec règle sur toute la zone d'acquisition
+	- retour au propriétés de l'objectif et de la taille image
+- Mesure sur mire (+ sauvegarde profil) + mise au point
+
+- Contraste pour plusieurs temps d'intégration
+
+
+\section{F - Première modélisation {[50 min]}}
+
+
+
+
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%    Déroulement
+
+\section{Déroulement}
+
+\begin{itemize}
+
+	\item {[30']} Valider la linéarité de la caméra sur objet uniforme - pour différents temps d'intégration (en blanc et R/G/B)
+	\item {[60']} Contrôler le champ de vision du système et sa résolution spatiale 
+	\begin{itemize}
+		\item placer une règle pour mesurer le FOV (Field of View)
+		\item placer une mire pour mesurer la plus petite taille résoluble
+		\item Modifier la profondeur binaire (8, 10, 12 bits) et voir l'impact sur la résolution spatiale / sur la qualité de l'image
+		\item Revenir aux caractéristiques de l'objectif optique
+	\end{itemize}
+	\item {[30']} Contrôler le contraste du système en plaçant des mires en fonction du temps d'intégration, de l'éclairage
+	\item {[60']} Analyser l'impact des propriétés des objets et des sources sur la valeur mesurée par la caméra
+	\begin{itemize}
+		\item Étudier les réflectances des cubes et le spectre des sources (fournis)
+		\item Comparer les niveaux de gris obtenus sous différents éclairages des différents objets mis à disposition (cubes, formes...)
+	\end{itemize}
+	
+\end{itemize}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% RESSOURCES COMPLEMENTAIRES		
+
+\newpage
+\begin{center}
+	\begin{minipage}{2.5cm}
+	\begin{center}
+		\includegraphics[width=5cm]{images/Logo-LEnsE.png}
+	\end{center}
+\end{minipage}\hfill
+\begin{minipage}{10cm}
+	\begin{center}
+	\textbf{Institut d'Optique Graduate School }\\[0.1cm]
+    \textbf{Interfaçage Numérique}
+
+
+	\end{center}
+\end{minipage}\hfill
+
+
+\vspace{2cm}
+
+
+{\Large \bfseries \textsc{Interfaçage Numérique}} \\[0.5cm]
+{\large \bfseries Travaux Pratiques} \\[0.2cm]
+Semestre 6
+
+\vspace{1cm}
+
+% Title
+\rule{\linewidth}{0.4mm} \\[0.4cm]
+{ \Large \bfseries\color{violet_iogs} Ressources \\[0.4cm] }
+\rule{\linewidth}{0.4mm} \\[1cm]
+{\large Bloc Vision Industrielle}
+
+\end{center}
+
+\vspace{3cm}
+
+\textbf{\large Liste des ressources}
+\begin{itemize}
+	\item \hyperref[doc:image_proc]{Image Processing / Key concepts}
+\end{itemize}
+
+\vfill
+
+\newpage
+\strut % empty page
+
+
+\section*{Source EFFI-Ring - Spectre et données / Version RGB}
+
+\textit{La documentation complète se trouve sur le site du fabriquant - Effilux}
+
+\subsection*{Spectre} 
+
+Obtenu à l'aide d'un spectromètre 
+
+\begin{center}
+	\includegraphics[width=0.6\textwidth]{./images/effi_ring_spectre.png}
+\end{center}
+
+\newpage
+\subsection*{Taille du spot et éclairement en fonction de la distance de travail} 
+
+Données provenant de la documentation technique.
+
+\begin{center}
+	\includegraphics[width=0.65\textwidth]{./images/effi_ring_spot.png}
+\end{center}
+
+\begin{center}
+	\includegraphics[width=0.48\textwidth]{./images/effi_ring_illu.png}
+\end{center}
+
+
+%
+%
+%\includepdf[pages={1,4}, nup=1x2, pagecommand={\section{\texorpdfstring{\hspace{-1em}}{Image Processing}}}\label{doc:image_proc}]{../docs/Image_Processing.pdf}
+%\includepdf[pages={5,8,12,14,16,17,18,20,21,22,23,24,25,31}, nup=1x2]{../docs/Image_Processing.pdf}
+
+\end{document}
+
+
