@@ -160,7 +160,309 @@ Notions : \href{https://iogs-lense-training.github.io/image-processing/contents/
 
 \Quest Que vaut le premier pixel de chacune des images ? A quoi correspondent les données fournies ?
 
+
+
+
+%%%%%%%%%%%%%    Etape 2
+\section{B - Calculer l'histogramme d'une image et l'afficher {[20 min]}}
+
+\begin{mdframed}[style=sidebar,frametitle={}]
+Notions : \href{https://iogs-lense-training.github.io/image-processing/contents/opencv.html#histogram-of-an-image}{\textit{Calculate the histogram}}
+\end{mdframed}
+
+\Manip Calculer l'histogramme de l'image précédente et l'afficher.
+
+\medskip
+
+\textit{Il peut être intéressant de \textbf{créer une fonction qui affiche automatiquement l'histogramme} d'une image à partir de ses données. Elle sera très utile dans la suite du TP pour voir l'impact des effets appliqués sur les images.}
+
+
+
+%%%%%%%%%%%%%    Etape 3
+\section{C - Améliorer numériquement la qualité d'une image}
+
+\begin{center} \textbf{\textit{Temps conseillé : 20 min}} \end{center}
+
+\begin{mdframed}[style=sidebar,frametitle={}]
+Notions : \href{https://iogs-lense-training.github.io/image-processing/contents/opencv.html#enhance-the-image-contrast-and-brightness
+}{\textit{Enhance Contrast/Brightness}}
+\end{mdframed}
+
+Pour modifier le contraste et la luminosité d'une image, il faut appliquer une transformation linéaire \textbf{à chaque pixel} de l'image pouvant être exprimé mathématiquement comme suit :
+
+$$P_{new} = \alpha \cdot P_{old} + \beta$$
+
+où $\alpha$ est le facteur de contraste. Une valeur supérieure à 1 augmente le contraste, tandis qu'une valeur entre 0 et 1 le réduit.
+
+$\beta$ est l'offset de luminosité. Une valeur positive rend l'image plus lumineuse, tandis qu'une valeur négative l'assombrit.
+
+\medskip
+
+On utilisera la fonction \textsl{cv2.convertScaleAbs()} pour modifier le contraste et la luminosité de l'image.
+
+\bigskip
+
+\Manip Ouvrir l'image \textsl{robot.jpg} du kit d'images fourni, en niveau de gris.
+
+\Manip Modifier le contraste de l'image et comparer les histogrammes de l'image originale et de la version modifiée pour différente valeur de $\alpha$.
+
+\Manip Modifier la luminosité de l'image et comparer les histogrammes de l'image originale et de la version modifiée pour différente valeur de $\beta$.
+
+
+%%%%%%%%%%%%%    Etape 4
+\section{Etape 4 / Appliquer un filtre moyenneur sur une image}
+
+\begin{center} \textbf{\textit{Temps conseillé : 90 min}} \end{center}
+
+La transformation précédente ne prend pas en compte les pixels voisins. Il est pourtant intéressant dans de nombreuses situations de capturer des relations spatiales entre les pixels.
+
+Les filtres prenant en compte les pixels voisins exploitent les relations locales dans une image, ce qui est crucial pour des tâches comme la suppression de bruit, la détection de contours, l'extraction de caractéristiques, et l'amélioration de la qualité visuelle. Travailler sur des pixels isolés limite l'analyse à des informations ponctuelles, tandis que considérer les voisins permet une compréhension plus riche et contextuelle de l'image.
+
+\subsection{Eléments structurants ou noyau}
+
+Un \textbf{élément structurant} (ou noyau) est une petite matrice (généralement de taille et de forme prédéfinies, comme un carré, un disque, une ligne, etc.) qui sert de sonde pour inspecter et modifier les pixels d'une image.  
+
+\begin{center}
+	\includegraphics[width=\textwidth]{images/kernel.png}
+\end{center}
+
+Les éléments structurants jouent un rôle clé en traitement d'image, notamment dans les opérations de morphologie mathématique. Ces opérations sont principalement utilisées pour analyser et traiter des images binaires ou en niveaux de gris en modifiant leurs formes ou en extrayant des structures spécifiques.
+
+
+\subsection{Filtre moyenneur gaussien}
+
+\begin{mdframed}[style=sidebar,frametitle={}]
+Notions : \href{https://iogs-lense-training.github.io/image-processing/contents/opencv_blur.html#blur-with-opencv
+}{\textit{Blur with OpenCV}}
+\end{mdframed}
+
+\Manip Créer un nouveau projet sous PyCharm.
+
+\Manip Impoter la bibliothèque \textbf{OpenCV2} (\textit{cv2}).
+
+\Manip Ouvrir l'image \textsl{bricks2.jpg} du kit d'images fourni, en niveau de gris.
+
+\Manip Appliquer un filtre gaussien (fonction \textsl{cv2.GaussianBlur()}) sur l'image précédente, de taille 5 x 5 pixels.
+
+\Manip Afficher les deux images pour les comparer.
+
+\Quest Comment peut-on montrer de manière objective les modifications apportées à l'image ? 
+
+\Manip Mettre en oeuvre la méthode proposée.
+
+\medskip
+
+On se propose d'utiliser la fonction \textsl{compare\_blur\_fft()} fournie dans le fichier \textsl{images\_manipulation.py} pour comparer l'effet. 
+
+Ce fichier est disponible sur le site du LEnsE dans la rubrique \textit{Année / Première Année / Interfaçage Numérique S6 / Bloc Images et OpenCV / Répertoire vers codes à tester}.
+
+\Manip Tester cette fonction sur l'image précédente.
+
+\Quest Etudier cette fonction. Quelles méthodes sont utilisées pour comparer les images ?
+
+\Quest Quelle est la fonction réalisée par le filtre précédent ?
+
+\medskip
+
+On cherche à présent à voir l'impact du noyau sur l'image finale.
+
+\Manip Tester la fonction précédente avec des noyaux de taille différente et comparer les résultats à la fois sur l'image obtenue mais également sur la transformée de Fourier.
+
+\Quest Que pouvez-vous conclure sur l'impact de la taille du noyau ?
+
+
+\subsection{Bruit sur une image}
+
+On se propose d'étudier la fonction \textsl{generate\_gaussian\_noise\_image()} fournie dans le fichier \textsl{images\_manipulation.py}.
+
+\Manip Tester l'exemple fourni dans le fichier \textsl{noise\_test1.py}.
+
+\Quest Comment vérifier la distribution du bruit généré par cette fonction ?
+
+\medskip
+
+On se propose d'étudier la fonction \textsl{generate\_uniform\_noise\_image()} fournie dans le fichier \textsl{images\_manipulation.py}.
+
+\Manip Tester l'exemple fourni dans le fichier \textsl{noise\_test2.py}.
+
+\Quest La distribution du bruit généré par cette fonction est-elle uniforme ?
+
+\Manip A l'aide de la fonction \textsl{generate\_gaussian\_noise\_image\_percent()}, générer un bruit gaussien de moyenne 30 et d'écart-type 20 sur 10\% de l'image \textsl{robot.jpg} ouverte précédemment en nuance de gris. Visualiser le résultat.
+
+\medskip
+
+\textit{Il peut-être nécessaire de normaliser les images bruitées afin que les \textbf{données entières} de chaque pixel soient comprises \textbf{entre 0 et 255}, afin que les images puissent être affichées correctement.} 
+
+\Manip Tester la fonction \textsl{compare\_blur\_fft()} fournie dans le fichier \textsl{images\_manipulation.py} et comparer les résultats à la fois sur l'image obtenue mais également sur la transformée de Fourier.
+
+
+%%%%%%%%%%%%%    Etape 5
+\section{Etape 5 / Appliquer un filtre passe-haut sur une image}
+
+\begin{center} \textbf{\textit{Temps conseillé : 60 min}} \end{center}
+
+Le \textbf{filtre moyenneur} précédent permet de conserver les \textbf{éléments à basse fréquence spatiale} dans l'image. C'est une méthode intéressante pour supprimer des bruits ponctuels (des éléments isolés et donc "rapides"). Il est également possible en choisissant un autre élément structurant de réaliser l'opération complémentaire qui supprime le fond continu et ne conserve que les transitions de fréquence spatiale élevée (bords d'un objet par exemple).
+
+\medskip
+
+Il est possible d'utiliser la fonction \textsl{cv2.filter2D()} pour appliquer un noyau particulier sur une image.
+
+\subsection{Opérateur de Roberts}
+
+L'opérateur de Roberts est l'un des premiers filtres de \textbf{détection de contours}. Il repose sur la convolution avec deux petits noyaux 2x2, conçus pour approximer les dérivées en diagonale de l'image.
+
+Les noyaux de convolution sont les suivants :
+
+$$K_x = \begin{bmatrix}
++1 & 0 \\
+0 & -1
+\end{bmatrix},
+\quad
+K_y =
+\begin{bmatrix}
+0 & +1 \\
+-1 & 0
+\end{bmatrix}.
+$$
+
+Il est alors possible de calculer l'amplitude du gradient par l'opération suivante: 
+
+$$\text{Amplitude} = \sqrt{G_x^2 + G_y^2}$$ où $G_x$ est le résultat de la convolution de l'image par le noyau $K_x$ et $G_y$ le résultat de la convolution de l'image par le noyau $K_y$.
+
+Une forte amplitude indique un contour ou un bord marqué. Une faible amplitude indique une région où l'intensité est relativement constante.
+
+\medskip
+
+\Manip Ecrire un script qui permet d'appliquer cette opération sur l'image \textsl{bricks2.jpg} du kit d'images fourni, en niveau de gris.
+
+\Manip Visualiser l'image originale, le résultat du filtrage selon X et le résultat du filtrage selon Y.
+
+\Quest Que pouvez-vous conclure sur l'effet de ce filtre ?
+
+\subsection{Opérateur de Sobel}
+
+L'opérateur de Sobel permet de réaliser une opération similaire à celui de Roberts, mais en étant moins sensible aux bruits dans l'image, puisqu'il se base sur un noyau plus large et ainsi lisse l'image dans la direction perpendiculaire au gradient mesuré.
+
+Les noyaux de convolution sont les suivants :
+
+$$G_x = \begin{bmatrix}
+-1 & 0 & 1 \\
+-2 & 0 & 2 \\
+-1 & 0 & 1 
+\end{bmatrix},
+\quad
+G_y =
+\begin{bmatrix}
+-1 & -2 & -1 \\
+0 & 0 & 0 \\
+1 & 2 & 1 
+\end{bmatrix}.
+$$
+
+De la même façon que précédemment, on peut calculer l'amplitude du gradient par l'opération suivante : 
+
+$$\text{Amplitude} = \sqrt{G_x^2 + G_y^2}$$ où $G_x$ est le résultat de la convolution de l'image par le noyau $K_x$ et $G_y$ le résultat de la convolution de l'image par le noyau $K_y$.
+
+\medskip
+
+\Manip Ecrire un script qui permet d'appliquer cette opération sur l'image \textsl{bricks2.jpg} du kit d'images fourni, en niveau de gris.
+
+\Manip Visualiser l'image originale, le résultat du filtrage selon X et le résultat du filtrage selon Y.
+
+\Quest Que pouvez-vous conclure sur l'effet de ce filtre ?
+
+%%%%%%%%%%%%%    Etape 6
+\section{Etape 6 / Appliquer un filtre par l'intermédiaire de la transformée de Fourier}
+
+\begin{center} \textbf{\textit{Temps conseillé : 30 min}} \end{center}
+
+On s'intéresse ici à la \textbf{transformée de Fourier discrète en deux dimensions} permettant de représenter l'image dans le domaine fréquentiel, plutôt que dans le domaine spatial.
+
+\Manip Ouvrir l'image \textsl{robot.jpg} du kit d'images fourni, en niveau de gris.
+
+\Manip Calculer la transformée de Fourier discrète de cette image à l'aide de la fonction \textsl{fft2()} de la bibliothèque \textbf{Numpy / FFT}. Afficher l'image et sa transformée de Fourier. \textit{Pensez à utiliser la fonction fftshift...}
+
+\medskip
+
+On se propose d'utiliser la fonction \textsl{circular\_mask()} fournie dans le fichier \textsl{images\_manipulation.py} pour appliquer un masque sur la transformée de Fourier de l'image. 
+
+Ce fichier est disponible sur le site du LEnsE dans la rubrique \textit{Année / Première Année / Interfaçage Numérique S6 / Bloc Images et OpenCV / Répertoire vers codes à tester}.
+
+\Manip Appliquer un masque circulaire sur la transformée de Fourier de l'image, à l'aide de la fonction \textsl{circular\_mask()}. Afficher le résultat.
+
+\Manip Calculer l'image résultante à l'aide de la fonction \textit{ifft2()} de la bibliothèque \textbf{Numpy / FFT}. Afficher l'image résultante et la comparer à l'image originale.
+
+\medskip
+
+\Manip Ecrire et tester une fonction permettant de réaliser un masquage rectangulaire sur une image, dont on pourra préciser la largeur et la longueur, ainsi que le barycentre du rectangle (point d'intersection des diagonales).
+
+\Quest Que se passe-t-il lorsque vous appliquez un masque rectangulaire (dont la largeur et la longueur sont différentes) sur une image ? Qu'en est-il d'un masque circulaire ?
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% RESSOURCES COMPLEMENTAIRES		
+
 \newpage
+\begin{center}
+	\begin{minipage}{2.5cm}
+	\begin{center}
+		\includegraphics[width=5cm]{images/Logo-LEnsE.png}
+	\end{center}
+\end{minipage}\hfill
+\begin{minipage}{10cm}
+	\begin{center}
+	\textbf{Institut d'Optique Graduate School }\\[0.1cm]
+    \textbf{Interfaçage Numérique}
+
+
+	\end{center}
+\end{minipage}\hfill
+
+
+\vspace{2cm}
+
+
+{\Large \bfseries \textsc{Interfaçage Numérique}} \\[0.5cm]
+{\large \bfseries Travaux Pratiques} \\[0.2cm]
+Semestre 6
+
+\vspace{1cm}
+
+% Title
+\rule{\linewidth}{0.4mm} \\[0.4cm]
+{ \Large \bfseries\color{violet_iogs} Ressources \\[0.4cm] }
+\rule{\linewidth}{0.4mm} \\[1cm]
+{\large Bloc Vision Industrielle}
+
+\end{center}
+
+\vspace{3cm}
+
+\textbf{\large Liste des ressources}
+\begin{itemize}
+	\item ???
+\end{itemize}
+
+\vfill
+
+\begin{itemize}
+	\item {[40']} Ouvrir une image - différence Gray/RGB
+	\item {[20']} Calculer l'histogramme d'une image
+	\item {[20']} Améliorer numériquement une image / contraste-luminosité
+	\item {[20']} Appliquer un seuillage sur une image
+	\item {[30']} Appliquer une érosion et une dilatation sur une image
+	\item {[20']} Appliquer une ouverture et une fermeture sur une image
+	\item {[20']} Appliquer un gradient sur une image
+	\item {[30']} Calculer la FFT d'une image
+	\item {[20']} Appliquer un filtre moyenneur sur une image
+	\item {[20']} Appliquer un filtre passe-haut - Sobel
+	
+\end{itemize}
+
+
+\newpage
+TP 3 ?
 \section{B - Changement d'espace de couleur {[20 min]}}
 
 \Manip Ouvrir et afficher l'image \textsl{couleurs\_4.png} du kit d'images fourni, au format RGB.
@@ -249,128 +551,6 @@ Il existe d'autres espaces colorimétriques dans le domaine numérique. Voici un
 \end{center}
 
 
-
-%%%%%%%%%%%%%    Etape 2
-\section{C - Calculer l'histogramme d'une image et l'afficher {[20 min]}}
-
-\begin{mdframed}[style=sidebar,frametitle={}]
-Notions : \href{https://iogs-lense-training.github.io/image-processing/contents/opencv.html#histogram-of-an-image}{\textit{Calculate the histogram}}
-\end{mdframed}
-
-\Manip Calculer l'histogramme de l'image précédente et l'afficher.
-
-\medskip
-
-\textit{Il peut être intéressant de \textbf{créer une fonction qui affiche automatiquement l'histogramme} d'une image à partir de ses données. Elle sera très utile dans la suite du TP pour voir l'impact des effets appliqués sur les images.}
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%% RESSOURCES COMPLEMENTAIRES		
-
-\newpage
-\begin{center}
-	\begin{minipage}{2.5cm}
-	\begin{center}
-		\includegraphics[width=5cm]{images/Logo-LEnsE.png}
-	\end{center}
-\end{minipage}\hfill
-\begin{minipage}{10cm}
-	\begin{center}
-	\textbf{Institut d'Optique Graduate School }\\[0.1cm]
-    \textbf{Interfaçage Numérique}
-
-
-	\end{center}
-\end{minipage}\hfill
-
-
-\vspace{2cm}
-
-
-{\Large \bfseries \textsc{Interfaçage Numérique}} \\[0.5cm]
-{\large \bfseries Travaux Pratiques} \\[0.2cm]
-Semestre 6
-
-\vspace{1cm}
-
-% Title
-\rule{\linewidth}{0.4mm} \\[0.4cm]
-{ \Large \bfseries\color{violet_iogs} Ressources \\[0.4cm] }
-\rule{\linewidth}{0.4mm} \\[1cm]
-{\large Bloc Vision Industrielle}
-
-\end{center}
-
-\vspace{3cm}
-
-\textbf{\large Liste des ressources}
-\begin{itemize}
-	\item Camera BASLER a2A1920-uc/umBAS
-	\item Source EFFI-Ring - Spectre et données / Version RGB
-	\item Cubes de couleur - Réflectance
-\end{itemize}
-
-\vfill
-
-\newpage
-\strut % empty page
-
-\section*{Camera BASLER a2A1920-uc/umBAS}
-
-\textit{La documentation complète se trouve sur le site du fabriquant - Basler}
-
-\begin{center}
-\begin{tabular}{|c|c|}
-	\hline
-	Marque & Basler\\
-	Modèle & a2A1920-160ucBAS\\
-	\hline
-	Résolution & 1920 px x 1200 px\\
-	Taille pixel & 3.45 x 3.45 $\operatorname{\mu{}m^2}$\\
-	Profondeur & 12 bits\\
-	\hline
-	Efficacité quantique & 62.22 \%\\
-	Gain (1/K) & 2.652 e-/DN\\
-	Capacité de saturation & 10492 e-\\
-	Capacité de saturation & 16862 p	\\
-\end{tabular}
-\end{center}
-
-
-\section*{Source EFFI-Ring - Spectre et données / Version RGB}
-
-\textit{La documentation complète se trouve sur le site du fabriquant - Effilux}
-
-\subsection*{Spectre} 
-
-Obtenu à l'aide d'un spectromètre 
-
-\begin{center}
-	\includegraphics[width=0.7\textwidth]{./images/effi_ring_spectre.png}
-\end{center}
-
-\newpage
-\subsection*{Taille du spot et éclairement en fonction de la distance de travail} 
-
-Données provenant de la documentation technique.
-
-\begin{center}
-	\includegraphics[width=0.65\textwidth]{./images/effi_ring_spot.png}
-\end{center}
-
-\begin{center}
-	\includegraphics[width=0.48\textwidth]{./images/effi_ring_illu.png}
-\end{center}
-
-
-\section*{Cubes de couleur - Réflectance}
-
-\begin{center}
-	\includegraphics[width=0.7\textwidth]{./images/cubes_reflectance.png}
-\end{center}
-
-%
 %
 %\includepdf[pages={1,4}, nup=1x2, pagecommand={\section{\texorpdfstring{\hspace{-1em}}{Image Processing}}}\label{doc:image_proc}]{../docs/Image_Processing.pdf}
 %\includepdf[pages={5,8,12,14,16,17,18,20,21,22,23,24,25,31}, nup=1x2]{../docs/Image_Processing.pdf}
