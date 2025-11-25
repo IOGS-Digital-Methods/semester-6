@@ -1,9 +1,7 @@
-"""01_open_image.py
+"""20_colorspace.py
 Image opening with OpenCV
 .. moduleauthor:: Julien VILLEMEJANE <julien.villemejane@institutoptique.fr>
 
-@see: https://iogs-lense-training.github.io/image-processing/contents/opencv.html#open-an-image
-@see: https://iogs-lense-training.github.io/image-processing/contents/opencv.html#display-an-image
 """
 
 import cv2
@@ -21,8 +19,13 @@ plt.figure()
 plt.imshow(image_gray) #, cmap='gray')
 plt.show()
 
-# Information on the images
-print(f'Type RGB image: {type(image_rgb)} / Dtype: {image_rgb.dtype}')
-print(f'RGB shape: {image_rgb.shape}')
-print(f'Gray shape: {image_gray.shape}')
 
+# Rec. 709
+# 0,2126, 0,7152 et 0,0722
+Y_lum = 0.2126 * image_rgb[0, 0, 0] + 0.7152 * image_rgb[0, 0, 1] + 0.0722 * image_rgb[0, 0, 2]
+print(f'First Pixel Luminance (Rec.709) : {Y_lum}')
+
+
+# Change space color
+image_yuv = cv2.cvtColor(image_rgb , cv2.COLOR_RGB2YUV)
+print(f'First Pixel YUV : {image_yuv[0, 0]}')

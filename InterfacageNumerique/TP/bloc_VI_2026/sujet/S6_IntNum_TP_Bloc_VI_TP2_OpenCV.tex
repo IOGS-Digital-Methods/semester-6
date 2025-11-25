@@ -144,13 +144,8 @@ La couleur des objets peut s'avérer inutile lorsqu'on cherche, par exemple, à 
 De nombreux algorithmes d'analyse d'image ou de vision par ordinateur travaillent plus efficacement sur des images en niveaux de gris, permettant notamment d'uniformiser l'entrée des algorithmes et de réduire les informations redondantes liées à la couleur.
 
 
+%%%%%%%%%%%%%    Etape A
 \section{A - Ouvrir une image {[20 min]}}
-
-\begin{mdframed}[style=sidebar,frametitle={}]
-Notions : \href{https://iogs-lense-training.github.io/image-processing/contents/opencv.html#open-an-image
-}{\textit{Open an image}} - \href{https://iogs-lense-training.github.io/image-processing/contents/opencv.html#display-an-image
-}{\textit{Display an image}}
-\end{mdframed}
 
 \Manip Ouvrir le fichier \textsc{01\_open\_image.py} du répertoire des codes à tester.
 
@@ -161,32 +156,22 @@ Notions : \href{https://iogs-lense-training.github.io/image-processing/contents/
 \Quest Que vaut le premier pixel de chacune des images ? A quoi correspondent les données fournies ?
 
 
-
-
-%%%%%%%%%%%%%    Etape 2
+%%%%%%%%%%%%%    Etape B
 \section{B - Calculer l'histogramme d'une image et l'afficher {[20 min]}}
 
-\begin{mdframed}[style=sidebar,frametitle={}]
-Notions : \href{https://iogs-lense-training.github.io/image-processing/contents/opencv.html#histogram-of-an-image}{\textit{Calculate the histogram}}
-\end{mdframed}
+\Manip Ouvrir le fichier \textsc{02\_histogram\_image.py} du répertoire des codes à tester. Exécuter ce code.
 
-\Manip Calculer l'histogramme de l'image précédente et l'afficher.
+\Quest Que fait ce programme ? A quoi correspond la valeur affichée pour la ligne \fbox{\texttt{histogram[100]}} ?
 
-\medskip
+\Quest A quoi correspond la valeur affichée par l'exécution de la ligne \fbox{\texttt{print(np.sum(histogram))}} ?
+
+\bigskip
 
 \textit{Il peut être intéressant de \textbf{créer une fonction qui affiche automatiquement l'histogramme} d'une image à partir de ses données. Elle sera très utile dans la suite du TP pour voir l'impact des effets appliqués sur les images.}
 
 
-
-%%%%%%%%%%%%%    Etape 3
-\section{C - Améliorer numériquement la qualité d'une image}
-
-\begin{center} \textbf{\textit{Temps conseillé : 20 min}} \end{center}
-
-\begin{mdframed}[style=sidebar,frametitle={}]
-Notions : \href{https://iogs-lense-training.github.io/image-processing/contents/opencv.html#enhance-the-image-contrast-and-brightness
-}{\textit{Enhance Contrast/Brightness}}
-\end{mdframed}
+%%%%%%%%%%%%%    Etape C
+\section{C - Améliorer numériquement la qualité d'une image {[20 min]}}
 
 Pour modifier le contraste et la luminosité d'une image, il faut appliquer une transformation linéaire \textbf{à chaque pixel} de l'image pouvant être exprimé mathématiquement comme suit :
 
@@ -198,27 +183,69 @@ $\beta$ est l'offset de luminosité. Une valeur positive rend l'image plus lumin
 
 \medskip
 
-On utilisera la fonction \textsl{cv2.convertScaleAbs()} pour modifier le contraste et la luminosité de l'image.
+On utilise la fonction \textsl{cv2.convertScaleAbs()} pour modifier le contraste et la luminosité de l'image.
 
 \bigskip
 
-\Manip Ouvrir l'image \textsl{robot.jpg} du kit d'images fourni, en niveau de gris.
+\Manip Ouvrir le fichier \textsc{03\_enhance\_contrast\_brightness.py} du répertoire des codes à tester. Exécuter ce code.
 
 \Manip Modifier le contraste de l'image et comparer les histogrammes de l'image originale et de la version modifiée pour différente valeur de $\alpha$.
 
-\Manip Modifier la luminosité de l'image et comparer les histogrammes de l'image originale et de la version modifiée pour différente valeur de $\beta$.
+\Manip Calculer la moyenne de tous les pixels de l'image originale et comparer à la moyenne des pixels de l'image modifiée.
+
+\Manip Modifier la luminosité de l'image et comparer les histogrammes de l'image originale et de la version modifiée pour différente valeur de $\beta$. 
+
+\Manip Calculer la moyenne de tous les pixels de l'image originale et comparer à la moyenne des pixels de l'image modifiée.
+
+\Quest Que pouvez-vous conclure sur les effets du contraste et de la luminosité ?
 
 
-%%%%%%%%%%%%%    Etape 4
-\section{Etape 4 / Appliquer un filtre moyenneur sur une image}
+%%%%%%%%%%%%%    Etape D
+\section{D - Binariser l'image {[20 min]}}
 
-\begin{center} \textbf{\textit{Temps conseillé : 90 min}} \end{center}
+La binarisation d'une image consiste à transformer une image en niveaux de gris (ou parfois en couleur) en une image ne contenant que deux valeurs possibles : généralement 0 (noir) et 1 (blanc).
 
-La transformation précédente ne prend pas en compte les pixels voisins. Il est pourtant intéressant dans de nombreuses situations de capturer des relations spatiales entre les pixels.
+L'objectif de la binarisation est de réduire drastiquement les informations à traiter tout en essayant de séparer clairement le premier plan (objets) de l'arrière-plan.
 
-Les filtres prenant en compte les pixels voisins exploitent les relations locales dans une image, ce qui est crucial pour des tâches comme la suppression de bruit, la détection de contours, l'extraction de caractéristiques, et l'amélioration de la qualité visuelle. Travailler sur des pixels isolés limite l'analyse à des informations ponctuelles, tandis que considérer les voisins permet une compréhension plus riche et contextuelle de l'image.
+\medskip
 
-\subsection{Eléments structurants ou noyau}
+\Manip Ouvrir le fichier \textsc{04\_threshold.py} du répertoire des codes à tester. Exécuter ce code. Modifier la valeur du seuil et comparer les images résultantes.
+
+\Quest Que fait ce code ? Est-ce que le choix du seuil a un impact sur la valeur résultante pour la méthode d'Otsu ? 
+
+\Manip Tester ces méthodes sur une autre image.
+
+\medskip
+
+\textit{Vous trouverez un peu plus de détails sur les méthode de binarisation à l'adresse suivante : } 
+
+\href{https://docs.opencv.org/4.x/d7/d4d/tutorial_py_thresholding.html}{https://docs.opencv.org/4.x/d7/d4d/tutorial\_py\_thresholding.html}
+
+\newpage
+%%%%%%%%%%%%%    Etape E
+\section{E - Opérations de pré-traitement {[40 min]}}
+Les opérations de pré-traitement dans le traitement d'images sont essentielles pour améliorer la qualité des images avant d'appliquer des algorithmes plus complexes, comme la segmentation, la détection d'objets ou la classification. Ces étapes de pré-traitement visent à réduire le bruit ou améliorer la structure de
+l'image.
+
+Parmi les opérations de pré-traitement classiques, on peut citer :
+\begin{itemize}
+	\item \textbf{Correction des couleurs} : Balance des blancs, Correction gamma, Amélioration de contraste...
+	\item \textbf{Réduction de bruit} : Filtrage linéaire pour atténuer les bruits sans trop affecter les détails importants de l'image, Filtrage non linéaire pour éliminer les bruits impulsionnels, Filtrage anisotrope...
+	\item \textbf{Opérations morphologiques} : érosion pour éliminer du bruit, dilatation pour combler des lacunes dans les objets, ouverture et fermeture pour enlever les petites anomalies ou remplir les petits trous dans une image
+	\item \textbf{Filtrage fréquentiel} pour éliminer ou atténuer des fréquences particulières (comme des motifs de bruit répétitifs)
+\end{itemize}
+
+
+
+\subsection{Eléments structurants d'une convolution (noyau)}
+
+\begin{mdframed}[style=sidebar,frametitle={}]
+Notions : \href{https://iogs-lense-training.github.io/image-processing/contents/opencv_erod_dila.html#kernels-for-erosion-and-dilation}{\textit{Structuring Elements (kernels)}} 
+\end{mdframed}
+
+Les \textbf{transformations dites morphologiques} se basent sur l'application d'un \textbf{élément structurant} (ou noyau) que l'on va superposer sur chaque pixel de l'image. 
+
+\medskip
 
 Un \textbf{élément structurant} (ou noyau) est une petite matrice (généralement de taille et de forme prédéfinies, comme un carré, un disque, une ligne, etc.) qui sert de sonde pour inspecter et modifier les pixels d'une image.  
 
@@ -228,6 +255,77 @@ Un \textbf{élément structurant} (ou noyau) est une petite matrice (généralem
 
 Les éléments structurants jouent un rôle clé en traitement d'image, notamment dans les opérations de morphologie mathématique. Ces opérations sont principalement utilisées pour analyser et traiter des images binaires ou en niveaux de gris en modifiant leurs formes ou en extrayant des structures spécifiques.
 
+
+\Manip Générer un noyau en forme de croix de taille 3 par 3 pixels et afficher ce noyau.
+
+\Quest Quel est le type de l'objet noyau résultant ?
+
+\Manip Générer un second noyau en forme de carré de taille 3 par 3 pixels et afficher ce noyau.
+
+\newpage
+\subsection{Opérations d'érosion et de dilatation}
+
+\begin{mdframed}[style=sidebar,frametitle={}]
+Notions : \href{https://iogs-lense-training.github.io/image-processing/contents/opencv_erod_dila.html#erosion-operation}{\textit{Erosion}} - \href{https://iogs-lense-training.github.io/image-processing/contents/opencv_erod_dila.html#dilation-operation}{\textit{Dilation}} 
+\end{mdframed}
+
+\Manip Appliquer une opération d'érosion sur l'image \textsl{a\_letter\_noise.jpg} avec, indépendamment, les deux noyaux précédemment générés. 
+
+\Manip Afficher les deux images ainsi que l'image originale sur un même graphique pour les comparer.
+
+\Manip De la même manière, utiliser une opération de dilatation sur cette même image à l'aide des deux noyaux précédemment générés. Afficher également un comparatif des images résultantes.
+
+\Quest Que pouvez-vous conclure sur l'utilité des opérations d'érosion et de dilatation sur une image ?
+
+\subsection{Opérations d'ouverture et de fermeture}
+
+\begin{mdframed}[style=sidebar,frametitle={}]
+Notions : \href{https://iogs-lense-training.github.io/image-processing/contents/opencv_open_close.html#opening-operation}{\textit{Opening}} - \href{https://iogs-lense-training.github.io/image-processing/contents/opencv_open_close.html#closing-operation}{\textit{Closing}} 
+\end{mdframed}
+
+\Manip Appliquer une opération d'ouverture (\textit{opening}) sur l'image \textsl{a\_letter\_noise.jpg} avec, indépendamment, les deux noyaux précédemment générés. 
+
+\Manip Afficher les deux images ainsi que l'image originale sur un même graphique pour les comparer.
+
+\Manip De la même manière, utiliser une opération de fermeture sur cette même image à l'aide des deux noyaux précédemment générés. Afficher également un comparatif des images résultantes.
+
+\Quest Que pouvez-vous conclure sur l'utilité des opérations d'ouverture et de fermeture sur une image ?
+
+% L'opération d'opening est utile pour supprimer les petits bruits tout en maintenant la forme et la taille des objets plus grands dans l'image.
+
+
+\subsection{Opération de gradient}
+
+Une autre opération, appelée \textbf{gradient}, calcule la différence entre une dilatation et une érosion sur une même image. 
+
+Il est possible de la mettre en pratique à l'aide de l'instruction suivante :
+
+\begin{lstlisting}
+gradient_image = cv2.morphologyEx(image, cv2.MORPH_GRADIENT, kernel)
+\end{lstlisting}
+
+\Manip Appliquer une opération de gradient sur l'image \textsl{robot.jpg} avec, indépendamment, les deux noyaux précédemment générés. 
+
+\Manip Afficher les deux images ainsi que l'image originale sur un même graphique pour les comparer.
+
+\Quest Que pouvez-vous conclure sur l'utilité de l'opération de gradient sur une image ?
+
+% Le gradient met en évidence les bords des objets dans une image, ce qui peut être utile pour détecter des contours ou des transitions nettes dans l'intensité des pixels.
+
+
+
+%%%%%%%%%%%%%    Etape E
+\section{F - Calculer la FFT d'une image {[30 min]}}
+
+
+
+
+%%%%%%%%%%%%%    Etape G
+\section{G - Appliquer un filtre moyenneur sur une image {[30 min]}}
+
+La transformation précédente ne prend pas en compte les pixels voisins. Il est pourtant intéressant dans de nombreuses situations de capturer des relations spatiales entre les pixels.
+
+Les filtres prenant en compte les pixels voisins exploitent les relations locales dans une image, ce qui est crucial pour des tâches comme la suppression de bruit, la détection de contours, l'extraction de caractéristiques, et l'amélioration de la qualité visuelle. Travailler sur des pixels isolés limite l'analyse à des informations ponctuelles, tandis que considérer les voisins permet une compréhension plus riche et contextuelle de l'image.
 
 \subsection{Filtre moyenneur gaussien}
 
@@ -297,7 +395,7 @@ On se propose d'étudier la fonction \textsl{generate\_uniform\_noise\_image()} 
 
 
 %%%%%%%%%%%%%    Etape 5
-\section{Etape 5 / Appliquer un filtre passe-haut sur une image}
+\section{H - Appliquer un filtre passe-haut sur une image}
 
 \begin{center} \textbf{\textit{Temps conseillé : 60 min}} \end{center}
 

@@ -13,6 +13,10 @@ image_gray = cv2.imread('./_data/robot.jpg', cv2.IMREAD_GRAYSCALE)
 
 histogram = cv2.calcHist([image_gray], [0], None, [256], [0, 256])
 
+print(histogram[100])
+print(image_gray.shape)
+print(np.sum(histogram))
+
 # Line Version
 plt.figure()
 plt.title("Grayscale Image Histogram")
@@ -32,4 +36,5 @@ x = np.arange(256)
 plt.bar(x, histogram[:,0], width=1, color='black')
 plt.xlim([0, 256])  # Limits for the x-axis
 plt.show()
+
 
