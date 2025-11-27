@@ -30,7 +30,7 @@
 \documentclass[a4paper,11pt,titlepage]{article} % The default font size is 10pt; 11pt and 12pt are alternatives
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\usepackage{opto_elec_villemejane}
+\usepackage{../opto_elec_villemejane}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -43,7 +43,7 @@
 \begin{center}
 	\begin{minipage}{2.5cm}
 	\begin{center}
-		\includegraphics[width=8cm]{images/Logo-LEnsE.png}
+		\includegraphics[width=8cm]{../images/Logo-LEnsE.png}
 	\end{center}
 \end{minipage}\hfill
 \begin{minipage}{10cm}
@@ -75,7 +75,7 @@ Semestre 6
 \bigskip
 
 \begin{center}
-	\includegraphics[width=0.7\textwidth]{images/vi_intro.png}
+	\includegraphics[width=0.7\textwidth]{../images/vi_intro.png}
 \end{center}
 
 \vfill
@@ -135,7 +135,7 @@ Il serait également pertinent de votre part de rédiger un \textbf{journal de b
 Une image RVB contient 3 canaux (Rouge, Vert, Bleu ou \textit{RGB} en anglais), tandis qu'une image en niveaux de gris n'en a qu'un. Une image en niveau de gris sera \textbf{3 fois plus rapide} à analyser qu'une image en couleur RVB mais toute notion de couleur sera alors perdue.
 
 \begin{center}
-	\includegraphics[width=0.8\textwidth]{images/images_array_gray_rgb.png}
+	\includegraphics[width=0.8\textwidth]{../images/images_array_gray_rgb.png}
 \end{center}
 
 
@@ -237,11 +237,12 @@ Parmi les opérations de pré-traitement classiques, on peut citer :
 
 
 
-\subsection{Eléments structurants d'une convolution (noyau)}
+\subsection{Éléments structurants d'une opération morphologique (noyau)}
 
 \begin{mdframed}[style=sidebar,frametitle={}]
-Notions : \href{https://iogs-lense-training.github.io/image-processing/contents/opencv_erod_dila.html#kernels-for-erosion-and-dilation}{\textit{Structuring Elements (kernels)}} 
+Notions : \href{https://iogs-lense-training.github.io/image-processing/contents/opencv_erod_dila.html#kernels-for-erosion-and-dilation}{\textit{Éléments structurants}}
 \end{mdframed}
+
 
 Les \textbf{transformations dites morphologiques} se basent sur l'application d'un \textbf{élément structurant} (ou noyau) que l'on va superposer sur chaque pixel de l'image. 
 
@@ -250,17 +251,18 @@ Les \textbf{transformations dites morphologiques} se basent sur l'application d'
 Un \textbf{élément structurant} (ou noyau) est une petite matrice (généralement de taille et de forme prédéfinies, comme un carré, un disque, une ligne, etc.) qui sert de sonde pour inspecter et modifier les pixels d'une image.  
 
 \begin{center}
-	\includegraphics[width=\textwidth]{images/kernel.png}
+	\includegraphics[width=\textwidth]{../images/kernel.png}
 \end{center}
 
 Les éléments structurants jouent un rôle clé en traitement d'image, notamment dans les opérations de morphologie mathématique. Ces opérations sont principalement utilisées pour analyser et traiter des images binaires ou en niveaux de gris en modifiant leurs formes ou en extrayant des structures spécifiques.
 
+\Manip Ouvrir le fichier \textsc{05\_kernel.py} du répertoire des codes à tester. Exécuter ce code.
+
+\Quest Quel est le type de des objets noyaux résultants ?
 
 \Manip Générer un noyau en forme de croix de taille 3 par 3 pixels et afficher ce noyau.
 
-\Quest Quel est le type de l'objet noyau résultant ?
-
-\Manip Générer un second noyau en forme de carré de taille 3 par 3 pixels et afficher ce noyau.
+\Manip Générer un second noyau en forme de cercle (ellipse) de taille 5 par 5 pixels et afficher ce noyau.
 
 \newpage
 \subsection{Opérations d'érosion et de dilatation}
@@ -269,13 +271,19 @@ Les éléments structurants jouent un rôle clé en traitement d'image, notammen
 Notions : \href{https://iogs-lense-training.github.io/image-processing/contents/opencv_erod_dila.html#erosion-operation}{\textit{Erosion}} - \href{https://iogs-lense-training.github.io/image-processing/contents/opencv_erod_dila.html#dilation-operation}{\textit{Dilation}} 
 \end{mdframed}
 
-\Manip Appliquer une opération d'érosion sur l'image \textsl{a\_letter\_noise.jpg} avec, indépendamment, les deux noyaux précédemment générés. 
+\Manip Ouvrir le fichier \textsc{06\_erosion\_dilation.py} du répertoire des codes à tester. Exécuter ce code.
 
-\Manip Afficher les deux images ainsi que l'image originale sur un même graphique pour les comparer.
+\Quest Quelle est la taille de l'image originale ? Quelle est la taille (approximative) des défauts dans cette image ?
 
-\Manip De la même manière, utiliser une opération de dilatation sur cette même image à l'aide des deux noyaux précédemment générés. Afficher également un comparatif des images résultantes.
+\Quest Quelles sont les opérations effectuées sur l'image \textsl{a\_letter\_noise.jpg} ? Quels sont les noyaux utilisés pour ces opérations ?
 
-\Quest Que pouvez-vous conclure sur l'utilité des opérations d'érosion et de dilatation sur une image ?
+\Manip Modifier la taille des noyaux et tester à nouveau ces opérations.
+
+\Quest Que pouvez-vous conclure sur l'utilité des opérations d'érosion et de dilatation sur une image ? Sur l'impact de la forme et de la taille du noyau ?
+
+\bigskip
+
+\textit{Il est également intéressant de retenir la façon d'afficher plusieurs images sur un même graphique afin de pouvoir les comparer rapidement.}
 
 \subsection{Opérations d'ouverture et de fermeture}
 
@@ -283,49 +291,61 @@ Notions : \href{https://iogs-lense-training.github.io/image-processing/contents/
 Notions : \href{https://iogs-lense-training.github.io/image-processing/contents/opencv_open_close.html#opening-operation}{\textit{Opening}} - \href{https://iogs-lense-training.github.io/image-processing/contents/opencv_open_close.html#closing-operation}{\textit{Closing}} 
 \end{mdframed}
 
-\Manip Appliquer une opération d'ouverture (\textit{opening}) sur l'image \textsl{a\_letter\_noise.jpg} avec, indépendamment, les deux noyaux précédemment générés. 
+\Manip Ouvrir le fichier \textsc{07\_opening\_closing.py} du répertoire des codes à tester. Exécuter ce code.
 
-\Manip Afficher les deux images ainsi que l'image originale sur un même graphique pour les comparer.
+\Quest Quelles sont les opérations effectuées sur l'image \textsl{a\_letter\_noise.jpg} ? Quels sont les noyaux utilisés pour ces opérations ?
 
-\Manip De la même manière, utiliser une opération de fermeture sur cette même image à l'aide des deux noyaux précédemment générés. Afficher également un comparatif des images résultantes.
+\Manip Modifier la taille des noyaux et tester à nouveau ces opérations.
 
-\Quest Que pouvez-vous conclure sur l'utilité des opérations d'ouverture et de fermeture sur une image ?
+\Quest Que pouvez-vous conclure sur l'utilité des opérations d'ouverture et de fermeture sur une image ? Sur l'impact de la forme et de la taille du noyau ?
 
 % L'opération d'opening est utile pour supprimer les petits bruits tout en maintenant la forme et la taille des objets plus grands dans l'image.
 
 
 \subsection{Opération de gradient}
 
-Une autre opération, appelée \textbf{gradient}, calcule la différence entre une dilatation et une érosion sur une même image. 
+\Manip Ouvrir le fichier \textsc{08\_gradient.py} du répertoire des codes à tester. Exécuter ce code.
 
-Il est possible de la mettre en pratique à l'aide de l'instruction suivante :
+\Quest Quelle est l'opération réalisée sur l'image \textsl{grad\_image\_cross\_3} ? Quelle est la suite d'opérations réalisée sur l'image \textsl{grad\_sub\_image\_cross\_3} ?
 
-\begin{lstlisting}
-gradient_image = cv2.morphologyEx(image, cv2.MORPH_GRADIENT, kernel)
-\end{lstlisting}
+\Quest Que pouvez-vous conclure sur le lien entre ces deux méthodes ?
 
-\Manip Appliquer une opération de gradient sur l'image \textsl{robot.jpg} avec, indépendamment, les deux noyaux précédemment générés. 
+\Manip Proposer une méthode "fiable" pour comparer facilement ces deux images. Mettre en oeuvre cette méthode.
 
-\Manip Afficher les deux images ainsi que l'image originale sur un même graphique pour les comparer.
+\Manip Modifier la taille des noyaux et tester à nouveau ces opérations.
 
-\Quest Que pouvez-vous conclure sur l'utilité de l'opération de gradient sur une image ?
+\Quest Que pouvez-vous conclure sur l'utilité de l'opération de gradient sur une image ? Sur l'impact de la forme et de la taille du noyau ?
 
 % Le gradient met en évidence les bords des objets dans une image, ce qui peut être utile pour détecter des contours ou des transitions nettes dans l'intensité des pixels.
 
 
-
+\newpage
 %%%%%%%%%%%%%    Etape E
 \section{F - Calculer la FFT d'une image {[30 min]}}
 
+\Manip Ouvrir le fichier \textsc{09\_fft.py} du répertoire des codes à tester. Exécuter ce code.
 
+\Quest Quelle est la taille de l'image initiale ? Quel est le type et quelle est la taille de l'objet \textsl{fft\_image} ? De quel type sont ses éléments ?
+
+\Quest Expliquer l'intérêt de l'affichage du logarithme de la valeur absolue de la FFT.
+
+\noindent \rule{\linewidth}{1pt}
+
+\Quest Que permet de faire la fonction \textsl{circular\_mask} sur la FFT ? Commenter le résultat obtenu sur l'image recréée à partir de cette FFT modifiée.
+
+\Quest Quel est l'impact de la taille du masque ? A quoi sont dues les "vaguelettes" que l'on aperçoit sur l'image résultante ?
+
+\noindent \rule{\linewidth}{1pt}
+
+\Manip Générer une trame sinusoïdale en deux dimensions (200 x 300 pixels) à l'aide de la fonction \textsl{sine\_trame} de la bibliothèque \textsl{images\_manipulation}. Calculer sa FFT et afficher les résultats.
+
+\Quest Commenter le résultat obtenu pour différentes périodes spatiales et différents angles.
 
 
 %%%%%%%%%%%%%    Etape G
 \section{G - Appliquer un filtre moyenneur sur une image {[30 min]}}
 
-La transformation précédente ne prend pas en compte les pixels voisins. Il est pourtant intéressant dans de nombreuses situations de capturer des relations spatiales entre les pixels.
-
-Les filtres prenant en compte les pixels voisins exploitent les relations locales dans une image, ce qui est crucial pour des tâches comme la suppression de bruit, la détection de contours, l'extraction de caractéristiques, et l'amélioration de la qualité visuelle. Travailler sur des pixels isolés limite l'analyse à des informations ponctuelles, tandis que considérer les voisins permet une compréhension plus riche et contextuelle de l'image.
+L'utilisation de filtres permet de prendre en compte les pixels voisins en exploitant les relations locales dans une image, ce qui est crucial pour des tâches comme la suppression de bruit, la détection de contours, l'extraction de caractéristiques, et l'amélioration de la qualité visuelle. Travailler sur des pixels isolés limite l'analyse à des informations ponctuelles, tandis que considérer les voisins permet une compréhension plus riche et contextuelle de l'image.
 
 \subsection{Filtre moyenneur gaussien}
 
@@ -505,7 +525,7 @@ Ce fichier est disponible sur le site du LEnsE dans la rubrique \textit{Année /
 \begin{center}
 	\begin{minipage}{2.5cm}
 	\begin{center}
-		\includegraphics[width=5cm]{images/Logo-LEnsE.png}
+		\includegraphics[width=5cm]{../images/Logo-LEnsE.png}
 	\end{center}
 \end{minipage}\hfill
 \begin{minipage}{10cm}

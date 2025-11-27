@@ -1,4 +1,4 @@
-"""09_blur_mean.py
+"""09_fft.py
 Blur and mean on images with OpenCV
 .. moduleauthor:: Julien VILLEMEJANE <julien.villemejane@institutoptique.fr>
 

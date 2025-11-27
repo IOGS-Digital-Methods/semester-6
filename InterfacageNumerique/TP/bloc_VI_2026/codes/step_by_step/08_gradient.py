@@ -13,10 +13,6 @@ cross_kernel_3 = cv2.getStructuringElement(cv2.MORPH_CROSS, (N, N))
 
 # Image
 image = cv2.imread('./_data/bricks2.jpg', cv2.IMREAD_GRAYSCALE)
-'''
-otsu_val, image = cv2.threshold(image , 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
-print(f'Otsu threshold: {otsu_val}')
-'''
 plt.figure()
 plt.imshow(image, cmap='gray')
 plt.show()

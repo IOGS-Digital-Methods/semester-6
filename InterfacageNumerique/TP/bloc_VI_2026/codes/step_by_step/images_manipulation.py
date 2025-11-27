@@ -16,6 +16,22 @@ import numpy as np
 from matplotlib import pyplot as plt
 
 
+def sine_trame(height, width, step, angle = 0):
+    """
+    Create a 2D image with a sine waveform.
+    
+    :param height:  Height of the image.In pixel.
+    :param width:   Width of the image. In pixel.
+    :param step:    Spatial period of the sine. In pixel.
+    :param angle:   Angle of the 2D sine shape. In degree.
+    """
+    x = np.arange(0,height)
+    y = np.arange(0,width)
+    XX, YY = np.meshgrid(x, y)
+    alpha_rad = np.radians(angle)
+    return 0.5*(1 + np.cos(2*np.pi*XX/step*np.cos(alpha_rad) + 2*np.pi*YY/step*np.sin(alpha_rad) ))
+
+
 def generate_gaussian_noise_image(rows, cols, mean=0, std_dev=1):
     """
     Create a 2D array with a gaussian noise.
