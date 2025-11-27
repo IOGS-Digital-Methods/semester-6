@@ -1,0 +1,312 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Engineering problems / LaTeX Template
+%		Semester 6
+%		Institut d'Optique Graduate School
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	6N-IntNum-BlocVI
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Created by:
+%	Julien VILLEMEJANE - 20/nov/2025
+%	
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Professional Newsletter Template
+% LaTeX Template
+% Version 1.0 (09/03/14)
+%
+% Created by:
+% Bob Kerstetter (https://www.tug.org/texshowcase/) and extensively modified by:
+% Vel (vel@latextemplates.com)
+% 
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[a4paper,11pt,titlepage]{article} % The default font size is 10pt; 11pt and 12pt are alternatives
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{../opto_elec_villemejane}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+
+% Page de garde
+\begin{titlepage}
+
+\begin{center}
+	\begin{minipage}{2.5cm}
+	\begin{center}
+		\includegraphics[width=8cm]{../images/Logo-LEnsE.png}
+	\end{center}
+\end{minipage}\hfill
+\begin{minipage}{10cm}
+	\begin{center}
+	\textbf{Institut d'Optique Graduate School }\\[0.1cm]
+    \textbf{Interfaçage Numérique}
+
+
+	\end{center}
+\end{minipage}\hfill
+
+
+\vspace{3cm}
+
+
+{\huge \bfseries \textsc{Interfaçage Numérique}} \\[0.5cm]
+{\large \bfseries Travaux Pratiques} \\[0.2cm]
+Semestre 6
+
+\vspace{1.5cm}
+% Title
+\rule{\linewidth}{0.3mm} \\[0.4cm]
+{ \huge \bfseries\color{violet_iogs} Vision Industrielle \\[0.4cm] }
+\rule{\linewidth}{0.3mm} \\[0.2cm]
+{ \large \bfseries\color{violet_iogs} TP 3-4 / Détection d'objets}
+\rule{\linewidth}{0.3mm} \\[1cm]
+
+
+\bigskip
+
+\begin{center}
+	\includegraphics[width=0.7\textwidth]{../images/vi_intro.png}
+\end{center}
+
+\vfill
+
+\textit{Ce sujet est disponible au format électronique sur le site du LEnsE - https://lense.institutoptique.fr/ dans la rubrique Année / Première Année / Interfaçage Numérique S6 / Bloc 2 Vision Industrielle.}
+
+
+% Bottom of the page
+%{\textbf{\large {Année universitaire} 2024-2025}}
+
+\end{center}
+\end{titlepage}
+
+\newpage
+\strut % empty page
+
+\newpage
+\pagestyle{empty}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%    A A V / Objectifs
+
+\section{Objectif des séances 3 et 4}
+
+\subsection{TP3 - Manipulations avancées sous OpenCV / Limites du banc de vision}
+
+Sous OpenCV :
+
+\begin{itemize}
+	\item Détecter des formes {[40 min]}
+	\item Détecter des couleurs {[40 min]}
+	\item Changer d'espace de couleur {[40 min]}
+\end{itemize}
+
+Segmentation de l'image ?
+
+Sur le banc de VI :
+
+\begin{itemize}
+	\item Calibration de la chaîne sur les cubes de couleurs (couleur) {[40 min]}
+	\item Calibration de la chaîne sur des formes colorées {[40 min]}
+	\item Calibration de la chaîne pour des mesures de distance {[40 min]}
+\end{itemize}
+
+
+\subsection{TP4 - Détection d’objets - Contrôle qualité}
+
+Le but est à partir d'une série d'images (1 en RGB ou 3 en niveau de gris sous éclairage particulier) de détecter le nombre d'objets d'une forme et d'une couleur particulière et de valider si les pièces requises pour un assemblage sont bien présentes (simuler le packaging d'un produit fini - 6 pièces de forme et de couleurs distinctes par exemple).
+
+La validation du packaging final devra se faire sans l’intervention de l'être humain mais un affichage propre des couleurs devra être fait pour le contrôle par le/la manipulateur$\cdot$trice.
+
+Bonus : mesure de la conformité de la taille des pièces ?
+
+\bigskip
+
+Premiers essais sur une grille de jeu TicTacToe (morpion) :
+
+\begin{center}
+	\includegraphics[width=0.8\textwidth]{../images/morpion_vi_thres.png}
+\end{center}
+
+
+\newpage
+
+\section{Ressources}
+
+Des {codes en Python}, proposant des exemples à tester, sont disponibles sur le site du LEnsE dans la rubrique \textit{Année / Première Année / Interfaçage Numérique S6 / Bloc 2 Vision Industrielle / Répertoire vers codes à tester}. 
+
+\textit{Un fichier archivé, nommé \textsc{step\_by\_step.zip}, regroupe l'ensemble des codes à tester au cours de cette séance, ainsi que les images à traiter.}
+
+\medskip
+
+Un \textbf{kit d'images} est disponible sur le site du LEnsE dans la rubrique \textit{Année / Première Année / Interfaçage Numérique S6 / Bloc 2 Vision Industrielle / Kit d'images}. 
+
+
+\section{Accumulation de preuves / Méthode de travail}
+
+Il est conseillé pour ce TP de \textbf{créer un nouveau projet PyCharm} sur votre session (\textit{attention à l'endroit où vous stockerez ce projet - U: sur les sessions Windows de l'IOGS}).
+
+Les différents algorithmes proposés dans ce TP, ainsi que ceux que vous serez amenés à modifier ou créer, pourront vous resservir dans d'autres projets. Nous vous conseillons donc fortement de les \textbf{sauvegarder} précieusement et de les \textbf{commenter} autant que possible afin de retrouver rapidement les principes mis en jeu derrière les fonctionnalités de OpenCV.
+
+\medskip
+
+Il serait également pertinent de votre part de rédiger un \textbf{journal de bord} sur ce TP en incluant les résultats (images, histogrammes...) et vos analyses des fonctionnalités et de leur intérêt en traitement d'images.
+
+
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%    Etape par étape
+
+%%%%%%%%%%%%%    Etape A
+\section{CV-C - Changement d'espace de couleur {[40 min]}}
+
+\Manip Ouvrir et afficher l'image \textsl{couleurs\_4.png} du kit d'images fourni, au format RGB.
+
+\Manip Créer une copie de la matrice image (fonction \textsl{copy()} de Numpy). 
+
+\Manip Forcer à 0 tous les pixels du canal bleu de la copie de l'image et afficher la nouvelle image.
+
+
+\subsection{Plusieurs méthodes de conversion}
+
+Plusieurs méthodes existent pour passer d'une image RVB à une image en niveau de gris :
+
+\begin{itemize}
+	\item Calculer la \textbf{moyenne des valeurs} des trois canaux de couleur (Rouge, Vert, Bleu) pour chaque pixel.
+	\item Utiliser des \textbf{poids spécifiques pour les canaux R, V et B}, basés sur leur contribution relative à la perception humaine.
+	\item Convertir l'image dans un \textbf{autre espace de couleur}, comme YUV, HSL ou HSV, et extraire la composante de luminosité.
+\end{itemize}
+
+\subsubsection{Moyenne des canaux R,V,B}
+
+Cette méthode est la plus simple. Chaque pixel de l'image en gris est la moyenne des pixels des canaux rouge, vert et bleu de l'image en couleur :
+
+$$Pixel_{Gray} = \frac{Pixel_{R} + Pixel_{V} + Pixel_{B}}{3}$$ 
+
+\Manip Créer une image en nuance de gris utilisant la méthode de la moyenne des trois canaux.
+
+\Manip Afficher l'image résultante.
+
+
+\subsubsection{Pondération en fonction de la perception humaine}
+
+Cette méthode est une moyenne pondérée des valeurs des pixels R, V, B de l'image couleur : 
+
+$$Pixel_{Gray} = 0.299 \cdot Pixel_{R} + 0.587 \cdot Pixel_{V} + 0.114 \cdot Pixel_{B}$$ 
+
+
+Les coefficients de cette méthode proviennent de la sensibilité relative de l'œil humain aux différentes couleurs et ont été standardisés à l'origine pour la télévision analogique (NTSC). Ils sont aujourd'hui utilisés comme une approximation fidèle de la perception visuelle de la luminosité.
+
+La méthode de conversion fournie par la bibliothèque OpenCV se base sur cette pondération.
+
+\Manip Convertir l'image RVB en niveau de gris par l'instruction suivante :
+
+\begin{lstlisting}
+image_gray = cv2.cvtColor(image_rgb, cv2.COLOR_BGR2GRAY)
+\end{lstlisting}
+
+\Manip Comparer les images obtenues par la moyenne classique et cette moyenne pondérée.
+
+
+\subsubsection{Utilisation d'un espace colorimétrique différent}
+
+L'espace colorimétrique RVB est très utilisé dans le domaine du numérique (affichage, acquisition d'images) pour sa facilité de mise en oeuvre.
+
+Cependant, ce n'est \textbf{pas} le plus \textbf{adapté vis-à-vis de la perception humaine} où la luminance et la couleur sont séparées.
+
+Des espaces comme YUV, YIQ, ou YCbCr séparent la composante de luminance (Y) des composantes de chrominance (U et V).
+
+\Manip Convertir l'image RVB dans l'espace YUV par l'instruction suivante :
+
+\begin{lstlisting}
+image_yuv = cv2.cvtColor(image_rgb, cv2.COLOR_RGB2YUV)
+\end{lstlisting}
+
+\Manip Comparer alors l'image en niveau de gris obtenue par la méthode de moyennage pondérée et le canal Y de cette conversion.
+
+\Quest Que pouvez-vous conclure sur la méthode de calcul utiliser pour la luminance (Y) ?
+
+\medskip
+
+\noindent \rule{\linewidth}{1pt}
+
+Il existe d'autres espaces colorimétriques dans le domaine numérique. Voici un résumé non exhaustif :
+
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+\textbf{Espace colorimétrique} & \textbf{Avantages} \\ \hline
+\textbf{RGB} & Simple, utilisé pour les écrans et le rendu des couleurs. \\ \hline
+\textbf{HSV / HSL} & Intuitif pour manipuler la couleur (teinte, saturation). \\ \hline
+\textbf{YUV / YCbCr} & Sépare luminance et chrominance. \\ \hline
+\textbf{CIE-Lab} & Uniformité perceptuelle, idéal pour mesurer les différences de couleur. \\ \hline
+\textbf{CMY(K)} & Optimisé pour l'impression. \\ \hline
+\textbf{XYZ} & Modèle basé sur la perception humaine. \\ \hline
+\end{tabular}
+\end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% RESSOURCES COMPLEMENTAIRES		
+
+\newpage
+\begin{center}
+	\begin{minipage}{2.5cm}
+	\begin{center}
+		\includegraphics[width=5cm]{../images/Logo-LEnsE.png}
+	\end{center}
+\end{minipage}\hfill
+\begin{minipage}{10cm}
+	\begin{center}
+	\textbf{Institut d'Optique Graduate School }\\[0.1cm]
+    \textbf{Interfaçage Numérique}
+
+
+	\end{center}
+\end{minipage}\hfill
+
+
+\vspace{2cm}
+
+
+{\Large \bfseries \textsc{Interfaçage Numérique}} \\[0.5cm]
+{\large \bfseries Travaux Pratiques} \\[0.2cm]
+Semestre 6
+
+\vspace{1cm}
+
+% Title
+\rule{\linewidth}{0.4mm} \\[0.4cm]
+{ \Large \bfseries\color{violet_iogs} Ressources \\[0.4cm] }
+\rule{\linewidth}{0.4mm} \\[1cm]
+{\large Bloc Vision Industrielle}
+
+\end{center}
+
+\vspace{3cm}
+
+\textbf{\large Liste des ressources}
+\begin{itemize}
+	\item ???
+\end{itemize}
+
+\vfill
+
+
+
+%
+%\includepdf[pages={1,4}, nup=1x2, pagecommand={\section{\texorpdfstring{\hspace{-1em}}{Image Processing}}}\label{doc:image_proc}]{../docs/Image_Processing.pdf}
+%\includepdf[pages={5,8,12,14,16,17,18,20,21,22,23,24,25,31}, nup=1x2]{../docs/Image_Processing.pdf}
+
+\end{document}
+
+

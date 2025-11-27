@@ -42,3 +42,4 @@ ax[0,2].set_title('Blur Gray Image')
 ax[1,2].imshow(Amp_b, cmap='gray')
 ax[1,2].set_title('Roberts Amplitude (Blur)')
 plt.show()
+

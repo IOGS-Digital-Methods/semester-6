@@ -108,7 +108,7 @@ Un tutoriel sur les bases d'OpenCV est disponible à l’adresse suivante :
 
 Des {codes en Python}, proposant des exemples à tester, sont disponibles sur le site du LEnsE dans la rubrique \textit{Année / Première Année / Interfaçage Numérique S6 / Bloc 2 Vision Industrielle / Répertoire vers codes à tester}. 
 
-\textit{Un fichier archivé, nommé \textsc{step\_by\_step.zip}, regroupe l'ensemble des codes à tester au cours de cette séance, ainsi que les images à traiter.}
+\textit{Un fichier archivé, nommé \textsc{\_step\_by\_step.zip}, regroupe l'ensemble des codes à tester au cours de cette séance, ainsi que les images à traiter.}
 
 \medskip
 
@@ -394,7 +394,7 @@ On cherche à présent à voir l'impact de la taille du noyau sur l'image finale
 
 
 %%%%%%%%%%%%%    Etape I
-\section{I - Appliquer un filtre passe-haut sur une image {[30 min]}}
+\section{I - Appliquer un filtre passe-haut sur une image {[40 min]}}
 
 
 Le \textbf{filtre moyenneur} (vu précédemment) permet de conserver les \textbf{éléments à basse fréquence spatiale} dans l'image. C'est une méthode intéressante pour supprimer des bruits ponctuels (des éléments isolés et donc "rapides"). Il est également possible en choisissant un autre élément structurant de réaliser l'opération complémentaire qui supprime le fond continu et ne conserve que les transitions de fréquence spatiale élevée (bords d'un objet par exemple).
@@ -474,9 +474,38 @@ $$\text{Amplitude} = \sqrt{G_x^2 + G_y^2}$$ où $G_x$ est le résultat de la con
 
 \Manip Visualiser l'image originale, le résultat du filtrage selon X et le résultat du filtrage selon Y.
 
+\Quest Commenter les résultats. Que pouvez-vous conclure sur l'effet de ce filtre ?
+
+\Manip Appliquer cet effet sur l'image \textsl{noise\_vi\_small.png}.
+
+\Quest La détection de contours est-elle optimale ?
+
+\noindent \rule{\linewidth}{1pt}
+
+\Manip Appliquer un filtre gaussien à l'aide d'un noyau de taille 11 x 11 et d'écart-type de 2. Appliquer l'effet précédent à l'image résultante.
+
+\Quest La détection de contours est-elle améliorée ?
 
 
-\Quest Que pouvez-vous conclure sur l'effet de ce filtre ?
+\subsection{Méthodes de Harris et de Canny}
+
+L'\textbf{algorithme de Canny} est une technique de détection qui a pour objectif d'identifier les bords significatifs d'une image tout en minimisant le bruit.
+
+Cet algorithme comprend les étapes suivantes : \textbf{lissage} (réduction du bruit avec un filtre gaussien), \textbf{calcul du gradient} (obtention de la magnitude et de la direction des contours), \textbf{suppression non maximale} (affinage des contours pour ne garder que les crêtes locales) et \textbf{seuils double} (application de deux seuils pour conserver les contours forts et connecter les contours faibles pertinents).
+
+\medskip
+
+L'\textbf{opérateur de Harris} permet de détecter des coins ou points d'intérêt dans une image, utiles pour la reconnaissance d'objets, le suivi de mouvement ou la reconstruction 3D.
+
+Il est basé sur la mesure de la variation de l'intensité d'image dans des zones de l'image (par convolution avec un noyau). Les coins correspondent à des régions où la variation de l'intensité est forte dans plusieurs directions. Enfin un calcul d'une matrice de structure et d'une fonction de réponse R pour identifier les coins significatifs est réalisé.
+
+\medskip
+
+\Manip Ouvrir le fichier \textsc{13\_harris\_canny.py} du répertoire des codes à tester. Exécuter ce code.
+
+\Quest Commenter les résultats. 
+
+\Manip Appliquer cet effet sur d'autres images.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% RESSOURCES COMPLEMENTAIRES		
@@ -523,110 +552,6 @@ Semestre 6
 \end{itemize}
 
 \vfill
-
-\begin{itemize}
-	\item {[40']} Ouvrir une image - différence Gray/RGB
-	\item {[20']} Calculer l'histogramme d'une image
-	\item {[20']} Améliorer numériquement une image / contraste-luminosité
-	\item {[20']} Appliquer un seuillage sur une image
-	\item {[30']} Appliquer une érosion et une dilatation sur une image
-	\item {[20']} Appliquer une ouverture et une fermeture sur une image
-	\item {[20']} Appliquer un gradient sur une image
-	\item {[30']} Calculer la FFT d'une image
-	\item {[20']} Appliquer un filtre moyenneur sur une image
-	\item {[20']} Appliquer un filtre passe-haut - Sobel
-	
-\end{itemize}
-
-
-\newpage
-TP 3 ?
-\section{B - Changement d'espace de couleur {[20 min]}}
-
-\Manip Ouvrir et afficher l'image \textsl{couleurs\_4.png} du kit d'images fourni, au format RGB.
-
-\Manip Créer une copie de la matrice image (fonction \textsl{copy()} de Numpy). 
-
-\Manip Forcer à 0 tous les pixels du canal bleu de la copie de l'image et afficher la nouvelle image.
-
-
-\subsection{Plusieurs méthodes de conversion}
-
-Plusieurs méthodes existent pour passer d'une image RVB à une image en niveau de gris :
-
-\begin{itemize}
-	\item Calculer la \textbf{moyenne des valeurs} des trois canaux de couleur (Rouge, Vert, Bleu) pour chaque pixel.
-	\item Utiliser des \textbf{poids spécifiques pour les canaux R, V et B}, basés sur leur contribution relative à la perception humaine.
-	\item Convertir l'image dans un \textbf{autre espace de couleur}, comme YUV, HSL ou HSV, et extraire la composante de luminosité.
-\end{itemize}
-
-\subsubsection{Moyenne des canaux R,V,B}
-
-Cette méthode est la plus simple. Chaque pixel de l'image en gris est la moyenne des pixels des canaux rouge, vert et bleu de l'image en couleur :
-
-$$Pixel_{Gray} = \frac{Pixel_{R} + Pixel_{V} + Pixel_{B}}{3}$$ 
-
-\Manip Créer une image en nuance de gris utilisant la méthode de la moyenne des trois canaux.
-
-\Manip Afficher l'image résultante.
-
-
-\subsubsection{Pondération en fonction de la perception humaine}
-
-Cette méthode est une moyenne pondérée des valeurs des pixels R, V, B de l'image couleur : 
-
-$$Pixel_{Gray} = 0.299 \cdot Pixel_{R} + 0.587 \cdot Pixel_{V} + 0.114 \cdot Pixel_{B}$$ 
-
-
-Les coefficients de cette méthode proviennent de la sensibilité relative de l'œil humain aux différentes couleurs et ont été standardisés à l'origine pour la télévision analogique (NTSC). Ils sont aujourd'hui utilisés comme une approximation fidèle de la perception visuelle de la luminosité.
-
-La méthode de conversion fournie par la bibliothèque OpenCV se base sur cette pondération.
-
-\Manip Convertir l'image RVB en niveau de gris par l'instruction suivante :
-
-\begin{lstlisting}
-image_gray = cv2.cvtColor(image_rgb, cv2.COLOR_BGR2GRAY)
-\end{lstlisting}
-
-\Manip Comparer les images obtenues par la moyenne classique et cette moyenne pondérée.
-
-
-\subsubsection{Utilisation d'un espace colorimétrique différent}
-
-L'espace colorimétrique RVB est très utilisé dans le domaine du numérique (affichage, acquisition d'images) pour sa facilité de mise en oeuvre.
-
-Cependant, ce n'est \textbf{pas} le plus \textbf{adapté vis-à-vis de la perception humaine} où la luminance et la couleur sont séparées.
-
-Des espaces comme YUV, YIQ, ou YCbCr séparent la composante de luminance (Y) des composantes de chrominance (U et V).
-
-\Manip Convertir l'image RVB dans l'espace YUV par l'instruction suivante :
-
-\begin{lstlisting}
-image_yuv = cv2.cvtColor(image_rgb, cv2.COLOR_RGB2YUV)
-\end{lstlisting}
-
-\Manip Comparer alors l'image en niveau de gris obtenue par la méthode de moyennage pondérée et le canal Y de cette conversion.
-
-\Quest Que pouvez-vous conclure sur la méthode de calcul utiliser pour la luminance (Y) ?
-
-\medskip
-
-\noindent \rule{\linewidth}{1pt}
-
-Il existe d'autres espaces colorimétriques dans le domaine numérique. Voici un résumé non exhaustif :
-
-\begin{center}
-\begin{tabular}{|c|c|}
-\hline
-\textbf{Espace colorimétrique} & \textbf{Avantages} \\ \hline
-\textbf{RGB} & Simple, utilisé pour les écrans et le rendu des couleurs. \\ \hline
-\textbf{HSV / HSL} & Intuitif pour manipuler la couleur (teinte, saturation). \\ \hline
-\textbf{YUV / YCbCr} & Sépare luminance et chrominance. \\ \hline
-\textbf{CIE-Lab} & Uniformité perceptuelle, idéal pour mesurer les différences de couleur. \\ \hline
-\textbf{CMY(K)} & Optimisé pour l'impression. \\ \hline
-\textbf{XYZ} & Modèle basé sur la perception humaine. \\ \hline
-\end{tabular}
-\end{center}
 
 
 %
