@@ -5,6 +5,7 @@ Line detection on images with OpenCV
 """
 
 import cv2
+import numpy as np
 from matplotlib import pyplot as plt
 
 # Open an image - Grayscale
@@ -30,8 +31,5 @@ ax[1].set_title('Horizontal / Erosion')
 ax[2].imshow(horizontal2, cmap='gray')
 ax[2].set_title('Horizontal / Dilation')
 plt.show()
-
-  
-    
 
     

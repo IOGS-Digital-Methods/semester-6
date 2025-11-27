@@ -335,6 +335,8 @@ Notions : \href{https://iogs-lense-training.github.io/image-processing/contents/
 
 \Quest Quel est l'impact de la taille du masque ? A quoi sont dues les "vaguelettes" que l'on aperçoit sur l'image résultante ?
 
+\Quest Que se passe-t-il si on applique un masque rectangulaire ?
+
 \noindent \rule{\linewidth}{1pt}
 
 \Manip Générer une trame sinusoïdale en deux dimensions (200 x 300 pixels) à l'aide de la fonction \textsl{sine\_trame} de la bibliothèque \textsl{images\_manipulation}. Calculer sa FFT et afficher les résultats.
@@ -347,7 +349,6 @@ Notions : \href{https://iogs-lense-training.github.io/image-processing/contents/
 
 L'utilisation de filtres permet de prendre en compte les pixels voisins en exploitant les relations locales dans une image, ce qui est crucial pour des tâches comme la suppression de bruit, la détection de contours, l'extraction de caractéristiques, et l'amélioration de la qualité visuelle. Travailler sur des pixels isolés limite l'analyse à des informations ponctuelles, tandis que considérer les voisins permet une compréhension plus riche et contextuelle de l'image.
 
-\subsection{Filtre moyenneur gaussien}
 
 \begin{mdframed}[style=sidebar,frametitle={}]
 Notions : \href{https://iogs-lense-training.github.io/image-processing/contents/opencv_blur.html#blur-with-opencv
@@ -355,70 +356,48 @@ Notions : \href{https://iogs-lense-training.github.io/image-processing/contents/
 \end{mdframed}
 
 
-\Manip Ouvrir le fichier \textsc{10\_gaussian.py} du répertoire des codes à tester. Exécuter ce code.
+\Manip Ouvrir le fichier \textsc{10\_blur\_mean.py} du répertoire des codes à tester. Exécuter ce code.
+
+\Quest Commenter les effets des deux méthodes utilisées pour lisser l'image.
+
+\Quest Quelle méthode est utilisée ici pour montrer de manière objective les modifications apportées à l'image ? 
+
+\noindent \rule{\linewidth}{1pt}
+
+Le fichier \textsc{10a\_blur\_mean\_slice.py} propose une autre méthode pour comparer les effets du lissage.
+
+\Manip Ouvrir le fichier \textsc{10a\_blur\_mean\_slice.py} du répertoire des codes à tester. Exécuter ce code.
+
+\Quest Quelle est cette méthode ? 
+
+\Manip Calculer et afficher la FFT de chacune des images précédentes (originale et modifiées). 
+
+\Quest Quelle est la fonction réalisée par les deux filtres précédents ?
+
+\noindent \rule{\linewidth}{1pt}
+
+On cherche à présent à voir l'impact de la taille du noyau sur l'image finale.
+
+\Manip Ouvrir le fichier \textsc{10b\_blur\_mean\_kernel.py} du répertoire des codes à tester. Exécuter ce code.
+
+\Quest Que pouvez-vous conclure sur l'impact de la taille du noyau ? \textit{Vous pourrez également comparer les FFT...}
+
+\newpage
+%%%%%%%%%%%%%    Etape H
+\section{H - Détecter une ligne {[20 min]}}
+
+\Manip Ouvrir le fichier \textsc{11\_line\_detection.py} du répertoire des codes à tester. Exécuter ce code.
+
+\Quest Commenter les résultats. Quel type de masque est utilisé ? Quelle est sa taille ? 
+
+\Manip Modifier le noyau pour détecter des lignes d'au moins 40 pixels.
 
 
-
-\Manip Appliquer un filtre gaussien (fonction \textsl{cv2.GaussianBlur()}) sur l'image précédente, de taille 5 x 5 pixels.
-
-\Manip Afficher les deux images pour les comparer.
-
-\Quest Comment peut-on montrer de manière objective les modifications apportées à l'image ? 
-
-\Manip Mettre en oeuvre la méthode proposée.
-
-\medskip
-
-On se propose d'utiliser la fonction \textsl{compare\_blur\_fft()} fournie dans le fichier \textsl{images\_manipulation.py} pour comparer l'effet. 
-
-Ce fichier est disponible sur le site du LEnsE dans la rubrique \textit{Année / Première Année / Interfaçage Numérique S6 / Bloc Images et OpenCV / Répertoire vers codes à tester}.
-
-\Manip Tester cette fonction sur l'image précédente.
-
-\Quest Etudier cette fonction. Quelles méthodes sont utilisées pour comparer les images ?
-
-\Quest Quelle est la fonction réalisée par le filtre précédent ?
-
-\medskip
-
-On cherche à présent à voir l'impact du noyau sur l'image finale.
-
-\Manip Tester la fonction précédente avec des noyaux de taille différente et comparer les résultats à la fois sur l'image obtenue mais également sur la transformée de Fourier.
-
-\Quest Que pouvez-vous conclure sur l'impact de la taille du noyau ?
+%%%%%%%%%%%%%    Etape I
+\section{I - Appliquer un filtre passe-haut sur une image {[30 min]}}
 
 
-\subsection{Bruit sur une image}
-
-On se propose d'étudier la fonction \textsl{generate\_gaussian\_noise\_image()} fournie dans le fichier \textsl{images\_manipulation.py}.
-
-\Manip Tester l'exemple fourni dans le fichier \textsl{noise\_test1.py}.
-
-\Quest Comment vérifier la distribution du bruit généré par cette fonction ?
-
-\medskip
-
-On se propose d'étudier la fonction \textsl{generate\_uniform\_noise\_image()} fournie dans le fichier \textsl{images\_manipulation.py}.
-
-\Manip Tester l'exemple fourni dans le fichier \textsl{noise\_test2.py}.
-
-\Quest La distribution du bruit généré par cette fonction est-elle uniforme ?
-
-\Manip A l'aide de la fonction \textsl{generate\_gaussian\_noise\_image\_percent()}, générer un bruit gaussien de moyenne 30 et d'écart-type 20 sur 10\% de l'image \textsl{robot.jpg} ouverte précédemment en nuance de gris. Visualiser le résultat.
-
-\medskip
-
-\textit{Il peut-être nécessaire de normaliser les images bruitées afin que les \textbf{données entières} de chaque pixel soient comprises \textbf{entre 0 et 255}, afin que les images puissent être affichées correctement.} 
-
-\Manip Tester la fonction \textsl{compare\_blur\_fft()} fournie dans le fichier \textsl{images\_manipulation.py} et comparer les résultats à la fois sur l'image obtenue mais également sur la transformée de Fourier.
-
-
-%%%%%%%%%%%%%    Etape 5
-\section{H - Appliquer un filtre passe-haut sur une image}
-
-\begin{center} \textbf{\textit{Temps conseillé : 60 min}} \end{center}
-
-Le \textbf{filtre moyenneur} précédent permet de conserver les \textbf{éléments à basse fréquence spatiale} dans l'image. C'est une méthode intéressante pour supprimer des bruits ponctuels (des éléments isolés et donc "rapides"). Il est également possible en choisissant un autre élément structurant de réaliser l'opération complémentaire qui supprime le fond continu et ne conserve que les transitions de fréquence spatiale élevée (bords d'un objet par exemple).
+Le \textbf{filtre moyenneur} (vu précédemment) permet de conserver les \textbf{éléments à basse fréquence spatiale} dans l'image. C'est une méthode intéressante pour supprimer des bruits ponctuels (des éléments isolés et donc "rapides"). Il est également possible en choisissant un autre élément structurant de réaliser l'opération complémentaire qui supprime le fond continu et ne conserve que les transitions de fréquence spatiale élevée (bords d'un objet par exemple).
 
 \medskip
 
@@ -426,7 +405,7 @@ Il est possible d'utiliser la fonction \textsl{cv2.filter2D()} pour appliquer un
 
 \subsection{Opérateur de Roberts}
 
-L'opérateur de Roberts est l'un des premiers filtres de \textbf{détection de contours}. Il repose sur la convolution avec deux petits noyaux 2x2, conçus pour approximer les dérivées en diagonale de l'image.
+L'\textbf{opérateur de Roberts} est l'un des premiers filtres de \textbf{détection de contours}. Il repose sur la convolution avec deux petits noyaux 2x2, conçus pour approximer les dérivées en diagonale de l'image.
 
 Les noyaux de convolution sont les suivants :
 
@@ -450,15 +429,24 @@ Une forte amplitude indique un contour ou un bord marqué. Une faible amplitude 
 
 \medskip
 
-\Manip Ecrire un script qui permet d'appliquer cette opération sur l'image \textsl{bricks2.jpg} du kit d'images fourni, en niveau de gris.
+\Manip Ouvrir le fichier \textsc{12\_roberts.py} du répertoire des codes à tester. Exécuter ce code.
 
-\Manip Visualiser l'image originale, le résultat du filtrage selon X et le résultat du filtrage selon Y.
+\Quest Commenter les résultats. Que pouvez-vous conclure sur l'effet de ce filtre ?
 
-\Quest Que pouvez-vous conclure sur l'effet de ce filtre ?
+\Manip Appliquer cet effet sur l'image \textsl{noise\_vi\_small.png}.
 
+\Quest La détection de contours est-elle optimale ?
+
+\noindent \rule{\linewidth}{1pt}
+
+\Manip Appliquer un filtre gaussien à l'aide d'un noyau de taille 11 x 11 et d'écart-type de 2. Appliquer l'effet précédent à l'image résultante.
+
+\Quest La détection de contours est-elle améliorée ?
+
+\newpage
 \subsection{Opérateur de Sobel}
 
-L'opérateur de Sobel permet de réaliser une opération similaire à celui de Roberts, mais en étant moins sensible aux bruits dans l'image, puisqu'il se base sur un noyau plus large et ainsi lisse l'image dans la direction perpendiculaire au gradient mesuré.
+L'\textbf{opérateur de Sobel} permet de réaliser une opération similaire à celui de Roberts, mais en étant moins sensible aux bruits dans l'image, puisqu'il se base sur un noyau plus large et ainsi lisse l'image dans la direction perpendiculaire au gradient mesuré.
 
 Les noyaux de convolution sont les suivants :
 
@@ -482,40 +470,13 @@ $$\text{Amplitude} = \sqrt{G_x^2 + G_y^2}$$ où $G_x$ est le résultat de la con
 
 \medskip
 
-\Manip Ecrire un script qui permet d'appliquer cette opération sur l'image \textsl{bricks2.jpg} du kit d'images fourni, en niveau de gris.
+\Manip Ouvrir le fichier \textsc{12\_sobel.py} du répertoire des codes à tester. Exécuter ce code.
 
 \Manip Visualiser l'image originale, le résultat du filtrage selon X et le résultat du filtrage selon Y.
 
+
+
 \Quest Que pouvez-vous conclure sur l'effet de ce filtre ?
-
-%%%%%%%%%%%%%    Etape 6
-\section{Etape 6 / Appliquer un filtre par l'intermédiaire de la transformée de Fourier}
-
-\begin{center} \textbf{\textit{Temps conseillé : 30 min}} \end{center}
-
-On s'intéresse ici à la \textbf{transformée de Fourier discrète en deux dimensions} permettant de représenter l'image dans le domaine fréquentiel, plutôt que dans le domaine spatial.
-
-\Manip Ouvrir l'image \textsl{robot.jpg} du kit d'images fourni, en niveau de gris.
-
-\Manip Calculer la transformée de Fourier discrète de cette image à l'aide de la fonction \textsl{fft2()} de la bibliothèque \textbf{Numpy / FFT}. Afficher l'image et sa transformée de Fourier. \textit{Pensez à utiliser la fonction fftshift...}
-
-\medskip
-
-On se propose d'utiliser la fonction \textsl{circular\_mask()} fournie dans le fichier \textsl{images\_manipulation.py} pour appliquer un masque sur la transformée de Fourier de l'image. 
-
-Ce fichier est disponible sur le site du LEnsE dans la rubrique \textit{Année / Première Année / Interfaçage Numérique S6 / Bloc Images et OpenCV / Répertoire vers codes à tester}.
-
-\Manip Appliquer un masque circulaire sur la transformée de Fourier de l'image, à l'aide de la fonction \textsl{circular\_mask()}. Afficher le résultat.
-
-\Manip Calculer l'image résultante à l'aide de la fonction \textit{ifft2()} de la bibliothèque \textbf{Numpy / FFT}. Afficher l'image résultante et la comparer à l'image originale.
-
-\medskip
-
-\Manip Ecrire et tester une fonction permettant de réaliser un masquage rectangulaire sur une image, dont on pourra préciser la largeur et la longueur, ainsi que le barycentre du rectangle (point d'intersection des diagonales).
-
-\Quest Que se passe-t-il lorsque vous appliquez un masque rectangulaire (dont la largeur et la longueur sont différentes) sur une image ? Qu'en est-il d'un masque circulaire ?
-
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% RESSOURCES COMPLEMENTAIRES		
