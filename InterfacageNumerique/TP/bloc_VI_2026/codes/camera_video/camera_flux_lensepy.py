@@ -14,7 +14,7 @@ COLOR_MODE = "BayerRG8"  # "BayerRG8" / "Mono12"
 GAUSS_SIZE = (15, 15)    # Taille du flou gaussien
 GAUSS_SIGMA = 1.9
 DISPLAY_RATIO = 0.66
-EXPOSURE_TIME = 150000
+EXPOSURE_TIME = 70000
 
 clicked_x, clicked_y = None, None
 need_slice = False
@@ -94,10 +94,10 @@ def main():
         elif key == ord('h'):   # h pour clear slice
             need_histo = not need_histo
             if not need_histo:
-                cv2.destroyWindow("Histo")
+                cv2.destroyWindow("Histogram")
         elif key == ord('c'):   # c pour clear slice
             need_slice = False
-            cv2.destroyWindow("Profil")
+            cv2.destroyWindow("Slice")
                    
         # --- Histogramme ---
         if need_histo:
@@ -113,7 +113,7 @@ def main():
                 value = int(hist_norm[x].item())
                 cv2.line(hist_img, (x, 200), (x, 200 - value), 0, 1)
 
-            cv2.imshow("Histogramme", hist_img)
+            cv2.imshow("Histogram", hist_img)
         
         # --- Slice Display ---
         if need_slice:
@@ -139,7 +139,7 @@ def main():
                 v = int(float(val))
                 cv2.line(profile_img, (i, 200), (i, 200 - v), 0, 1)
 
-            cv2.imshow("Profil", profile_img)
+            cv2.imshow("Slice", profile_img)
 
     camera.close()
     cv2.destroyAllWindows()
