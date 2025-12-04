@@ -10,21 +10,45 @@ import numpy as np
 from lensepy.utils import get_screen_size
 from lensepy.modules.basler.basler_models import init_first_camera
 
-COLOR_MODE = "BGR8"  # "BGR8" / "Mono12"
-GAUSS_SIZE = (7, 7)         # Taille du flou gaussien
+COLOR_MODE = "BayerRG8"  # "BayerRG8" / "Mono12"
+GAUSS_SIZE = (15, 15)    # Taille du flou gaussien
 GAUSS_SIGMA = 1.9
+DISPLAY_RATIO = 0.66
+EXPOSURE_TIME = 150000
+
+clicked_x, clicked_y = None, None
+need_slice = False
+need_histo = False
+slice_orientation = None  # 'h' pour horizontal, 'v' pour vertical
+
+def mouse_callback(event, x, y, flags, param):
+    global clicked_x, clicked_y, need_slice, need_histo, slice_orientation
+
+    if event == cv2.EVENT_LBUTTONDOWN:      # clic gauche → coupe horizontale
+        clicked_x, clicked_y = x, y
+        slice_orientation = 'h'
+        need_slice = True
+
+    elif event == cv2.EVENT_RBUTTONDOWN:    # clic droit → coupe verticale
+        clicked_x, clicked_y = x, y
+        slice_orientation = 'v'
+        need_slice = True
 
 def main():
+    global clicked_x, clicked_y, need_slice, need_histo, slice_orientation
+    
     # --- 
     height, width = get_screen_size()
     mode = 'z'
-    
+    # --- Find camera
     camera = init_first_camera('./camera_vi.ini')
     if camera is None:
         cv2.destroyAllWindows()
         return
-    
+    # --- Camera parameters
     camera.set_parameter('PixelFormat', COLOR_MODE)
+    camera.set_parameter('ExposureTime', EXPOSURE_TIME)
+    # --- Start acquisition    
     camera.open()
     camera.camera_acquiring = True
     
@@ -34,27 +58,29 @@ def main():
     while camera.camera_acquiring:
         # --- Get Image ---
         frame_raw = camera.get_image()
+        # --- Image conversion ---
+        if COLOR_MODE == 'Mono12':
+            # Conversion 12 bits to 8 bits
+            frame8 = (frame_raw / 16).astype(np.uint8)
+        elif COLOR_MODE == 'BayerRG8':
+            frame8 = frame_raw
+        else:
+            frame8 = frame_raw
+            
         # --- Processing ---
         if mode == 'a': # Canny
-            if COLOR_MODE == 'Mono12':
-                # Conversion 12 bits → 8 bits
-                frame8 = (frame_raw / 16).astype(np.uint8)
-            else:
-                frame8 = frame_raw
-            
-            blur_frame8 = cv2.GaussianBlur(frame8, GAUSS_SIZE, GAUSS_SIGMA)
+            #frame8 = cv2.GaussianBlur(frame8, GAUSS_SIZE, GAUSS_SIGMA)
             # Canny
-            final_output = cv2.Canny(blur_frame8, 50, 150)
+            final_output = cv2.Canny(frame8, 50, 150)
         else:
-            if COLOR_MODE == 'Mono12':
-                # Conversion 12 bits → 8 bits
-                frame8 = (frame_raw / 16).astype(np.uint8)
-            else:
-                frame8 = frame_raw
             final_output = frame8
-        # Redimensionnement
-        display = cv2.resize(final_output, (width//2, height//2))
+        
+        # --- Image display ---
+        new_w = int(width * DISPLAY_RATIO)
+        new_h = int(height * DISPLAY_RATIO)
+        display = cv2.resize(final_output, (new_w, new_h))
         cv2.imshow("Flux Basler a2A1920", display)
+        cv2.setMouseCallback("Flux Basler a2A1920", mouse_callback)
 
         # --- Mode management ---
         key = cv2.waitKey(1) & 0xFF
@@ -65,19 +91,55 @@ def main():
             mode = 'a'
         elif key == ord('z'):
             mode = 'z'
-                            
+        elif key == ord('h'):   # h pour clear slice
+            need_histo = not need_histo
+            if not need_histo:
+                cv2.destroyWindow("Histo")
+        elif key == ord('c'):   # c pour clear slice
+            need_slice = False
+            cv2.destroyWindow("Profil")
+                   
         # --- Histogramme ---
-        hist = cv2.calcHist([frame8],[0],None,[256],[0,256])
-        hist_norm = cv2.normalize(hist, None, 0, 200, cv2.NORM_MINMAX)
-        hist_img = np.full((200, 256), 255, dtype=np.uint8)
+        if need_histo:
+            if COLOR_MODE == 'BayerRG8':
+                frame_hist = cv2.cvtColor(frame8, cv2.COLOR_RGB2YUV)
+            else:
+                frame_hist = frame8
+            hist = cv2.calcHist([frame_hist],[0],None,[256],[0,256])
+            hist_norm = cv2.normalize(hist, None, 0, 200, cv2.NORM_MINMAX)
+            hist_img = np.full((200, 256), 255, dtype=np.uint8)
 
-        for x in range(256):
-            value = int(hist_norm[x].item())   # ✔ Conversion safe, plus de warning
-            cv2.line(hist_img, (x, 200), (x, 200 - value), 0, 1)
+            for x in range(256):
+                value = int(hist_norm[x].item())
+                cv2.line(hist_img, (x, 200), (x, 200 - value), 0, 1)
 
-        cv2.imshow("Histogramme", hist_img)
+            cv2.imshow("Histogramme", hist_img)
+        
+        # --- Slice Display ---
+        if need_slice:
+            # Convert coordinates from resized display back to original frame
+            scale_x = frame8.shape[1] / (new_w)
+            scale_y = frame8.shape[0] / (new_h)
 
-        #grab.Release()
+            orig_x = int(clicked_x * scale_x)
+            orig_y = int(clicked_y * scale_y)
+
+            if slice_orientation == 'h':
+                profile = frame_hist[orig_y, :, 0]
+            elif slice_orientation == 'v':
+                profile = frame_hist[:, orig_x, 0]
+
+            factor = 2  # prendre 1 point sur 2
+            profile_sampled = profile[::factor]
+            profile_img = np.full((200, len(profile_sampled)), 255, dtype=np.uint8)
+            prof_norm = cv2.normalize(profile_sampled, None, 0, 200, cv2.NORM_MINMAX)
+            prof_norm = prof_norm.reshape(-1)
+
+            for i, val in enumerate(prof_norm):
+                v = int(float(val))
+                cv2.line(profile_img, (i, 200), (i, 200 - v), 0, 1)
+
+            cv2.imshow("Profil", profile_img)
 
     camera.close()
     cv2.destroyAllWindows()
