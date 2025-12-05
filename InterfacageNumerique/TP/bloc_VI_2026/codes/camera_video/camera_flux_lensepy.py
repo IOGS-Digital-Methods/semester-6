@@ -14,7 +14,7 @@ COLOR_MODE = "BayerRG8"  # "BayerRG8" / "Mono12"
 GAUSS_SIZE = (15, 15)    # Taille du flou gaussien
 GAUSS_SIGMA = 1.9
 DISPLAY_RATIO = 0.66
-EXPOSURE_TIME = 20000
+EXPOSURE_TIME = 15000
 
 clicked_x, clicked_y = None, None
 need_slice = False
@@ -64,6 +64,7 @@ def main():
             frame8 = (frame_raw / 16).astype(np.uint8)
         elif COLOR_MODE == 'BayerRG8':
             frame8 = frame_raw
+            frame8 = cv2.cvtColor(frame8, cv2.COLOR_BGR2RGB)
         else:
             frame8 = frame_raw
             
@@ -76,11 +77,14 @@ def main():
             final_output = frame8
         
         # --- Image display ---
-        new_w = int(width * DISPLAY_RATIO)
-        new_h = int(height * DISPLAY_RATIO)
+        max_w = int(width * DISPLAY_RATIO)
+        max_h = int(height * DISPLAY_RATIO)
+        h_src, w_src = final_output.shape[:2]
+        scale = min(max_w / w_src, max_h / h_src)
+        new_w = int(w_src * scale)
+        new_h = int(h_src * scale)
         display = cv2.resize(final_output, (new_w, new_h))
         cv2.imshow("Flux Basler a2A1920", display)
-        cv2.setMouseCallback("Flux Basler a2A1920", mouse_callback)
 
         # --- Mode management ---
         key = cv2.waitKey(1) & 0xFF
@@ -101,11 +105,12 @@ def main():
             need_slice = False
                    
         # --- Histogramme ---
+        if COLOR_MODE == 'BayerRG8':
+            frame_hist = cv2.cvtColor(frame8, cv2.COLOR_RGB2YUV)
+        else:
+            frame_hist = frame8
+
         if need_histo:
-            if COLOR_MODE == 'BayerRG8':
-                frame_hist = cv2.cvtColor(frame8, cv2.COLOR_RGB2YUV)
-            else:
-                frame_hist = frame8
             hist = cv2.calcHist([frame_hist],[0],None,[256],[0,256])
             hist_norm = cv2.normalize(hist, None, 0, 200, cv2.NORM_MINMAX)
             hist_img = np.full((200, 256), 255, dtype=np.uint8)

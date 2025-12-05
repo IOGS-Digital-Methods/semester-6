@@ -60,8 +60,12 @@ def main():
             final_output = frame8
         
         # --- Image display ---
-        new_w = int(width * DISPLAY_RATIO)
-        new_h = int(height * DISPLAY_RATIO)
+        max_w = int(width * DISPLAY_RATIO)
+        max_h = int(height * DISPLAY_RATIO)
+        h_src, w_src = final_output.shape[:2]
+        scale = min(max_w / w_src, max_h / h_src)
+        new_w = int(w_src * scale)
+        new_h = int(h_src * scale)
         display = cv2.resize(final_output, (new_w, new_h))
         cv2.imshow("Flux Basler a2A1920", display)
 

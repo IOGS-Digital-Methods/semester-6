@@ -12,9 +12,9 @@ from lensepy.modules.basler.basler_models import init_first_camera
 
 COLOR_MODE = "BayerRG8"  # "BayerRG8" / "Mono12"
 DISPLAY_RATIO = 0.8
-EXPOSURE_TIME = 30000
+EXPOSURE_TIME = 20000
 MIN_AREA = 100              # Minimal area of an object
-APPROX_FACTOR = 0.02        # Tolérance pour approxPolyDP
+APPROX_FACTOR = 0.01        # Tolérance pour approxPolyDP
 
 def detect_shape(cnt):
     area = cv2.contourArea(cnt)
@@ -37,6 +37,8 @@ def detect_shape(cnt):
             shape = "Carre" if 0.90 < ratio < 1.10 else "Rectangle"
     elif n == 5:
         shape = "Pentagone"
+    elif n == 6:
+        shape = "Hexagone"
     else:
         shape = f"{n}-gon"
 
@@ -114,8 +116,14 @@ def main():
             final_output = frame8
         
         # --- Image display ---
-        new_w = int(width * DISPLAY_RATIO)
-        new_h = int(height * DISPLAY_RATIO)
+        max_w = int(width * DISPLAY_RATIO)
+        max_h = int(height * DISPLAY_RATIO)
+
+        h_src, w_src = final_output.shape[:2]
+        scale = min(max_w / w_src, max_h / h_src)
+
+        new_w = int(w_src * scale)
+        new_h = int(h_src * scale)
         display = cv2.resize(final_output, (new_w, new_h))
         cv2.imshow("Flux Basler a2A1920", display)
 
