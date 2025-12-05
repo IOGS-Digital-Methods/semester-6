@@ -12,7 +12,7 @@ from lensepy.modules.basler.basler_models import init_first_camera
 
 COLOR_MODE = "BayerRG8"  # "BayerRG8" / "Mono12"
 DISPLAY_RATIO = 0.8
-EXPOSURE_TIME = 70000
+EXPOSURE_TIME = 30000
 
 
 def main():

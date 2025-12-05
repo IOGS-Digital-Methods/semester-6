@@ -14,7 +14,7 @@ COLOR_MODE = "BayerRG8"  # "BayerRG8" / "Mono12"
 GAUSS_SIZE = (15, 15)    # Taille du flou gaussien
 GAUSS_SIGMA = 1.9
 DISPLAY_RATIO = 0.66
-EXPOSURE_TIME = 70000
+EXPOSURE_TIME = 20000
 
 clicked_x, clicked_y = None, None
 need_slice = False
@@ -96,8 +96,9 @@ def main():
             if not need_histo:
                 cv2.destroyWindow("Histogram")
         elif key == ord('c'):   # c pour clear slice
+            if need_slice:
+                cv2.destroyWindow("Slice")
             need_slice = False
-            cv2.destroyWindow("Slice")
                    
         # --- Histogramme ---
         if need_histo:
