@@ -20,7 +20,7 @@ def main():
     height, width = get_screen_size()
     mode = 'z'
     # --- Find camera
-    camera = init_first_camera('./camera_vi.ini')
+    camera = init_first_camera('./config/camera_vi.ini')
     if camera is None:
         cv2.destroyAllWindows()
         return

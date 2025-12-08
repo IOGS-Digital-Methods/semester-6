@@ -6,14 +6,14 @@ import numpy as np
 MIN_AREA = 200          # taille min bruit objet (pas de bruit)
 APPROX_EPSILON = 0.02   # tolérance pour la fonction approxPolyDP
 
-img_gray = cv2.imread('./step_by_step/_data/gray_blocks.png', cv2.IMREAD_GRAYSCALE)
+img_gray = cv2.imread('../step_by_step/_data/gray_blocks.png', cv2.IMREAD_GRAYSCALE)
 
 #clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8,8))
 #img_contrast = clahe.apply(img_gray)
 
 #Petit blur
 img_contrast = cv2.GaussianBlur(img_gray, (15,15), 0)
-
+img_contrast = img_gray
 
 thresh_value, img_thresh = cv2.threshold(img_contrast, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
 #print(thresh_value)

@@ -15,8 +15,8 @@ img_gray = cv2.imread('./_data/formes_blanc_30ms.png', cv2.IMREAD_GRAYSCALE)
 
 
 # Prétraitement : flou + Otsu
-img_blur = cv2.GaussianBlur(img_gray, GAUSS_SIZE, GAUSS_SIGMA)
-#img_blur = img_gray
+#img_blur = cv2.GaussianBlur(img_gray, GAUSS_SIZE, GAUSS_SIGMA)
+img_blur = img_gray
 _, img_thresh = cv2.threshold(
     img_blur, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU
 )
@@ -107,6 +107,10 @@ if circles is not None:
 # =========================
 #   AFFICHAGE
 # =========================
+plt.figure()
+plt.imshow(img_gray, cmap='gray')
+plt.title("Image Initiale")
+
 plt.figure()
 plt.imshow(img_thresh, cmap='gray')
 plt.title("Seuil Otsu")
