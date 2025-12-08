@@ -12,7 +12,8 @@ from lensepy.modules.basler.basler_models import init_first_camera
 
 COLOR_MODE = "BayerRG8"  # "BayerRG8" / "Mono12"
 DISPLAY_RATIO = 0.8
-EXPOSURE_TIME = 20000
+EXPOSURE_TIME = 100000
+EXPOSURE_INC = 1000
 MIN_AREA = 100              # Minimal area of an object
 APPROX_FACTOR = 0.01        # Tolérance pour approxPolyDP
 
@@ -50,10 +51,11 @@ def main():
     height, width = get_screen_size()
     mode = 'z'
     # --- Find camera
-    camera = init_first_camera('./camera_vi.ini')
+    camera = init_first_camera('./config/camera_vi.ini')
     if camera is None:
         cv2.destroyAllWindows()
         return
+    exposure_time = EXPOSURE_TIME
     # --- Camera parameters
     camera.set_parameter('PixelFormat', COLOR_MODE)
     camera.set_parameter('ExposureTime', EXPOSURE_TIME)
@@ -112,9 +114,19 @@ def main():
             final_output = canny_output  
         elif mode == ord('5'):  # Final
             final_output = objects_output
+        elif mode == ord('+'):
+            exposure_time = exposure_time + EXPOSURE_INC
+            camera.set_parameter('ExposureTime', exposure_time)
+            print(f"Exposure time: {exposure_time}")
+            mode = 'z'
+        elif mode == ord('-'):
+            exposure_time = exposure_time - EXPOSURE_INC
+            camera.set_parameter('ExposureTime', exposure_time)
+            print(f"Exposure time: {exposure_time}")
+            mode = 'z'
         else:
             final_output = frame8
-        
+
         # --- Image display ---
         max_w = int(width * DISPLAY_RATIO)
         max_h = int(height * DISPLAY_RATIO)
