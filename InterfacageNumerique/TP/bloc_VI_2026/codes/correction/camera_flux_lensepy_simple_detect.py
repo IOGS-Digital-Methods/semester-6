@@ -12,7 +12,7 @@ from lensepy.modules.basler.basler_models import init_first_camera
 
 COLOR_MODE = "BayerRG8"  # "BayerRG8" / "Mono12"
 DISPLAY_RATIO = 0.8
-EXPOSURE_TIME = 100000
+EXPOSURE_TIME = 10000
 EXPOSURE_INC = 1000
 MIN_AREA = 100              # Minimal area of an object
 APPROX_FACTOR = 0.01        # Tolérance pour approxPolyDP
@@ -82,7 +82,7 @@ def main():
         # --- Processing ---
         frame_gray = cv2.cvtColor(frame8, cv2.COLOR_BGR2GRAY)
         gauss_output = cv2.GaussianBlur(frame_gray, (5, 5), 4)
-        _, thresh_output = cv2.threshold(gauss_output, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU) 
+        _, thresh_output = cv2.threshold(gauss_output, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU) 
         canny_output = cv2.Canny(thresh_output, 50, 200)
         contours, _ = cv2.findContours(canny_output, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
         
