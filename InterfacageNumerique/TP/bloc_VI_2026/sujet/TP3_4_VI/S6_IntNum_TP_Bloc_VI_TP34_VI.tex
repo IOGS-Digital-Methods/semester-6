@@ -68,14 +68,15 @@ Semestre 6
 \rule{\linewidth}{0.3mm} \\[0.4cm]
 { \huge \bfseries\color{violet_iogs} Vision Industrielle \\[0.4cm] }
 \rule{\linewidth}{0.3mm} \\[0.2cm]
-{ \large \bfseries\color{violet_iogs} TP 3-4 / Détection d'objets}
+{ \large \bfseries\color{violet_iogs} Objectifs des 4 séances\\
+TP 3-4 / Détection d'objets}
 \rule{\linewidth}{0.3mm} \\[1cm]
 
 
 \bigskip
 
 \begin{center}
-	\includegraphics[width=0.7\textwidth]{../images/vi_intro.png}
+	\includegraphics[width=0.9\textwidth]{../images/vi_shapes_intro.png}
 \end{center}
 
 \vfill
@@ -91,6 +92,106 @@ Semestre 6
 
 \newpage
 \strut % empty page
+
+
+\textit{Ce sujet a été co-conçu par une équipe d'étudiant$\cdot$es - Joséphine BECHU, Justine GABRIEL et Paul CHENEAU - lors d'un projet DEPhI de 2A - 2025-2026 - et l'équipe pédagogique d'Interfaçage Numérique.}
+
+
+
+\newpage
+\strut % empty page
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%    A A V
+
+\section{Vision Industrielle}
+
+La \textbf{vision industrielle} est une technologie qui permet à des machines d'\textbf{analyser automatiquement des scènes} pour \textbf{contrôler}, \textbf{guider} ou \textbf{inspecter} des objets sur des processus de production. Elle repose sur l'utilisation de \textbf{caméras}, d'\textbf{optique}, d'\textbf{éclairages} spécifiques (ou contraints), de \textbf{capteurs} et d'algorithmes de \textbf{traitement d'image}. 
+
+\begin{center}
+	\includegraphics[width=0.5\textwidth]{../images/vi_intro_2.png}
+\end{center}
+
+Elle a pour but de \textbf{prendre des décisions automatiques} (ou aider l'être humain dans sa prise de décision) vis-à-vis d'un (ou plusieurs) objet(s) dans une scène spécifique : détecter des défauts ou des irrégularités, compter ou trier..., en rejetant ou validant automatiquement des produits, tout en assurant une constance de la qualité et de la répétabilité des opérations. 
+
+
+\begin{center}
+	\includegraphics[width=0.6\textwidth]{../images/vi_chaine.png}
+\end{center}
+
+
+\medskip
+
+\section{Acquis d'Apprentissages Visés (AAV)}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%    A A V
+
+À la fin de cette série de 4 séances, les étudiant$\cdot$es seront capable de :
+
+\begin{itemize}
+	\item Décomposer et paramétrer une chaîne de vision industrielle complète (du capteur au traitement de l'image),
+	\item Comprendre les compromis physiques et numériques de chaque maillon,
+	\item Réaliser un prototype d'inspection ou de mesure simple (tri d'objets),
+	\item Justifier leurs choix de configuration (résolution, focale, éclairage...)
+\end{itemize}
+
+\medskip
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%    Ressources
+
+\newpage
+\section{Ressources}
+
+Un \textbf{kit d'images} est disponible sur le site du LEnsE dans la rubrique  \textit{Année / Première Année / Interfaçage Numérique S6 / Bloc 2 Vision Industrielle / Kit d'images}. 
+
+\medskip
+
+Des {codes en Python}, proposant des exemples à tester, sont disponibles sur le site du LEnsE dans la rubrique \textit{Année / Première Année / Interfaçage Numérique S6 / Bloc 2 Vision Industrielle / Répertoire vers codes à tester}. 
+
+\textit{Un fichier archivé, nommé \textsc{\_step\_by\_step.zip}, regroupe l'ensemble des codes à tester au cours de cette séance, ainsi que les images à traiter.}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%    Déroulement
+
+\section{Déroulement}
+
+Les sujets \textbf{TP1} et \textbf{TP2} se font en binôme et sont interchangeables (4 binômes commenceront par la TP1 lors de la première séance et les 4 autres binômes commenceront par le TP2).
+
+Les sujets \textbf{TP3} et \textbf{TP4} se font par groupe de 4 étudiant$\cdot$es.
+
+
+\subsection{TP1 - Banc de vision industrielle}
+
+Le \textbf{TP1} se fera sur un banc de vision industrielle simple incluant une caméra, un objectif (focale : 5 / 8 / 10 mm), un éclairage Effilux Ring-RGB et un ordinateur.
+
+\medskip
+
+\textit{Voir le sujet de la séance TP1. Le sujet est disponible au format électronique sur le site du LEnsE - https://lense.institutoptique.fr/ dans la rubrique Année / Première Année / Interfaçage Numérique S6 / Bloc 2 Vision Industrielle.}
+
+
+\subsection{TP2 - Manipulations de base sous OpenCV}
+
+Le \textbf{TP2} se fera sur un ordinateur possédant une installation de Python (3.11 ou 3.13) et des bibliothèques standard, dont OpenCV.
+
+\medskip
+
+\textit{Voir le sujet de la séance TP2. Le sujet est disponible au format électronique sur le site du LEnsE - https://lense.institutoptique.fr/ dans la rubrique Année / Première Année / Interfaçage Numérique S6 / Bloc 2 Vision Industrielle.}
+
+
+\subsection{TP3-4 - Détection d'objets}
+
+\textit{Le détail des séances 3 et 4 est donné dans la suite de ce document.}
+
+\section{Accumulation de preuves / Méthode de travail}
+
+Il est conseillé pour ces TP de \textbf{créer un nouveau projet PyCharm} sur votre session (\textit{attention à l'endroit où vous stockerez ce projet - U: sur les sessions Windows de l'IOGS}).
+
+Les différents algorithmes que vous serez amenés à modifier ou créer, pourront vous resservir dans d'autres projets. Nous vous conseillons donc fortement de les \textbf{sauvegarder} précieusement et de les \textbf{commenter} autant que possible afin de retrouver rapidement les principes mis en jeu derrière les fonctionnalités de OpenCV.
+
+\medskip
+
+Il serait également pertinent de votre part de rédiger un \textbf{journal de bord} sur cette série de TP en incluant les résultats (images, histogrammes...) et vos analyses des fonctionnalités et de leur intérêt en traitement d'images.
 
 \newpage
 \pagestyle{empty}
@@ -290,48 +391,48 @@ Il existe d'autres espaces colorimétriques dans le domaine numérique. Voici un
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% RESSOURCES COMPLEMENTAIRES		
 
-\newpage
-\begin{center}
-	\begin{minipage}{2.5cm}
-	\begin{center}
-		\includegraphics[width=5cm]{../images/Logo-LEnsE.png}
-	\end{center}
-\end{minipage}\hfill
-\begin{minipage}{10cm}
-	\begin{center}
-	\textbf{Institut d'Optique Graduate School }\\[0.1cm]
-    \textbf{Interfaçage Numérique}
-
-
-	\end{center}
-\end{minipage}\hfill
-
-
-\vspace{2cm}
-
-
-{\Large \bfseries \textsc{Interfaçage Numérique}} \\[0.5cm]
-{\large \bfseries Travaux Pratiques} \\[0.2cm]
-Semestre 6
-
-\vspace{1cm}
-
-% Title
-\rule{\linewidth}{0.4mm} \\[0.4cm]
-{ \Large \bfseries\color{violet_iogs} Ressources \\[0.4cm] }
-\rule{\linewidth}{0.4mm} \\[1cm]
-{\large Bloc Vision Industrielle}
-
-\end{center}
-
-\vspace{3cm}
-
-\textbf{\large Liste des ressources}
-\begin{itemize}
-	\item ???
-\end{itemize}
-
-\vfill
+%\newpage
+%\begin{center}
+%	\begin{minipage}{2.5cm}
+%	\begin{center}
+%		\includegraphics[width=5cm]{../images/Logo-LEnsE.png}
+%	\end{center}
+%\end{minipage}\hfill
+%\begin{minipage}{10cm}
+%	\begin{center}
+%	\textbf{Institut d'Optique Graduate School }\\[0.1cm]
+%    \textbf{Interfaçage Numérique}
+%
+%
+%	\end{center}
+%\end{minipage}\hfill
+%
+%
+%\vspace{2cm}
+%
+%
+%{\Large \bfseries \textsc{Interfaçage Numérique}} \\[0.5cm]
+%{\large \bfseries Travaux Pratiques} \\[0.2cm]
+%Semestre 6
+%
+%\vspace{1cm}
+%
+%% Title
+%\rule{\linewidth}{0.4mm} \\[0.4cm]
+%{ \Large \bfseries\color{violet_iogs} Ressources \\[0.4cm] }
+%\rule{\linewidth}{0.4mm} \\[1cm]
+%{\large Bloc Vision Industrielle}
+%
+%\end{center}
+%
+%\vspace{3cm}
+%
+%\textbf{\large Liste des ressources}
+%\begin{itemize}
+%	\item ???
+%\end{itemize}
+%
+%\vfill
 
 
 

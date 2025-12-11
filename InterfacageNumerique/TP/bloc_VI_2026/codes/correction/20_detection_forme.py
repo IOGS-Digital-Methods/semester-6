@@ -3,7 +3,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 
 # Parameters
-MIN_AREA = 100              # Minimal area of an object
+MIN_AREA = 1000             # Minimal area of an object
 APPROX_FACTOR = 0.02        # Tolérance pour approxPolyDP
 GAUSS_SIZE = (7, 7)         # Taille du flou gaussien
 GAUSS_SIGMA = 1.9
@@ -15,8 +15,8 @@ img_gray = cv2.imread('./_data/formes_blanc_30ms.png', cv2.IMREAD_GRAYSCALE)
 
 
 # Prétraitement : flou + Otsu
-#img_blur = cv2.GaussianBlur(img_gray, GAUSS_SIZE, GAUSS_SIGMA)
-img_blur = img_gray
+img_blur = cv2.GaussianBlur(img_gray, GAUSS_SIZE, GAUSS_SIGMA)
+#img_blur = img_gray
 _, img_thresh = cv2.threshold(
     img_blur, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU
 )
@@ -40,7 +40,6 @@ contours = sorted(contours, key=cv2.contourArea, reverse=True)
 def detect_shape(cnt):
     area = cv2.contourArea(cnt)
     if area < MIN_AREA:
-        print(f'A = {area}')
         return None, None
 
     peri = cv2.arcLength(cnt, True)
