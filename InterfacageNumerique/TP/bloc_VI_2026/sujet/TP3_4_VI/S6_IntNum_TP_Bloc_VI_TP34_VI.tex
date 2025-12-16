@@ -255,21 +255,106 @@ Premiers essais sur une grille de jeu TicTacToe (morpion) :
 
 \section{OpenCV - Détection de formes et de couleurs}
 
+Une partie des algorithmes de traitement sont donnés. Il est fortement conseillé de \textbf{réaliser une analyse poussée} de chacune des étapes de ces algorithmes afin de comprendre l'intérêt de l'utilisation de ces techniques de base.
+
+Vous pouvez par exemple \textbf{décrire ces algorithmes} par l'intermédiaire d'un graphique (algorigramme) et \textbf{afficher les résultats intermédiaires} (et en faire une capture d'écran) tout en \textbf{commentant les résultats}. 
+
 %%%%%%%%%%%%%    Etape A
 \subsection{CV-A - Détecter des formes {[40 min]}}
 
-Blur ? Otsu ? Canny ?
+\subsubsection{Détection de contours sur une image "propre"}
 
-Temps de calcul ?
+\Manip Ouvrir le fichier \textsc{20\_detection\_forme.py} du répertoire des codes à tester.
+
+\Manip Exécuter ce code.
+
+\Quest Que fait ce programme ? A quoi correspondent les images affichées ? A quoi correspondent les données affichées ?
+
+\noindent \rule{\linewidth}{1pt}
+
+\Manip Modifier le paramètre MIN\_AREA (100, 1000, 10000).
+
+\Quest A quoi sert ce paramètre ? Quelle est son unité ?
+
+\noindent \rule{\linewidth}{1pt}
+
+\Manip Modifier le paramètre APPROX\_FACTOR (0.01, 0.05, 0.1).
+
+\Quest A quoi sert ce paramètre ?
+
+
+\subsubsection{Détection de cercles}
+
+\Manip Ouvrir le fichier \textsc{21\_detection\_forme\_cercles.py} du répertoire des codes à tester.
+
+\Manip Exécuter ce code.
+
+\Quest Quelle amélioration apporte ce programme ?
+
+\subsubsection{Détection de contours sur une image "réelle"}
+
+L'image précédente était "propre" (sans bruits dûs au capteur par exemple). Nous allons nous intéresser à présent à une image provenant d'une chaine d'acquisition.
+
+\Manip A partir du code précédent, ouvrir l'image \textsc{formes\_blanc\_30ms.png} du répertoire du kit d'images.
+
+\Quest L'algorithme est-il efficace ?
+
+\noindent \rule{\linewidth}{1pt}
+
+\Manip Ouvrir le fichier \textsc{22\_detection\_forme\_plus.py} du répertoire des codes à tester.
+
+\Manip Exécuter ce code.
+
+\Quest Quelle étape est-elle ajoutée par rapport à la version précédente du code ?
+
+\noindent \rule{\linewidth}{1pt}
+
+\Manip Ajouter un traitement morphologique de type \textit{opening} (ouverture) sur l'image binarisée (noyau carré de 3x3, puis 5x5).
+
+\Manip Ajouter l'affichage de l'image ainsi traitée.
+
+\Quest Que permet cette étape dans l'algorithme de détection ?
+
+\Quest L'algorithme de détection de cercles fonctionne-t-il avec cette étape supplémentaire ?
+
+
+\subsubsection{Détection de cercles sur une image "réelle"}
+
+L'\textbf{algorithme de Hough} qui permet la recherche de cercles dans une image se base sur des images en nuance de gris (et non binarisée). Il s'appuie sur des gradients d'intensité et des bords continus et doux pour détecter les transitions (contours des cercles).
+
+Il n'est donc pas possible d'utiliser une opération morphologique d'ouverture sur l'image. 
+
+
+\Manip Ouvrir le fichier \textsc{23\_detection\_forme\_blur\_cercles.py} du répertoire des codes à tester.
+
+\Manip Exécuter ce code. Vérifier que l'algorithme n'est pas efficace.
+
+\noindent \rule{\linewidth}{1pt}
+
+\Manip Ajouter un filtrage de type \textit{blur} gaussien (\textit{cv2.GaussianBlur}) sur l'image grise (noyau carré de 7x7 et $\sigma = 1.9$).
+
+\Manip Ajouter l'affichage de l'image ainsi traitée.
+
+\Quest Que permet cette étape dans l'algorithme de détection ?
+
+\Manip Modifier la taille du noyau (3x3, 5x5, 15x15) et de la valeur de $\sigma$ (1.9, 3, 5, 10).
+
+\Quest Quel est l'impact du choix de ces deux paramètres ?
+
 
 %%%%%%%%%%%%%    Etape B
 \subsection{CV-B - Détecter des couleurs {[40 min]}}
+
+\subsubsection{Jouer avec les canaux de couleurs}
 
 \Manip Ouvrir et afficher l'image \textsl{couleurs\_4.png} du kit d'images fourni, au format RGB.
 
 \Manip Créer une copie de la matrice image (fonction \textsl{copy()} de Numpy). 
 
-\Manip Forcer à 0 tous les pixels du canal bleu de la copie de l'image et afficher la nouvelle image.
+\Manip Forcer à 0 tous les pixels du canal bleu de la copie de l'image et afficher la nouvelle image et afficher la nouvelle image.
+
+\subsubsection{Transformer en nuances de gris}
+
 
 \noindent \rule{\linewidth}{1pt}
 
@@ -278,7 +363,7 @@ Temps de calcul ?
 %%%%%%%%%%%%%    Etape C
 \subsection{CV-C - Changement d'espace de couleur {[40 min]}}
 
-Plusieurs méthodes existent pour passer d'une image RVB à une image en niveau de gris :
+Plusieurs méthodes existent pour passer d'une image RVB (ou RGB) à une image en niveau de gris :
 
 \begin{itemize}
 	\item Calculer la \textbf{moyenne des valeurs} des trois canaux de couleur (Rouge, Vert, Bleu) pour chaque pixel.
