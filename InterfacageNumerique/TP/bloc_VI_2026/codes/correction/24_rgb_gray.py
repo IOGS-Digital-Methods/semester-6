@@ -28,6 +28,24 @@ rect_1_B_std = np.std(image_rgb[0:199,0:199,2])
 print(f'rect_1_B : {rect_1_B_m} / {rect_1_B_std}')
 
 
+image_rgb = cv2.imread('./_data/cubes.jpg', cv2.IMREAD_UNCHANGED)
+image_rgb = cv2.cvtColor(image_rgb, cv2.COLOR_BGR2RGB)
+
+cube_jaune = image_rgb[150:200,150:200,:]
+
+
+
+plt.figure()
+plt.imshow(image_rgb)
+plt.figure()
+plt.imshow(cube_jaune)
+plt.show()
+
+
+jaune_R_m = np.mean(cube_jaune[:,:,0])
+jaune_R_std = np.std(cube_jaune[:,:,0])
+print(f'Jaune : {jaune_R_m} / {jaune_R_std}')
+
 
 print('Gray Scale / Mean')
 # Gray Scale
