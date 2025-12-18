@@ -7,6 +7,8 @@ zone_vert_rgb = img_rgb_v[250:350, 700:800, :]
 img_hsv = cv2.cvtColor(img_rgb_v, cv2.COLOR_BGR2HSV)
 zone_vert_hsv = img_hsv[250:350, 700:800, :]
 
+# zone_vert_rgb = cv2.GaussianBlur(zone_vert_rgb, (15, 15), 4)
+
 img_rgb_b = cv2.imread('./_data/forms_vi.png')
 zone_bleu_rgb = img_rgb_b[430:510, 700:780, :]
 img_hsv = cv2.cvtColor(img_rgb_b, cv2.COLOR_BGR2HSV)
