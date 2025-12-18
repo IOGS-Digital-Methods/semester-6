@@ -344,6 +344,7 @@ Il n'est donc pas possible d'utiliser une opération morphologique d'ouverture s
 \Quest Quel est l'impact du choix de ces deux paramètres ?
 
 
+
 %%%%%%%%%%%%%    Etape B
 \subsection{CV-B - Détecter des couleurs {[40 min]}}
 
@@ -356,21 +357,25 @@ Il n'est donc pas possible d'utiliser une opération morphologique d'ouverture s
 \Manip Forcer à 0 tous les pixels du canal bleu de la copie de l'image et afficher la nouvelle image et afficher la nouvelle image.
 
 
+\subsubsection{Utiliser l'espace colorimétrique HSV}
 
-\noindent \rule{\linewidth}{1pt}
-
-
-
-%%%%%%%%%%%%%    Etape C
-\subsection{CV-C - Changement d'espace de couleur {[40 min]}}
-
-Plusieurs méthodes existent pour passer d'une image RVB (ou RGB) à une image en niveau de gris :
+L'espace colorimétrique \textbf{HSV} (\textit{Hue, Saturation, Value}) représente les couleurs de manière intuitive en les séparant selon :
 
 \begin{itemize}
-	\item Calculer la \textbf{moyenne des valeurs} des trois canaux de couleur (Rouge, Vert, Bleu) pour chaque pixel.
-	\item Utiliser des \textbf{poids spécifiques pour les canaux R, V et B}, basés sur leur contribution relative à la perception humaine.
-	\item Convertir l'image dans un \textbf{autre espace de couleur}, comme YUV, HSL ou HSV, et extraire la composante de luminosité.
-\end{itemize}
+	\item la \textbf{teinte} (Hue), qui correspond au type de couleur et est généralement exprimée comme un angle sur un cercle (rouge, vert, bleu, etc.), 
+	\item la \textbf{saturation} (Saturation), qui mesure la pureté ou l'intensité de la couleur (d'une couleur vive à un gris),
+	\item la \textbf{valeur} (Value), qui représente la luminosité globale.
+\end{itemize} 
+
+Contrairement à l'espace RVB, HSV est conçu pour se rapprocher de la perception humaine, ce qui le rend particulièrement adapté aux tâches de vision par ordinateur, notamment la détection et la segmentation de couleurs, car il permet de dissocier plus facilement l'information de couleur des variations d'éclairage.
+
+\Manip Ouvrir le fichier \textsc{24\_couleur\_hsv.py} du répertoire des codes à tester.
+
+
+%%%%%%%%%%%%%    Etape B
+\subsection{CV-C - Passer de la couleur à des niveaux de gris {[40 min]}}
+
+Il existe plusieurs méthodes pour transformer une image en RVB vers une image en nuance de gris par exemple.
 
 \subsubsection{Moyenne des canaux R,V,B}
 
