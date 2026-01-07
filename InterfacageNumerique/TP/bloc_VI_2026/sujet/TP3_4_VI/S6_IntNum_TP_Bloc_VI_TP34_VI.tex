@@ -354,7 +354,7 @@ Il n'est donc pas possible d'utiliser une opération morphologique d'ouverture s
 
 \Manip Créer une copie de la matrice image (fonction \textsl{copy()} de Numpy). 
 
-\Manip Forcer à 0 tous les pixels du canal bleu de la copie de l'image et afficher la nouvelle image et afficher la nouvelle image.
+\Manip Forcer à 0 tous les pixels du canal bleu de la copie de l'image et afficher la nouvelle image.
 
 
 \subsubsection{Utiliser l'espace colorimétrique HSV}
@@ -366,6 +366,8 @@ L'espace colorimétrique \textbf{HSV} (\textit{Hue, Saturation, Value}) représe
 	\item la \textbf{saturation} (Saturation), qui mesure la pureté ou l'intensité de la couleur (d'une couleur vive à un gris),
 	\item la \textbf{valeur} (Value), qui représente la luminosité globale.
 \end{itemize} 
+
+\medskip
 
 Contrairement à l'espace RVB, HSV est conçu pour se rapprocher de la perception humaine, ce qui le rend particulièrement adapté aux tâches de vision par ordinateur, notamment la détection et la segmentation de couleurs, car il permet de dissocier plus facilement l'information de couleur des variations d'éclairage.
 
@@ -382,6 +384,14 @@ Contrairement à l'espace RVB, HSV est conçu pour se rapprocher de la perceptio
 \Manip Ajouter un filtrage de type \textit{blur} gaussien (\textit{cv2.GaussianBlur}) sur l'image rgb \textsc{formes\_bruit.png} (noyau carré de 7x7 et $\sigma = 1.9$).
 
 \Quest Quel est l'effet sur l'histogramme associé à cette image ? Quel serait l'inconvénient de cette technique, par rapport à la détection de couleur via l'espace HSV ?
+
+\subsubsection{Segmenter une image en fonction de la couleur}
+
+\Manip Ouvrir le fichier \textsc{24b\_hsv\_rgb.py} du répertoire des codes à tester.
+
+VOIR METHODE POUR MASQUER EN RVB vs HSV
+
+...
 
 
 %%%%%%%%%%%%%    Etape B

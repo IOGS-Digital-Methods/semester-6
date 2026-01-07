@@ -20,7 +20,6 @@ mask_rgb = mask_rgb.astype(np.uint8) * 255
 # =========================
 hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
 
-# OpenCV: H ∈ [0,179]
 # Rouge = deux plages !
 lower_red1 = np.array([0, 70, 50])
 upper_red1 = np.array([10, 255, 255])
@@ -58,7 +57,7 @@ print("Aire HSV :", area_hsv)
 
 H = hsv[:,:,0]
 
-H_rgb_zone = H[mask_rgb > 0]
+H_rgb_zone = R[mask_rgb > 0]
 H_hsv_zone = H[mask_hsv > 0]
 
 N_BINS = 100
@@ -77,8 +76,8 @@ plt.title("Histogramme H (HSV)")
 S = hsv[:,:,1]
 
 plt.figure()
-plt.hist(S[mask_rgb > 0], bins=30, alpha=0.5, label="RGB")
-plt.hist(S[mask_hsv > 0], bins=30, alpha=0.5, label="HSV")
+plt.hist(S[mask_rgb > 0], bins=50, alpha=0.5, label="RGB")
+plt.hist(S[mask_hsv > 0], bins=50, alpha=0.5, label="HSV")
 plt.legend()
 plt.title("Distribution de la saturation")
 plt.tight_layout()
