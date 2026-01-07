@@ -405,10 +405,6 @@ Cette méthode est la plus simple. Chaque pixel de l'image en gris est la moyenn
 
 $$Pixel_{Gray} = \frac{Pixel_{R} + Pixel_{V} + Pixel_{B}}{3}$$ 
 
-\Manip Créer une image en nuance de gris utilisant la méthode de la moyenne des trois canaux.
-
-\Manip Afficher l'image résultante.
-
 
 \subsubsection{Pondération en fonction de la perception humaine}
 
@@ -421,16 +417,23 @@ Les coefficients de cette méthode proviennent de la sensibilité relative de l'
 
 La méthode de conversion fournie par la bibliothèque OpenCV se base sur cette pondération.
 
-\Manip Convertir l'image RVB en niveau de gris par l'instruction suivante :
-
-\begin{lstlisting}
-image_gray = cv2.cvtColor(image_rgb, cv2.COLOR_BGR2GRAY)
-\end{lstlisting}
-
-\Manip Comparer les images obtenues par la moyenne classique et cette moyenne pondérée.
+\noindent \rule{\linewidth}{1pt}
 
 
-\subsubsection{Utilisation d'un espace colorimétrique différent}
+\Manip Ouvrir le fichier \textsc{30\_colorspace.py} du répertoire des codes à tester.
+
+\Quest Que fait ce programme ? A quoi sert l'instruction \textsc{cmap='gray'} de la fonction \textit{imshow} de \textit{Matplotlib} ?
+
+\noindent \rule{\linewidth}{1pt}
+
+\Manip Créer une image en nuance de gris utilisant la méthode de la moyenne des trois canaux. \textit{Attention aux types des données dont vous faites la moyenne...}
+
+\Manip Afficher l'image résultante.
+
+\Manip Comparer les images obtenues par la moyenne classique et la moyenne pondérée.
+
+
+\subsubsection{Utiliser l'espace colorimétrique YUV}
 
 L'espace colorimétrique RVB est très utilisé dans le domaine du numérique (affichage, acquisition d'images) pour sa facilité de mise en oeuvre.
 
@@ -438,11 +441,7 @@ Cependant, ce n'est \textbf{pas} le plus \textbf{adapté vis-à-vis de la percep
 
 Des espaces comme YUV, YIQ, ou YCbCr séparent la composante de luminance (Y) des composantes de chrominance (U et V).
 
-\Manip Convertir l'image RVB dans l'espace YUV par l'instruction suivante :
-
-\begin{lstlisting}
-image_yuv = cv2.cvtColor(image_rgb, cv2.COLOR_RGB2YUV)
-\end{lstlisting}
+\Manip Ouvrir le fichier \textsc{31\_colorspace \_yuv.py} du répertoire des codes à tester.
 
 \Manip Comparer alors l'image en niveau de gris obtenue par la méthode de moyennage pondérée et le canal Y de cette conversion.
 
@@ -475,15 +474,16 @@ Il existe d'autres espaces colorimétriques dans le domaine numérique. Voici un
 
 \section{Banc VI - Calibration}
 
+On se propose dans cette partie de tester les algorithmes de détection sur un flux vidéo, sans passer par l'interface utilisée lors d'une précédente séance.
 
 %%%%%%%%%%%%%    Etape A
 \subsection{VI-A - Calibrer la chaîne pour les cubes de couleur {[40 min]}}
 
+\Manip Ouvrir le fichier \textsc{camera\_flux\_lensepy\_simple.py} du répertoire des codes à tester.
+
 %%%%%%%%%%%%%    Etape B
 \subsection{VI-B - Calibrer la chaîne pour les formes colorés {[40 min]}}
 
-%%%%%%%%%%%%%    Etape C
-\subsection{VI-C - Calibrer la chaîne pour des mesures de distance {[40 min]}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% RESSOURCES COMPLEMENTAIRES		

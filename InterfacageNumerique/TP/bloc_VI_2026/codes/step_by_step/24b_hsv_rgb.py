@@ -9,11 +9,10 @@ img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 # =========================
 # 1) SEGMENTATION RGB
 # =========================
-# Détection naïve du rouge en RGB
 R, G, B = img_rgb[:,:,0], img_rgb[:,:,1], img_rgb[:,:,2]
 
 mask_rgb = (R > 140) & (G < 100) & (B < 100)
-mask_rgb = mask_rgb.astype(np.uint8) * 255
+mask_rgb = mask_rgb.astype(np.uint8) # * 255
 
 # =========================
 # 2) SEGMENTATION HSV
@@ -30,6 +29,8 @@ upper_red2 = np.array([179, 255, 255])
 mask_hsv1 = cv2.inRange(hsv, lower_red1, upper_red1)
 mask_hsv2 = cv2.inRange(hsv, lower_red2, upper_red2)
 mask_hsv = cv2.bitwise_or(mask_hsv1, mask_hsv2)
+
+print(f'Type mask = {mask_hsv.dtype} (HSV) / {mask_rgb.dtype} (RGB)')
 
 # =========================
 # 3) VISUALISATION
@@ -60,7 +61,7 @@ H = hsv[:,:,0]
 H_rgb_zone = R[mask_rgb > 0]
 H_hsv_zone = H[mask_hsv > 0]
 
-N_BINS = 100
+N_BINS = 10
 plt.figure(figsize=(10,4))
 
 plt.subplot(1,2,1)
@@ -71,14 +72,4 @@ plt.subplot(1,2,2)
 plt.hist(H_hsv_zone, bins=N_BINS)
 plt.title("Histogramme H (HSV)")
 
-
-
-S = hsv[:,:,1]
-
-plt.figure()
-plt.hist(S[mask_rgb > 0], bins=50, alpha=0.5, label="RGB")
-plt.hist(S[mask_hsv > 0], bins=50, alpha=0.5, label="HSV")
-plt.legend()
-plt.title("Distribution de la saturation")
-plt.tight_layout()
 plt.show()
