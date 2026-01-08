@@ -54,7 +54,7 @@ def main():
             final_output = cv2.GaussianBlur(frame8, (15, 15), 4)
         elif mode == ord('i'):  # Inverse image
             final_output = 255 - frame8
-        elif mode == ord('c'):  # Inverse image
+        elif mode == ord('c'):  # Change colors of image
             final_output = frame8[:, :, [2, 1, 0]]
         else:
             final_output = frame8

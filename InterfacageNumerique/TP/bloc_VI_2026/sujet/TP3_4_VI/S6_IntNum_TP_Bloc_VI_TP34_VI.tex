@@ -472,17 +472,29 @@ Il existe d'autres espaces colorimétriques dans le domaine numérique. Voici un
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%    Etape par étape
 
-\section{Banc VI - Calibration}
+\section{Banc VI - Calibration sur flux vidéo}
 
 On se propose dans cette partie de tester les algorithmes de détection sur un flux vidéo, sans passer par l'interface utilisée lors d'une précédente séance.
 
 %%%%%%%%%%%%%    Etape A
-\subsection{VI-A - Calibrer la chaîne pour les cubes de couleur {[40 min]}}
+\subsection{VI-A - Tester les algorithmes sur un flux vidéo {[40 min]}}
 
 \Manip Ouvrir le fichier \textsc{camera\_flux\_lensepy\_simple.py} du répertoire des codes à tester.
 
+\Manip Tester le programme, en ayant au préalable connecté une caméra de type Basler. Tester en particulier l'interaction avec l'utilisateur (touches 'a', 'i', 'c', 'g').
+
+\Quest A quoi servent les options \textsc{COLOR\_MODE}  et \textsc{DISPLAY\_RATIO} ?
+
+\Quest Faire un algorigramme (algorithme du programme en version graphique) de ce code.
+
+\noindent \rule{\linewidth}{1pt}
+
+\Manip Modifier le code pour ajouter une option (par exemple la lettre 'e') : permettre l'affichage de l'image subissant une érosion avec un noyau circulaire de 7x7.
+
+\Manip Tester votre code.
+
 %%%%%%%%%%%%%    Etape B
-\subsection{VI-B - Calibrer la chaîne pour les formes colorés {[40 min]}}
+\subsection{VI-B - Calibrer la chaîne pour les cubes colorés {[40 min]}}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
