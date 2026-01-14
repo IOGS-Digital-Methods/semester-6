@@ -56,20 +56,4 @@ area_hsv = np.sum(mask_hsv > 0)
 print("Aire RGB :", area_rgb)
 print("Aire HSV :", area_hsv)
 
-H = hsv[:,:,0]
-
-H_rgb_zone = R[mask_rgb > 0]
-H_hsv_zone = H[mask_hsv > 0]
-
-N_BINS = 10
-plt.figure(figsize=(10,4))
-
-plt.subplot(1,2,1)
-plt.hist(H_rgb_zone, bins=N_BINS)
-plt.title("Histogramme H (RGB)")
-
-plt.subplot(1,2,2)
-plt.hist(H_hsv_zone, bins=N_BINS)
-plt.title("Histogramme H (HSV)")
-
 plt.show()
