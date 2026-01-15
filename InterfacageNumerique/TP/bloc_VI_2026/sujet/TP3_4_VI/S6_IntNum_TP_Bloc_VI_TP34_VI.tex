@@ -389,8 +389,6 @@ Contrairement à l'espace RVB, HSV est conçu pour se rapprocher de la perceptio
 
 \Manip Ouvrir le fichier \textsc{24b\_hsv\_rgb.py} du répertoire des codes à tester.
 
-VOIR METHODE POUR MASQUER EN RVB vs HSV
-
 \Manip Exécuter le code.
 
 \Quest Expliquer le principe utilisé dans chacune des segmentations, en RVB et HSV. On s'intéressera en particulier aux bornes utilisées.
@@ -495,30 +493,75 @@ On se propose dans cette partie de tester les algorithmes de détection sur un f
 
 \noindent \rule{\linewidth}{1pt}
 
-\Manip Modifier le code pour ajouter une option (par exemple la lettre 'e') : permettre l'affichage de l'image subissant une érosion avec un noyau circulaire de 7x7.
-
-\Manip Tester votre code.
+\Manip Modifier le code pour ajouter une option (par exemple la lettre 'e') : permettre l'affichage de l'image subissant une érosion avec un noyau circulaire de 7x7. Tester votre code.
 
 %%%%%%%%%%%%%    Etape B
-\subsection{VI-B - Calibrer la chaîne pour les cubes colorés {[40 min]}}
+\subsection{VI-B - Calibrer la chaîne d'acquisition {[90 min]}}
+
 
 \textit{Pour cette section, les binômes étant sur des paillasses disposant d'une caméra pourront utiliser directement les images provenant de la caméra.}
 
 \textit{Pour les autres binômes, vous pourrez vous reposer sur les images suivantes :}
 
+\begin{itemize}
+	\item \textsc{cubes\_RGB.png} : acquisition des 4 cubes de couleur sous un éclairage blanc (\textit{ring} RGB Effi-Ring) en mode BayerRG8 ;
+	\item \textsc{cubes\_R.png} : acquisition des 4 cubes de couleur sous un éclairage rouge (\textit{ring} RGB Effi-Ring) en mode Mono8 ;
+	\item \textsc{cubes\_G.png} : acquisition des 4 cubes de couleur sous un éclairage vert (\textit{ring} RGB Effi-Ring) en mode Mono8 ;
+	\item \textsc{cubes\_B.png} : acquisition des 4 cubes de couleur sous un éclairage bleu (\textit{ring} RGB Effi-Ring) en mode Mono8 ;
+	\medskip
+	\item \textsc{forms.png} : acquisition d'une dizaine de pièces en bois de formes différentes sous un éclairage blanc (\textit{ring} RGB Effi-Ring) en mode Mono8 ;
+	\item \textsc{forms\_toe.png} : acquisition d'une dizaine de pièces en bois de formes différentes - alignées - sous un éclairage blanc (\textit{ring} RGB Effi-Ring) en mode Mono8 ;
+\end{itemize}
 
-FOURNIR UNE IMAGE AVEC LES CUBES ? EN ECLAIRAGE RGB - dans plusieurs configurations
+\bigskip
 
-\Quest Proposer une méthode (algorithme) à mettre en place pour détecter la présence d'un élément d'une des 4 couleurs à détecter.
+\textit{Ces images sont disponibles sur le site du LEnsE - https://lense.institutoptique.fr/ dans la rubrique Année / Première Année / Interfaçage Numérique S6 / Bloc 2 Vision Industrielle / Cubes/Formes.}
 
-\Manip A partir de l'exemple précédent (en remplaçant si besoin l'image provenant de la caméra par l'ouverture d'une image fixe), ajouter la possibilité de détecter les différents cubes colorés (rouge, bleu, vert, jaune).
 
-Il pourra être intéressant d'afficher (dans la console par exemple) : les coordonnées des différents éléments, la taille de la surface concernée, la couleur 
 
-%%%%%%%%%%%%%    Etape C
-\subsection{VI-C - Calibrer la chaîne pour des formes particulières {[40 min]}}
+%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Détecter des cubes colorés}
 
-FOURNIR UNE IMAGE EN GRAY AVEC LES DIFFERENTES FORMES ? NON-ALIGNEES PUIS ALIGNEES ?
+On se propose ici de détecter la couleur des cubes fournis (jaune, rouge, bleu et vert) de manière un peu plus automatisée et d'extraire certaines informations de ces objets (position, aire...).
+
+\Quest Proposer une méthode (algorithme) à mettre en place pour détecter la présence d'un élément d'une des 4 couleurs à détecter, ainsi que sa position.
+
+\Manip A partir de l'exemple \textsc{camera\_flux\_lensepy\_simple.py} (en remplaçant si besoin l'image provenant de la caméra par l'ouverture d'une image fixe), ajouter cette fonctionnalité.
+
+\noindent \rule{\linewidth}{1pt}
+
+\Quest Proposer une méthode (algorithme) à mettre en place pour détecter la présence de tous les éléments d'une couleur donnée et de compter le nombre d'objets présents.
+
+\Manip A partir de l'exemple \textsc{camera\_flux\_lensepy\_simple.py} (en remplaçant si besoin l'image provenant de la caméra par l'ouverture d'une image fixe), ajouter cette fonctionnalité.
+
+\noindent \rule{\linewidth}{1pt}
+
+\Manip A partir de l'exemple \textsc{camera\_flux\_lensepy\_simple.py} (en remplaçant si besoin l'image provenant de la caméra par l'ouverture d'une image fixe), créer un programme qui permette de lister les cubes des 4 couleurs et d'afficher pour chacun d'eux : les coordonnées de leur centre, leur surface, la couleur...
+
+\noindent \rule{\linewidth}{1pt}
+
+Il est possible d'avoir une estimation du temps d'exécution d'un code en Python par la méthode proposée ci-dessous :
+
+\begin{verbatim}
+import time
+
+start = time.perf_counter()
+
+# Code à évaluer
+
+end = time.perf_counter()
+
+print(f"Temps total : {(end - start)*1000:.2f} ms")
+\end{verbatim}
+
+\Manip A partir de cet exemple, mesurer le temps de traitement de détection des cubes de couleurs.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Détecter des formes particulières}
+
+On souhaite à présent s'intéresser aux pièces en bois de 3 formes différentes (cercle, triangle, hexagone).
+
+A terme, nous aimerions pouvoir détecter si des formes d'un même type sont alignées sur une grille (principe du jeu Tic-tac-toe).
 
 
 
