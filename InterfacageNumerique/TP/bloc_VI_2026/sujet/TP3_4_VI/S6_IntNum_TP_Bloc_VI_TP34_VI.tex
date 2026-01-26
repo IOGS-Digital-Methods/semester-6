@@ -226,27 +226,35 @@ Sur le banc de VI :
 
 \begin{itemize}
 	\item Calibration de la chaîne sur les cubes de couleurs (couleur) {[40 min]}
-	\item Calibration de la chaîne sur des formes colorées {[40 min]}
-	\item Calibration de la chaîne pour des mesures de distance {[40 min]}
+	\item Calibration de la chaîne sur des objets colorés et des objets de forme déterminée{[90 min]}
 \end{itemize}
 
+\textit{Le sujet du TP3 est dans la suite de ce document.}
 
-\subsection{TP4 - Détection d’objets - Contrôle qualité}
 
-Le but est à partir d'une série d'images (1 en RGB ou 3 en niveau de gris sous éclairage particulier) de détecter le nombre d'objets d'une forme et d'une couleur particulière et de valider si les pièces requises pour un assemblage sont bien présentes (simuler le packaging d'un produit fini - 6 pièces de forme et de couleurs distinctes par exemple).
+\subsection{TP4 - Détection d'objets - Contrôle qualité}
 
-La validation du packaging final devra se faire sans l’intervention de l'être humain mais un affichage propre des couleurs devra être fait pour le contrôle par le/la manipulateur$\cdot$trice.
+L'objectif final de cette série de TP est de détecter le nombre d'objets d'une forme ou d'une couleur particulière  à partir d'une série d'images (1 en RGB ou 3 en niveau de gris sous éclairage particulier).
 
-Bonus : mesure de la conformité de la taille des pièces ?
+On se basera sur la règle du \textbf{jeu du Morpion} (ou \textit{Tic Tac Toe} en anglais) qui oppose deux joueurs qui doivent aligner 3 marques (de même forme ou couleur) sur une grille de 3 x 3 cases. 
 
 \bigskip
 
 Premiers essais sur une grille de jeu TicTacToe (morpion) :
 
 \begin{center}
-	\includegraphics[width=0.8\textwidth]{../images/morpion_vi_thres.png}
+	\includegraphics[width=0.3\textwidth]{../images/forms_toe.png}
 \end{center}
 
+Cette mission "ludique" est cependant très proche des \textbf{tâches d'inspection en industrie}, afin par exemple de valider si les pièces requises pour un assemblage sont bien présentes (simuler le packaging d'un produit fini - 6 pièces de forme et de couleurs distinctes par exemple).
+
+On pourra ajouter également des mesures de surface des pièces, de colorimétrie pour valider la couleur des dépôts faits sur les pièces... pour vérifier leur \textbf{conformité à un cahier des charges}.
+
+\medskip
+
+Il est également crucial pour les chaînes de production, par exemple, d'assurer une \textbf{cadence de fabrication et de validation importante}. Les algorithmes de détection doivent donc pouvoir s'exécuter rapidement et la vitesse de défilement des pièces sous le système imageant peut devenir limitant.
+
+Il est enfin nécessaire de valider ces systèmes de prise de décision en mesurant leur \textbf{taux d'erreur} vis-à-vis des grandeurs à tester. Ce taux d'erreur doit être proche de 0, une tolérance peut être acceptée et peut être différente selon le type de défauts à identifier, le type de matériaux utilisés...
 
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -542,17 +550,15 @@ On se propose ici de détecter la couleur des cubes fournis (jaune, rouge, bleu 
 
 Il est possible d'avoir une estimation du temps d'exécution d'un code en Python par la méthode proposée ci-dessous :
 
-\begin{verbatim}
+\begin{lstlisting}
 import time
 
 start = time.perf_counter()
-
-# Code à évaluer
-
+# Code to evaluate
 end = time.perf_counter()
 
-print(f"Temps total : {(end - start)*1000:.2f} ms")
-\end{verbatim}
+print(f"Total Time : {(end - start)*1000:.2f} ms")
+\end{lstlisting}
 
 \Manip A partir de cet exemple, mesurer le temps de traitement de détection des cubes de couleurs.
 
@@ -563,7 +569,22 @@ On souhaite à présent s'intéresser aux pièces en bois de 3 formes différent
 
 A terme, nous aimerions pouvoir détecter si des formes d'un même type sont alignées sur une grille (principe du jeu Tic-tac-toe).
 
+\begin{center}
+	\includegraphics[width=0.4\textwidth]{../images/forms.png}
+\end{center}
 
+\Quest A partir des exemples fournis dans la section précédente (OpenCV), proposer une méthode (algorithme) à mettre en place pour détecter les éléments en fonction de leur forme. On s'intéressera notamment aux coordonnées du centre de la pièce et à leur forme.
+
+\Manip A partir de l'exemple \textsc{camera\_flux\_lensepy\_simple.py} (en remplaçant si besoin l'image provenant de la caméra par l'ouverture d'une image fixe), mettre en oeuvre cet algorithme et tester votre code.
+
+
+\noindent \rule{\linewidth}{1pt}
+
+\textit{La suite de cette partie pourra être continuée lors de la séance 4. Vous pourrez notamment travailler par équipe de 4 pour améliorer la détection des formes et leur emplacement.}
+
+\medskip
+
+Pour finaliser ce mini-projet, il reste à mettre en place la détection des alignements des formes et vérifier que 3 formes du même type sont alignés...
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
