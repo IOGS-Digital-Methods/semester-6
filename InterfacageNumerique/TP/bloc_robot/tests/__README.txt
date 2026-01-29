@@ -9,6 +9,8 @@ l'Institut d'Optique.
 
 Ils ont été compilés avec MBED-OS v6.17 pour des cartes Nucléo L476RG.
 
+ATTENTION : il est nécessaire de déconnecter et reconnecter le cable USB sur la maquette pour les tests.
+
 
 Liste des fichiers
 ==================
