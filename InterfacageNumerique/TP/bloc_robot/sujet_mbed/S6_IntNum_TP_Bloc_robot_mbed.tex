@@ -328,7 +328,7 @@ Le cavalier \textbf{JP5} de la carte Nucléo doit être positionné du côté \t
 
 \medskip
 
-\textbf{\large La tension maximale admissible par les moteurs est de $7\operatorname{V}$ !}
+\textbf{\large La tension maximale admissible par les moteurs est de $7\operatorname{V}$ !} (tension minimale de $6\operatorname{V}$)
 
 \noindent \rule{\linewidth}{1pt}
 
@@ -350,7 +350,7 @@ Pour cela, il faut placer le cavalier \textbf{JP5} de la carte Nucléo du côté
 
 
 \newpage
-\subsection{Brochage}
+\subsection{Brochage / Robot Joy-It Car}
 
 \subsubsection{Entrées-Sorties standard}
 
@@ -359,14 +359,14 @@ Pour cela, il faut placer le cavalier \textbf{JP5} de la carte Nucléo du côté
 \hline 
 Maquette & \textbf{Broche Nucléo} & Type & Description \\ 
 \hline 
-\textsc{LED1} & PC7 & Sortie / PWM & Led active à l'\textbf{état bas}\\ 
-\textsc{LED2} & PB13 & Sortie / PWM & Led active à l'\textbf{état haut}\\ 
+\textsc{LED1} & PC\_7 & Sortie / PWM & Led active à l'\textbf{état bas}\\ 
+\textsc{LED2} & PB\_13 & Sortie / PWM & Led active à l'\textbf{état haut}\\ 
 \hline 
-\textsc{SW1} & PA11 & Entrée & Bouton-poussoir, par défaut état bas\\ 
-\textsc{SW2} & PA12 & Entrée & Bouton-poussoir, par défaut état bas\\ 
-\textsc{UserButton} & PC13 & Entrée & Bouton-poussoir, par défaut état haut\\
+\textsc{SW1} & PA\_11 & Entrée & Bouton-poussoir, par défaut état bas\\ 
+\textsc{SW2} & PA\_12 & Entrée & Bouton-poussoir, par défaut état bas\\ 
+\textsc{UserButton} & PC\_13 & Entrée & Bouton-poussoir, par défaut état haut\\
 \hline  
-\textsc{POT\_OUT} & PC3 & Entrée analogique & Potentiomètre\\
+\textsc{POT\_OUT} & PC\_3 & Entrée analogique & Potentiomètre\\
 \hline  
 \end{tabular} 
 \end{center}
@@ -378,13 +378,13 @@ Maquette & \textbf{Broche Nucléo} & Type & Description \\
 \hline 
 Maquette & \textbf{Broche Nucléo} & Type & Description \\ 
 \hline 
-\textsc{MOT\_EN} & PA9 & Sortie & Validation des moteurs\\ 
+\textsc{MOT\_EN} & PA\_9 & Sortie & Validation des moteurs\\ 
 \hline 
-\textsc{MOT\_L\_1} & PB4 & Sortie / PWM & Moteur Gauche direction 1\\ 
-\textsc{MOT\_L\_2} & PA8 & Sortie / PWM & Moteur Gauche direction 2\\ 
+\textsc{MOT\_L\_1} & PB\_4 & Sortie / PWM & Moteur Gauche direction 1\\ 
+\textsc{MOT\_L\_2} & PA\_8 & Sortie / PWM & Moteur Gauche direction 2\\ 
 \hline 
-\textsc{MOT\_R\_1} & PA0 & Sortie / PWM & Moteur Droit direction 1\\ 
-\textsc{MOT\_R\_2} & PA1 & Sortie / PWM & Moteur Droit direction 2\\ 
+\textsc{MOT\_R\_1} & PA\_0 & Sortie / PWM & Moteur Droit direction 1\\ 
+\textsc{MOT\_R\_2} & PA\_1 & Sortie / PWM & Moteur Droit direction 2\\ 
 \hline  
 \end{tabular} 
 \end{center}
@@ -396,10 +396,10 @@ Maquette & \textbf{Broche Nucléo} & Type & Description \\
 \hline 
 Maquette & \textbf{Broche Nucléo} & Type & Description \\ 
 \hline 
-\textsc{Din\_1} & PC0 & Sortie & Phare avant droit\\ 
-\textsc{Din\_2} & PA10 & Sortie & Phare avant gauche\\ 
-\textsc{Din\_3} & PC5 & Sortie & Phare arrière gauche\\ 
-\textsc{Din\_4} & PA13 & Sortie & Phare arrière droit\\ 
+\textsc{Din\_1} & PC\_0 & Sortie & Phare avant droit\\ 
+\textsc{Din\_2} & PA\_10 & Sortie & Phare avant gauche\\ 
+\textsc{Din\_3} & PC\_5 & Sortie & Phare arrière gauche\\ 
+\textsc{Din\_4} & PA\_13 & Sortie & Phare arrière droit\\ 
 \hline  
 \end{tabular} 
 \end{center}
@@ -411,23 +411,34 @@ Maquette & \textbf{Broche Nucléo} & Type & Description \\
 \hline 
 Maquette & \textbf{Broche Nucléo} & Type & Description \\ 
 \hline 
-\textsc{TEMP\_OUT} & PC2 & Entrée analogique & Capteur de température MCP9700\\ 
+\textsc{TEMP\_OUT} & PC\_2 & Entrée analogique & Capteur de température MCP9700\\ 
 \hline 
-\textsc{Line\_L} & PA7 & Entrée & Capteur de ligne Gauche\\ 
-\textsc{Line\_C} & PB6 & Entrée & Capteur de ligne Centre\\ 
-\textsc{Line\_R} & PB12 & Entrée & Capteur de ligne Droit\\ 
+\textsc{Line\_L} & PA\_7 & Entrée & Capteur de ligne Gauche\\ 
+\textsc{Line\_C} & PB\_6 & Entrée & Capteur de ligne Centre\\ 
+\textsc{Line\_R} & PB\_12 & Entrée & Capteur de ligne Droit\\ 
 \hline 
-\textsc{Speed\_L} & PC9 & Entrée & Vitesse moteur Gauche\\ 
-\textsc{Speed\_R} & PC8 & Entrée & Vitesse moteur Droit\\ 
+\textsc{Speed\_L} & PC\_9 & Entrée & Vitesse moteur Gauche\\ 
+\textsc{Speed\_R} & PC\_8 & Entrée & Vitesse moteur Droit\\ 
 \hline  
-\textsc{US\_trig} & PB5 & Sortie & Capteur ultrason - Trig\\ 
-\textsc{US\_echo} & PB3 & Entrée & Capteur ultrason - Echo\\ 
-\textsc{Servo} & PB7 & Sortie / PWM & Servomoteur du capteur Ultrason\\ 
+\textsc{US\_trig} & PB\_5 & Sortie & Capteur ultrason - Trig\\ 
+\textsc{US\_echo} & PB\_3 & Entrée & Capteur ultrason - Echo\\ 
+\textsc{Servo} & PB\_7 & Sortie / PWM & Servomoteur du capteur Ultrason\\ 
 \hline  
 \end{tabular} 
 \end{center}
 
+\bigskip
 
+
+\noindent \rule{\linewidth}{1pt}
+
+\textbf{\Large La tension d'alimentation externe doit être comprise entre $6\operatorname{V}$ et $7\operatorname{V}$ }
+
+\noindent \rule{\linewidth}{1pt}
+
+\bigskip
+
+\textbf{Attention} : PA\_12 et PB\_12 ne peuvent pas être utilisées en même temps en entrée d'interruption.
 
 \newpage
 
