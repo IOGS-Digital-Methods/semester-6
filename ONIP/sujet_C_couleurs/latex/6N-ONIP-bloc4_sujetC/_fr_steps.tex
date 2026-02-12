@@ -10,7 +10,7 @@ On se propose dans ce projet de corriger des images, via une image de référenc
 
 \medskip
 
-Ci-dessous une représentation d'une mire ColorChecker SG. Les patches colorés sont de qualité colorimétrique, c'est-à-dire que leur couleur est calibrée et connue. On note que cette mire possède un aspect \textit{glossy} (\textit{a contrario} d'une mire matte), il faut donc faire attention à ce que les sources ne reflètent de manière spéculaire lors de la prise d'image.
+Ci-dessous une représentation d'une mire ColorChecker SG. Les \textit{patches} colorés sont de qualité colorimétrique, c'est-à-dire que leur couleur est calibrée et connue. On note que cette mire possède un aspect \textit{glossy} (\textit{a contrario} d'une mire matte), il faut donc faire attention à ce que les sources ne reflètent de manière spéculaire lors de la prise d'image.
 Par ailleurs, ce type de mire est particulièrement onéreuse (de l'ordre de 500€), il ne faut donc en \textbf{aucun cas toucher les patches colorés. Si vous êtes amené à vous en servir, merci de manipuler la mire avec une grande précaution}.
 
 \begin{center}
@@ -47,8 +47,8 @@ Ci-dessous, une illustration du résultat qui peut être obtenu.
 \subsection{Code de démarrage}
 Afin de faciliter la réalisation de ce projet, un code de démarrage est fourni. Il n'est pas obligatoire de l'utiliser, mais cela est recommandé. Celui-ci contient des classes de base, telles que :
 \begin{itemize}
-	\item \texttt{Color} : classe pour représenter une couleur et effectuer des conversions. Cela peut être utile manipuler les couleurs des patches.
-	\item \texttt{PerspectiveRemover} : classe pour retirer la perspective d'une image à partir des quatre coins de la mire. Le but est d'obtenir une image où les patches de la mire sont alignés avec les pixels, ce qui facilitera l'extraction des couleurs.
+	\item \texttt{Color} : classe pour représenter une couleur et effectuer des conversions. Cela peut être utile manipuler les couleurs des \textit{patches}.
+	\item \texttt{PerspectiveRemover} : classe pour retirer la perspective d'une image à partir des quatre coins de la mire. Le but est d'obtenir une image avec laquelle les \textit{patches} de la mire sont alignés avec les pixels, ce qui facilitera l'extraction des couleurs.
 	\item \texttt{Rectangle} : classe pour représenter un rectangle (avec des méthodes pour le dessiner, et en faire une homothétie, recadrer une image...).
 \end{itemize}
 
@@ -58,8 +58,8 @@ Libre à vous de compléter ces classes au besoin.
 \subsection{Déroulé des séances}
 Vous trouverez ici un déroulé indicatif des séances pour vous aider à avancer dans le projet.
 \begin{itemize}
-	\item \textbf{Séance 1} : Découverte de l'orienté objet dans python.
-	\item \textbf{Séance 2} : Découverte des classes de du fichier de démarrage. Réflexion sur la structure du code via un schéma de classes. Validation en fin de séance.
+	\item \textbf{Séance 1} : Découverte de l'orienté objet dans Python.
+	\item \textbf{Séance 2} : Découverte des classes du fichier de démarrage. Réflexion sur la structure du code via un schéma de classes. Validation en fin de séance.
 	\item \textbf{Séance 3} : Implémentation et débogage de la classe \texttt{ReferenceColorChecker} et \texttt{Patch}.
 	\item \textbf{Séance 4} : Implémentation et débogage des classes \texttt{RealColorChecker} et \texttt{ColorCorrection}.
 	\item \textbf{Séance 5} : Finalisation du projet. Préparation de la présentation finale.
@@ -95,7 +95,7 @@ En pratique, on peut utiliser la bibliothèque \texttt{open-cv} pour réaliser c
 La classe \texttt{PerspectiveRemover} fournie dans le code de démarrage permet de réaliser cette opération.
 
 Pour extraire les couleurs, il est possible de sélectionner un pixel au centre de chaque patch. Mais cette méthode est imprécise, car à cause du bruit numérique présent sur l'image, ce pixel ne représente pas forcément la couleur du patch.
-Pour améliorer la précision, on peut réaliser une moyenne des couleurs sur une zone autour du pixel central. La taille de cette zone est à définir, mais elle doit être suffisamment grande pour contenir une grande partie du patch, mais pas trop grande pour ne pas inclure les couleurs des patches voisins.
+Pour améliorer la précision, on peut réaliser une moyenne des couleurs sur une zone autour du pixel central. La taille de cette zone est à définir, mais elle doit être suffisamment grande pour contenir une grande partie du patch, mais pas trop grande pour ne pas inclure les couleurs des \textit{patches} voisins.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%
@@ -141,7 +141,7 @@ Les espaces colorimétriques sont des systèmes de représentation des couleurs 
 
 \subsubsection{Conversion d'espaces de couleur}
 La conversion d'un espace de couleur à un autre repose sur des transformations mathématiques standardisées, ces opérations sont assez pénibles à implémenter (et ce n'est pas l'idée du travail à effectuer).
-Il existe des bibliothèques Python qui permettent de convertir les espaces de couleurs, pour ce projet on se propose d'utiliser \texttt{skimage.color}. La classe \texttt{Color} fournie dans le code de démarrage permet de réaliser ces conversions sur un pixel. Pour convertir une image entière, il est possible d'utiliser directement les fonctions adéquates de \texttt{skimage.color} sur une matrice de taille $[h, w, 3]$.
+Il existe des bibliothèques Python qui permettent de convertir les espaces de couleurs, pour ce projet, on se propose d'utiliser \texttt{skimage.color}. La classe \texttt{Color} fournie dans le code de démarrage permet de réaliser ces conversions sur un pixel. Pour convertir une image entière, il est possible d'utiliser directement les fonctions adéquates de \texttt{skimage.color} sur une matrice de taille $[h, w, 3]$.
 
 
 \begin{figure}[H]
@@ -158,7 +158,6 @@ En pratique, pour construire la plupart des matrices utiles pour ce projet, il e
 
 \subsubsection{Calcule de la matrice de correction}
 Pour chaque patch coloré (ici indexé par $j \in [\![ 1, N  ]\!]$) de la mire, on cherche à résoudre l'équation matricielle :
-
 \begin{equation}
 	\begin{bmatrix}
 		X_j^\text{ref} & Y_j^\text{ref} & Z_j^\text{ref} \\
@@ -253,7 +252,7 @@ Pour appliquer la correction, il est possible de faire le produit matriciel entr
 
 
 	      \begin{itemize}
-		      \item Il est possible de réaliser un graphe dans le diagramme de chromaticité CIE 1931 xy; pour chaque patch on peut tracer une flèche qui illustre la modification de chromaticité entre la référence et l'image, avant et après correction. Une illustration est donnée en figure \ref{chromaticity}.
+		      \item Il est possible de réaliser un graphe dans le diagramme de chromaticité CIE 1931 xy; pour chaque \textit{patch}, on peut tracer une flèche qui illustre la modification de chromaticité entre la référence et l'image, avant et après correction. Une illustration est donnée en figure \ref{chromaticity}.
 	      \end{itemize}
 
 	      \begin{figure}[H]
