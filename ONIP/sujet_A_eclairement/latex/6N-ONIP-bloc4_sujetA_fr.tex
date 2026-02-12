@@ -30,7 +30,7 @@
 
 \documentclass[10pt]{article} % The default font size is 10pt; 11pt and 12pt are alternatives
 
-\input{../../../Latex/_latex_assets/5N_ONIP_structure.tex} % Include the document which specifies all packages and structural customizations for this template
+\input{../../_latex_assets/5N_ONIP_structure.tex} % Include the document which specifies all packages and structural customizations for this template
 
 \def\dirName{6N-ONIP-bloc4_sujetA}
 
@@ -48,7 +48,7 @@
 %----------------------------------------------------------------------------------------
 
 \begin{figure}[H]
-\centering\includegraphics[width=0.5\linewidth]{../../../Latex/_latex_assets/logo_iogs.png}
+	\centering\includegraphics[width=0.5\linewidth]{../../_latex_assets/logo_iogs.png}
 \end{figure}
 
 %----------------------------------------------------------------------------------------
@@ -56,85 +56,85 @@
 %----------------------------------------------------------------------------------------
 
 \begin{minipage}[t]{.35\linewidth} % Mini page taking up 30% of the actual page
-\begin{mdframed}[style=sidebar,frametitle={\module}] % Sidebar box
+	\begin{mdframed}[style=sidebar,frametitle={\module}] % Sidebar box
 
-%-----------------------------------------------------------
-%	DOCUMENT DESCRIPTION
-\begin{center}
+		%-----------------------------------------------------------
+		%	DOCUMENT DESCRIPTION
+		\begin{center}
 
-\textit{\large \centering \year}
-\end{center}
-
-
-\centerline {\rule{.70\linewidth}{.25pt}} % Horizontal line
-
-\begin{center}
-	\textit{\large \moduleSmall}
-\end{center}
-
-\centerline {\rule{.70\linewidth}{.25pt}} % Horizontal line
-
-\begin{center}
-	\textbf{\problem} ( \validation )
-\end{center}
-
-\centerline {\rule{.70\linewidth}{.25pt}} % Horizontal line
-
-%-----------------------------------------------------------
-
-\textbf{Concepts étudiés}
-
-\begin{itemize}
-\input{ \dirName /_fr_concepts.tex}
-\end{itemize}
-
-\centerline {\rule{.70\linewidth}{.25pt}} % Horizontal line
-
-%-----------------------------------------------------------
-
-\textbf{Mots clefs}
-
-\keywords
-
-\centerline {\rule{.70\linewidth}{.25pt}} % Horizontal line
-
-%-----------------------------------------------------------
-
-\textbf{Sessions}
-
-\begin{itemize}
-\item[\textbf{\scheduleCM}] Cours(s) - 1h30
-\item[\textbf{\scheduleTD}] TD(s) - 1h30
-\item[\textbf{\scheduleTDcomputer}] TD(s) Machine - 2h00
-\item[\textbf{\scheduleTP}] TP(s) - 4h30
-\end{itemize}
-
-\centerline {\rule{.70\linewidth}{.25pt}} % Horizontal line
-
-{\large Travail}
-
-\textbf{\workingTeam}
-
-\textbf{\workingSpecial}
+			\textit{\large \centering \year}
+		\end{center}
 
 
-%-----------------------------------------------------------
+		\centerline {\rule{.70\linewidth}{.25pt}} % Horizontal line
 
-\end{mdframed}
+		\begin{center}
+			\textit{\large \moduleSmall}
+		\end{center}
+
+		\centerline {\rule{.70\linewidth}{.25pt}} % Horizontal line
+
+		\begin{center}
+			\textbf{\problem} ( \validation )
+		\end{center}
+
+		\centerline {\rule{.70\linewidth}{.25pt}} % Horizontal line
+
+		%-----------------------------------------------------------
+
+		\textbf{Concepts étudiés}
+
+		\begin{itemize}
+			\input{ \dirName /_fr_concepts.tex}
+		\end{itemize}
+
+		\centerline {\rule{.70\linewidth}{.25pt}} % Horizontal line
+
+		%-----------------------------------------------------------
+
+		\textbf{Mots clefs}
+
+		\keywords
+
+		\centerline {\rule{.70\linewidth}{.25pt}} % Horizontal line
+
+		%-----------------------------------------------------------
+
+		\textbf{Sessions}
+
+		\begin{itemize}
+			\item[\textbf{\scheduleCM}] Cours(s) - 1h30
+			\item[\textbf{\scheduleTD}] TD(s) - 1h30
+			\item[\textbf{\scheduleTDcomputer}] TD(s) Machine - 2h00
+			\item[\textbf{\scheduleTP}] TP(s) - 4h30
+		\end{itemize}
+
+		\centerline {\rule{.70\linewidth}{.25pt}} % Horizontal line
+
+		{\large Travail}
+
+		\textbf{\workingTeam}
+
+		\textbf{\workingSpecial}
 
 
-\centering
-\begin{minipage}[t]{.95\linewidth}
-\textbf{Institut d'Optique}\\
-Graduate School, \textit{France}\\
-\href{https://www.institutoptique.fr}{https://www.institutoptique.fr}
+		%-----------------------------------------------------------
 
-\medskip
-\textbf{GitHub - Digital Methods}
+	\end{mdframed}
 
-\href{https://github.com/IOGS-Digital-Methods}{https://github.com/IOGS-Digital-Methods}
 
-\end{minipage}
+	\centering
+	\begin{minipage}[t]{.95\linewidth}
+		\textbf{Institut d'Optique}\\
+		Graduate School, \textit{France}\\
+		\href{https://www.institutoptique.fr}{https://www.institutoptique.fr}
+
+		\medskip
+		\textbf{GitHub - Digital Methods}
+
+		\href{https://github.com/IOGS-Digital-Methods}{https://github.com/IOGS-Digital-Methods}
+
+	\end{minipage}
 
 \end{minipage}\hfill % End the sidebar mini page 
 %
@@ -144,64 +144,64 @@ Graduate School, \textit{France}\\
 %
 \begin{minipage}[t]{.60\linewidth} % Mini page taking up 66% of the actual page
 
-\hypertarget{context}{\heading{\huge \problemName}{6pt}} % \hypertarget provides a label to reference using \hyperlink{label}{link text}
+	\hypertarget{context}{\heading{\huge \problemName}{6pt}} % \hypertarget provides a label to reference using \hyperlink{label}{link text}
 
-\centerline {\rule{.70\linewidth}{.25pt}} % Horizontal line
+	\centerline {\rule{.70\linewidth}{.25pt}} % Horizontal line
 
-%% Short introduction 
-\input{ \dirName /_fr_intro.tex}
+	%% Short introduction 
+	\input{ \dirName /_fr_intro.tex}
 
-%%
+	%%
 
-\bigskip
+	\bigskip
 
-%----------------------------------------------------------------------------------------
-%	IN-TEXT BOX / Intended learning outcomes
-%----------------------------------------------------------------------------------------
+	%----------------------------------------------------------------------------------------
+	%	IN-TEXT BOX / Intended learning outcomes
+	%----------------------------------------------------------------------------------------
 
-\begin{mdframed}[style=aavbox,frametitle={Acquis d'Apprentissage Visés}]
+	\begin{mdframed}[style=aavbox,frametitle={Acquis d'Apprentissage Visés}]
 
-En résolvant ce problème, les étudiant$\cdot$e$\cdot$s seront capables de  :
+		En résolvant ce problème, les étudiant$\cdot$e$\cdot$s seront capables de  :
 
-\centerline {\rule{.40\linewidth}{.1pt}} % Horizontal line
+		\centerline {\rule{.40\linewidth}{.1pt}} % Horizontal line
 
-\begin{center}
-{\large \textsc{Côté Numérique}}
-\end{center}
+		\begin{center}
+			{\large \textsc{Côté Numérique}}
+		\end{center}
 
-\begin{enumerate}
-\input{ \dirName /_fr_aav_num.tex}
-\end{enumerate}
+		\begin{enumerate}
+			\input{ \dirName /_fr_aav_num.tex}
+		\end{enumerate}
 
-\centerline {\rule{.40\linewidth}{.1pt}} % Horizontal line
+		\centerline {\rule{.40\linewidth}{.1pt}} % Horizontal line
 
-\begin{center}
-{\large \textsc{Côté Physique}}
-\end{center}
+		\begin{center}
+			{\large \textsc{Côté Physique}}
+		\end{center}
 
-\begin{enumerate}
-\input{ \dirName /_fr_aav_phys.tex}
-\end{enumerate}
+		\begin{enumerate}
+			\input{ \dirName /_fr_aav_phys.tex}
+		\end{enumerate}
 
-\end{mdframed}
-\medskip
+	\end{mdframed}
+	\medskip
 
-%----------------------------------------------------------------------------------------
-%	IN-TEXT BOX / Deliverables
-%----------------------------------------------------------------------------------------
-
-
-\begin{mdframed}[style=intextbox,frametitle={Livrables attendus}] % Sidebar box
-
-\input{ \dirName /_fr_livrables.tex}
+	%----------------------------------------------------------------------------------------
+	%	IN-TEXT BOX / Deliverables
+	%----------------------------------------------------------------------------------------
 
 
-\end{mdframed}
+	\begin{mdframed}[style=intextbox,frametitle={Livrables attendus}] % Sidebar box
+
+		\input{ \dirName /_fr_livrables.tex}
 
 
-%\begin{wrapfigure}[7]{l}[0pt]{0pt} % In-line figure with text wrapping around it
-%\includegraphics[width=0.3\textwidth]{engPb_S5_01/placeholder.jpg}
-%\end{wrapfigure}
+	\end{mdframed}
+
+
+	%\begin{wrapfigure}[7]{l}[0pt]{0pt} % In-line figure with text wrapping around it
+	%\includegraphics[width=0.3\textwidth]{engPb_S5_01/placeholder.jpg}
+	%\end{wrapfigure}
 
 \end{minipage} % End the main body - first page mini page
 
@@ -264,4 +264,4 @@ En résolvant ce problème, les étudiant$\cdot$e$\cdot$s seront capables de  :
 
 %----------------------------------------------------------------------------------------
 
-\end{document} 
+\end{document}

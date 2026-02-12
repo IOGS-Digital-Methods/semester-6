@@ -32,10 +32,10 @@ On partira d'un modèle simplifié d'une source lumineuse, repérée dans un esp
 	\centering
 	\includegraphics[width=\textwidth]{\dirName /images/ONIP_LED_SCHEMA_UPDATED_V2.pdf}
 	\caption{Schéma de principe de la géométrie d'une source positionnée au point $S$ et d'un plan $\Pi$. On représente ici un point $P$ du plan.
-	(a) Situation de départ simplifiée avec un plan horizontal et une source dont la direction est perpendiculaire au plan $\Pi$. 
-	(b) Situation générale avec une source et un plan orientés de manière arbitraire. L'éclairement sur l'ensemble du plan $\Pi$ peut être déterminé avec les angles non orientés $\psi$ et $\alpha$. $\vec{n_s}$ et $\vec{n_\Pi}$ sont respectivement le vecteur d'orientation de la source et le vecteur normal au plan $\Pi$ dans le système de coordonnées Cartésien $(x, y, z)$. 
-	(c) Rappel de transformation d'un système de coordonnées sphérique à un système Cartésien. (utile pour l'orientation de la source selon $(\theta, \varphi)$, voir ci-dessous). 
-	(d) Calcul de angle $\gamma$ entre deux vecteurs quelconques $\vec{a}$ et $\vec{b}$.}
+		(a) Situation de départ simplifiée avec un plan horizontal et une source dont la direction est perpendiculaire au plan $\Pi$.
+		(b) Situation générale avec une source et un plan orientés de manière arbitraire. L'éclairement sur l'ensemble du plan $\Pi$ peut être déterminé avec les angles non orientés $\psi$ et $\alpha$. $\vec{n_s}$ et $\vec{n_\Pi}$ sont respectivement le vecteur d'orientation de la source et le vecteur normal au plan $\Pi$ dans le système de coordonnées Cartésien $(x, y, z)$.
+		(c) Rappel de transformation d'un système de coordonnées sphérique à un système Cartésien. (utile pour l'orientation de la source selon $(\theta, \varphi)$, voir ci-dessous).
+		(d) Calcul de angle $\gamma$ entre deux vecteurs quelconques $\vec{a}$ et $\vec{b}$.}
 	\label{schema}
 \end{figure}
 
@@ -43,7 +43,7 @@ Chaque source sera considérée comme indépendante des autres (incohérence) et
 
 \subsection{Conception de système d'éclairage}
 
-Lorsque l'on conçoit un système d'éclairage, le but le plus souvent recherché est d'avoir un éclairement le plus uniforme et le plus lumineux possible sur une zone donnée en disposant de manière appropriée les sources dont on dispose. 
+Lorsque l'on conçoit un système d'éclairage, le but le plus souvent recherché est d'avoir un éclairement le plus uniforme et le plus lumineux possible sur une zone donnée en disposant de manière appropriée les sources dont on dispose.
 
 \medskip
 
@@ -74,7 +74,7 @@ A partir du modèle établi précédemment, il sera alors possible d'optimiser s
 \begin{description}
 	\item[Essai 1] Carte d'éclairement pour une source ponctuelle - direction perpendiculaire par rapport au plan éclairé
 	\item[Essai 2] Carte d'éclairement pour une source ponctuelle - direction quelconque par rapport au plan éclairé
-	\item[Essai 3] Carte d'éclairement pour N sources ponctuelles - direction quelconque par rapport au plan éclairé
+	\item[Essai 3] Carte d'éclairement pour $N$ sources ponctuelles - direction quelconque par rapport au plan éclairé
 \end{description}
 
 %%%%%%%%%%%%%%%%%%%%%%%
@@ -83,7 +83,7 @@ A partir du modèle établi précédemment, il sera alors possible d'optimiser s
 \subsection{Modélisation d'une diode électroluminescente}
 
 
-Les sources (par exemple des LEDs) seront modélisées de manière approchée (valable si l'on n'est pas trop près du composant) comme des \textbf{sources ponctuelles}. Ces sources ont un \textbf{diagramme de rayonnement} possédant une \textbf{symétrie de révolution} autour d'un axe orienté. 
+Les sources (par exemple des LEDs) seront modélisées de manière approchée (valable si l'on n'est pas trop près du composant) comme des \textbf{sources ponctuelles}. Ces sources ont un \textbf{diagramme de rayonnement} possédant une \textbf{symétrie de révolution} autour d'un axe orienté.
 
 \medskip
 
@@ -91,21 +91,21 @@ L'indicatrice de rayonnement pourra être considérée comme gaussienne, et cara
 
 Cette indicatrice peut-être modélisée par l'équation suivante : $$I(\alpha) = I_0 \cdot \exp(-(4 \cdot \ln(2)) \cdot (\alpha/\Delta)^2)$$
 
-où $\alpha$ est l'angle entre la direction d'émission et l'axe de la source ($\alpha \in [0^{\circ}, 180^{\circ}]$). 
+où $\alpha$ est l'angle entre la direction d'émission et l'axe de la source ($\alpha \in [0^{\circ}, 180^{\circ}]$).
 
 \medskip
 
 %%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Positionnement d'une source}
 
-Le positionnement de la source dans l'espace sera caractérisé par ses coordonnées $(x, y, z)$ et l'orientation de son axe de symétrie (\textit{i.e.} là où sont intensité est maximale) par deux angles ($\theta$ et $\varphi$) dans le système de coordonnée sphérique centrée sur la source. 
-	
+Le positionnement de la source dans l'espace sera caractérisé par ses coordonnées $(x, y, z)$ et l'orientation de son axe de symétrie (\textit{i.e.} là où sont intensité est maximale) par deux angles ($\theta$ et $\varphi$) dans le système de coordonnée sphérique centrée sur la source.
+
 \medskip
 
 %%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Eclairement / Formule de Bouguer}
 
-L'éclairement fourni par une source ponctuelle en un point P de l'espace séparé d'une distance $d$ et d'une inclinaison de $\psi$ par rapport à la direction de la source ponctuelle, est données par la relation photométrique suivante : 
+L'éclairement fourni par une source ponctuelle en un point P de l'espace séparé d'une distance $d$ et d'une inclinaison de $\psi$ par rapport à la direction de la source ponctuelle, est données par la relation photométrique suivante :
 
 $$E = \frac{I(\alpha) \cdot \cos(\psi)}{d^2}$$
 
@@ -129,27 +129,27 @@ L'éclairement produit par N sources (incohérentes) est la somme des éclaireme
 \begin{description}
 
 	\item[Ouverture A] \textbf{Carte d'éclairement 3D}
-	
-	\begin{itemize}
-		\item Intégration de la carte d'éclairement et des différents éléments (sources et plan de travail) dans une représentation en 3D. Les sources devront être représentées de telle façon à montrer leurs orientations.
-	\end{itemize}	
 
-\qquad
+	      \begin{itemize}
+		      \item Intégration de la carte d'éclairement et des différents éléments (sources et plan de travail) dans une représentation en 3D. Les sources devront être représentées de telle façon à montrer leurs orientations.
+	      \end{itemize}
+
+	      \qquad
 
 	\item[Ouverture B] \textbf{Optimisation d'un éclairement}
-	
-	\begin{itemize}
-		\item Optimisation du nombre et de l'orientation de LEDs pour obtenir un flux lumineux donné sur un plan de travail
-	\end{itemize}	
 
-\qquad
-	
+	      \begin{itemize}
+		      \item Optimisation du nombre et de l'orientation de LEDs pour obtenir un flux lumineux donné sur un plan de travail
+	      \end{itemize}
+
+	      \qquad
+
 	\item[Ouverture C] \textbf{Plusieurs plans de travail}
-	\begin{itemize}
-		\item Système final avec plusieurs plans de travail à des hauteurs différentes par exemple
-		\item Prise en compte de l'ombre portée d'un plan sur un autre
-	\end{itemize}
-	
+	      \begin{itemize}
+		      \item Système final avec plusieurs plans de travail à des hauteurs différentes par exemple
+		      \item Prise en compte de l'ombre portée d'un plan sur un autre
+	      \end{itemize}
+
 \end{description}
 
 
