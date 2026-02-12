@@ -167,3 +167,4 @@ cython_debug/
 *.gz
 *.fdb_latexmk
 .DS_Store
+.vscode
