@@ -2,11 +2,11 @@
 %	STEP BY STEP
 %----------------------------------------------------------------------------------------
 
-\textit{Ce projet s'inscrit dans la continuité du cours d'optique instrumentale, vous pouvez tester vos simulations sur de travaux réalisés dans cette matière.}
+\textit{Ce projet s'inscrit dans la continuité du cours d'optique instrumentale, vous pouvez tester vos simulations sur des travaux réalisés dans cette matière.}
 
 \section{Introduction}
 
-Le contexte de ce projet est l'optique dans les conditions de Gauß pour des systèmes centrés. En effet, on utilisera le formalisme matriciel (aussi appelé "matrice $ABCD$"), celui-ci est très commode pour la programmation informatique. Ce formalisme est équivalent à celui étudié en cours.
+Le contexte de ce projet est l'optique dans les conditions de Gauß pour des systèmes centrés. En effet, on utilisera le formalisme matriciel (aussi appelé \og matrice $ABCD$ \fg), celui-ci est très commode pour la programmation informatique. Ce formalisme est équivalent à celui étudié en cours.
 
 \medskip
 
@@ -41,17 +41,17 @@ On considère un système de coordonnées cartésiennes, où l'axe horizontal $z
 
 \begin{wrapfigure}{r}{0.38\textwidth}
 	\centering
-	\includegraphics[width=0.3\textwidth]{6N-ONIP-bloc4_sujetD/images/rayon.pdf}
+	\includegraphics[width=0.3\textwidth]{6N-ONIP-bloc4_sujetB/images/rayon.pdf}
 	\caption{Représentation d'un rayon.}
-	\label{fig:6N-ONIP-bloc4_sujetD_fig1}
+	\label{fig:6N-ONIP-bloc4_sujetB_fig1}
 \end{wrapfigure}
 
 Un rayon est caractérisé par sa position et sa direction. Pour un plan de coordonné $z_0$, le rayon est caractérisé par un vecteur suivant :
 $$p_{z_0} = \begin{pmatrix} y_0 \\ n\theta \end{pmatrix}_{z_0}$$
 
-Pour effectuer des transformations sur les rayons, on utilise des matrices de transfert. La figure \ref{fig:6N-ONIP-bloc4_sujetD_fig1} illustre la propagation d'un rayon à travers un élément optique.
+Pour effectuer des transformations sur les rayons, on utilise des matrices de transfert. La figure \ref{fig:6N-ONIP-bloc4_sujetB_fig1} illustre la propagation d'un rayon à travers un élément optique.
 
-\textit{NB : Il existe des conventions différentes, par exemple sans les indices $n$ pour la deuxième composante, cela est moins intéressant. En effet, les déterminants des matrices de transfert ne sont plus égaux à 1, les matrices des dioptres plans ne sont plus égaux à la matrice identité...}
+\textit{NB : Il existe différentes conventions, par exemple sans les indices $n$ pour la deuxième composante, cela est moins intéressant. En effet, les déterminants des matrices de transfert ne sont plus égaux à 1, les matrices des dioptres plans ne sont plus égaux à la matrice identité...}
 
 \subsection{Propagation d'un rayon}
 Lorsqu'un se propage dans un milieu homogène, il est possible de déterminer sa position et sa direction après une distance $d$ par les relations suivantes :
@@ -103,13 +103,13 @@ Un diaphragme est un élément optique qui bloque les rayons qui ont une inciden
 
 \subsubsection{Système à lentilles}
 On considère le microscope issu du TD numéro 4 d'Optique Instrumentale (disponible sur le site du \href{https://lense.institutoptique.fr/optique-instrumentale-s5/}{LEnsE}).
-Le système optique est composé d'un objectif de distance focale $f' = 40$\,mm et d'un oculaire de distance focale $f' = 12.5$\,mm. Un schéma réalisé via Python est donné en figure \ref{fig:6N-ONIP-bloc4_sujetD_fig2}.
+Le système optique est composé d'un objectif de distance focale $f' = 40$\,mm et d'un oculaire de distance focale $f' = 12.5$\,mm. Un schéma réalisé via Python est donné en figure \ref{fig:6N-ONIP-bloc4_sujetB_fig2}.
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.75\textwidth]{\dirName /images/optics_matrix.pdf}
 	\caption{Schéma du microscope du TD d'Optique Instrumentale.}
-	\label{fig:6N-ONIP-bloc4_sujetD_fig2}
+	\label{fig:6N-ONIP-bloc4_sujetB_fig2}
 \end{figure}
 
 Pour tracer un rayon rouge, qui est défini initialement dans le plan $z=0$ par $p = \left(0, n_\text{air} \theta \right)^T$, on a séquentiellement multiplié (par la gauche) les matrices de transfert suivantes :
@@ -147,13 +147,13 @@ Chaque rayon initial va donner naissance à de nouveaux rayons au cours de sa pr
 \label{microscope}
 
 \subsubsection{Système à miroirs}
-On considère ici le \href{https://fr.wikipedia.org/wiki/Télescope_de_type_Cassegrain}{télescope de Cassegrain} issu du TD N$^o$8 d'optique instrumentale, représenté en figure \ref{fig:6N-ONIP-bloc4_sujetD_fig3}. Le système optique est composé d'un miroir primaire concave de rayon de courbure $R_1 = 250$\,mm et d'un miroir secondaire convexe de rayon de courbure $R_2 = 100$\,mm. Les autres grandeurs du système sont présentent dans le sujet de TD sur le site du \href{https://lense.institutoptique.fr/optique-instrumentale-s5/}{LEnsE}.
+On considère ici le \href{https://fr.wikipedia.org/wiki/Télescope_de_type_Cassegrain}{télescope de Cassegrain} issu du TD N$^o$8 d'optique instrumentale, représenté en figure \ref{fig:6N-ONIP-bloc4_sujetB_fig3}. Le système optique est composé d'un miroir primaire concave de rayon de courbure $R_1 = 250$\,mm et d'un miroir secondaire convexe de rayon de courbure $R_2 = 100$\,mm. Les autres grandeurs du système sont présentent dans le sujet de TD sur le site du \href{https://lense.institutoptique.fr/optique-instrumentale-s5/}{LEnsE}.
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.75\textwidth]{\dirName /images/cassegrain.pdf}
 	\caption{Schéma du télescope de Cassegrain du TD d'Optique Instrumentale.}
-	\label{fig:6N-ONIP-bloc4_sujetD_fig3}
+	\label{fig:6N-ONIP-bloc4_sujetB_fig3}
 \end{figure}
 
 On a ici effectué le même type de calcul que pour le microscope, mais en adaptant les matrices de transfert aux éléments optiques du télescope de Cassegrain. On a ainsi multiplié les matrices de transfert suivantes :
@@ -192,7 +192,7 @@ $$\begin{pmatrix}
 	\end{pmatrix}$$
 On remarque qu'après la réflexion sur un miroir, la direction du rayon est inversée, cela se traduit pas une inversion du signe de l'indice optique.
 
-Sur la figure \ref{fig:6N-ONIP-bloc4_sujetD_fig3}, nous avons pu determiner la position de l'image ainsi que la position et la taille de la pupille de sortie.
+Sur la figure \ref{fig:6N-ONIP-bloc4_sujetB_fig3}, nous avons pu déterminer la position de l'image ainsi que la position et la taille de la pupille de sortie.
 
 \subsection{Grandeurs caractéristiques}
 
@@ -203,7 +203,7 @@ Dans le cas général, on obtient une matrice
 
 \begin{wrapfigure}{r}{0.45\textwidth}
 	\centering
-	\includegraphics[width=0.35\textwidth]{6N-ONIP-bloc4_sujetD/images/schema_grandeur.pdf}
+	\includegraphics[width=0.35\textwidth]{6N-ONIP-bloc4_sujetB/images/schema_grandeur.pdf}
 \end{wrapfigure}
 
 $$ M = \begin{pmatrix}
