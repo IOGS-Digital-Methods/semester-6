@@ -1,0 +1,171 @@
+\documentclass{article}
+\usepackage{blindtext}
+\usepackage[a4paper, total={7in, 9in}]{geometry}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{amsmath}
+\usepackage{float}
+
+\title{Tracé de rayons 3D}
+\author{ONIP S6}
+\date{2026}
+
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+Dans les systèmes optiques communs, les aberrations optiques et leur correction jouent un rôle clé. Bien que leur description théorique soit complexe, elles peuvent être étudiées simplement en utilisant le tracé de rayons. En présence d'aberrations optiques, tous les rayons issus d'un même point objet ne se croisent plus en un seul point image mais forment une tâche composée de la multitude de points d'impact des rayons dans le plan image. Les dimensions de la tâche image permettent de quantifier la dégradation de la qualité d'image dûe aux aberrations. 
+
+Un calcul de tracé de rayons consiste à appliquer les lois de Descartes en 3D pour décrire la réfraction ou la réflexion par les dioptres successifs du système. 
+
+\section{L'objectif}
+Dans un premier temps, le prototype de code de tracé de rayon sera simplifié au maximum avant de l'enrichir de fonctionnalités supplémentaires par la suite. Vous commencerez par supposer que l'on travaille pour un point objet à l'infini sur l'axe en monochromatique et que tous les centres de courbures des dioptres sont le long de l'axe optique du système. Vous ne traiterez pas la réflection pour commencer.
+
+Le but est de pouvoir définir l'ensemble des paramètres du système sous forme de script : la longueur d'onde, le diamètre de la pupille d'entrée, les paramètres des dioptres et des matériaux... Le calcul de tracé de rayon permettra ensuite de visualiser la tâche image et de calculer ses dimensions.\\
+
+Vous utiliserez la programmation orientée objet pour ce projet.
+
+\section{Les grandes étapes}
+- Définir un rayon et un dioptre sphérique\\
+- Définir un matériaux\\
+- Définir un système\\
+- Calculer l'intersection d'un rayon avec un dioptre\\
+- Calculer les paramètres du rayon après réfraction ou réflection\\
+- Définir les paramètres initiaux des rayons\\
+- Appliquer le calcul aux rayons et tracer la tâche image\\
+- Calculer l'écart type du rayon de la tâche image\\
+\\
+Il est fortement recommandé de valider pas à pas le bon fonctionnement du code en le testant avec des cas simples. 
+
+\section{Paramètres du système}
+Dans un code de tracé de rayons, on peut décrire un système optique simple comme un ensemble de dioptre. Pour chaque dioptre, il faut spécifier le rayon de courbure, le matériaux qui suit la surface, l'épaisseur entre le dioptre actuel et le suivant. On supposera que le système optique est centré ce qui signifie que l'axe optique est un axe de symétrie de révolution : tous les centres de courbure sont le long de l'axe optique. 
+La dernière surface sera la surface image qui est le plan dans lequel on observera la tâche image.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|c|}
+        \hline
+        \textbf{Type} & \textbf{Rayon de courbure} & \textbf{Epaisseur} & \textbf{Matériaux}\\
+        \hline
+        1er dioptre & 150 & 3 & N-BK7\\
+        \hline
+        2eme dioptre & 0 & 300 & AIR\\
+        \hline
+        Plan image & 0 & 0 & AIR\\
+        \hline
+    \end{tabular}
+    \caption{Exemple de description d'une lentille plan convexe sous forme d'une liste de surface. Par convention, un rayon de courbure de 0 correspond à un dioptre plan. Dimensions en mm.}
+    \label{tab:my_label}
+\end{table}
+Il faudra aussi spécifier les paramètres associés aux rayons : le diamètre de la pupille d'entrée du système, les longueurs d'onde de travail, les angles de champ objet.  
+
+Dans un premier temps, pour simplifier le problème on utilisera une seule longueur d'onde, un champ objet \(\theta = 0\) et on supposera que le premier dioptre du système porte la pupille. 
+
+\section{Ouvertures possibles}
+Une fois la partie principale du projet réalisée vous pourrez aller plus loin en travaillant sur une ou plusieurs ouvertures. \\
+- Prise en compte du chromatisme et du champ objet\\
+- Optimisation de la mise au point pour minimiser la taille RMS de la tache\\
+- Représentation du système optique en coupe 2D\\
+- Ajouter les miroirs\\
+- Point objet et position de la pupille quelconque\\
+- Calcul paraxial de la position du foyer paraxial et la distance focale 
+
+\section{Le calcul de réfraction en 3D}
+
+\subsection{Le rayon}
+Equations paramétriques d'une droite dans l'espace en trois dimensions
+\begin{equation}
+    \left\{
+    \begin{array}{ll}
+        x = \delta_x t + x_0\\
+        y = \delta_y t + y_0\\
+        z = \delta_z t + z_0
+    \end{array}
+    \right.
+\end{equation}
+6 constantes : positions du point en t = 0 et coordonnées du vecteur direction.
+1 paramètre : t
+
+On supposera que \(\delta_x^2+\delta_y^2+\delta_z^2 = 1\).
+
+\subsection{Le dioptre sphérique}
+Equation de la sphère de rayon R centrée en C \((x_c, y_c, z_c)\)
+
+\begin{equation}
+(x-x_C)^2+(y-y_C)^2+(z-z_C)^2 = R^2
+\end{equation}
+
+\subsection{L'intersection entre le rayon et le dioptre}
+Si on injecte les équations paramétriques dans l'équation de la sphère, on obtient une équation du second degré en t. Les deux solutions donnent les deux points d'intersection entre la sphère et le rayon. En l'absence d'intersection, t est imaginaire.
+
+\begin{equation}
+(\delta_x t+x_0-x_C)^2+(\delta_y t+y_0-y_C)^2+(\delta_z t+z_0-z_C)^2 - R^2 = 0
+\end{equation}
+
+\begin{equation}
+\left\{
+    \begin{array}{ll}
+        \alpha = \delta_x^2+\delta_y^2+\delta_z^2\\
+        \beta = 2\delta_x(x_0-x_c)+2\delta_y(y_0-y_c)+2\delta_z(z_0-z_c)\\
+        \gamma = (x_0-x_c)^2+(y_0-y_c)^2+(z_0-z_c)^2-R^2\\
+        \Delta = \beta^2-4\alpha\gamma
+    \end{array}
+    \right.
+\end{equation}
+
+\begin{equation}
+    t_{\pm} = \frac{-\beta\pm\sqrt{\Delta}}{2\alpha}
+\end{equation}
+\subsection{Le rayon après réfraction ou réflection}
+Les coordonnées de la normale au dioptre au point d'interséction I.
+\begin{equation}
+    \vec{n} = \frac{1}{\sqrt{(x_c - x_I)^2+(y_c - y_I)^2+(z_c - z_I)^2}}\begin{bmatrix} 
+        x_c - x_I\\
+        y_c - y_I\\
+        z_c - z_I
+    \end{bmatrix}
+\end{equation}
+Les coordonnées du vecteur rayon qu'on suppose normalisé sont données par:
+\begin{equation}
+    \vec{r} = \begin{bmatrix} 
+        \delta_x\\
+        \delta_y\\
+        \delta_z
+    \end{bmatrix}
+\end{equation}
+On peut calculer l'angle \(\theta\) entre le rayon et la normale au dioptre par projection. 
+\begin{equation}
+    \vec{r} \cdot \vec{n} = \cos{\theta}
+\end{equation}
+Si \(\theta\) est non nul, on peut calculer le vecteur tangent à la surface et contenu dans le plan d'incidence. Si \(\theta\) est nul, la direction du rayon reste inchangée.
+\begin{equation}
+    \vec{t} = \frac{\vec{r} - \cos{\theta} \cdot \vec{n}}{\sin{\theta}}
+\end{equation}
+
+L'angle d'incidence \(\theta_i\) est alors donné par :
+\begin{equation}
+    \left\{
+    \begin{array}{ll}
+        \theta_i = \theta \qquad si \quad \theta < \pi/2\\
+        \theta_i = \pi - \theta \qquad sinon
+    \end{array}
+    \right.
+\end{equation}
+
+On peut alors appliquer les lois de Snell-Descartes pour calculer \(\theta_r\) pour en déduire \(\theta'\) à partir duquel on peut écrire le rayon après réflexion ou réfraction.
+
+\begin{equation}
+    \left\{
+    \begin{array}{ll}
+        \theta' = \theta_r \qquad si \quad \theta < \pi/2\\
+        \theta' = \pi - \theta_r \qquad sinon
+    \end{array}
+    \right.
+\end{equation}
+
+\begin{equation}
+    \vec{r'} = \vec{n} \cdot \cos{\theta'} + \vec{t} \cdot \sin{\theta'}
+\end{equation}
+    
+\end{document}
