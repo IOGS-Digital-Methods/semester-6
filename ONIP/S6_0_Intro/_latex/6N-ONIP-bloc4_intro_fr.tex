@@ -242,21 +242,21 @@ Ce module se déroule sur \textbf{6 séances} :
 \end{mdframed}
 \medskip
 
-
-L'ensemble des documents du module ONIP-2 se trouve sur le site du LEnsE : \hyperlink{http://lense.institutoptique.fr/ONIP/}{http://lense.institutoptique.fr/ONIP/} . Les exemples pour cette première séance se trouvent dans la rubrique \textbf{BLOC 4}. \textbf{Attention}, les classes crées pour ces exercices ne seront pas réutilisées pour les projets. 
-
+L'ensemble des documents du module ONIP-2 se trouve sur le site du LEnsE : \hyperlink{http://lense.institutoptique.fr/ONIP/}{http://lense.institutoptique.fr/ONIP/} . Les exemples pour cette première séance se trouvent dans la rubrique \textbf{BLOC 4}.
+Ajoutez \textit{from \_\_future\_\_ import annotations} en début de code pour une meilleure gestion des annotations.  \textbf{Attention}, les classes crées pour ces exercices ne seront pas réutilisées pour les projets. 
 \medskip
 
 
 \begin{mdframed}[style=intextbox,frametitle={Exercice 1 - Classe Point}] % Sidebar box
 
-En vous inspirant de la définition et de l'exemple d'utilisation de la classe \textbf{Animal} (simple) :
+En vous inspirant de la classe \textbf{Animal} (simple) :
 
 \begin{itemize}
 	\item créez un nouveau fichier .py
 	\item définissez une classe \textbf{Point}, permettant de modéliser un point dans un espace en 2 dimensions par ses coordonnées x et y
 	\item instanciez deux objets de type Point avec des coordonnées différentes
 	\item redéfinissez la méthode \textbf{\textit{\_\_str\_\_}} pour qu'elle affiche les coordonnées d'un objet de type \textbf{Point} (voir exemple de la classe \textbf{Animal})
+	\item définissez une méthode barycentre qui prend un objet \textbf{Point} en argument et retourne un nouvel objet point correspondant au barycentre
 	\item vérifiez vos différentes méthodes
 \end{itemize}
 
@@ -271,9 +271,9 @@ Dans le fichier précédent et en utilisant la classe \textbf{Point} :
 \begin{itemize}
 	\item définissez une classe \textbf{Rectangle}, permettant de modéliser un rectangle orienté selon les axes x et y à partir de deux objets de type Point (sommets opposés du rectangle)
 	\item définissez des méthodes \textit{\textbf{perimetre}} et \textit{\textbf{surface}} permettant de calculer le périmètre et la surface d'un objet de type \textbf{Rectangle}
-    \item définissez une méthode intersection qui prend un objet \textbf{Rectangle} en argument, calcul les coordonnées du rectangle correspondant à l'intersection et retourne l'objet \textbf{Rectangle} correspondant.
+    \item définissez une méthode recouvrement qui prend un objet \textbf{Rectangle} en argument et renvoie un booléen indiquant si il y a un recouvrement entre les deux rectangles.
     \item définir une méthode agrandir qui applique un facteur d'échelle au rectangle
-    \item redéfinissez la classe \textbf{\textit{\_\_str\_\_}}
+    \item redéfinissez la méthode \textbf{\textit{\_\_str\_\_}}
 	\item testez l'ensemble de vos méthodes sur différents objets de type \textbf{Rectangle}
 \end{itemize}
 
@@ -286,8 +286,7 @@ Dans le fichier précédent et en utilisant la classe \textbf{Point} :
 
 \begin{itemize}
     \item même exercice avec un cercle défini par son centre et un point du rayon. Cette fois, la méthode intersetion retournera une liste de zéro à deux objets points correspondants aux points d'interection.
-    \item ajoutez une méthode intersection\_rect qui prendra un objet \textbf{Rectangle} en argument et retournera les points d'intersection entre un cercle et un rectangle.
-    \item redéfinissez la classe \textbf{\textit{\_\_str\_\_}}
+    \item redéfinissez la méthode \textbf{\textit{\_\_str\_\_}}
 \end{itemize}
 \end{mdframed}
 
