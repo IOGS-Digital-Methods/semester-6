@@ -30,7 +30,7 @@
 
 \documentclass[10pt]{article} % The default font size is 10pt; 11pt and 12pt are alternatives
 
-\input{../../../Latex/_latex_assets/5N_ONIP_structure.tex} % Include the document which specifies all packages and structural customizations for this template
+\input{../../_latex_assets/5N_ONIP_structure.tex} % Include the document which specifies all packages and structural customizations for this template
 
 \def\dirName{6N-ONIP-bloc4_intro}
 
@@ -48,7 +48,7 @@
 %----------------------------------------------------------------------------------------
 
 \begin{figure}[H]
-\centering\includegraphics[width=0.5\linewidth]{../../../Latex/_latex_assets/logo_iogs.png}
+\centering\includegraphics[width=0.5\linewidth]{../../_latex_assets/logo_iogs.png}
 \end{figure}
 
 %----------------------------------------------------------------------------------------
@@ -226,19 +226,9 @@ Ce module se déroule sur \textbf{6 séances} :
 
 \begin{mdframed}[style=aavbox,frametitle={Acquis d'Apprentissage Visés}]
 
-A travers les exemples proposés, vous serez capables de  :
-
-\centerline {\rule{.40\linewidth}{.1pt}} % Horizontal line
-
-\begin{center}
-{\large \textsc{Côté Numérique}}
-\end{center}
-
 \begin{enumerate}
 \input{ \dirName /_fr_aav_num.tex}
 \end{enumerate}
-
-\centerline {\rule{.40\linewidth}{.1pt}} % Horizontal line
 
 
 %\begin{center}
@@ -252,28 +242,21 @@ A travers les exemples proposés, vous serez capables de  :
 \end{mdframed}
 \medskip
 
-\hypertarget{stepbystep}{\heading{Exemples à analyser et exercices}{6pt}} % \hypertarget provides a label to reference using \hyperlink{label}{link text}
-
 L'ensemble des documents du module ONIP-2 se trouve sur le site du LEnsE : \hyperlink{http://lense.institutoptique.fr/ONIP/}{http://lense.institutoptique.fr/ONIP/} . Les exemples pour cette première séance se trouvent dans la rubrique \textbf{BLOC 4}.
-
+Ajoutez \textit{from \_\_future\_\_ import annotations} en début de code pour une meilleure gestion des annotations.  \textbf{Attention}, les classes crées pour ces exercices ne seront pas réutilisées pour les projets. 
 \medskip
 
 
 \begin{mdframed}[style=intextbox,frametitle={Exercice 1 - Classe Point}] % Sidebar box
 
-En vous inspirant de la définition et de l'exemple d'utilisation de la classe \textbf{Animal} (simple) :
+En vous inspirant de la classe \textbf{Animal} (simple) :
 
 \begin{itemize}
 	\item créez un nouveau fichier .py
 	\item définissez une classe \textbf{Point}, permettant de modéliser un point dans un espace en 2 dimensions par ses coordonnées x et y
 	\item instanciez deux objets de type Point avec des coordonnées différentes
-\end{itemize}
-
-
-En vous inspirant de la définition et de l'exemple d'utilisation de la classe \textbf{Animal} (redéfinition str) :
-
-\begin{itemize}
-	\item redéfinissez la méthode \textbf{\textit{\_\_str\_\_}} pour qu'elle affiche les coordonnées d'un objet de type \textbf{Point}
+	\item redéfinissez la méthode \textbf{\textit{\_\_str\_\_}} pour qu'elle affiche les coordonnées d'un objet de type \textbf{Point} (voir exemple de la classe \textbf{Animal})
+	\item définissez une méthode barycentre qui prend un objet \textbf{Point} en argument et retourne un nouvel objet point correspondant au barycentre
 	\item vérifiez vos différentes méthodes
 \end{itemize}
 
@@ -286,8 +269,11 @@ En vous inspirant de la définition et de l'exemple d'utilisation de la classe \
 Dans le fichier précédent et en utilisant la classe \textbf{Point} :
 
 \begin{itemize}
-	\item définissez une classe \textbf{Rectangle}, permettant de modéliser un rectangle à partir de deux objets de type Point (sommets opposés du rectangle)
+	\item définissez une classe \textbf{Rectangle}, permettant de modéliser un rectangle orienté selon les axes x et y à partir de deux objets de type Point (sommets opposés du rectangle)
 	\item définissez des méthodes \textit{\textbf{perimetre}} et \textit{\textbf{surface}} permettant de calculer le périmètre et la surface d'un objet de type \textbf{Rectangle}
+    \item définissez une méthode recouvrement qui prend un objet \textbf{Rectangle} en argument et renvoie un booléen indiquant si il y a un recouvrement entre les deux rectangles.
+    \item définir une méthode agrandir qui applique un facteur d'échelle au rectangle
+    \item redéfinissez la méthode \textbf{\textit{\_\_str\_\_}}
 	\item testez l'ensemble de vos méthodes sur différents objets de type \textbf{Rectangle}
 \end{itemize}
 
@@ -298,8 +284,10 @@ Dans le fichier précédent et en utilisant la classe \textbf{Point} :
 
 \begin{mdframed}[style=intextbox,frametitle={Exercice 3 - Classe Cercle}] % Sidebar box
 
-Même exercice avec un cercle défini par son centre et un point du rayon.
-
+\begin{itemize}
+    \item même exercice avec un cercle défini par son centre et un point du rayon. Cette fois, la méthode intersetion retournera une liste de zéro à deux objets points correspondants aux points d'interection.
+    \item redéfinissez la méthode \textbf{\textit{\_\_str\_\_}}
+\end{itemize}
 \end{mdframed}
 
 
@@ -392,17 +380,17 @@ Vous serez \textbf{convoqués par binôme} 15 min avant le début de votre prés
 
 \medskip 
 
-Vous aurez alors \textbf{5 min} pour présenter les aspects suivants de votre travail :
+Vous aurez alors \textbf{7 min} pour présenter les aspects suivants de votre travail :
 
 \begin{description}
-	\item[1 min] Présentation générale - Problématique - Diagramme de classe
+	\item[1 min] Présentation générale - Problématique
 	\item[2 min] Résultats sur le système final 
-	\item[2 min] Code d'une classe
+	\item[4 min] Présentation de code
 \end{description}
 
 \medskip
 
-Vous aurez ensuite 3 à 4 min de questions par le jury.
+Vous aurez ensuite 5 min de questions par le jury. Vous devrez être en mesure d'exécuter votre code pour montrer son bon fonctionnement. Votre code devra être déposé sur e-campus avant le jour de l'évaluation.
 
 \end{mdframed}
 
@@ -423,7 +411,6 @@ Vous serez évalué.e selon les critères suivants :
 			\item objets mis en oeuvre
 			\item attributs et méthodes utiles pour chaque objet
 		\end{itemize}
-		\item Diagramme de classe
 		\item Répartition de l'écriture du code
 	\end{itemize}
 
