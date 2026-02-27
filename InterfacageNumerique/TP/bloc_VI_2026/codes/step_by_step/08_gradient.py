@@ -31,7 +31,7 @@ ax[0].set_title('Initial Gray Image / Closing')
 ax[1].imshow(grad_image_cross_3, cmap='gray')
 ax[1].set_title('Gradient function CV2')
 ax[2].imshow(grad_sub_image_cross_3, cmap='gray')
-ax[1].set_title('Substract Open and close operation')
+ax[2].set_title('Substract Open and close operation')
 
 plt.show()
 

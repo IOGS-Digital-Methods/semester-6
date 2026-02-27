@@ -32,5 +32,5 @@ ax[1,0].set_xlim([0, 256])  # Limits for the x-axis
 ax[1,0].set_title('Histogram of initial image')
 ax[1,1].bar(x, histogram2[:,0], width=1, color='black')
 ax[1,1].set_xlim([0, 256])  # Limits for the x-axis
-ax[0,1].set_title('Histogram of modified image')
+ax[1,1].set_title('Histogram of modified image')
 plt.show()
