@@ -80,8 +80,8 @@ class PerspectiveRemover:
         self.image = image
         self.corners = np.float32(corners_colorchecker)
         self.final_image_size = (
-            1400,
-            1000,
+            image.shape[1],
+            image.shape[0],
         )  # size of the final image, only valid for the colorchecker SG
 
     def remove_distortion(self) -> None:
@@ -121,7 +121,7 @@ class PerspectiveRemover:
 
 if __name__ == "__main__":
     # Example of use
-    img = cv.imread("ColorCheckerSG_Altered.jpg").astype(np.float32) / 255.0
+    img = cv.imread("CC_images/CC_image.jpg").astype(np.float32) / 255.0
 
     perspective = PerspectiveRemover(
         img, np.array([[319, 208], [2051, 109], [412, 1353], [2081, 1381]])
