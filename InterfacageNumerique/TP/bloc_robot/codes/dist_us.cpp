@@ -27,6 +27,30 @@ bool new_dist = false;
 int dist_us;
 int tik_cnt;
 
+void tik_ISR();
+void init_us_sensor();
+void start_us();
+void echo_rise_ISR();
+void echo_fall_ISR();
+int get_dist_cm();
+
+// MAIN FUNCTION 
+int main()
+{
+    int dist;
+    printf("Start");
+
+    while(1)
+    {
+        dist = get_dist_cm();
+        printf("New Distance = %d cm\r\n", dist);
+
+        thread_sleep_for(100);
+    }
+}
+
+
+// OTHER FUNCTIONS 
 void tik_ISR(){
     tik_cnt += 1;
 }
@@ -50,22 +74,15 @@ void echo_fall_ISR(){
     new_dist = true;
 }
 
-int main()
-{
+void init_us_sensor(){
     trig_us = 0;
     thread_sleep_for(10);
     echo_us.rise(&echo_rise_ISR);
     echo_us.fall(&echo_fall_ISR);
-    printf("Start");
-    start_us();
+}
 
-    while(1)
-    {
-        if(new_dist == true){
-            printf("New Distance = %d cm\r\n", dist_us);
-            //thread_sleep_for(100);
-            start_us();
-        }
-        thread_sleep_for(10);
-    }
+int get_dist_cm(){
+    start_us();
+    while(new_dist == false);
+    return dist_us;
 }

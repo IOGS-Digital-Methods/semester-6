@@ -30,7 +30,7 @@ ax[0].set_title('Initial Gray Image / Opening')
 ax[1].imshow(opening_image_cross_3, cmap='gray')
 ax[1].set_title('Cross 3x3 Kernel')
 ax[2].imshow(opening_image_square_3, cmap='gray')
-ax[1].set_title('Square 3x3 Kernel')
+ax[2].set_title('Square 3x3 Kernel')
 
 ## CLOSING
 closing_image_cross_3 = cv2.morphologyEx(image, cv2.MORPH_CLOSE, cross_kernel_3)
@@ -43,6 +43,6 @@ ax[0].set_title('Initial Gray Image / Closing')
 ax[1].imshow(closing_image_cross_3, cmap='gray')
 ax[1].set_title('Cross 3x3 Kernel')
 ax[2].imshow(closing_image_square_3, cmap='gray')
-ax[1].set_title('Square 3x3 Kernel')
+ax[2].set_title('Square 3x3 Kernel')
 
 plt.show()
