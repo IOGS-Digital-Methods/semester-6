@@ -38,6 +38,7 @@ int get_dist_cm();
 int main()
 {
     int dist;
+	init_us_sensor();
     printf("Start");
 
     while(1)
