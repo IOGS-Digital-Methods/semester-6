@@ -64,6 +64,7 @@ void start_us(){
 }
 
 void echo_rise_ISR(){
+    new_dist = false;
     led1 = 1;
     tik_cnt = 0;
     tik.attach(&tik_ISR, 30us);
@@ -77,9 +78,10 @@ void echo_fall_ISR(){
 
 void init_us_sensor(){
     trig_us = 0;
-    thread_sleep_for(10);
+    thread_sleep_for(100);
     echo_us.rise(&echo_rise_ISR);
     echo_us.fall(&echo_fall_ISR);
+    new_dist = false;
 }
 
 int get_dist_cm(){
