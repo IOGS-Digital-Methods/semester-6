@@ -4,9 +4,9 @@ import matplotlib.pyplot as plt  # for plotting
 import cv2
 
 dir_path = './_data/'
-ref_path = dir_path+'mire_rep.png'
+ref_path = dir_path+'mire_rep_V2_1.png'
 image_ref = cv2.imread(ref_path, cv2.IMREAD_GRAYSCALE)
-test_path = dir_path+'mire_tik.png'
+test_path = dir_path+'mire_tik_V2.png'
 image_test = cv2.imread(test_path, cv2.IMREAD_GRAYSCALE)
 
 # Display the reference image
@@ -41,7 +41,7 @@ plt.axis('off')
 
 
 # Positions dont le score dépasse le seuil
-threshold = 0.8
+threshold = 0.95
 ys, xs = np.where(result >= threshold)
 
 matches = [(x, y, result[y, x]) for x, y in zip(xs, ys)]
