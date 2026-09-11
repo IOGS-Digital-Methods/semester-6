@@ -15,37 +15,32 @@ plt.imshow(image_ref, cmap='gray')
 plt.title('Reference Image')
 plt.axis('off')
 
-# ALGO ?
-result = cv2.matchTemplate(
-    image_test,
-    image_ref,
-    cv2.TM_CCOEFF_NORMED
-)
-
-min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
-
-print("Meilleure corrélation :", max_val)
-print("Position :", max_loc)
-
-# CONVOLUTION ?
+# CORRELATION
 h, w = image_ref.shape
-
 # Corrélation normalisée
 result = cv2.matchTemplate(image_test, image_ref, cv2.TM_CCOEFF_NORMED)
 
+# Affichage de la corrélation
 plt.figure()
 plt.imshow(result, cmap='gray')
 plt.title('Cross Correlation')
 plt.axis('off')
 
-
-
-# Positions dont le score dépasse le seuil
-threshold = 0.8
+# Seuil de corrélation
+threshold = 0.9
+# Positions dont la valeur est supérieure au seuil
 ys, xs = np.where(result >= threshold)
 
 matches = [(x, y, result[y, x]) for x, y in zip(xs, ys)]
 
-print(matches)
+## AFFICHAGE
+plt.figure()
+plt.imshow(image_test, cmap='gray')
 
+for m in matches:
+    print(m)
+    plt.plot(m[0], m[1], "ro")
+    #plt.text(x + 10, y - 10, f"({m['x']}, {m['y']})", color="red")
+
+plt.axis("off")
 plt.show()
