@@ -1,32 +1,11 @@
 import cv2
 import numpy as np
 from matplotlib import pyplot as plt
+from form_detection import detect_shape
 
-
-# Identification des contours
-def detect_shape(cnt):
-    peri = cv2.arcLength(cnt, True)
-    approx = cv2.approxPolyDP(cnt, APPROX_FACTOR * peri, True)
-    n = len(approx)
-
-    if n == 3:
-        shape = "Triangle"
-    elif n == 4:
-        rect = cv2.minAreaRect(cnt)
-        w, h = rect[1]
-        if h == 0 or w == 0:
-            shape = "Inconnu"
-        else:
-            ratio = max(w, h) / min(w, h)
-            shape = "Carre" if 0.90 < ratio < 1.10 else "Rectangle"
-    elif n == 5:
-        shape = "Pentagone"
-    else:
-        shape = f"{n}-gon"
-
-    return shape, approx, peri
 
 # Parameters
+MIN_AREA = 1
 APPROX_FACTOR = 0.01
 
 img_gray = cv2.imread('./_data/formes_blanc_30ms.png', cv2.IMREAD_GRAYSCALE)
@@ -49,7 +28,7 @@ print(f'Number of contours: {len(contours)}')
 # Traitement de tous les contours
 for cnt in contours:
     area = cv2.contourArea(cnt)
-    shape, approx, peri = detect_shape(cnt)
+    shape, approx, peri = detect_shape(cnt, min_area=MIN_AREA, approx_factor=APPROX_FACTOR)
     if shape is not None:
         cv2.drawContours(img_out, [approx], -1, (255, 0, 0), 2)
 

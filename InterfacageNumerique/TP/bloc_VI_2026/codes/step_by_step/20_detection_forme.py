@@ -35,6 +35,7 @@ MIN_AREA = 1000
 APPROX_FACTOR = 0.01
 
 img_gray = cv2.imread('./_data/forms_vi.png', cv2.IMREAD_GRAYSCALE)
+#img_gray = cv2.imread('./_data/formes_blanc_30ms.png', cv2.IMREAD_GRAYSCALE)
 
 # Image de sortie (couleur)
 img_out = cv2.cvtColor(img_gray, cv2.COLOR_GRAY2BGR)
