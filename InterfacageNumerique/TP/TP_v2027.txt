@@ -65,18 +65,52 @@ x = pas de caméra (travail sur images fixes)
 
 + TP1  / Prise en main Nucléo et C++
 -----	TP inchangé / Adaptations mineures
-		
-+ TP2  / Fonctions de base du robot : déplacement / détection
------
-	Tests à réaliser : 
+
+	Tests à réaliser sur le robot - de manière systématique (prévoir pistes) : 
 		++ Parcours sur 10 m - piste bornée par deux lignes noires
 			- temps de parcours
 			- écart par rapport à la piste
 		++ Suivi de ligne sur une boucle fermée (environ 2/3m)
 			- temps de parcours
 			- nombre d'arrêts, de sortie de ligne
-			
+
++ TP2  / Fonctions de base du robot : déplacement / détection
+-----
+		
+	0		Tester les codes vus dans TP1 sur robot : LEDs, BP, potentiomètre
+	1		Piloter un moteur (PWM)
+	2 >>	Créer des fonctions qui permettent de faire avancer/reculer le robot à une vitesse donnée
 	
+	3		Détecter une ligne (3 capteurs numériques + INTERRUPT)
+	4 >>	Créer un premier programme de suivi de ligne
+	
++ TP3  / Asservissement de la vitesse
+-----
+		
+	Capteur position/ roue
+	Asservissement
+	
++ TP4  / Suivi de ligne / Détection obstacles
+-----
+		
+	Capteur position
+	Intégration
 
 	
+------------------------------------
+------------------------------------
+# TP Interface / Rayonnement #
+------------------------------
 
++ TP1  / 
+-----
+
+	Protocole de communication avec le système de diagramme
+		Utilisation d'un outil liaison RS232
+	
+	Essai avec script python et biblio pyserial
+	
++ TP2  /
+-----
+	
+	Graphique automatisé pour une source d'éclairage
