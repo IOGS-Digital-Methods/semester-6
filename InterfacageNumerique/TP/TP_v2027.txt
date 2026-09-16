@@ -1,0 +1,82 @@
+Interfaçage Numérique / 8 TP 
+
+	- 4 TP : Robot / Suivi de ligne et asservissement en vitesse
+	- 2 TP : Vision Industrielle / Détection d'objets (formes et couleurs)
+	- 2 TP : Interfaçage et Automatisation / Diagramme de rayonnement
+
+Compétences : 
+	--> C4 : valider une solution technologique
+		+ ajout des tests à réaliser dans les sujets
+		+ rédaction des protocoles de tests à faire par les binomes/équipes
+		+ présentation des résultats des tests (comparaison entre binomes/équipes)
+	--> C7 : travailler en équipe
+		+ travail essentiellement en binôme, mais possibilité d'interaction entre binômes
+		+ possibilité de donner des tâches différentes à deux binômes (sur sujet robot)
+		+ nécessité d'avoir un document partagé (espace)
+		
+	
+------------------------------------
+------------------------------------
+# TP Vision Industrielle #
+--------------------------
+
+Au S5 :
+	- prise en main de la caméra à travers une interface
+	- impact des différents éléments de la chaine de traitement
+	- briques élémentaires d'OpenCV
+	
+Motivations S6 : Détecter des objets (formes et couleurs) en temsp réel sous une caméra
+
+
++ TP1  / Formes et couleurs
+-----
+c = caméra
+x = pas de caméra (travail sur images fixes)
+	c 0		Caméra et affichage en temps réel via un script (OpenCV)
+	
+	c 1		Détection de formes
+	c 1b	Amélioration par flou
+	c 2		Détection de cercles
+	
+	c 3 >>	Ecrire une fonction qui récupère la moyenne des valeurs R,G,B d'un cube placé sous la caméra
+	
+	x 4		Détecter plus efficacement des couleurs (RGB vers HSV)
+	c 5 >>	Ecrire une fonction qui donne la couleur d'un cube placé sous la caméra
+	
++ TP2  / Tik Tak Toe
+-----
+	x 6		Grille avec repères simples (correlation)
+	c 6b		avec caméra - sensibilité de la méthode à la taille/rotation des mires
+	x 7		Correlation multi-échelle
+	c 7b		avec caméra
+	
+	x 8		Repères améliorés et détection de la grille
+	c 8b		avec caméra
+	
+	c 9 >>	Repérer la grille à partir des repères sous caméra et détecter le quadrillage
+	c 10>>	Repérer les formes dans chaque zone de la grille
+	c 11>>	Valider une grille de TikTakToe (deux formes géométriques différentes)
+	
+	
+------------------------------------
+------------------------------------
+# TP Robot / Asservissement #
+-----------------------------
+
++ TP1  / Prise en main Nucléo et C++
+-----	TP inchangé / Adaptations mineures
+		
++ TP2  / Fonctions de base du robot : déplacement / détection
+-----
+	Tests à réaliser : 
+		++ Parcours sur 10 m - piste bornée par deux lignes noires
+			- temps de parcours
+			- écart par rapport à la piste
+		++ Suivi de ligne sur une boucle fermée (environ 2/3m)
+			- temps de parcours
+			- nombre d'arrêts, de sortie de ligne
+			
+	
+
+	
+
