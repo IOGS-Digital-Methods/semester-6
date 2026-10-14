@@ -17,9 +17,9 @@ def main():
     mode = 'z'
 
     camera = init_camera(expo=1000)
-    print("Appuyez sur 'q' pour quitter - dans la fenêtre d'OpenCV")
+    print("Click on 'q' to leave the application - in OpenCV window")
     
-    # --- Boucle d'acquisition ---
+    # --- Acquisition Loop ---
     while camera.camera_acquiring:
         # --- Get Image ---
         frame_raw = camera.get_image()

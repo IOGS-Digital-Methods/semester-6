@@ -1,5 +1,5 @@
-"""T_image_lib.py
-Test of the image_lib library (OpenCV)
+"""T_process_lib.py
+Test of the process_lib library (OpenCV)
 .. moduleauthor:: Julien VILLEMEJANE <julien.villemejane@institutoptique.fr>
 """
 import sys
@@ -11,6 +11,7 @@ import numpy as np
 from image_lib import display_image, generate_histogram
 import process_lib as pcv
 
+# Parameters
 img_dir_path = '../_data/'
 DISP_RATIO = 0.6
 
@@ -25,6 +26,7 @@ image_canny_disp, _ = display_image(image_canny, disp_ratio=DISP_RATIO)
 image_invert = pcv.invert_image(img_gray)
 image_invert_disp, _ = display_image(image_invert, disp_ratio=DISP_RATIO)
 
+# Display
 cv2.imshow("Initial image / GRAY", img_gray_disp)
 cv2.imshow("Processed image - Canny / GRAY", image_canny_disp)
 cv2.imshow("Processed image - INV / GRAY", image_invert_disp)
