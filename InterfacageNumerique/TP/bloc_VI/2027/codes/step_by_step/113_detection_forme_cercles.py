@@ -18,7 +18,7 @@ APPROX_FACTOR = 0.01
 
 def main():
     # ---
-    img_gray = cv2.imread(file_path, cv2.IMREAD_GRAYSCALE)
+    img_gray = cv2.imread(file_path2, cv2.IMREAD_GRAYSCALE)
 
     # --- Output image (color) ---
     img_out = cv2.cvtColor(img_gray, cv2.COLOR_GRAY2BGR)
@@ -27,7 +27,7 @@ def main():
     contours, nb_contours = detect_contours(img_gray)
     print(f'Number of contours: {nb_contours}')
 
-    img_out = display_contours(img_out, contours, MIN_AREA, APPROX_FACTOR)
+    img_out = display_contours(img_out, contours, MIN_AREA, APPROX_FACTOR, print_out=False)
 
     # Display
     img_gray_disp, _ = display_image(img_gray, disp_ratio=DISP_RATIO)
@@ -35,10 +35,15 @@ def main():
 
     # --- Circle detection ---
     circles, nb_circles = detect_circles(img_gray)
-    print(f'Number of contours: {nb_circles}')
+    print(f'Number of circles {nb_circles}')
+
+    img_out = cv2.cvtColor(img_gray, cv2.COLOR_GRAY2BGR)
+    img_out = display_circles(img_out, circles)
+    img_out_disp_circle, _ = display_image(img_out, disp_ratio=DISP_RATIO)
 
     cv2.imshow("Initial image / GRAY", img_gray_disp)
-    cv2.imshow("Output image", img_out_disp_contour)
+    cv2.imshow("Output image / Contour", img_out_disp_contour)
+    cv2.imshow("Output image / Circle", img_out_disp_circle)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
 
@@ -46,79 +51,3 @@ def main():
 if __name__ == "__main__":
     main()
 
-
-
-
-
-
-
-
-
-
-
-dir_image_path = '../../_data/'
-import sys
-sys.path.append("../../_libs/")
-
-import cv2
-import numpy as np
-from matplotlib import pyplot as plt
-from form_detection import detect_shape, detect_circles
-
-
-# Parameters
-MIN_AREA = 1000
-APPROX_FACTOR = 0.01
-
-img_gray = cv2.imread(dir_image_path+'forms_vi.png', cv2.IMREAD_GRAYSCALE)
-
-_, img_thresh = cv2.threshold(
-    img_gray, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU
-)
-
-# Image de sortie (couleur)
-img_out = cv2.cvtColor(img_gray, cv2.COLOR_GRAY2BGR)
-
-# Détection Contours
-contours, _ = cv2.findContours(img_thresh, cv2.RETR_LIST, cv2.CHAIN_APPROX_TC89_KCOS)
-# Tri des contours
-contours = sorted(contours, key=cv2.contourArea, reverse=True)
-
-print(f'Number of contours: {len(contours)}')
-
-# Traitement de tous les contours
-for cnt in contours:
-    area = cv2.contourArea(cnt)
-    if area > MIN_AREA:
-        shape, approx, peri = detect_shape(cnt, min_area=MIN_AREA, approx_factor=APPROX_FACTOR)
-        if shape is not None:
-            cv2.drawContours(img_out, [approx], -1, (255, 0, 0), 2)
-
-            # Centre du contour
-            M = cv2.moments(cnt)
-            if M["m00"] != 0:
-                cX = int(M["m10"] / M["m00"])
-                cY = int(M["m01"] / M["m00"])
-                print(f'Shape : {shape} / cX: {cX} - cY: {cY} / Area : {area}')
-                cv2.putText(img_out, shape, (cX - 30, cY), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 255), 2)
-
-
-circles_res = detect_circles(img_gray)
-img_out = display_circles(img_out, circles_res)
-
-# =========================
-#   AFFICHAGE
-# =========================
-plt.figure()
-plt.imshow(img_gray, cmap='gray')
-plt.title("Image Initiale")
-
-plt.figure()
-plt.imshow(img_thresh, cmap='gray')
-plt.title("Seuil Otsu")
-
-plt.figure()
-plt.imshow(img_out)
-plt.title("Formes détectées (polygones + cercles)")
-
-plt.show()

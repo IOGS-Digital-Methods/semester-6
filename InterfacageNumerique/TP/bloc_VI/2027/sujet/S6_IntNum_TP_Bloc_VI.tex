@@ -327,6 +327,8 @@ Vous pouvez par exemple \textbf{décrire ces algorithmes} par l'intermédiaire d
 
 \Quest Détaillez les parties du script fourni. 
 
+\Quest De quelle taille est l'image ?
+
 \noindent \rule{\linewidth}{1pt}
 
 \Manip Ouvrir le fichier \textsc{102\_flux\_camera\_lensepy\_histo.py} du répertoire des codes à tester. Exécuter ce code.
@@ -343,7 +345,7 @@ Vous pouvez par exemple \textbf{décrire ces algorithmes} par l'intermédiaire d
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%% FLUX Camera
+%%%%%%%%%%%% FORMES
 \section{B - Détection de formes {[60 min]}}
 
 \Manip Ouvrir le fichier \textsc{111\_detection\_forme.py} du répertoire des codes à tester. Exécuter ce code.
@@ -358,7 +360,43 @@ Vous pouvez par exemple \textbf{décrire ces algorithmes} par l'intermédiaire d
 
 \Manip Ouvrir le fichier \textsc{112\_detection\_forme\_plus.py} du répertoire des codes à tester. Exécuter ce code.
 
-\Quest Quelle étape a été ajoutée par rapport à la version précédente ?
+\Quest Quelle étape a été ajoutée par rapport à la version précédente ? Le résultat est-il satisfaisant ?
+
+\noindent \rule{\linewidth}{1pt}
+
+\Manip Ouvrir le fichier \textsc{113\_detection\_forme\_cercles.py} du répertoire des codes à tester. Exécuter ce code.
+
+\Quest Détaillez les étapes de ce code et le résultat obtenu.
+
+\Quest Dans le cas de la seconde image proposée (\textsc{formes\_blanc\_30ms.png}), le résultat est-il satisfaisant ? 
+
+\Manip Ouvrir le fichier \textsc{113b\_detection\_forme\_cercles\_plus.py} du répertoire des codes à tester. Exécuter ce code.
+
+\Quest Quelle étape a été ajoutée par rapport à la version précédente ? Le résultat est-il satisfaisant ?
+
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%% FORMES sous flux
+\section{C - Détection de formes et de couleurs sous caméra {[60 min]}}
+
+\Manip Ouvrir le fichier \textsc{121\_flux\_camera\_crop.py} du répertoire des codes à tester. Exécuter ce code.
+
+\Quest Que permet-il de faire ?
+
+
+\noindent \rule{\linewidth}{1pt}
+
+\Manip A partir du script précédent (également étudié en section A) et des différentes observations effectuées dans la section B, mettre en place un script qui, à partir du flux de la caméra :
+
+\begin{enumerate}
+	\item Affiche le flux de la caméra 
+	\item Détecte un objet de forme carrée dans l'image (cube placé sous la caméra)
+	\item Affiche les valeurs RVB moyennes de l'objet
+\end{enumerate}
+
+\bigskip
+
+\textit{Penser à régler correctement le temps d'intégration.}
 
 \newpage
 

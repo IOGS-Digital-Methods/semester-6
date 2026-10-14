@@ -1,11 +1,15 @@
-dir_image_path = '../../_data/'
 import sys
-sys.path.append("../../_libs/")
+sys.path.append("../_libs/")
 
 import cv2
-import numpy as np
 from matplotlib import pyplot as plt
 from matplotlib.patches import Rectangle
+
+
+# Parameters
+dir_image_path = '../_data/'
+DISP_RATIO = 0.6
+
 
 zone_verte = (700, 250, 800, 350) # x0, y0, x1, y1
 zone_bleue = (700, 430, 780, 510) # x0, y0, x1, y1
@@ -50,6 +54,7 @@ ax[0,1].imshow(zone_bleu_rgb)
 ax[0,1].set_title('Blue zone')
 ax[0,2].plot(histogram_b_rgb, label='Blue zone')
 ax[0,2].plot(histogram_v_rgb, label='Green zone')
+ax[0,2].legend()
 ax[0,2].set_title('RGB - Histogram (normalized)')
 ax[1,0].imshow(img_rgb_v)
 ax[1,0].add_patch(rect_vert)

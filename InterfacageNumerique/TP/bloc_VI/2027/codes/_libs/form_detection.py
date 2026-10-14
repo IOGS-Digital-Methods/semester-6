@@ -12,7 +12,7 @@ def detect_contours(image):
     contours = sorted(contours, key=cv2.contourArea, reverse=True)
     return contours, len(contours)
 
-def display_contours(img_out, contours, min_area=20, approx_factor=0.1):
+def display_contours(img_out, contours, min_area=20, approx_factor=0.1, print_out=True):
     # Results preparation
     for cnt in contours:
         shape, approx, peri, area = detect_shape(cnt, min_area, approx_factor=approx_factor)
@@ -24,7 +24,8 @@ def display_contours(img_out, contours, min_area=20, approx_factor=0.1):
             if M["m00"] != 0:
                 cX = int(M["m10"] / M["m00"])
                 cY = int(M["m01"] / M["m00"])
-                print(f'Shape : {shape} / cX: {cX} - cY: {cY} / Area = {area}')
+                if print_out:
+                    print(f'Shape : {shape} / cX: {cX} - cY: {cY} / Area = {area}')
                 cv2.putText(img_out, shape, (cX - 30, cY), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 255), 2)
     return img_out
 
