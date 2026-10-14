@@ -12,6 +12,7 @@ def detect_contours(image):
     contours = sorted(contours, key=cv2.contourArea, reverse=True)
     return contours, len(contours)
 
+
 def display_contours(img_out, contours, min_area=20, approx_factor=0.1, print_out=True):
     # Results preparation
     for cnt in contours:
@@ -28,6 +29,17 @@ def display_contours(img_out, contours, min_area=20, approx_factor=0.1, print_ou
                     print(f'Shape : {shape} / cX: {cX} - cY: {cY} / Area = {area}')
                 cv2.putText(img_out, shape, (cX - 30, cY), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 255), 2)
     return img_out
+
+
+def get_masks_contours(contours, image):
+    masks = []
+    for cnt in contours:
+        # Black mask
+        mask = np.zeros(image.shape[:2], dtype=np.uint8)
+        # Filling mask in contour
+        cv2.drawContours(mask, [cnt], -1, 255, thickness=cv2.FILLED)
+        masks.append(mask)
+    return masks
 
 
 def detect_shape(contour, min_area=20, approx_factor=0.1):

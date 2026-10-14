@@ -1,3 +1,8 @@
+"""131_couleur_rgb.py
+Comparing HSV and RGB colorspaces.
+.. moduleauthor:: Julien VILLEMEJANE <julien.villemejane@institutoptique.fr>
+"""
+
 import sys
 sys.path.append("../_libs/")
 

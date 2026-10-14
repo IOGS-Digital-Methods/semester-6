@@ -331,11 +331,9 @@ Vous pouvez par exemple \textbf{décrire ces algorithmes} par l'intermédiaire d
 
 \noindent \rule{\linewidth}{1pt}
 
-\Manip Ouvrir le fichier \textsc{102\_flux\_camera\_lensepy\_histo.py} du répertoire des codes à tester. Exécuter ce code.
+\Manip Ouvrir le fichier \textsc{102\_flux\_camera\_lensepy\_histo.py} du répertoire des codes à tester. Exécuter ce code. Modifier le temps d'exposition pour obtenir une image exploitable.
 
-\Manip Modifier le temps d'exposition pour obtenir une image exploitable.
-
-\Quest sur quel(s) critère(s) vous basez-vous pour valider l'exploitabilité de votre prise d'image ?
+\Quest Sur quel(s) critère(s) vous basez-vous pour valider l'exploitabilité de votre prise d'image ?
 
 \noindent \rule{\linewidth}{1pt}
 
@@ -383,10 +381,15 @@ Vous pouvez par exemple \textbf{décrire ces algorithmes} par l'intermédiaire d
 
 \Quest Que permet-il de faire ?
 
+\noindent \rule{\linewidth}{1pt}
+
+\Manip Ouvrir le fichier \textsc{122\_flux\_camera\_mask.py} du répertoire des codes à tester. Exécuter ce code.
+
+\Quest Que permet-il de faire ?
 
 \noindent \rule{\linewidth}{1pt}
 
-\Manip A partir du script précédent (également étudié en section A) et des différentes observations effectuées dans la section B, mettre en place un script qui, à partir du flux de la caméra :
+\Manip A partir des scripts précédents (également ceux étudiés en section A) et des différentes observations effectuées dans la section B, mettre en place un script qui, à partir du flux de la caméra :
 
 \begin{enumerate}
 	\item Affiche le flux de la caméra 
@@ -398,6 +401,169 @@ Vous pouvez par exemple \textbf{décrire ces algorithmes} par l'intermédiaire d
 
 \textit{Penser à régler correctement le temps d'intégration.}
 
+\medskip
+
+\Quest Est-il facile de déterminer la couleur d'un objet par cette méthode ?
+
+\medskip
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%% COULEURS
+\section{D - Détection de couleurs efficace {[30 min]}}
+
+\subsubsection{Utiliser l'espace colorimétrique HSV}
+
+L'espace colorimétrique \textbf{HSV} (\textit{Hue, Saturation, Value}) représente les couleurs de manière intuitive en les séparant selon :
+
+\begin{itemize}
+	\item la \textbf{teinte} (Hue), qui correspond au type de couleur et est généralement exprimée comme un angle sur un cercle (rouge, vert, bleu, etc.), 
+	\item la \textbf{saturation} (Saturation), qui mesure la pureté ou l'intensité de la couleur (d'une couleur vive à un gris),
+	\item la \textbf{valeur} (Value), qui représente la luminosité globale.
+\end{itemize} 
+
+\medskip
+
+Contrairement à l'espace RVB, HSV est conçu pour se rapprocher de la perception humaine, ce qui le rend particulièrement adapté aux tâches de vision par ordinateur, notamment la détection et la segmentation de couleurs, car il permet de dissocier plus facilement l'information de couleur des variations d'éclairage.
+
+\noindent \rule{\linewidth}{1pt}
+
+\Manip Ouvrir le fichier \textsc{131\_couleur\_hsv.py} du répertoire des codes à tester.
+
+\Manip Exécuter ce code.
+
+\Quest Que représentent les deux lignes de figure affichées par ce programme ?
+
+\Quest Comment pouvez-vous interpréter les deux histogrammes ?
+
+\noindent \rule{\linewidth}{1pt}
+
+\Manip Ajouter un filtrage de type \textit{blur} gaussien (\textit{cv2.GaussianBlur}) sur l'image RVB \textsc{formes\_bruit.png} (noyau carré de 7x7 et $\sigma = 1.9$).
+
+\Quest Quel est l'effet sur l'histogramme associé à cette image ? Quel serait l'inconvénient de cette technique, par rapport à la détection de couleur via l'espace HSV ?
+
+\subsubsection{Segmenter une image en fonction de la couleur}
+
+\Manip Ouvrir le fichier \textsc{132\_hsv\_rgb.py} du répertoire des codes à tester.
+
+\Manip Exécuter le code.
+
+\Quest Expliquer le principe utilisé dans chacune des segmentations, en RVB et HSV. On s'intéressera en particulier aux bornes utilisées.
+
+\Quest Quelle méthode est la plus efficace pour détecter la couleur rouge ?
+
+\Manip Ajouter la détection de la zone bleue, de l'image initialement ouverte, par la méthode qui vous parait la plus pertinente. Afficher une nouvelle image avec le résultat final.
+
+
+\subsubsection{Segmenter une image en fonction de la couleur}
+
+\Manip A partir du script que vous avez mis en place dans la partie C (détection d'une couleur RVB d'un objet), réaliser un script qui permet de \textbf{déterminer les valeurs HSV} des différents cubes à votre disposition.
+
+\Manip Mesurer les valeurs HSV de chacun des cubes de couleur à votre disposition.
+
+\Quest Quelles valeurs sont dépendantes de la quantité de photons captées par la caméra ?
+
+\medskip
+
+\textit{Vous pourrez également tester sur plusieurs cubes d'une même couleur pour tester la répétabilité de vos mesures et vérifier la robustesse du protocole que vous allez devoir mettre en place par la suite.}
+
+\medskip
+
+\textit{Cette étape servira de calibration pour la détection de la couleur des cubes que vous mettrez en place dans la section suivante.}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%% COULEURS
+\section{E - Détection de couleurs efficace {[60 min]}}
+
+
+\Manip A partir de l'ensemble des éléments précédents, vous devez mettre en place une solution technologique (script) permettant :
+
+	\begin{enumerate}
+		\item de \textbf{détecter la position d'un cube} placé sous la caméra
+		\item d'\textbf{afficher la couleur du cube} (parmi les 4 possibles)
+	\end{enumerate}
+
+\textit{On ne placera dans un premier temps qu'un seul cube de couleur sous la caméra.}
+
+\medskip	
+	
+\Quest Faire valider votre système ainsi que ces performances.
+
+
+\noindent \rule{\linewidth}{1pt}
+
+\Manip Etendre votre solution à plusieurs cubes placés sous la caméra.
+
+
+
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%% YUV
+\section{F - Niveaux de gris {[30 min]}}
+
+Il existe plusieurs méthodes pour transformer une image en RVB vers une image en nuance de gris.
+
+\subsubsection{Moyenne des canaux R,V,B}
+
+Cette méthode est la plus simple. Chaque pixel de l'image en gris est la moyenne des pixels des canaux rouge, vert et bleu de l'image en couleur :
+
+$$Pixel_{Gray} = \frac{Pixel_{R} + Pixel_{V} + Pixel_{B}}{3}$$ 
+
+
+\subsubsection{Pondération en fonction de la perception humaine}
+
+Cette méthode est une moyenne pondérée des valeurs des pixels R, V, B de l'image couleur : 
+
+$$Pixel_{Gray} = 0.299 \cdot Pixel_{R} + 0.587 \cdot Pixel_{V} + 0.114 \cdot Pixel_{B}$$ 
+
+
+Les coefficients de cette méthode proviennent de la sensibilité relative de l'œil humain aux différentes couleurs et ont été standardisés à l'origine pour la télévision analogique (NTSC). Ils sont aujourd'hui utilisés comme une approximation fidèle de la perception visuelle de la luminosité.
+
+
+\noindent \rule{\linewidth}{1pt}
+
+\Manip Ouvrir le fichier \textsc{141\_colorspace.py} du répertoire des codes à tester.
+
+\Quest Que fait ce programme ? 
+
+\Manip Comparer les images obtenues par la moyenne classique et la moyenne pondérée.
+
+\subsubsection{Utiliser l'espace colorimétrique YUV}
+
+L'espace colorimétrique RVB est très utilisé dans le domaine du numérique (affichage, acquisition d'images) pour sa facilité de mise en oeuvre.
+
+Cependant, ce n'est \textbf{pas} le plus \textbf{adapté vis-à-vis de la perception humaine} où la luminance et la couleur sont séparées.
+
+Des espaces comme YUV, YIQ, ou YCbCr séparent la composante de luminance (Y) des composantes de chrominance (U et V).
+
+\Manip Ouvrir le fichier \textsc{142\_colorspace \_yuv.py} du répertoire des codes à tester.
+
+\Manip Comparer alors l'image en niveau de gris obtenue par la méthode de moyennage pondérée et le canal Y de cette conversion.
+
+\Quest Que pouvez-vous conclure sur la méthode de calcul utiliser pour la luminance (Y) ?
+
+\medskip
+
+\noindent \rule{\linewidth}{1pt}
+
+Il existe d'autres espaces colorimétriques dans le domaine numérique. Voici un résumé non exhaustif :
+
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+\textbf{Espace colorimétrique} & \textbf{Avantages} \\ \hline
+\textbf{RGB} & Simple, utilisé pour les écrans et le rendu des couleurs. \\ \hline
+\textbf{HSV / HSL} & Intuitif pour manipuler la couleur (teinte, saturation). \\ \hline
+\textbf{YUV / YCbCr} & Sépare luminance et chrominance. \\ \hline
+\textbf{CIE-Lab} & Uniformité perceptuelle, idéal pour mesurer les différences de couleur. \\ \hline
+\textbf{CMY(K)} & Optimisé pour l'impression. \\ \hline
+\textbf{XYZ} & Modèle basé sur la perception humaine. \\ \hline
+\end{tabular}
+\end{center}
+
+
+
+
 \newpage
 
 EN RESUME
@@ -408,25 +574,6 @@ EN RESUME
 
 \bigskip
 
-\textbf{TP1}
-
-\begin{enumerate}
-	\item (C) Détection formes
-	\begin{enumerate}
-		\item findcontours
-		\item Amélioration par flou
-	\end{enumerate}
-	\item (C) Détection cercles (Hough)
-	\item (C) \textbf{APPLI} qui récupère moyenne RGB d'un cube placé sous caméra
-	\item (I) Détection couleurs efficace (HSV)
-	\item (C) \textbf{APPLI}
-	\begin{enumerate}
-		\item qui détecte la couleur d'un cube placé sous la caméra
-		\item qui détecte la couleur des cubes placés sous la caméra
-	\end{enumerate}
-\end{enumerate}
-
-\bigskip
 
 \textbf{TP2}
 
