@@ -32,9 +32,12 @@ char data;
 
 int main()
 {    
+	
     my_pc.baud(115200);
     my_pc.attach(&ISR_my_pc_reception, UnbufferedSerial::RxIrq);
-    while (true){}
+    while (true){
+			thread_sleep_for(10);
+		}
 }
 void ISR_my_pc_reception(void){
     led1 = !led1;
