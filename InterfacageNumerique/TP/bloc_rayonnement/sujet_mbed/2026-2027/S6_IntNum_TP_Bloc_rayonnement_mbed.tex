@@ -320,7 +320,7 @@ Dans le cas de cette application, l'ordinateur, maitre de la communication, devr
 
 %% Lifelines
 \path (0,0)           node[draw] (PC) {Ordinateur}
-      \PCToMCU node[draw] (MCU) {Nucléo};
+      \PCToMCU node[draw] (MCU) {Instrument};
 \draw (PC) -- \Lifeline (MCU) -- \Lifeline;
 
 %% Blocks
@@ -391,7 +391,7 @@ Il permet la communication entre deux noeuds d'un réseau, selon une trame struc
 
 \textit{Elle est par la suite reconnue comme un périphérique de stockage USB, dans lequel vous pourrez \textbf{déplacer les fichiers binaires} à télécharger tout au long des différentes étapes.}
 
-\subsection{A.1 / Etude du protocole de bas niveau}
+\subsection{A.1 / Protocole de bas niveau}
 
 Le protocole choisi est RS-232 (voir page précédente). Il permet d'envoyer un caractère ASCII à la fois.
 
@@ -399,7 +399,7 @@ Le protocole choisi est RS-232 (voir page précédente). Il permet d'envoyer un 
 
 L'exemple, que nous allons étudier dans un premier temps, se base sur un protocole simplifié, ne nécessitant l'envoi que d'\textbf{un seul caractère par commande}.
 
-\Manip Télécharger le fichier \textsl{test\_comm\_led.bin} (dans les ressources du TP sur le site du LEnsE). Copier-le dans sur la carte Nucléo de la maquette.
+\Manip Télécharger le fichier \textsl{test\_comm\_led.bin} (dans les ressources du TP sur le site du LEnsE). Copier-le dans la carte Nucléo de la maquette.
 
 \medskip
 
@@ -427,7 +427,7 @@ Le code embarqué dans la maquette est fourni dans le fichier \textsl{test\_comm
 \Quest Faire un schéma de principe du fonctionnement de ce code et des échanges entre le PC et la maquette.
 
 
-\subsection{A.2 / Protocole complet}
+\subsection{A.2 / Protocole de haut niveau}
 
 Le protocole de bas niveau ne suffit pas lorsqu'on souhaite envoyer des commandes (ou des données) plus complexes qu'un simple caractère.
 
@@ -437,7 +437,7 @@ Il est alors essentiel de mettre en place un \textbf{protocole de plus haut nive
 
 \textit{La \textbf{liste des commandes} utiles pour la maquette sont disponibles en annexe de ce document.}
 
-\subsubsection{Structure des commandes}
+\subsubsection{Structure des trames}
 
 Chaque commande doit avoir un \textbf{format bien défini} pour que l'instrument piloté puisse la comprendre et la traiter.
 
@@ -458,7 +458,7 @@ Chaque commande doit avoir un \textbf{format bien défini} pour que l'instrument
 
 La liaison Série étant asynchrone, il est indispensable de prévoir dans le protocole des \textbf{caractères de début et de fin} de chaines de commande et de réponse.
 
-\subsubsection{Commande}
+\subsubsection{Trame de commande}
 
 Par exemple, on pourra se baser sur la structure suivante pour le cas d'une commande (entre le PC et le microcontroleur) :
 
@@ -479,7 +479,7 @@ Par exemple, on pourra se baser sur la structure suivante pour le cas d'une comm
 
 \textit{Les arguments sont facultatifs, selon les commandes.}
 
-\subsubsection{Réponse}
+\subsubsection{Trame de réponse}
 
 Par exemple, on pourra se baser sur la structure suivante pour le cas d'une réponse (entre le PC et le microcontroleur) :
 
@@ -501,9 +501,29 @@ Par exemple, on pourra se baser sur la structure suivante pour le cas d'une rép
 \textit{Les arguments sont facultatifs, selon les commandes.}
 
 
-\subsubsection{Réponse}
+\subsubsection{Travail à réaliser}
 
+On se propose d'étudier le cas des trames des commandes 'A' et 'D'.
 
+\Manip Télécharger le fichier \textsl{test\_version\_a\_d.bin} (dans les ressources du TP sur le site du LEnsE). Copier-le dans la carte Nucléo de la maquette.
+
+\medskip
+
+\Manip Lancer le logiciel \textbf{Tera Term}. Sélectionner, dans la partie \textbf{Série}, le port de communication correspondant à la carte Nucléo (STM32...).
+
+\Manip Sur le logiciel \textbf{Tera Term}, changer la vitesse de transfert à 9600 bauds.
+
+\Manip Dans \textbf{Tera Term}, envoyer les suites de caractères correspondants aux commandes 'A' puis 'D' à la maquette.
+
+\medskip
+
+Le code embarqué dans la maquette est fourni dans le fichier \textsl{test\_version\_a\_d.cpp} (dans les ressources du TP sur le site du LEnsE). 
+
+\Manip Télécharger ce fichier et l'ouvrir avec un éditeur de texte.
+
+\Quest Faire un schéma de principe du fonctionnement de ce code et des échanges entre le PC et la maquette.
+
+\newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%    Etape B
 \section{Etape B / Liaison série et python}
@@ -514,7 +534,15 @@ Par exemple, on pourra se baser sur la structure suivante pour le cas d'une rép
 
 On propose de remplacer la console Série par un \textbf{script Python} contenu dans le fichier \textsl{test\_comm\_led.py}.
 
-\Manip Exécuter ce script python.
+\Manip Télécharger le fichier \textsl{test\_comm\_led.bin} (dans les ressources du TP sur le site du LEnsE). Copier-le dans la carte Nucléo de la maquette.
+
+\Manip Configurer la vitesse de transfert avec Tera Term à 115200 bauds.
+
+\medskip
+
+\Manip Télécharger le fichier \textsl{test\_comm\_led.py}. Ouvrir le script dans un éditeur de texte. Exécuter ce script python.
+
+
 
 \subsection{Transmission des données par liaison série}
 
