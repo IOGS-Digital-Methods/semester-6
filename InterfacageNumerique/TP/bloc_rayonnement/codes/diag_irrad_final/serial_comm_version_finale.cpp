@@ -23,6 +23,7 @@
 
 #define		US_START_VALUE	1000
 #define		US_END_VALUE	2000
+#define		TIMER_MOVE		700		// ms
 
 //// Input and outputs
 DigitalOut led1(PC_7);
@@ -39,10 +40,19 @@ AnalogIn potent(PC_4);
 AnalogIn photodiode(PC_3);
 AnalogIn r_therm(PC_1);
 
+Ticker tik;
+
 
 //// Functions prototypes
 void ISR_my_pc_reception(void);
 bool is_angle_ok(int, int, int);
+int deg_to_us(int);
+void move_to_position(int);
+void acquire_data(int, int*);
+void handle_ticker();
+void start_timer_move(int);
+void handle_acquisition();
+void start_acquisition();
 
 //// Global variables
 // Serial communication
@@ -57,26 +67,28 @@ int us_incr = 0;
 
 // Data acquisition
 bool acquiring = false;
+bool acquiring_once = false;
 int data_cpt = 0;
 int data_light[180];
+int data_light_one;
 
 // Parameters
 int angle_start_deg = -100, angle_end_deg = 100;
 int angle_step_deg = -1;
 int angle_value = 0;
 int old_angle = -1;
+bool continous_servo = false;
+bool data_required = false;
 
+// Ticker
+int timer_move = 0;
 
-//// OTHER FUNCTIONS
-int deg_to_us(int deg){
-	us_incr = (potent.read()-0.5)*100;
-	int us_value = (US_END_VALUE - US_START_VALUE) * deg / 180 + (US_END_VALUE + US_START_VALUE) / 2 + us_incr;
-	return us_value;
-}
 
 //// Main function
 int main()
 { 
+	led1 = 0;
+	led2 = 1;
 	servo.period_ms(20);
 	int val_us = deg_to_us(0);
   servo.pulsewidth_us(val_us);
@@ -84,7 +96,10 @@ int main()
 	my_pc.baud(9600);
 	my_pc.attach(&ISR_my_pc_reception, UnbufferedSerial::RxIrq);
 	
+	tik.attach(&handle_ticker, 1ms); 
+	
 	while (true){
+			char acq = 'N';
 			// print the string when a newline arrives:
 			if (string_complete) {
 					// Action to do
@@ -138,21 +153,49 @@ int main()
 							break;
 
 						case 'S' :    // Start acquisition
-							
-							sprintf(output_string, "!S;");
-							my_pc.write(output_string, strlen(output_string));
+							// Test if angles ok
+							is_ok = is_angle_ok(angle_start_deg, angle_end_deg, angle_step_deg);
+						  if(is_ok == true){
+								int nb_data = (angle_end_deg - angle_start_deg) / angle_step_deg;
+								int r_data = (angle_end_deg - angle_start_deg) % angle_step_deg;
+								if(r_data != 0){
+									nb_data += 1;
+								}
+								sprintf(output_string, "!S:%d;", nb_data);
+								my_pc.write(output_string, strlen(output_string));
+								start_acquisition();
+							}
+							else{								
+								sprintf(output_string, "!S:0;");
+								my_pc.write(output_string, strlen(output_string));
+							}
+							// 
 							break;
 						
-						case 'T' :    // Start acquisition
-							val_us = deg_to_us(0);
-							servo.pulsewidth_us(val_us);
+						case 'T' :    // Communication test and initial angle mode
+							continous_servo = true;
 							sprintf(output_string, "!T;");
 							my_pc.write(output_string, strlen(output_string));
 							break;
+					
+						case 'P' :    // Stop initial angle mode
+							continous_servo = false;
+							sprintf(output_string, "!P;");
+							my_pc.write(output_string, strlen(output_string));
+							break;						
 						
 						case 'D' :    // Data transmission
 							sscanf(input_string,"!D:%d?",&data_cpt);
 							sprintf(output_string, "!D:%d:%d;", data_cpt, data_light[data_cpt]);
+							my_pc.write(output_string, strlen(output_string));
+							break;
+
+						case 'E' :    // Data transmission
+							sscanf(input_string,"!E?");
+						  if(acquiring){
+								acq = 'Y';
+							}
+							sprintf(output_string, "!E:%c;", acq);
 							my_pc.write(output_string, strlen(output_string));
 							break;
 						
@@ -161,10 +204,14 @@ int main()
 		
 							is_ok = is_angle_ok(angle_value, angle_value+1, 1);						
 							if(is_ok == true){ 
-								sprintf(output_string, "!Z:%d;", angle_step_deg);
-								my_pc.write(output_string, strlen(output_string));
 								val_us = deg_to_us(angle_value);
 								servo.pulsewidth_us(val_us);
+								thread_sleep_for(500);
+								
+								acquire_data(-1, &data_light_one);
+								
+								sprintf(output_string, "!Z:%d:%d;", angle_value, data_light_one);
+								my_pc.write(output_string, strlen(output_string));
 							}
 							else{
 									sprintf(output_string, "!C:-100;");
@@ -183,13 +230,18 @@ int main()
 					sprintf(output_string, "");
 					string_complete = false;
 			}
+			// Setup the 0 angle in T mode (stop with P mode)
+			if(continous_servo){
+				us_incr = (potent.read()-0.5)*100;
+				move_to_position(0);
+			}
+			
 			thread_sleep_for(10);
 	}
 }
 
 // Interrupt Sub Routine for Serial incoming data
 void ISR_my_pc_reception(void){
-    led1 = !led1;
     char in_char;
     my_pc.read(&in_char, 1);     // get the received byte   
     if(in_char == '!'){
@@ -215,3 +267,69 @@ bool is_angle_ok(int angle_start, int angle_end, int angle_step){
   if(angle_start > angle_end)  return false;
   return true;
 }
+
+
+
+// Degree to us for servo (-90 to 90 degrees)
+int deg_to_us(int deg){
+	int us_value = (US_END_VALUE - US_START_VALUE) * deg / 180 + (US_END_VALUE + US_START_VALUE) / 2 + us_incr;
+	return us_value;
+}
+
+// Move servo to specific position (-90 to 90 degrees)
+void move_to_position(int deg){
+	int val_us = deg_to_us(deg);
+	servo.pulsewidth_us(val_us);
+}
+// Acquisition of a data from the photodiode
+void acquire_data(int index, int *value){
+	int data = photodiode.read_u16();
+	if(index == -1){ // Simple acquisition
+		*value = data;
+	}
+	else{ // Multi acquisition
+		value[index] = data;
+	}
+}
+// Action performed at the end of the ticker
+void handle_ticker(){
+	if(timer_move == 0){
+		if(acquiring){
+			handle_acquisition();
+		}
+	}
+	else{
+		timer_move--;
+	}
+}
+// Start acquisition
+void start_acquisition(){
+	acquiring = true;	
+	acquire_data(0, data_light);	// Bug on first acquisition
+	led1 = 1;
+	data_cpt = 0;
+	move_to_position(angle_start_deg);
+	start_timer_move(3*TIMER_MOVE);
+}
+// Start acquisition
+void handle_acquisition(){
+	// Collect data
+	acquire_data(data_cpt, data_light);
+	data_cpt++;
+	// Move to next
+	int deg = angle_start_deg + data_cpt * angle_step_deg;
+	if(deg > angle_end_deg){
+		acquiring = false;
+		led1 = 0;
+	}
+	else{
+		move_to_position(deg);
+		// Start timer move
+		start_timer_move(TIMER_MOVE);
+	}
+}
+// Start timeout timer for movement
+void start_timer_move(int value){
+	timer_move = value;
+}
+	
