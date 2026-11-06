@@ -230,7 +230,7 @@ Des fichiers binaires, des codes en C++ et des scripts en Python sont à téléc
 \cleardoublepage
 \strut % empty page
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%    Séance 2 détaillée
+%%%%%%%%%%%%%    Séance 1 détaillée
 
 \begin{minipage}[c]{.25\linewidth}
 	\includegraphics[width=4cm]{images/Logo-LEnsE.png}
@@ -503,6 +503,12 @@ Par exemple, on pourra se baser sur la structure suivante pour le cas d'une rép
 
 \subsubsection{Travail à réaliser}
 
+\Quest Quelle est la suite de commandes à transmettre à la carte Nucléo pour permettre l'acquisition de données pour des angles allant de $-40^\circ{}$ à $+60^\circ{}$ par pas de $10^\circ{}$ et la récupération des données sur la liaison série ?
+
+\Quest Tracer le diagramme de séquence associé à ces échanges de commandes et de réponses entre le PC et la carte Nucléo.
+
+\medskip
+
 On se propose d'étudier le cas des trames des commandes 'A' et 'D'.
 
 \Manip Télécharger le fichier \textsl{test\_version\_a\_d.bin} (dans les ressources du TP sur le site du LEnsE). Copier-le dans la carte Nucléo de la maquette.
@@ -529,6 +535,11 @@ Le code embarqué dans la maquette est fourni dans le fichier \textsl{test\_vers
 \section{Etape B / Liaison série et python}
 
 
+\begin{mdframed}[style=sidebar,frametitle={}]
+\large
+\textbf{ATTENTION} / Lors de l'utilisation d'un script Python nécessitant l'accès à la liaison Série, le logiciel \textbf{TeraTerm} doit être \textbf{fermé}.
+\end{mdframed}
+
 \subsection{B.1 / Premiers échanges - protocole de bas niveau}
 
 
@@ -542,15 +553,52 @@ On propose de remplacer la console Série par un \textbf{script Python} contenu 
 
 \Manip Télécharger le fichier \textsl{test\_comm\_led.py}. Ouvrir le script dans un éditeur de texte. Exécuter ce script python.
 
+\medskip
+
+\Quest Décrire les grandes étapes de ce script.
 
 
-\subsection{Transmission des données par liaison série}
+\subsection{B.2 / Protocole de haut niveau}
 
+
+On se propose d'étudier le cas des trames des commandes 'A' et 'D'.
+
+\Manip Télécharger le fichier \textsl{test\_version\_a\_d.bin} (dans les ressources du TP sur le site du LEnsE). Copier-le dans la carte Nucléo de la maquette.
+
+\Quest A l'aide du code embarqué dans la maquette fourni dans le fichier \textsl{test\_version\_a\_d.cpp} (dans les ressources du TP sur le site du LEnsE), déterminer la vitesse de transfert à utiliser dans ce cas.
+
+\medskip
+
+\Manip Télécharger le fichier \textsl{test\_version\_a\_d.py}. Ouvrir le script dans un éditeur de texte. Exécuter ce script Python.
+
+\medskip
+
+\Quest Décrire les grandes étapes de ce script.
+
+\medskip
+
+\noindent \rule{\linewidth}{1pt}
+
+Les données récupérées selon le protocole mentionné précédemment incluent les éléments structurants de ce dernier. Il serait intéressant de découper les chaines de caractères récupérées selon des caractères spécifiques.
+
+On se propose d'étudier le script \textsl{split\_char.py}
+
+\Manip Télécharger ce fichier (dans les ressources du TP sur le site du LEnsE). Ouvrir le script dans un éditeur de texte. Exécuter ce script Python.
+
+\Quest A quoi sert la fonction \textsf{split()} ?
+
+\Manip Modifier ce script pour récupérer les 4 valeurs numériques dans des variables indépendantes.
+
+\Quest Quel est le type de chacune de ces données ? Peut-on les transformer en variable de type nombre (entier ou réel) ?
+
+\medskip
+
+\Manip Proposer un script permettant de découper une chaine de caractères provenant des trames de réponse des commandes 'A', 'D' et 'E'. Tester votre script.
 
 \cleardoublepage
 \strut % empty page
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%    Séance 3 détaillée
+%%%%%%%%%%%%%    Séance 2 détaillée
 
 \begin{minipage}[c]{.25\linewidth}
 	\includegraphics[width=4cm]{images/Logo-LEnsE.png}
@@ -572,126 +620,116 @@ On propose de remplacer la console Série par un \textbf{script Python} contenu 
 
 \noindent \rule{\linewidth}{1pt}
 
-{\noindent\Large \rule[-7pt]{0pt}{30pt} Séance 3 / Mise en place d'un protocole de communication} 
+{\noindent\Large \rule[-7pt]{0pt}{30pt} Séance 2 /  Mise en place de l'application d'acquisition} 
 
 \noindent \rule{\linewidth}{1pt}
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%    Etape C
+\section{Etape C / Application d'acquisition en Python}
 
 
+\subsection{Algorithme / Structure de base}
 
-\subsection{Pilotage de la LED de puissance}
+\Quest Rappeler la suite de commandes à transmettre du PC à la maquette pour lancer une acquisition complète d'un diagramme de rayonnement entre un angle A et un angle B par pas de C.
 
-\Manip Alimenter la LED de puissance avec un courant maximal de 200mA. 
+\Manip A partir du script \textsl{test\_version\_a\_d.py} (étudié lors de la séance précédente), réaliser un script qui permette de lancer l'acquisition de données pour des angles allant de $-40^\circ{}$ à $+60^\circ{}$ par pas de $10^\circ{}$ et de récupérer les données acquises dans une liste en Python.
+
+\medskip
+
+\Quest Proposer un protocole de test de cette application pour valider le fonctionnement de votre script.
+
+\Manip Tester et valider votre premier script. Afficher les données recueillies.
+
+\medskip
+
+\subsection{Amélioration du script}
+
+On souhaiterait proposer à l'utilisateur final la possibilité de saisir les angles de départ, d'arrivée et le pas d'acquisition, de lancer l'acquisition et d'afficher les données recueillies.
+
+\Manip Modifier le script précédent afin d'ajouter ces fonctionnalités.
+
+\medskip
+
+On aimerait également à terme que les données s'affichent sous forme d'un graphique.
+
+\Manip Modifier le script précédent afin d'ajouter l'affichage des données dans un graphique sous Matplotlib. 
+
+\Manip Définir l'axe des abscisses de votre graphique.
+
+\Quest Que représentera l'axe des ordonnées ?
+
+
+\medskip
+
+\Manip Ajouter l'option d'affichage en coordonnées polaires du diagramme de rayonnement.
 
 \bigskip
-
-\textbf{\textit{Attention ! Paramètrer l'alimentation de la LED pour ne pas dépasser 200mA !}}
-
-\textbf{\textit{Attention également à vos yeux...}}
-
-\textit{Et brancher la LED dans le bon sens... Cathode = point de plus faible potentiel.}
-
-\subsection{Premier diagramme de rayonnement}
-
-\Manip Faire l'acquisition des valeurs d'intensité lumineuse pour des angles allant de $0$ à $180^\circ{}$ par pas de $10^\circ{}$ et transmettre les données par liaison Série à l'ordinateur.
-
-
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%    Etape 10
-\section{Etape 11 / Mettre en place un protocole de communication basé sur une liste de commandes}
-
-\subsection{Envoi et réception de messages simples}
-
-Avant de se lancer dans la mise en place du protocole complet, nous vous proposons de tester l'exemple donné dans le fichier \textsl{test\_comm\_led.cpp}. Cet exemple se base sur un protocole simplifié, ne nécessitant l'envoi que d'\textbf{un seul caractère par commande}.
-
-\Manip Tester le code fourni en envoyant des lettres par l'intermédiaire d'une console Série (logiciel \textbf{TeraTerm} par exemple).
-
-\Quest A quel moment est appelée la fonction \textsl{ISR\_my\_pc\_reception()} ? A quoi sert-elle ?
-
-\bigskip
-
-On propose de remplacer la console Série par un \textbf{script Python} contenu dans le fichier \textsl{test\_comm\_led.py}.
-
-\Manip Exécuter ce script python.
-
-
-\subsection{Structure de base}
-
-On se propose de tester le code \textsl{test\_version\_a\_d.cpp}. Ce fichier est disponible sur le site du LEnsE dans la rubrique \textit{Année / Première Année / Interfaçage Numérique S6 / Banc de mesure de rayonnement lumineux / Exemples de Codes}.
-
-\Manip Compiler ce code et le téléverser sur la carte Nucléo.
-
-\Quest A quoi sert la fonction \textsl{is\_angle\_ok()} ?
-
-\Manip Ouvrir le logiciel TeraTerm et envoyer la commande suivante : \textsc{!A:10?}.
-
-\Quest Que renvoie la carte Nucléo ? Expliquer les fonctions \textsl{ISR\_my\_pc\_reception()} (vis-à-vis du choix de la structure d'une commande) et la boucle infinie. On s'intéressera notamment aux changements de valeur des variables \textsl{string\_complete} et \textsl{input\_cnt}.
-
-\Quest Que se passe-t-il lorsqu'on transmet une mauvaise valeur (soit avec la commande A, soit avec la commande D) ?
-
-\Quest Faire un algorigramme du code.
-
-\subsection{Ajout des autres commandes}
-
-On souhaite à présent compléter ce code pour pouvoir traiter l'ensemble des commandes mentionnées dans la section précédente (T, A, B, C, S, E, D).
-
-\Manip Compléter le code précédent et le tester.
-
-\Quest A quel moment doit-on utiliser la \textbf{fonction d'acquisition} réalisée à l'étape 8 ? D'autres commandes sont-elles acceptables lors de l'acquisition ? Comment bloquer l'exécution des autres commandes ?
-
-\Manip Mettre en place ce blocage.
-
-\Quest A quel moment doit-on utiliser la \textbf{fonction de transmission} des données réalisée à l'étape 9 ?
-
-\newpage
-\subsection{Test complet}
-
-\Quest Quelle est la suite de commandes à transmettre à la carte Nucléo pour permettre l'acquisition de données pour des angles allant de $-40^\circ{}$ à $+60^\circ{}$ par pas de $10^\circ{}$ et la récupération des données sur le moniteur Série ?
-
-\Quest Tracer le diagramme de séquence associé à ces échanges de commandes et de réponses entre le PC et la carte Nucléo.
-
-\Manip Tester l'acquisition de cette série de données.
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%    Etape 11
-\section{Etape 12 / Utiliser la bibliothèque pySerial en Python pour envoyer les commandes à la carte Nucléo}
-
 
 \begin{mdframed}[style=sidebar,frametitle={}]
 \large
-\textbf{ATTENTION} / Lors de l'utilisation d'un script Python nécessitant l'accès à la liaison Série, le logiciel \textbf{TeraTerm} doit être \textbf{fermé}.
+Faire valider votre application par un$\cdot$e encadrant$\cdot$e.
 \end{mdframed}
 
 
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%    Etape D
+\section{Etape D / Diagramme d'une LED de puissance}
+
+
+\subsection{LED de puissance}
+
+
+\noindent \rule{\linewidth}{1pt}
+
+{\Large Le courant maximal admissible par la LED de puissance est de \textbf{$200\operatorname{mA}$} !}
+
+\noindent \rule{\linewidth}{1pt}
+
 \medskip
 
-On se propose à présent d'utiliser un script en langage Python pour pouvoir transmettre les commandes et recevoir les données sur l'ordinateur. Nous utiliserons la bibliothèques \textbf{pySerial} (à installer par la commande \textsl{pip install pyserial} dans une console ou un prompt d'Anaconda).
+\textbf{\LARGE Protocole pour l'utilisation de la LED de puissance}
 
 \medskip
 
-Un code de base, nommé \textsl{test\_version\_a\_d.py}, est disponible sur le site du LEnsE dans la rubrique \textit{Année / Première Année / Interfaçage Numérique S6 / Banc de mesure de rayonnement lumineux / Exemples de Codes}.
+On utilisera une \textbf{alimentation stabilisée} avec les réglages fins pour alimenter la LED de puissance.
 
-\medskip
+\bigskip
 
-\Manip Exécuter ce code et tester les deux commandes pré-configurées ('a' et 'd').
+\begin{Large}
 
-\Manip A partir de cet exemple, réaliser un script qui permette de lancer l'acquisition de données pour des angles allant de $-40^\circ{}$ à $+60^\circ{}$ par pas de $10^\circ{}$ et la récupération des données acquises dans une liste en Python.
+\begin{enumerate}
+	\item Régler le courant maximal fourni par l'alimentation à \textbf{0 A}.
+	\item Régler la tension de sortie de la source à environ \textbf{3 V}.
+	\item Connecter la LED : cathode sur la borne moins, anode sur la borne plus.
+	\item Augmenter lentement le courant maximal (avec le potentiomètre fin) jusqu'à la valeur souhaitée.
+\end{enumerate}
 
-\Manip Afficher les données obtenues sur un graphique à l'aide de Matplotlib. Générer l'axe des angles.
+\end{Large}
+
+
+\noindent \rule{\linewidth}{1pt}
+
+\textbf{\textit{Attention également à vos yeux...}}
+
+\subsection{Diagramme de rayonnement}
+
+\Manip Faire l'acquisition des valeurs d'intensité lumineuse pour des angles allant de $-90°$ à $+90°$ par pas de $10°$ et afficher les données reçues par liaison Série sur l'ordinateur pour des courants de $20\operatorname{mA}$, $50\operatorname{mA}$ et $100\operatorname{mA}$.
+
+\Quest Quel lien retrouve-t-on entre l'intensité maximale du flux lumineux et le courant injecté dans la LED ?
+
+\Quest Les diagrammes de rayonnement des autres LED sont-ils équivalents ?
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%    Etape 12
-\section{Etape 13 / Tester la communication entre la carte Nucléo et le script Python pour afficher les données}
+%%%%%%%%%%%%%    Etape E
+\section{Etape E / Interface graphique}
 
-On souhaite enfin créer une application en console complète permettant à l'utilisateur de saisir les angles de départ et de fin, le pas angulaire et de lancer l'acquisition. Votre application devra ensuite afficher les données acquises.
+Si le temps vous le permet, vous pourrez vous inspirer du code \textsl{diag\_gui.py} pour réaliser une interface graphique pour piloter la maquette.
 
-Vous pourrez faire plusieurs essais avec des courants dans la LED de puissance de $50\operatorname{mA}$, $100\operatorname{mA}$ et $200\operatorname{mA}$ par exemple.
 
 
 \newpage
