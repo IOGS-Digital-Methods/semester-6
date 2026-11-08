@@ -505,7 +505,12 @@ Contrairement à l'espace RVB, HSV est conçu pour se rapprocher de la perceptio
 
 \Manip Etendre votre solution à plusieurs cubes placés sous la caméra.
 
+\bigskip
 
+\begin{mdframed}[style=sidebar,frametitle={}]
+\large
+Faire valider votre application par un$\cdot$e encadrant$\cdot$e.
+\end{mdframed}
 
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -615,11 +620,98 @@ Semestre 6
 \vfill
 
 
+\section{Validation d'une grille de TikTakToe}
+
+Dans ce second TP, vous allez devoir mettre en place un \textbf{système d'inspection} de grilles du jeu \textbf{TikTakToe}. Ce système s'appuie sur l'utilisation d'un \textbf{banc de vision industrielle} et d'un algorithme de \textbf{traitement de l'image}, que vous allez devoir concevoir, développer et valider.
+
+On s'intéressera dans un premier temps au \textbf{repérage de la grille dans l'espace}. Des repères spécifiques ont été ajoutés sur cette grille.
+
+\begin{center}
+	\includegraphics[width=0.3\textwidth]{./images/mire_tik_V2.png}
+\end{center}
+
+Dans un second temps, vous mettrez en place la \textbf{détection de formes à l'intérieur des 9 cases} de la grille afin d'en déduire si l'un des deux joueurs à gagner la partie.
+
+
 \bigskip
 
-\section{TO DO}
+\section{G - Détection de repères}
+
+Des \textbf{repères} sont souvent ajoutés sur des objets à détecter : QR Code, marqueurs ArUco... Ceux-ci servent principalement à permettre de \textbf{détecter}, \textbf{localiser}, \textbf{orienter} et \textbf{transformer} correctement un objet dans une scène.
+
+\medskip
+
+Trois repères sont souvent nécessaires pour :
+\begin{itemize}
+	\item déterminer les limites de l'objet,
+	\item connaître son angle de rotation,
+	\item retrouver la géométrie en cas de prises d'image en biais (perspective).
+\end{itemize}
+
+\subsubsection{Premier essai sur images}
+
+On se propose d'étudier le fichier \textsc{201\_correlation.py}, associé aux images \textsc{mire\_rep.png} et \textsc{mire\_tik.png} (du répertoire \textsc{\_data\_marker}).
+
+\Manip Ouvrir les deux images. 
+
+\Quest Que représentent-t-elles ?
+
+\Manip Exécuter le script et commenter le résultat.
+
+\noindent \rule{\linewidth}{1pt}
+
+\Manip Ouvrir le script \textsc{202\_correlation\_rotation.py}, exécuter-le et commenter le résultat.
+
+\Quest Qu'est-ce qui a changé entre les deux exécutions ?
+
+\Manip Tracer l'évolution du maximum de corrélation pour des angles de rotation allant de -30° à 30° par pas de 2°.
+
+\bigskip
+
+\begin{mdframed}[style=sidebar,frametitle={}]
+\large
+Faire valider votre résultat par un$\cdot$e encadrant$\cdot$e.
+\end{mdframed}
+
+\subsubsection{Premier essai sous flux caméra}
+
+\Manip Ouvrir le script \textsc{203\_correlation\_camera.py}, exécuter-le et commenter le résultat.
+
+\subsubsection{OpenCV et la détection d'objets}
+
+La bibliothèque \textsl{OpenCV} propose différentes fonctions permettant de repérer des objets dans une scène. En voici une liste non exhaustive.
+
+\medskip
+
+\begin{tabular}{|c|c|c|}
+\hline
+Détection de contours & cv2.findContours() & Détecter les formes \\
+\hline
+Détection de coins & cv2.goodFeaturesToTrack() & Trouver des points caractéristiques \\
+\hline
+Détection de marqueurs & cv2.aruco & Identifier des repères connus \\
+\hline
+Transformation affine & cv2.getAffineTransform() & Rotation, translation, cisaillement \\
+\hline
+Transformation perspective & cv2.getPerspectiveTransform() & Corriger une perspective \\
+\hline
+\end{tabular}
 
 
+\newpage
+\section{H - Détection de repères multi-échelles}
+
+On se propose à présent d'étudier le fichier \textsc{211\_correlation\_multi.py}, associé aux images (du répertoire \textsc{\_data\_marker}) :
+\begin{itemize}
+	\item \textsc{mire\_rep\_V2\_1.png}
+	\item \textsc{mire\_tik\_V2.png}
+\end{itemize}
+
+\Manip Ouvrir les deux images. 
+
+\Quest Que représente-t-elle ? Qu'est-ce que cela va impliquer sur la recherche des motifs dans l'image ?
+
+\newpage
 EN RESUME
 
 (C) = caméra

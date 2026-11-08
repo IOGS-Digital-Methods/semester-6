@@ -4,7 +4,7 @@ import numpy as np
 import sys
 sys.path.append("../_libs/")
 from form_detection import detect_shape
-from images_manipulation import generate_histogram
+from image_lib import generate_histogram
 
 ### Parameters
 img_dir_path = '../_data/'
@@ -15,7 +15,7 @@ APPROX_FACTOR = 0.02    # tolérance pour la fonction approxPolyDP
 ### Other functions
 def generate_image(image, contours, min_area, approx_factor, title=''):
     for cnt in contours:
-        shape, approx, peri = detect_shape(cnt, min_area=min_area, approx_factor=approx_factor)
+        shape, approx, peri, area = detect_shape(cnt, min_area=min_area, approx_factor=approx_factor)
 
         # draw
         cv2.drawContours(image, [approx], -1, (255, 0, 0), 2)

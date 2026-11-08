@@ -5,24 +5,18 @@ import cv2
 # RECHERCHE LOCALE
 def find_locales(image, threshold = 0.9):
     """
-
-    :param image:       Image résultante d'une corrélation
-    :param threshold:   Seuil de détection des corrélations
-    :return:            Liste des coordonnées (x, y, val)
+    :param image:       Image from correlation
+    :param threshold:   Detection threshold
+    :return:            Coordinates list
     """
-
-    # Taille du voisinage dans lequel on cherche les maximums locaux
+    # Kernel size
     kernel_size = 11
-
-    # Le kernel doit être de taille impaire
     kernel = np.ones((kernel_size, kernel_size), np.uint8)
-
-    # Pour chaque pixel, dilate donne le maximum dans son voisinage
     local_max = cv2.dilate(image, kernel)
 
-    # Un pixel est conservé si :
-    # 1. il dépasse le seuil
-    # 2. il est égal au maximum local
+    # A pixel is validated if :
+    # 1. value > threshold
+    # 2. value = local_max
     mask = (
         (image >= threshold) &
         (image == local_max)
@@ -37,9 +31,8 @@ def find_locales(image, threshold = 0.9):
     return matches
 
 
-
 def compute_iou(a, b):
-    """IoU entre deux rectangles (x, y, w, h)."""
+    """IoU between two rectangles (x, y, w, h)."""
 
     ax1, ay1 = a["x"], a["y"]
     ax2, ay2 = ax1 + a["w"], ay1 + a["h"]
@@ -64,6 +57,7 @@ def compute_iou(a, b):
 
     return intersection / union if union > 0 else 0
 
+
 def find_all_matches_multiscale(
     image,
     template,
@@ -75,10 +69,9 @@ def find_all_matches_multiscale(
     iou_threshold=0.3
 ):
     """
-    Recherche toutes les occurrences d'un template entre
-    min_scale et max_scale.
+    Find all occurences in a template from min_scale to max_scale
 
-    Retourne une liste triée :
+    Sorted list of occurences :
 
         [
             {
@@ -93,7 +86,7 @@ def find_all_matches_multiscale(
         ]
     """
 
-    # Conversion en niveaux de gris
+    # Gray scale conversion
     if image.ndim == 3:
         image_gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     else:
@@ -106,7 +99,7 @@ def find_all_matches_multiscale(
 
     img_h, img_w = image_gray.shape[:2]
 
-    # Échelles géométriquement espacées
+    # Generate linear scales
     scales = np.geomspace(
         min_scale,
         max_scale,
@@ -116,12 +109,11 @@ def find_all_matches_multiscale(
     candidates = []
 
     for scale in scales:
-
-        # Taille du template à cette échelle
+        # Template size
         new_w = max(1, round(template_gray.shape[1] * scale))
         new_h = max(1, round(template_gray.shape[0] * scale))
 
-        # Le template doit rentrer dans l'image
+        # Check if the template is larger than image
         if new_w > img_w or new_h > img_h:
             continue
 
@@ -137,35 +129,25 @@ def find_all_matches_multiscale(
             interpolation=interpolation
         )
 
-        # Corrélation
+        # Correlation
         result = cv2.matchTemplate(
             image_gray,
             scaled_template,
             cv2.TM_CCOEFF_NORMED
         )
 
-        # ------------------------------------------------
-        # Maximums locaux
-        # ------------------------------------------------
-
-        # Rayon approximatif pour éviter plusieurs pixels
-        # correspondant à la même détection
+        # Local Maxima
         kernel_size = max(
             3,
             int(min(new_w, new_h) / 4)
         )
-
-        # Kernel doit être impair
         if kernel_size % 2 == 0:
             kernel_size += 1
-
         kernel = np.ones(
             (kernel_size, kernel_size),
             dtype=np.uint8
         )
-
         local_max = cv2.dilate(result, kernel)
-
         mask = (
             (result >= threshold)
             & (result == local_max)
@@ -184,34 +166,23 @@ def find_all_matches_multiscale(
                 "scale": float(scale)
             })
 
-    # ------------------------------------------------
-    # Tri global par score
-    # ------------------------------------------------
-
+    # Sorting by score
     candidates.sort(
         key=lambda m: m["score"],
         reverse=True
     )
 
-    # ------------------------------------------------
-    # Non Maximum Suppression globale
-    # ------------------------------------------------
-
+    # Matches in candidates
     matches = []
 
     for candidate in candidates:
-
         duplicate = False
-
         for match in matches:
-
             if compute_iou(candidate, match) > iou_threshold:
                 duplicate = True
                 break
-
         if not duplicate:
             matches.append(candidate)
-
         if len(matches) >= max_matches:
             break
 
