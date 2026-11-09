@@ -16,16 +16,6 @@ from serial import Serial
 import serial.tools.list_ports
 
 
-def receiving_data(ser):
-    received_data = ""
-    while True:
-        byte = ser.read(1).decode('ascii')
-        if byte == ';':  # Check if byte is ending character
-            break
-        received_data += byte
-    return received_data
-
-
 if __name__ == "__main__":
     ports = serial.tools.list_ports.comports()
     # To obtain the list of the communication ports
@@ -35,7 +25,7 @@ if __name__ == "__main__":
     selectPort = input("Select a COM port : ")    
     print(f"Port Selected : COM{selectPort}")
     # To open the serial communication at a specific baudrate
-    serNuc = Serial('COM'+str(selectPort), 9600)
+    serNuc = Serial('COM'+str(selectPort), 115200)
 
     appOk = 1
 
@@ -47,12 +37,12 @@ if __name__ == "__main__":
             if choice == 'a': # Send 'a'
                 data_to_send = 'a'
                 serNuc.write(bytes(data_to_send, 'ascii'))
-                data_rec = receiving_data(serNuc)
+                data_rec = serNuc.read(1).decode('ascii')
                 print(str(data_rec))
             elif choice == 'e': # Send 'e'
                 data_to_send = 'e'
                 serNuc.write(bytes(data_to_send, 'ascii'))
-                data_rec = receiving_data(serNuc)
+                data_rec = serNuc.read(1).decode('ascii')
                 print(str(data_rec))            
        
     
