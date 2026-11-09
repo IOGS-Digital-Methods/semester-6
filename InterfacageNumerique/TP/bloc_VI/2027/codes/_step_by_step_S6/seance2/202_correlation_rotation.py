@@ -1,9 +1,12 @@
-import numpy as np  # for numerical operations
-from scipy.fft import fft2, ifft2, fftshift  # for Fourier Transform
+import sys
+sys.path.append("../_libs/")
+
+import numpy as np
 import matplotlib.pyplot as plt  # for plotting
 import cv2
+from image_lib import rotate_image
 
-dir_path = './_data/'
+dir_path = '../_data_marker/'
 ref_path = dir_path+'mire_rep.png'
 image_ref = cv2.imread(ref_path, cv2.IMREAD_GRAYSCALE)
 test_path = dir_path+'mire_tik.png'
@@ -15,27 +18,30 @@ plt.imshow(image_ref, cmap='gray')
 plt.title('Reference Image')
 plt.axis('off')
 
-# CORRELATION
-h, w = image_ref.shape
-# Corrélation normalisée
-result = cv2.matchTemplate(image_test, image_ref, cv2.TM_CCOEFF_NORMED)
+# ROTATION
+image_test_r = rotate_image(image_test, 10)
 
-# Affichage de la corrélation
+# CORRELATION
+result = cv2.matchTemplate(image_test_r, image_ref, cv2.TM_CCOEFF_NORMED)
+
+# Display correlation
 plt.figure()
 plt.imshow(result, cmap='gray')
 plt.title('Cross Correlation')
 plt.axis('off')
 
-# Seuil de corrélation
+print(f'Max Correlation = {np.max(result)}')
+
+# CORRELATION Threshold
 threshold = 0.9
-# Positions dont la valeur est supérieure au seuil
+# Positions where corr > thresh
 ys, xs = np.where(result >= threshold)
 
 matches = [(x, y, result[y, x]) for x, y in zip(xs, ys)]
 
-## AFFICHAGE
+## DISPLAY
 plt.figure()
-plt.imshow(image_test, cmap='gray')
+plt.imshow(image_test_r, cmap='gray')
 
 for m in matches:
     print(m)

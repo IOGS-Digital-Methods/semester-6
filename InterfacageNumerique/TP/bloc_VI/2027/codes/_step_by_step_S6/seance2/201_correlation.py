@@ -1,10 +1,11 @@
+import numpy as np
 import matplotlib.pyplot as plt  # for plotting
-from marker_finding import *
+import cv2
 
-dir_path = './_data/'
-ref_path = dir_path+'mire_rep_V2_1.png'
+dir_path = '../_data_marker/'
+ref_path = dir_path+'mire_rep.png'
 image_ref = cv2.imread(ref_path, cv2.IMREAD_GRAYSCALE)
-test_path = dir_path+'mire_tik_V2.png'
+test_path = dir_path+'mire_tik.png'
 image_test = cv2.imread(test_path, cv2.IMREAD_GRAYSCALE)
 
 # Display the reference image
@@ -14,25 +15,28 @@ plt.title('Reference Image')
 plt.axis('off')
 
 # CORRELATION
-h, w = image_ref.shape
-
-# Corrélation normalisée
 result = cv2.matchTemplate(image_test, image_ref, cv2.TM_CCOEFF_NORMED)
 
+# Display correlation
 plt.figure()
 plt.imshow(result, cmap='gray')
 plt.title('Cross Correlation')
 plt.axis('off')
 
-# Recherche des maximums locaux de corrélation
-threshold = 0.9
-corr_res = find_locales(result, threshold)
+print(f'Max Correlation = {np.max(result)}')
 
-## AFFICHAGE
+# CORRELATION Threshold
+threshold = 0.9
+# Positions where corr > thresh
+ys, xs = np.where(result >= threshold)
+
+matches = [(x, y, result[y, x]) for x, y in zip(xs, ys)]
+
+## DISPLAY
 plt.figure()
 plt.imshow(image_test, cmap='gray')
 
-for m in corr_res:
+for m in matches:
     print(m)
     plt.plot(m[0], m[1], "ro")
     #plt.text(x + 10, y - 10, f"({m['x']}, {m['y']})", color="red")

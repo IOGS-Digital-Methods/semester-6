@@ -255,9 +255,6 @@ On pourra ajouter également des mesures de surface des pièces, de colorimétri
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%  TP 1
 
-
-
-
 \newpage
 \begin{center}
 	\begin{minipage}{2.5cm}
@@ -309,6 +306,20 @@ Vous pouvez par exemple \textbf{décrire ces algorithmes} par l'intermédiaire d
 
 \textbf{Faites des copies des scripts fournis}, afin de garder une trace des évolutions que vous avez apportés.
 
+
+\section{Mesure de temps d'exécution}
+
+Il est possible d'avoir une estimation du temps d'exécution d'un code en Python par la méthode proposée ci-dessous :
+
+\begin{lstlisting}
+import time
+
+start = time.perf_counter()
+# Code to evaluate
+end = time.perf_counter()
+
+print(f"Total Time : {(end - start)*1000:.2f} ms")
+\end{lstlisting}
 
 
 \newpage
@@ -473,7 +484,7 @@ Contrairement à l'espace RVB, HSV est conçu pour se rapprocher de la perceptio
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%% COULEURS
-\section{E - Détection de couleurs efficace {[60 min]}}
+\section{E - Application de détection de couleurs {[60 min]}}
 
 
 \Manip A partir de l'ensemble des éléments précédents, vous devez mettre en place une solution technologique (script) permettant :
@@ -494,7 +505,12 @@ Contrairement à l'espace RVB, HSV est conçu pour se rapprocher de la perceptio
 
 \Manip Etendre votre solution à plusieurs cubes placés sous la caméra.
 
+\bigskip
 
+\begin{mdframed}[style=sidebar,frametitle={}]
+\large
+Faire valider votre application par un$\cdot$e encadrant$\cdot$e.
+\end{mdframed}
 
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -564,8 +580,138 @@ Il existe d'autres espaces colorimétriques dans le domaine numérique. Voici un
 
 
 
-\newpage
+\cleardoublepage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%  TP 2
 
+\begin{center}
+	\begin{minipage}{2.5cm}
+	\begin{center}
+		\includegraphics[width=5cm]{./images/Logo-LEnsE.png}
+	\end{center}
+\end{minipage}\hfill
+\begin{minipage}{10cm}
+	\begin{center}
+	\textbf{Institut d'Optique Graduate School }\\[0.1cm]
+    \textbf{Interfaçage Numérique}
+
+
+	\end{center}
+\end{minipage}\hfill
+
+
+\vspace{2cm}
+
+
+{\Large \bfseries \textsc{Interfaçage Numérique}} \\[0.5cm]
+{\large \bfseries Travaux Pratiques} \\[0.2cm]
+Semestre 6
+
+\vspace{1cm}
+
+% Title
+\rule{\linewidth}{0.4mm} \\[0.4cm]
+{ \Large \bfseries\color{violet_iogs} TP2 - Détection d'objets / Contrôle qualité\\[0.4cm] }
+\rule{\linewidth}{0.4mm} \\[1cm]
+
+\end{center}
+
+\vfill
+
+
+\section{Validation d'une grille de TikTakToe}
+
+Dans ce second TP, vous allez devoir mettre en place un \textbf{système d'inspection} de grilles du jeu \textbf{TikTakToe}. Ce système s'appuie sur l'utilisation d'un \textbf{banc de vision industrielle} et d'un algorithme de \textbf{traitement de l'image}, que vous allez devoir concevoir, développer et valider.
+
+On s'intéressera dans un premier temps au \textbf{repérage de la grille dans l'espace}. Des repères spécifiques ont été ajoutés sur cette grille.
+
+\begin{center}
+	\includegraphics[width=0.3\textwidth]{./images/mire_tik_V2.png}
+\end{center}
+
+Dans un second temps, vous mettrez en place la \textbf{détection de formes à l'intérieur des 9 cases} de la grille afin d'en déduire si l'un des deux joueurs à gagner la partie.
+
+
+\bigskip
+
+\section{G - Détection de repères}
+
+Des \textbf{repères} sont souvent ajoutés sur des objets à détecter : QR Code, marqueurs ArUco... Ceux-ci servent principalement à permettre de \textbf{détecter}, \textbf{localiser}, \textbf{orienter} et \textbf{transformer} correctement un objet dans une scène.
+
+\medskip
+
+Trois repères sont souvent nécessaires pour :
+\begin{itemize}
+	\item déterminer les limites de l'objet,
+	\item connaître son angle de rotation,
+	\item retrouver la géométrie en cas de prises d'image en biais (perspective).
+\end{itemize}
+
+\subsubsection{Premier essai sur images}
+
+On se propose d'étudier le fichier \textsc{201\_correlation.py}, associé aux images \textsc{mire\_rep.png} et \textsc{mire\_tik.png} (du répertoire \textsc{\_data\_marker}).
+
+\Manip Ouvrir les deux images. 
+
+\Quest Que représentent-t-elles ?
+
+\Manip Exécuter le script et commenter le résultat.
+
+\noindent \rule{\linewidth}{1pt}
+
+\Manip Ouvrir le script \textsc{202\_correlation\_rotation.py}, exécuter-le et commenter le résultat.
+
+\Quest Qu'est-ce qui a changé entre les deux exécutions ?
+
+\Manip Tracer l'évolution du maximum de corrélation pour des angles de rotation allant de -30° à 30° par pas de 2°.
+
+\bigskip
+
+\begin{mdframed}[style=sidebar,frametitle={}]
+\large
+Faire valider votre résultat par un$\cdot$e encadrant$\cdot$e.
+\end{mdframed}
+
+\subsubsection{Premier essai sous flux caméra}
+
+\Manip Ouvrir le script \textsc{203\_correlation\_camera.py}, exécuter-le et commenter le résultat.
+
+\subsubsection{OpenCV et la détection d'objets}
+
+La bibliothèque \textsl{OpenCV} propose différentes fonctions permettant de repérer des objets dans une scène. En voici une liste non exhaustive.
+
+\medskip
+
+\begin{tabular}{|c|c|c|}
+\hline
+Détection de contours & cv2.findContours() & Détecter les formes \\
+\hline
+Détection de coins & cv2.goodFeaturesToTrack() & Trouver des points caractéristiques \\
+\hline
+Détection de marqueurs & cv2.aruco & Identifier des repères connus \\
+\hline
+Transformation affine & cv2.getAffineTransform() & Rotation, translation, cisaillement \\
+\hline
+Transformation perspective & cv2.getPerspectiveTransform() & Corriger une perspective \\
+\hline
+\end{tabular}
+
+
+\newpage
+\section{H - Détection de repères multi-échelles}
+
+On se propose à présent d'étudier le fichier \textsc{211\_correlation\_multi.py}, associé aux images (du répertoire \textsc{\_data\_marker}) :
+\begin{itemize}
+	\item \textsc{mire\_rep\_V2\_1.png}
+	\item \textsc{mire\_tik\_V2.png}
+\end{itemize}
+
+\Manip Ouvrir les deux images. 
+
+\Quest Que représente-t-elle ? Qu'est-ce que cela va impliquer sur la recherche des motifs dans l'image ?
+
+\newpage
 EN RESUME
 
 (C) = caméra
@@ -599,323 +745,7 @@ EN RESUME
 	
 \end{enumerate}
 
-\newpage
-%%%%%%%%%%%%%    Etape A
-\subsection{CV-A - Détecter des formes {[40 min]}}
 
-\subsubsection{Détection de contours sur une image "propre"}
-
-\Manip Ouvrir le fichier \textsc{20\_detection\_forme.py} du répertoire des codes à tester.
-
-\Manip Exécuter ce code.
-
-\Quest Que fait ce programme ? A quoi correspondent les images affichées ? A quoi correspondent les données affichées ?
-
-\noindent \rule{\linewidth}{1pt}
-
-\Manip Modifier le paramètre MIN\_AREA (100, 1000, 10000).
-
-\Quest A quoi sert ce paramètre ? Quelle est son unité ? Comment la transformer en unités plus conventionnelles ?
-
-\noindent \rule{\linewidth}{1pt}
-
-\Manip Modifier le paramètre APPROX\_FACTOR (0.01, 0.05, 0.1).
-
-\Quest A quoi sert ce paramètre ?
-
-\Quest A quoi correspondent les variables \texttt{cX}, \texttt{cY}, \texttt{area} et \texttt{peri} ?
-
-
-\subsubsection{Détection de contours sur une image "réelle"}
-
-L'image précédente était "propre" (sans bruits dûs au capteur par exemple). Nous allons nous intéresser à présent à une image provenant d'une chaine d'acquisition.
-
-\Manip A partir du code précédent, ouvrir l'image \textsc{formes\_blanc\_30ms.png} du répertoire du kit d'images.
-
-\Quest L'algorithme est-il efficace ?
-
-\noindent \rule{\linewidth}{1pt}
-
-\Manip Ouvrir le fichier \textsc{21\_detection\_forme\_plus.py} du répertoire des codes à tester.
-
-\Manip Exécuter ce code.
-
-\Quest Quelle étape est-elle ajoutée par rapport à la version précédente du code ?
-
-\noindent \rule{\linewidth}{1pt}
-
-\Manip Ajouter un traitement morphologique de type \textit{opening} (ouverture) sur l'image binarisée (noyau carré de 3x3, puis 5x5).
-
-\Manip Ajouter l'affichage de l'image ainsi traitée.
-
-\Quest Que permet cette étape dans l'algorithme de détection ? 
-
-
-\subsubsection{Détection de cercles}
-
-\Manip Ouvrir le fichier \textsc{22\_detection\_forme\_cercles.py} du répertoire des codes à tester.
-
-\Manip Exécuter ce code.
-
-\Quest Quelle amélioration apporte ce programme ?
-
-\subsubsection{Détection de cercles sur une image "réelle"}
-
-L'\textbf{algorithme de Hough} qui permet la recherche de cercles dans une image se base sur des images en nuance de gris (et non binarisée). Il s'appuie sur des gradients d'intensité et des bords continus et doux pour détecter les transitions (contours des cercles).
-
-Il n'est donc pas possible d'utiliser une opération morphologique d'ouverture sur l'image. 
-
-
-\Manip Ouvrir le fichier \textsc{23\_detection\_forme\_blur\_cercles.py} du répertoire des codes à tester.
-
-\Manip Exécuter ce code. Vérifier que l'algorithme n'est pas efficace.
-
-\noindent \rule{\linewidth}{1pt}
-
-\Manip Ajouter un filtrage de type \textit{blur} gaussien (\textit{cv2.GaussianBlur}) sur l'image grise (noyau carré de 7x7 et $\sigma = 1.9$).
-
-\Manip Ajouter l'affichage de l'image ainsi traitée.
-
-\Quest Que permet cette étape dans l'algorithme de détection ?
-
-\Manip Modifier la taille du noyau (3x3, 5x5, 15x15) et de la valeur de $\sigma$ (1.9, 3, 5, 10).
-
-\Quest Quel est l'impact du choix de ces deux paramètres ?
-
-
-
-%%%%%%%%%%%%%    Etape B
-\subsection{CV-B - Détecter des couleurs {[40 min]}}
-
-\subsubsection{Jouer avec les canaux de couleurs}
-
-\Manip Ouvrir et afficher l'image \textsl{couleurs\_4.png} du kit d'images fourni, au format RGB.
-
-\Manip Créer une copie de la matrice image (fonction \textsl{copy()} de Numpy). 
-
-\Manip Forcer à 0 tous les pixels du canal bleu de la copie de l'image et afficher la nouvelle image.
-
-
-\subsubsection{Utiliser l'espace colorimétrique HSV}
-
-L'espace colorimétrique \textbf{HSV} (\textit{Hue, Saturation, Value}) représente les couleurs de manière intuitive en les séparant selon :
-
-\begin{itemize}
-	\item la \textbf{teinte} (Hue), qui correspond au type de couleur et est généralement exprimée comme un angle sur un cercle (rouge, vert, bleu, etc.), 
-	\item la \textbf{saturation} (Saturation), qui mesure la pureté ou l'intensité de la couleur (d'une couleur vive à un gris),
-	\item la \textbf{valeur} (Value), qui représente la luminosité globale.
-\end{itemize} 
-
-\medskip
-
-Contrairement à l'espace RVB, HSV est conçu pour se rapprocher de la perception humaine, ce qui le rend particulièrement adapté aux tâches de vision par ordinateur, notamment la détection et la segmentation de couleurs, car il permet de dissocier plus facilement l'information de couleur des variations d'éclairage.
-
-\Manip Ouvrir le fichier \textsc{24\_couleur\_hsv.py} du répertoire des codes à tester.
-
-\Manip Exécuter ce code.
-
-\Quest Que représentent les deux lignes de figure affichées par ce programme ?
-
-\Quest Comment pouvez-vous interpréter les deux histogrammes ?
-
-\noindent \rule{\linewidth}{1pt}
-
-\Manip Ajouter un filtrage de type \textit{blur} gaussien (\textit{cv2.GaussianBlur}) sur l'image rgb \textsc{formes\_bruit.png} (noyau carré de 7x7 et $\sigma = 1.9$).
-
-\Quest Quel est l'effet sur l'histogramme associé à cette image ? Quel serait l'inconvénient de cette technique, par rapport à la détection de couleur via l'espace HSV ?
-
-\subsubsection{Segmenter une image en fonction de la couleur}
-
-\Manip Ouvrir le fichier \textsc{24b\_hsv\_rgb.py} du répertoire des codes à tester.
-
-\Manip Exécuter le code.
-
-\Quest Expliquer le principe utilisé dans chacune des segmentations, en RVB et HSV. On s'intéressera en particulier aux bornes utilisées.
-
-\Quest Quelle méthode est la plus efficace pour détecter la couleur rouge ?
-
-\Manip Ajouter la détection de la zone bleue, de l'image initialement ouverte, par la méthode qui vous parait la plus pertinente. Afficher une nouvelle image avec le résultat final.
-
-
-%%%%%%%%%%%%%    Etape B
-\subsection{CV-C - Passer de la couleur à des niveaux de gris {[40 min]}}
-
-Il existe plusieurs méthodes pour transformer une image en RVB vers une image en nuance de gris par exemple.
-
-\subsubsection{Moyenne des canaux R,V,B}
-
-Cette méthode est la plus simple. Chaque pixel de l'image en gris est la moyenne des pixels des canaux rouge, vert et bleu de l'image en couleur :
-
-$$Pixel_{Gray} = \frac{Pixel_{R} + Pixel_{V} + Pixel_{B}}{3}$$ 
-
-
-\subsubsection{Pondération en fonction de la perception humaine}
-
-Cette méthode est une moyenne pondérée des valeurs des pixels R, V, B de l'image couleur : 
-
-$$Pixel_{Gray} = 0.299 \cdot Pixel_{R} + 0.587 \cdot Pixel_{V} + 0.114 \cdot Pixel_{B}$$ 
-
-
-Les coefficients de cette méthode proviennent de la sensibilité relative de l'œil humain aux différentes couleurs et ont été standardisés à l'origine pour la télévision analogique (NTSC). Ils sont aujourd'hui utilisés comme une approximation fidèle de la perception visuelle de la luminosité.
-
-La méthode de conversion fournie par la bibliothèque OpenCV se base sur cette pondération.
-
-\noindent \rule{\linewidth}{1pt}
-
-
-\Manip Ouvrir le fichier \textsc{30\_colorspace.py} du répertoire des codes à tester.
-
-\Quest Que fait ce programme ? A quoi sert l'instruction \textsc{cmap='gray'} de la fonction \textit{imshow} de \textit{Matplotlib} ?
-
-\noindent \rule{\linewidth}{1pt}
-
-\Manip Créer une image en nuance de gris utilisant la méthode de la moyenne des trois canaux. \textit{Attention aux types des données dont vous faites la moyenne...}
-
-\Manip Afficher l'image résultante.
-
-\Manip Comparer les images obtenues par la moyenne classique et la moyenne pondérée.
-
-
-\subsubsection{Utiliser l'espace colorimétrique YUV}
-
-L'espace colorimétrique RVB est très utilisé dans le domaine du numérique (affichage, acquisition d'images) pour sa facilité de mise en oeuvre.
-
-Cependant, ce n'est \textbf{pas} le plus \textbf{adapté vis-à-vis de la perception humaine} où la luminance et la couleur sont séparées.
-
-Des espaces comme YUV, YIQ, ou YCbCr séparent la composante de luminance (Y) des composantes de chrominance (U et V).
-
-\Manip Ouvrir le fichier \textsc{31\_colorspace \_yuv.py} du répertoire des codes à tester.
-
-\Manip Comparer alors l'image en niveau de gris obtenue par la méthode de moyennage pondérée et le canal Y de cette conversion.
-
-\Quest Que pouvez-vous conclure sur la méthode de calcul utiliser pour la luminance (Y) ?
-
-\medskip
-
-\noindent \rule{\linewidth}{1pt}
-
-Il existe d'autres espaces colorimétriques dans le domaine numérique. Voici un résumé non exhaustif :
-
-\begin{center}
-\begin{tabular}{|c|c|}
-\hline
-\textbf{Espace colorimétrique} & \textbf{Avantages} \\ \hline
-\textbf{RGB} & Simple, utilisé pour les écrans et le rendu des couleurs. \\ \hline
-\textbf{HSV / HSL} & Intuitif pour manipuler la couleur (teinte, saturation). \\ \hline
-\textbf{YUV / YCbCr} & Sépare luminance et chrominance. \\ \hline
-\textbf{CIE-Lab} & Uniformité perceptuelle, idéal pour mesurer les différences de couleur. \\ \hline
-\textbf{CMY(K)} & Optimisé pour l'impression. \\ \hline
-\textbf{XYZ} & Modèle basé sur la perception humaine. \\ \hline
-\end{tabular}
-\end{center}
-
-
-
-\newpage
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%    Etape par étape
-
-\section{Banc VI - Calibration sur flux vidéo}
-
-On se propose dans cette partie de tester les algorithmes de détection sur un flux vidéo, sans passer par l'interface utilisée lors d'une précédente séance.
-
-%%%%%%%%%%%%%    Etape A
-\subsection{VI-A - Tester les algorithmes sur un flux vidéo {[40 min]}}
-
-\Manip Ouvrir le fichier \textsc{camera\_flux\_lensepy\_simple.py} du répertoire des codes à tester.
-
-\Manip Tester le programme, en ayant au préalable connecté une caméra de type Basler. Tester en particulier l'interaction avec l'utilisateur (touches 'a', 'i', 'c', 'g').
-
-\Quest A quoi servent les options \textsc{COLOR\_MODE}  et \textsc{DISPLAY\_RATIO} ?
-
-\Quest Faire un algorigramme (algorithme du programme en version graphique) de ce code.
-
-\noindent \rule{\linewidth}{1pt}
-
-\Manip Modifier le code pour ajouter une option (par exemple la lettre 'e') : permettre l'affichage de l'image subissant une érosion avec un noyau circulaire de 7x7. Tester votre code.
-
-%%%%%%%%%%%%%    Etape B
-\subsection{VI-B - Calibrer la chaîne d'acquisition {[90 min]}}
-
-
-\textit{Pour cette section, les binômes étant sur des paillasses disposant d'une caméra pourront utiliser directement les images provenant de la caméra.}
-
-\textit{Pour les autres binômes, vous pourrez vous reposer sur les images suivantes :}
-
-\begin{itemize}
-	\item \textsc{cubes\_RGB.png} : acquisition des 4 cubes de couleur sous un éclairage blanc (\textit{ring} RGB Effi-Ring) en mode BayerRG8 ;
-	\item \textsc{cubes\_R.png} : acquisition des 4 cubes de couleur sous un éclairage rouge (\textit{ring} RGB Effi-Ring) en mode Mono8 ;
-	\item \textsc{cubes\_G.png} : acquisition des 4 cubes de couleur sous un éclairage vert (\textit{ring} RGB Effi-Ring) en mode Mono8 ;
-	\item \textsc{cubes\_B.png} : acquisition des 4 cubes de couleur sous un éclairage bleu (\textit{ring} RGB Effi-Ring) en mode Mono8 ;
-	\medskip
-	\item \textsc{forms.png} : acquisition d'une dizaine de pièces en bois de formes différentes sous un éclairage blanc (\textit{ring} RGB Effi-Ring) en mode Mono8 ;
-	\item \textsc{forms\_toe.png} : acquisition d'une dizaine de pièces en bois de formes différentes - alignées - sous un éclairage blanc (\textit{ring} RGB Effi-Ring) en mode Mono8 ;
-\end{itemize}
-
-\bigskip
-
-\textit{Ces images sont disponibles sur le site du LEnsE - https://lense.institutoptique.fr/ dans la rubrique Année / Première Année / Interfaçage Numérique S6 / Bloc 2 Vision Industrielle / Cubes/Formes.}
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{Détecter des cubes colorés}
-
-On se propose ici de détecter la couleur des cubes fournis (jaune, rouge, bleu et vert) de manière un peu plus automatisée et d'extraire certaines informations de ces objets (position, aire...).
-
-\Quest Proposer une méthode (algorithme) à mettre en place pour détecter la présence d'un élément d'une des 4 couleurs à détecter, ainsi que sa position.
-
-\Manip A partir de l'exemple \textsc{camera\_flux\_lensepy\_simple.py} (en remplaçant si besoin l'image provenant de la caméra par l'ouverture d'une image fixe), ajouter cette fonctionnalité.
-
-\noindent \rule{\linewidth}{1pt}
-
-\Quest Proposer une méthode (algorithme) à mettre en place pour détecter la présence de tous les éléments d'une couleur donnée et de compter le nombre d'objets présents.
-
-\Manip A partir de l'exemple \textsc{camera\_flux\_lensepy\_simple.py} (en remplaçant si besoin l'image provenant de la caméra par l'ouverture d'une image fixe), ajouter cette fonctionnalité.
-
-\noindent \rule{\linewidth}{1pt}
-
-\Manip A partir de l'exemple \textsc{camera\_flux\_lensepy\_simple.py} (en remplaçant si besoin l'image provenant de la caméra par l'ouverture d'une image fixe), créer un programme qui permette de lister les cubes des 4 couleurs et d'afficher pour chacun d'eux : les coordonnées de leur centre, leur surface, la couleur...
-
-\noindent \rule{\linewidth}{1pt}
-
-Il est possible d'avoir une estimation du temps d'exécution d'un code en Python par la méthode proposée ci-dessous :
-
-\begin{lstlisting}
-import time
-
-start = time.perf_counter()
-# Code to evaluate
-end = time.perf_counter()
-
-print(f"Total Time : {(end - start)*1000:.2f} ms")
-\end{lstlisting}
-
-\Manip A partir de cet exemple, mesurer le temps de traitement de détection des cubes de couleurs.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{Détecter des formes particulières}
-
-On souhaite à présent s'intéresser aux pièces en bois de 3 formes différentes (cercle, triangle, hexagone).
-
-A terme, nous aimerions pouvoir détecter si des formes d'un même type sont alignées sur une grille (principe du jeu Tic-tac-toe).
-
-\begin{center}
-	\includegraphics[width=0.4\textwidth]{./images/forms.png}
-\end{center}
-
-\Quest A partir des exemples fournis dans la section précédente (OpenCV), proposer une méthode (algorithme) à mettre en place pour détecter les éléments en fonction de leur forme. On s'intéressera notamment aux coordonnées du centre de la pièce et à leur forme.
-
-\Manip A partir de l'exemple \textsc{camera\_flux\_lensepy\_simple.py} (en remplaçant si besoin l'image provenant de la caméra par l'ouverture d'une image fixe), mettre en oeuvre cet algorithme et tester votre code.
-
-
-\noindent \rule{\linewidth}{1pt}
-
-\textit{La suite de cette partie pourra être continuée lors de la séance 4. Vous pourrez notamment travailler par équipe de 4 pour améliorer la détection des formes et leur emplacement.}
-
-\medskip
-
-Pour finaliser ce mini-projet, il reste à mettre en place la détection des alignements des formes et vérifier que 3 formes du même type sont alignés...
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

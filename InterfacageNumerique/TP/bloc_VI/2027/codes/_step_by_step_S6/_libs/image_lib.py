@@ -1,6 +1,6 @@
 import cv2
 import numpy as np
-from lensepy.utils import get_screen_size
+from lensepy.utils.images import get_screen_size
 
 DISPLAY_RATIO = 0.8
 
@@ -17,7 +17,7 @@ def display_image(image, disp_ratio=DISPLAY_RATIO):
     return display, scale
     
    
-def generate_histogram(image, width=512, height=400):
+def generate_histogram(image, gray=False, thickness=2, width=512, height=400):
     """
     Generate an image representing the histogram.
     """
@@ -53,8 +53,48 @@ def generate_histogram(image, width=512, height=400):
             [np.array(points, dtype=np.int32)],
             False,
             colors[channel],
-            1,
+            thickness,
             cv2.LINE_AA
         )
 
     return hist_img
+
+
+def rotate_image(image, angle):
+    # Initial size
+    (h, w) = image.shape[:2]
+    center = (w / 2, h / 2)
+    # Rotation matrix
+    M = cv2.getRotationMatrix2D(center, angle, 1.0)
+
+    # New dimensions
+    cos = abs(M[0, 0])
+    sin = abs(M[0, 1])
+    new_w = int(h * sin + w * cos)
+    new_h = int(h * cos + w * sin)
+
+    # Translation from initial to new image
+    M[0, 2] += (new_w / 2) - center[0]
+    M[1, 2] += (new_h / 2) - center[1]
+
+    # Rotation with white background
+    rotated = cv2.warpAffine(
+        image,
+        M,
+        (new_w, new_h),
+        flags=cv2.INTER_LINEAR,
+        borderMode=cv2.BORDER_CONSTANT,
+        borderValue=(255, 255, 255)
+    )
+
+    return rotated
+
+
+def scale_image(image, scale):
+    """
+    Modify scale of the image.
+    :param image:   Image to modify
+    :param scale:   Scale as a real.
+    :return:    New image.
+    """
+    return cv2.resize(image, None, fx=scale, fy=scale)
