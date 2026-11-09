@@ -19,6 +19,8 @@ crop_w, crop_h = 200, 400
 def main():
     # ---
     mode = 'z'
+    MIN_AREA = 100
+    APPROX_FACTOR = 0.01
 
     camera = init_camera(expo=1000)
     print("Click on 'q' to leave the application - in OpenCV window")
@@ -31,13 +33,30 @@ def main():
         frame8 = convert_image(frame_raw, COLOR_MODE)
 
         img_crop = frame8[crop_y:crop_y + crop_h, crop_x:crop_x + crop_w]
-        
+        img_crop_gray = cv2.cvtColor(img_crop, cv2.COLOR_BGR2GRAY)
+        # --- Optimization ?
+        _, img_thresh = cv2.threshold(
+            img_crop_gray, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU
+        )
+
+        cv2.rectangle(frame8, (crop_x, crop_y), (crop_x + crop_w, crop_y + crop_h), (0, 255, 0), 2)
+
         # --- Image display ---
         image_disp, scale = display_image(frame8)
-        cv2.rectangle(image_disp, (crop_x, crop_y), (crop_x + crop_w, crop_y + crop_h), (0, 255, 0), 2)
-        cv2.imshow("Flux Basler a2A1920", image_disp)
 
-        cv2.imshow("Flux Basler / CROP", img_crop)
+        # --- Contours detection ---
+        contours, nb_contours = detect_contours(img_thresh)
+        masks = get_masks_contours(contours, img_crop)
+
+        # Display
+        img_out = display_contours(img_crop, contours, MIN_AREA, APPROX_FACTOR)
+
+        mean_bgr = cv2.mean(img_crop, mask=masks[0])[:3]
+        print(f'mean_bgr: {mean_bgr}')
+
+        cv2.imshow("Flux Basler a2A1920", image_disp)
+        cv2.imshow("CROP", img_out)
+        cv2.imshow("Mask", masks[0])
 
         # --- Mode management ---
         key = cv2.waitKey(1) & 0xFF
@@ -50,47 +69,5 @@ def main():
     camera.close()
     cv2.destroyAllWindows()
 
-def main2():
-    # Parameters
-    dir_image_path = '../_data/'
-    DISP_RATIO = 0.6
-
-    file_path = dir_image_path + 'forms_vi.png'
-    file_path2 = dir_image_path + 'formes_bruit.png'
-    MIN_AREA = 100
-    APPROX_FACTOR = 0.01
-
-    # ---
-    img_gray = cv2.imread(file_path2, cv2.IMREAD_GRAYSCALE)
-    img_bgr = cv2.imread(file_path2, cv2.IMREAD_UNCHANGED)
-
-    # --- Optimization ?
-    _, img_thresh = cv2.threshold(
-        img_gray, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU
-    )
-
-    # --- Output image (color) ---
-    img_out = cv2.cvtColor(img_gray, cv2.COLOR_GRAY2BGR)
-
-    # --- Contours detection ---
-    contours, nb_contours = detect_contours(img_thresh)
-    masks = get_masks_contours(contours, img_gray)
-
-    # Display
-    img_gray_disp, _ = display_image(img_bgr, disp_ratio=DISP_RATIO)
-    img_out = display_contours(img_out, contours, MIN_AREA, APPROX_FACTOR)
-    img_out_disp_contour, _ = display_image(img_out, disp_ratio=DISP_RATIO)
-    mask_disp, _ = display_image(masks[0], disp_ratio=DISP_RATIO)
-
-    mean_bgr = cv2.mean(img_bgr, mask=masks[0])[:3]
-    print(f'mean_bgr: {mean_bgr}')
-
-    cv2.imshow("Initial image / GRAY", img_gray_disp)
-    cv2.imshow("Crop / GRAY", img_out_disp_contour)
-    cv2.imshow("First Mask / GRAY", mask_disp)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
-
-
 if __name__ == "__main__":
-    main2()
+    main()

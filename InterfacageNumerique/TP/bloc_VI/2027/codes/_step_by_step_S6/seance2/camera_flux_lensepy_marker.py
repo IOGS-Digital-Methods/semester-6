@@ -32,6 +32,8 @@ image_ref3 = cv2.imread(ref_path, cv2.IMREAD_GRAYSCALE)
 def main():
 	# ---
     mode = 'z'
+    rx_0, r_x1, r_x2, r_x3 = 0, 0, 0, 0
+    ry_0, r_y1, r_y2, r_y3 = 0, 0, 0, 0
 
     camera = init_camera(expo=1000)
     print("Appuyez sur 'q' pour quitter - dans la fenêtre d'OpenCV")

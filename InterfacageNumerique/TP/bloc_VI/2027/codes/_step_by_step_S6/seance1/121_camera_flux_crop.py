@@ -19,7 +19,7 @@ def main():
     # ---
     mode = 'z'
 
-    camera = init_camera(expo=1000)
+    camera = init_camera(expo=4000)
     print("Click on 'q' to leave the application - in OpenCV window")
     
     # --- Acquisition Loop ---
@@ -30,10 +30,11 @@ def main():
         frame8 = convert_image(frame_raw, COLOR_MODE)
 
         img_crop = frame8[crop_y:crop_y + crop_h, crop_x:crop_x + crop_w]
-        
+        cv2.rectangle(frame8, (crop_x, crop_y), (crop_x + crop_w, crop_y + crop_h), (0, 255, 0), 2)
+
+
         # --- Image display ---
         image_disp, scale = display_image(frame8)
-        cv2.rectangle(image_disp, (crop_x, crop_y), (crop_x + crop_w, crop_y + crop_h), (0, 255, 0), 2)
         cv2.imshow("Flux Basler a2A1920", image_disp)
 
         cv2.imshow("Flux Basler / CROP", img_crop)
@@ -49,32 +50,6 @@ def main():
     camera.close()
     cv2.destroyAllWindows()
 
-def main2():
-
-    # Parameters
-    dir_image_path = '../_data/'
-    DISP_RATIO = 0.6
-
-    file_path = dir_image_path + 'forms_vi.png'
-    crop_x, crop_y = 300, 200
-    crop_w, crop_h = 200, 400
-
-    # ---
-    img_gray = cv2.imread(file_path, cv2.IMREAD_GRAYSCALE)
-    img_crop = img_gray[crop_y:crop_y+crop_h, crop_x:crop_x+crop_w]
-
-    # --- Output image (color) ---
-    img_out = cv2.cvtColor(img_gray, cv2.COLOR_GRAY2BGR)
-    cv2.rectangle(img_out, (crop_x, crop_y), (crop_x+crop_w, crop_y+crop_h), (0, 255, 0), 2)
-
-    # Display
-    img_gray_disp, _ = display_image(img_out, disp_ratio=DISP_RATIO)
-
-    cv2.imshow("Initial image / GRAY", img_gray_disp)
-    cv2.imshow("Crop / GRAY", img_crop)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
-
 
 if __name__ == "__main__":
-    main2()
+    main()

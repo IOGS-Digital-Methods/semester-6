@@ -371,6 +371,8 @@ print(f"Total Time : {(end - start)*1000:.2f} ms")
 
 \Quest Quelle étape a été ajoutée par rapport à la version précédente ? Le résultat est-il satisfaisant ?
 
+\Quest L'ajout d'une étape de moyennage (\textit{blur}) est-il pertinent ?
+
 \noindent \rule{\linewidth}{1pt}
 
 \Manip Ouvrir le fichier \textsc{113\_detection\_forme\_cercles.py} du répertoire des codes à tester. Exécuter ce code.
@@ -383,7 +385,9 @@ print(f"Total Time : {(end - start)*1000:.2f} ms")
 
 \Quest Quelle étape a été ajoutée par rapport à la version précédente ? Le résultat est-il satisfaisant ?
 
-\newpage
+\Manip Modifier la taille du noyau et la valeur de $\sigma$ (entre 1 et 5). Cela améliore-t-il le résultat ? Quelles sont les valeurs limites ? 
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%% FORMES sous flux
 \section{C - Détection de formes et de couleurs sous caméra {[60 min]}}
@@ -391,6 +395,8 @@ print(f"Total Time : {(end - start)*1000:.2f} ms")
 \Manip Ouvrir le fichier \textsc{121\_flux\_camera\_crop.py} du répertoire des codes à tester. Exécuter ce code.
 
 \Quest Que permet-il de faire ?
+
+\Manip Ajouter un effet de filtre gaussien uniquement sur la partie découpée de l'image (noyau de 15 pixels de côté et $\sigma$ de 3).
 
 \noindent \rule{\linewidth}{1pt}
 
@@ -418,6 +424,7 @@ print(f"Total Time : {(end - start)*1000:.2f} ms")
 
 \medskip
 
+\newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%% COULEURS
 \section{D - Détection de couleurs efficace {[30 min]}}
@@ -675,7 +682,11 @@ Faire valider votre résultat par un$\cdot$e encadrant$\cdot$e.
 
 \subsubsection{Premier essai sous flux caméra}
 
+\Manip Placer une mire avec des repères carrés sous la caméra.
+
 \Manip Ouvrir le script \textsc{203\_correlation\_camera.py}, exécuter-le et commenter le résultat.
+
+\Quest Que se passe-t-il lorsqu'on fait tourner la mire sous la caméra ? Lorsqu'on rapproche la mire de la caméra ?
 
 \subsubsection{OpenCV et la détection d'objets}
 
@@ -711,39 +722,49 @@ On se propose à présent d'étudier le fichier \textsc{211\_correlation\_multi.
 
 \Quest Que représente-t-elle ? Qu'est-ce que cela va impliquer sur la recherche des motifs dans l'image ?
 
-\newpage
-EN RESUME
+\noindent \rule{\linewidth}{1pt}
 
-(C) = caméra
+\Manip Ouvrir le script \textsc{211\_correlation\_multi.py} et exécuter-le.
 
-(I) = images
+\Quest Que se passe-t-il si on change l'échelle de l'image du repère : 
 
-\bigskip
+\begin{itemize}
+	\item dans les limites prévues dans la fonction \texttt{find\_all\_matches\_multiscale()} ?
+	\item en dehors de ses limites ?
+\end{itemize} 
+
+\noindent \rule{\linewidth}{1pt}
+
+\Manip Ouvrir le script \textsc{211b\_correlation\_multi.py} et exécuter-le.
+
+\Quest Expliquer ce code et son résultat.
+
+\noindent \rule{\linewidth}{1pt}
+
+\Manip A partir \textsc{203\_correlation\_camera.py} et \textsc{211\_correlation\_multi.py}, faire une application qui permet de détecter les trois coins de la grille de TikTakToe.
+
+\textit{Vous prendrez la grille avec les repères qui vous paraissent les plus pertinents.}
+
+\begin{mdframed}[style=sidebar,frametitle={}]
+\large
+Faire valider votre application par un$\cdot$e encadrant$\cdot$e.
+\end{mdframed}
 
 
-\textbf{TP2}
-
+\section{I - Application finale}
 \begin{enumerate}
-	\item Détection de mires/grilles
-	\begin{enumerate}
-		\item (I) repères simples (correlation)
-		\item (C) sous caméra
-	\end{enumerate}
-	\item Mires multi-échelle
-	\begin{enumerate}
-		\item (I) repères simples (correlation)
-		\item (C) sous caméra
-	\end{enumerate}
-	\item Mires améliorées (à voir !! selon temps)
-	\begin{enumerate}
-		\item (I) repères améliorés (correlation)
-		\item (C) sous caméra
-	\end{enumerate}
+
 	\item (C) \textbf{APPLI} qui repère la grille sous la caméra et détecte le quadrillage
 	\item (C) \textbf{APPLI} qui repère les formes dans chaque zone de la grille
 	\item (C) \textbf{APPLI} qui valide une grille de TikTakToe
 	
 \end{enumerate}
+
+
+\begin{mdframed}[style=sidebar,frametitle={}]
+\large
+Faire valider votre application finale par un$\cdot$e encadrant$\cdot$e.
+\end{mdframed}
 
 
 
