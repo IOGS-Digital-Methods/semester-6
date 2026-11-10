@@ -21,7 +21,7 @@ def main():
     img_gray = cv2.imread(file_path2, cv2.IMREAD_GRAYSCALE)
     # --- Optimization ?
     _, img_thresh = cv2.threshold(
-        img_gray, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU
+        img_gray, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU
     )
 
     # --- Output image (color) ---

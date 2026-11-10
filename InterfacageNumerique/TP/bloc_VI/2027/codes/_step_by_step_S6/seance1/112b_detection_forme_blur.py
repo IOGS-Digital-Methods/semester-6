@@ -22,13 +22,16 @@ def main():
     img_gray = cv2.imread(file_path2, cv2.IMREAD_GRAYSCALE)
     # --- Optimization ?
     img_blur = cv2.GaussianBlur(img_gray, (N_SIZE, N_SIZE), 2)
-
+    # --- Optimization ?
+    _, img_thresh = cv2.threshold(
+        img_blur, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU
+    )
     # --- Output image (color) ---
     img_out = cv2.cvtColor(img_gray, cv2.COLOR_GRAY2BGR)
 
     # --- Contours detection ---
     contours, nb_contours = detect_contours(img_gray)
-    contours_op, nb_contours_op = detect_contours(img_blur)
+    contours_op, nb_contours_op = detect_contours(img_thresh)
     print(f'Number of contours (Classic): {nb_contours}')
     print(f'Number of contours (Optimized): {nb_contours_op}')
 
@@ -44,7 +47,7 @@ def main():
     cv2.imshow("Initial image / GRAY", img_gray_disp)
     cv2.imshow("Output image (Classic)", img_out_disp_contour)
     cv2.imshow("Output image (Optimized)", img_out_disp_contour_op)
-    cv2.imshow("Output image (Blur)", img_out_dqisp_thresh)
+    cv2.imshow("Output image (Blur)", img_out_disp_thresh)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
 

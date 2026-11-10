@@ -10,6 +10,7 @@ from form_detection import *
 dir_image_path = '../_data/'
 DISP_RATIO = 0.6
 N_SIZE = 3
+SIGMA = 3
 
 file_path = dir_image_path+'forms_vi.png'
 file_path2 = dir_image_path+'formes_blanc_30ms.png'
@@ -18,7 +19,7 @@ file_path2 = dir_image_path+'formes_blanc_30ms.png'
 def main():
     # ---
     img_gray = cv2.imread(file_path2, cv2.IMREAD_GRAYSCALE)
-    img_blur = cv2.GaussianBlur(img_gray, (N_SIZE, N_SIZE), 2)
+    img_blur = cv2.GaussianBlur(img_gray, (N_SIZE, N_SIZE), SIGMA)
 
     # Display
     img_gray_disp, _ = display_image(img_gray, disp_ratio=DISP_RATIO)
