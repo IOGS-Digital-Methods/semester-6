@@ -51,25 +51,22 @@
 	\textbf{Institut d'Optique Graduate School }\\[0.1cm]
     \textbf{\textsc{\Large Interfaçage Numérique}}
 
-
 	\end{center}
 \end{minipage}\hfill
 
-
-\vspace{1.5cm}
-
+\vspace{1cm}
 
 {\large \bfseries Travaux Pratiques} \\[0.2cm]
 Semestre 6
 
-\vspace{1.5cm}
+\vspace{1cm}
 % Title
-\rule{\linewidth}{0.3mm} \\[0.4cm]
+\rule{\linewidth}{0.3mm} \\[0.3cm]
 { \huge \bfseries\color{violet_iogs} Vision Industrielle \\[0.4cm] }
 \rule{\linewidth}{0.3mm} \\[0.2cm]
 { \large \bfseries\color{violet_iogs} 2 séances\\
 Détection d'objets : formes et couleurs}
-\rule{\linewidth}{0.3mm} \\[1cm]
+\rule{\linewidth}{0.3mm} \\[0.5cm]
 
 
 \bigskip
@@ -82,13 +79,13 @@ Détection d'objets : formes et couleurs}
 
 \textit{Ce sujet est disponible au format électronique sur le site du LEnsE - https://lense.institutoptique.fr/ dans la rubrique Année / Première Année / Interfaçage Numérique S6 / Bloc 2 Vision Industrielle.}
 
-\vspace{1.5cm}
+\vspace{1cm}
 
 \begin{minipage}{5cm}
 \begin{center}
 \includegraphics[width=3cm]{./images/logocc}\\
 \small
-  © 2025 by LEnsE-IOGS 
+  © 2027 by LEnsE-IOGS 
 \end{center}
 \end{minipage}
 
@@ -136,8 +133,8 @@ Elle a pour but de \textbf{prendre des décisions automatiques} (ou aider l'êtr
 	\item Réaliser un prototype d'inspection ou de mesure simple (tri d'objets)
 \end{itemize}
 
-\medskip
 
+\newpage
 \section{Au semestre 5...}
 
 A travers un TP, vous avez pris en main un \textbf{banc de Vision industrielle}, incluant : une caméra, un objectif, un éclairage et une interface de pilotage. Vous avez pu \textbf{observer l'impact} de l'ensemble de ces éléments \textbf{sur l'image finale} : temps d'intégration, uniformité de l'éclairage, contraste entre les objets...
@@ -148,7 +145,6 @@ Dans un second TP, vous avez pu \textbf{appréhender les premières briques de t
 
 \medskip
 
-\newpage
 \section{Dans ces deux nouvelles séances...}
 
 Lors de ce semestre, en deux séances, vous allez \textbf{mettre en place deux systèmes indépendants d'inspection de pièces}, en "temps réel" sous caméra, pour se rapprocher des systèmes industriels :
@@ -161,7 +157,6 @@ Lors de ce semestre, en deux séances, vous allez \textbf{mettre en place deux s
 \end{itemize}
 
 
-\medskip
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%    Ressources
@@ -180,10 +175,9 @@ Un \textbf{fichier archivé}, nommé \_STEP\_BY\_STEP\_S6.ZIP, regroupant l'ense
 \end{itemize}
 
 
+\newpage
 
 \section{Accumulation de preuves / Méthode de travail}
-
-Il est conseillé pour ces TP de \textbf{créer un nouveau projet PyCharm} sur votre session (\textit{attention à l'endroit où vous stockerez ce projet - U: sur les sessions Windows de l'IOGS}).
 
 Les différents algorithmes que vous serez amenés à modifier ou créer, pourront vous resservir dans d'autres projets. Nous vous conseillons donc fortement de les \textbf{sauvegarder} précieusement et de les \textbf{commenter} autant que possible afin de retrouver rapidement les principes mis en jeu derrière les fonctionnalités de OpenCV.
 
@@ -204,8 +198,6 @@ Il est enfin nécessaire de valider ces systèmes de prise de décision en mesur
 Dans le cadre de ces TP, il sera important de \textbf{définir des protocoles de test pour ces deux aspects} (temps d'exécution des algorithmes et taux d'erreur) et de donner quelques mesures quantitatives.
 
 \newpage
-\pagestyle{empty}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%    A A V / Objectifs
@@ -214,7 +206,7 @@ Dans le cadre de ces TP, il sera important de \textbf{définir des protocoles de
 
 \textit{L'utilisation d'un banc de vision industrielle est indispensable pour les deux séances.}
 
-\subsection{TP1 - Manipulations avancées sous OpenCV / Formes et couleurs}
+\subsection{TP1 - Manipulations avancées / Formes et couleurs}
 
 Dans cette première séance, vous allez devoir mettre en place un système de détection d'objets (formes simples) et de couleurs, afin d'identifier la couleur du (ou des) cube(s) de couleur que vous mettrez sous la caméra.
 
@@ -223,7 +215,7 @@ Dans cette première séance, vous allez devoir mettre en place un système de d
 Des \textbf{scripts} vont vous permettre, \textbf{pas à pas}, de :
 
 \begin{itemize}
-	\item récupérer le flux de la caméra depuis un OpenCV (calibration de la caméra, boucle d'acquisition des images...)
+	\item récupérer le flux de la caméra depuis OpenCV (calibration de la caméra, boucle d'acquisition des images...)
 	\item détecter des formes (à partir de la quantité de contours - segments - d'un objet)
 	\item détecter la couleur de ces objets (utilisation d'espaces colorimétriques appropriés)
 \end{itemize}
@@ -238,7 +230,7 @@ L'objectif final de ce second TP est de \textbf{détecter le nombre d'objets d'u
 
 On se basera sur la règle du \textbf{jeu du Morpion} (ou \textit{Tic Tac Toe} en anglais) qui oppose deux joueurs qui doivent aligner 3 marques (de même forme ou couleur) sur une grille de 3 x 3 cases. 
 
-\bigskip
+\newpage
 
 Premiers essais sur une grille de jeu TicTacToe (morpion) :
 
@@ -250,15 +242,15 @@ Cette mission "ludique" est cependant très proche des \textbf{tâches d'inspect
 
 On pourra ajouter également des mesures de surface des pièces, de colorimétrie pour valider la couleur des dépôts faits sur les pièces... pour vérifier leur \textbf{conformité à un cahier des charges}.
 
-\medskip
 
+\newpage
+\strut 
 
-
+\newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%  TP 1
 
-\newpage
 \begin{center}
 	\begin{minipage}{2.5cm}
 	\begin{center}
@@ -270,34 +262,28 @@ On pourra ajouter également des mesures de surface des pièces, de colorimétri
 	\textbf{Institut d'Optique Graduate School }\\[0.1cm]
     \textbf{Interfaçage Numérique}
 
-
 	\end{center}
 \end{minipage}\hfill
 
 
-\vspace{2cm}
+\vspace{0.1cm}
 
-
-{\Large \bfseries \textsc{Interfaçage Numérique}} \\[0.5cm]
 {\large \bfseries Travaux Pratiques} \\[0.2cm]
 Semestre 6
 
-\vspace{1cm}
+\vspace{0.1cm}
 
 % Title
-\rule{\linewidth}{0.4mm} \\[0.4cm]
-{ \Large \bfseries\color{violet_iogs} TP1 - Manipulations avancées sous OpenCV \\ Formes et couleurs \\[0.4cm] }
-\rule{\linewidth}{0.4mm} \\[1cm]
+\rule{\linewidth}{0.4mm} \\
+{ \Large \bfseries\color{violet_iogs} TP1 - Manipulations avancées sous OpenCV \\ Formes et couleurs \\ }
+\rule{\linewidth}{0.4mm} \\
 
 \end{center}
 
 \vfill
 
 
-\bigskip
-
 \section{Méthode de travail (conseillée)}
-
 
 Une partie des algorithmes de traitement sont donnés. Il est fortement conseillé de \textbf{réaliser une analyse poussée} de chacune des étapes de ces algorithmes afin de comprendre l'intérêt de l'utilisation de ces techniques de base.
 
@@ -312,7 +298,7 @@ Vous pouvez par exemple \textbf{décrire ces algorithmes} par l'intermédiaire d
 
 \section{Mesure de temps d'exécution}
 
-Il est possible d'avoir une estimation du temps d'exécution d'un code en Python par la méthode proposée ci-dessous :
+Il est possible d'avoir une \textbf{estimation du temps d'exécution} d'un code en Python par la méthode proposée ci-dessous :
 
 \begin{lstlisting}
 import time
@@ -374,7 +360,11 @@ print(f"Total Time : {(end - start)*1000:.2f} ms")
 
 \Quest Quelle étape a été ajoutée par rapport à la version précédente ? Le résultat est-il satisfaisant ?
 
+\Manip Modifier la valeur de \textsc{MIN\_AREA} pour optimiser la détection de contours valides (suppression du bruit induit par le fond).
+
 \Quest L'ajout d'une étape de moyennage (\textit{blur}) est-il pertinent ?
+
+\Quest L'association d'un flou (\textit{blur}) et d'une binarisation permet-elle d'éliminer les erreurs de détection de contours ? (sans utilisation de \textsc{MIN\_AREA}).
 
 \noindent \rule{\linewidth}{1pt}
 
@@ -406,6 +396,19 @@ print(f"Total Time : {(end - start)*1000:.2f} ms")
 \Manip Ouvrir le fichier \textsc{122\_flux\_camera\_mask.py} du répertoire des codes à tester. Exécuter ce code.
 
 \Quest Que permet-il de faire ?
+
+\Manip Adapter la taille de la découpe à la taille d'un cube de couleur (en laissant quelques dizaines de pixels autour de l'objet).
+
+\Quest A quoi correspond l'image appelée \texttt{Mask} ?
+
+\Quest La détection des objets est-elle meilleure sur fond clair ou sur fond sombre ?
+
+
+\noindent \rule{\linewidth}{1pt}
+
+\Manip Ouvrir le fichier \textsc{123\_flux\_camera\_mask\_square.py} du répertoire des codes à tester. Exécuter ce code.
+
+\Quest Que fait-il de plus que le précédent ?
 
 \noindent \rule{\linewidth}{1pt}
 
@@ -525,7 +528,7 @@ Faire valider votre application par un$\cdot$e encadrant$\cdot$e.
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%% YUV
-\section{F - Niveaux de gris {[30 min]}}
+\section{F - Niveaux de gris {[Bonus]}}
 
 Il existe plusieurs méthodes pour transformer une image en RVB vers une image en nuance de gris.
 
@@ -577,7 +580,8 @@ Il existe d'autres espaces colorimétriques dans le domaine numérique. Voici un
 \begin{center}
 \begin{tabular}{|c|c|}
 \hline
-\textbf{Espace colorimétrique} & \textbf{Avantages} \\ \hline
+\textbf{Espace } &  \\
+\textbf{colorimétrique} & \textbf{Avantages} \\ \hline
 \textbf{RGB} & Simple, utilisé pour les écrans et le rendu des couleurs. \\ \hline
 \textbf{HSV / HSL} & Intuitif pour manipuler la couleur (teinte, saturation). \\ \hline
 \textbf{YUV / YCbCr} & Sépare luminance et chrominance. \\ \hline
@@ -606,24 +610,21 @@ Il existe d'autres espaces colorimétriques dans le domaine numérique. Voici un
 	\textbf{Institut d'Optique Graduate School }\\[0.1cm]
     \textbf{Interfaçage Numérique}
 
-
 	\end{center}
 \end{minipage}\hfill
 
 
-\vspace{2cm}
+\vspace{0.1cm}
 
-
-{\Large \bfseries \textsc{Interfaçage Numérique}} \\[0.5cm]
 {\large \bfseries Travaux Pratiques} \\[0.2cm]
 Semestre 6
 
-\vspace{1cm}
+\vspace{0.1cm}
 
 % Title
-\rule{\linewidth}{0.4mm} \\[0.4cm]
-{ \Large \bfseries\color{violet_iogs} TP2 - Détection d'objets / Contrôle qualité\\[0.4cm] }
-\rule{\linewidth}{0.4mm} \\[1cm]
+\rule{\linewidth}{0.4mm} \\
+{ \Large \bfseries\color{violet_iogs} TP2 - Détection d'objets / Contrôle qualité \\ }
+\rule{\linewidth}{0.4mm} \\
 
 \end{center}
 
@@ -672,7 +673,7 @@ On se propose d'étudier le fichier \textsc{201\_correlation.py}, associé aux i
 
 \Manip Ouvrir le script \textsc{202\_correlation\_rotation.py}, exécuter-le et commenter le résultat.
 
-\Quest Qu'est-ce qui a changé entre les deux exécutions ?
+\Quest Qu'est-ce qui a changé entre les deux exécutions ? Tester d'autres angles de rotation.
 
 \Manip Tracer l'évolution du maximum de corrélation pour des angles de rotation allant de -30° à 30° par pas de 2°.
 
@@ -689,7 +690,16 @@ Faire valider votre résultat par un$\cdot$e encadrant$\cdot$e.
 
 \Manip Ouvrir le script \textsc{203\_correlation\_camera.py}, exécuter-le et commenter le résultat.
 
-\Quest Que se passe-t-il lorsqu'on fait tourner la mire sous la caméra ? Lorsqu'on rapproche la mire de la caméra ?
+\Quest Pourquoi la corrélation n'est pas efficace dans ce cas ?
+
+\Manip Changer le facteur de grandissement de l'image de référence de 1 :
+
+\begin{itemize}
+	\item à \textbf{1.83} pour une focale de \textbf{16 mm},
+	\item à \textbf{0.91} pour une focale de \textbf{8 mm}.
+\end{itemize}
+
+\Quest Que se passe-t-il lorsqu'on fait tourner la mire sous la caméra ? 
 
 \subsubsection{OpenCV et la détection d'objets}
 
@@ -697,6 +707,7 @@ La bibliothèque \textsl{OpenCV} propose différentes fonctions permettant de re
 
 \medskip
 
+\begin{small}
 \begin{tabular}{|c|c|c|}
 \hline
 Détection de contours & cv2.findContours() & Détecter les formes \\
@@ -710,10 +721,29 @@ Transformation affine & cv2.getAffineTransform() & Rotation, translation, cisail
 Transformation perspective & cv2.getPerspectiveTransform() & Corriger une perspective \\
 \hline
 \end{tabular}
+\end{small}
 
 
 \newpage
-\section{H - Détection de repères multi-échelles}
+
+
+
+\section{H - Application finale}
+\begin{enumerate}
+
+	\item (C) \textbf{APPLI} qui repère la grille sous la caméra et détecte le quadrillage
+	\item (C) \textbf{APPLI} qui repère les formes dans chaque zone de la grille
+	\item (C) \textbf{APPLI} qui valide une grille de TikTakToe
+	
+\end{enumerate}
+
+
+\begin{mdframed}[style=sidebar,frametitle={}]
+\large
+Faire valider votre application finale par un$\cdot$e encadrant$\cdot$e.
+\end{mdframed}
+
+\section{I - Détection de repères multi-échelles (Bonus)}
 
 On se propose à présent d'étudier le fichier \textsc{211\_correlation\_multi.py}, associé aux images (du répertoire \textsc{\_data\_marker}) :
 \begin{itemize}
@@ -752,24 +782,6 @@ On se propose à présent d'étudier le fichier \textsc{211\_correlation\_multi.
 \large
 Faire valider votre application par un$\cdot$e encadrant$\cdot$e.
 \end{mdframed}
-
-
-\section{I - Application finale}
-\begin{enumerate}
-
-	\item (C) \textbf{APPLI} qui repère la grille sous la caméra et détecte le quadrillage
-	\item (C) \textbf{APPLI} qui repère les formes dans chaque zone de la grille
-	\item (C) \textbf{APPLI} qui valide une grille de TikTakToe
-	
-\end{enumerate}
-
-
-\begin{mdframed}[style=sidebar,frametitle={}]
-\large
-Faire valider votre application finale par un$\cdot$e encadrant$\cdot$e.
-\end{mdframed}
-
-
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -5,9 +5,20 @@
 \usepackage[utf8]{inputenc}
 \usepackage[french]{babel}
 
-% Atkinson Hyperlegible
+% Atkinson Hyperlegible / DYS
 \usepackage[sfdefault]{atkinson}
 \renewcommand{\familydefault}{\sfdefault}
+
+% Interligne et paragraphes
+\usepackage{setspace}
+\usepackage{microtype}
+\setstretch{1.2}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{8pt}
+
+% Alignement à gauche
+\usepackage{ragged2e}
+\AtBeginDocument{\RaggedRight}
 
 \usepackage{makeidx}
 \usepackage{eurosym}
