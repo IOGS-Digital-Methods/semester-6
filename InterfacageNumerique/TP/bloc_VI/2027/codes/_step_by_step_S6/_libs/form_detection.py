@@ -8,6 +8,7 @@ def detect_contours(image):
     :param approx_factor:   Facteur d'approximation des formes
     :return:            contours, len of contours
     """
+    edges = cv2.Canny(image, 50, 150)
     contours, _ = cv2.findContours(image, cv2.RETR_LIST, cv2.CHAIN_APPROX_TC89_KCOS)
     contours = sorted(contours, key=cv2.contourArea, reverse=True)
     return contours, len(contours)
@@ -31,6 +32,24 @@ def display_contours(img_out, contours, min_area=20, approx_factor=0.1, print_ou
     return img_out
 
 
+def sort_square(contours, min_area=20, approx_factor=0.1):
+	new_contour = []
+	for cnt in contours:
+		shape, approx, peri, area = detect_shape(cnt, min_area, 
+										approx_factor=approx_factor)
+		if shape == 'Carre':
+			new_contour.append({'cnt': cnt, 'approx': approx, 'area': area})
+	return new_contour
+	
+
+def display_contours_dict(img_out, contours):
+    # Results preparation
+	for cnt in contours:
+		approx = cnt['approx']
+		cv2.drawContours(img_out, [approx], -1, (255, 0, 0), 2)
+	return img_out
+
+
 def get_masks_contours(contours, image):
     masks = []
     for cnt in contours:
@@ -41,6 +60,17 @@ def get_masks_contours(contours, image):
         masks.append(mask)
     return masks
 
+
+def get_masks_contours_dict(contours, image):
+    masks = []
+    for cnt in contours:
+        # Black mask
+        mask = np.zeros(image.shape[:2], dtype=np.uint8)
+        # Filling mask in contour
+        cv2.drawContours(mask, [cnt['cnt']], -1, 255, thickness=cv2.FILLED)
+        masks.append(mask)
+    return masks
+	
 
 def detect_shape(contour, min_area=20, approx_factor=0.1):
     """
@@ -66,7 +96,7 @@ def detect_shape(contour, min_area=20, approx_factor=0.1):
             shape = "Inconnu"
         else:
             ratio = max(w, h) / min(w, h)
-            shape = "Carre" if 0.90 < ratio < 1.10 else "Rectangle"
+            shape = "Carre" if 0.95 < ratio < 1.05 else "Rectangle"
     elif n == 5:
         shape = "Pentagone"
     else:

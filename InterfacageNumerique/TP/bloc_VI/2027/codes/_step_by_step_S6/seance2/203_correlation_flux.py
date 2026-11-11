@@ -2,7 +2,7 @@ import sys
 sys.path.append("../_libs/")
 
 from camera_lib import init_camera, convert_image, COLOR_MODE, EXPOSURE_TIME
-from image_lib import display_image
+from image_lib import display_image, scale_image
 import process_lib as pcv
 from marker_finding import *
 
@@ -17,13 +17,13 @@ dy2 = 21
 dir_path = '../_data_marker/'
 ref_path = dir_path + 'mire_rep.png'
 image_ref1 = cv2.imread(ref_path, cv2.IMREAD_GRAYSCALE)
-
+image_ref1 = scale_image(image_ref1, 0.91)
 
 def main():
     # ---
     mode = 'z'
 
-    camera = init_camera(expo=10000)
+    camera = init_camera(expo=2000)
     print("Appuyez sur 'q' pour quitter - dans la fenêtre d'OpenCV")
 
     # --- Boucle d'acquisition ---
