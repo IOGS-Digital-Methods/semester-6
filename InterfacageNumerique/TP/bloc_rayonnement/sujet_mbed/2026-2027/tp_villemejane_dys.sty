@@ -1,6 +1,25 @@
 \usepackage{graphicx}
 \usepackage{float}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
 \usepackage[french]{babel}
+
+% Atkinson Hyperlegible / DYS
+\usepackage[sfdefault]{atkinson}
+\renewcommand{\familydefault}{\sfdefault}
+
+% Interligne et paragraphes
+\usepackage{setspace}
+\usepackage{microtype}
+\setstretch{1.3}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{8pt}
+
+% Alignement à gauche
+\usepackage{ragged2e}
+\AtBeginDocument{\RaggedRight}
+
 \usepackage{makeidx}
 \usepackage{eurosym}
 \usepackage{amssymb}
@@ -8,8 +27,6 @@
 \usepackage{amsmath}
 \usepackage[, x11names]{xcolor}
 \usepackage[colorlinks]{hyperref}
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
 \usepackage{multicol}
 \usepackage{pgfplots}
 \usepackage{multicol}
@@ -157,9 +174,9 @@
     frametitlefont=\Large\bfseries % Title heading font specification
 }
 
-%%%% COMPUTER LANGUAGE
+% lstlisting package
 \usepackage{listings}
-\lstset{language = C++, 
+\lstset{language = Python, 
 	basicstyle={\small \color{black}}, 
 	tabsize = 3,
 	commentstyle=\color{black!70!green},
