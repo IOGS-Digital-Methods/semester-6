@@ -187,7 +187,8 @@ Il serait également pertinent de votre part de rédiger un \textbf{journal de b
 
 
 
-\subsection{Validation de la compétence C4 / Valider une solution technologique}
+\subsection{Validation de la compétence C4}
+\subsubsection{Valider une solution technologique}
 
 Il est également crucial pour les chaînes de production, par exemple, d'assurer une \textbf{cadence de fabrication et de validation importante}. Les algorithmes de détection doivent donc pouvoir s'exécuter rapidement et la vitesse de défilement des pièces sous le système imageant peut devenir limitant.
 
@@ -430,7 +431,6 @@ print(f"Total Time : {(end - start)*1000:.2f} ms")
 
 \medskip
 
-\newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%% COULEURS
 \section{D - Détection de couleurs efficace {[30 min]}}
@@ -494,7 +494,7 @@ Contrairement à l'espace RVB, HSV est conçu pour se rapprocher de la perceptio
 
 \textit{Cette étape servira de calibration pour la détection de la couleur des cubes que vous mettrez en place dans la section suivante.}
 
-
+\newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%% COULEURS
 \section{E - Application de détection de couleurs {[60 min]}}
@@ -726,16 +726,24 @@ Transformation perspective & cv2.getPerspectiveTransform() & Corriger une perspe
 
 \newpage
 
-
-
 \section{H - Application finale}
-\begin{enumerate}
 
-	\item (C) \textbf{APPLI} qui repère la grille sous la caméra et détecte le quadrillage
-	\item (C) \textbf{APPLI} qui repère les formes dans chaque zone de la grille
-	\item (C) \textbf{APPLI} qui valide une grille de TikTakToe
-	
-\end{enumerate}
+Le script \textsc{221\_camera\_flux\_marker.py} donne une base de travail pour la réalisation de l'application finale.
+
+\Manip Ouvrir ce script, exécuter-le et commenter le résultat, en plaçant la grille aux repères carrés sous le flux de la caméra.
+
+\Manip Faire un algorigramme des fonctions \textsl{detect\_zone()}, \textsl{display\_grid()} et \textsl{main()}.
+
+\Quest A quoi correspondent les variables dans les zones \textit{PARAMETERS} et \textit{GRID DEFINITION} ?
+
+\noindent \rule{\linewidth}{1pt}
+
+A partir du script précécent, on souhaite réaliser une application qui : 
+
+\begin{itemize}
+	\item \textbf{repère les formes} dans chaque zone de la grille (et les affiche)
+	\item valide une grille de Tic Tac Toe
+\end{itemize}
 
 
 \begin{mdframed}[style=sidebar,frametitle={}]
@@ -743,6 +751,9 @@ Transformation perspective & cv2.getPerspectiveTransform() & Corriger une perspe
 Faire valider votre application finale par un$\cdot$e encadrant$\cdot$e.
 \end{mdframed}
 
+\textit{Vous pouvez également faire valider des opérations partielles. Pensez également aux preuves pour la compétence C4 (protocoles de tests, résultats des tests, analyse partielle...).}
+
+\newpage
 \section{I - Détection de repères multi-échelles (Bonus)}
 
 On se propose à présent d'étudier le fichier \textsc{211\_correlation\_multi.py}, associé aux images (du répertoire \textsc{\_data\_marker}) :
