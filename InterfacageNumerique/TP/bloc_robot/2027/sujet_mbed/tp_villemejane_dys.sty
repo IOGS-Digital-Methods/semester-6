@@ -25,7 +25,7 @@
 \usepackage{amssymb}
 \usepackage{amsfonts}
 \usepackage{amsmath}
-\usepackage[, x11names]{xcolor}
+\usepackage[dvipsnames, x11names]{xcolor}
 \usepackage[colorlinks]{hyperref}
 \usepackage{multicol}
 \usepackage{pgfplots}
@@ -45,7 +45,12 @@
 \renewcommand{\ttdefault}{pcr} 
 
 
+\definecolor{violet_iogs}{RGB}{10, 50, 80}
+\definecolor{orange_iogs}{RGB}{255, 150, 10}
 
+\definecolor{schema_action}{RGB}{0, 255, 255}
+\definecolor{schema_PID}{RGB}{232, 232, 232}
+\definecolor{schema_feed}{RGB}{194, 224, 174}
 
 
 % Inclure des pdf
@@ -55,7 +60,9 @@
 \usepackage{pgfplots}
 
 \usepackage[european, straightvoltages]{circuitikz}
-\usetikzlibrary{babel, patterns, patterns.meta, calc}
+\usetikzlibrary{babel, patterns, patterns.meta, calc, arrows.meta, positioning, calc}
+\usepackage{schemabloc}
+
 
 \definecolor{violet_iogs}{RGB}{10, 50, 80}
 \definecolor{orange_iogs}{RGB}{255, 150, 10}

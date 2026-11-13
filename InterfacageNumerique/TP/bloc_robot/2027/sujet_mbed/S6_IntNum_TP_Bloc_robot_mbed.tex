@@ -651,6 +651,79 @@ Un comparateur est ensuite ajouté en sortie pour transmettre uniquement un sign
 Faire valider votre application par un$\cdot$e encadrant$\cdot$e.
 \end{mdframed}
 
+
+\newpage
+\section{Etape 12 / Asservir la vitesse}
+
+Le principe de l'\textbf{asservissement de vitesse d'un moteur à courant continu} est fourni par le schéma suivant :
+
+\begin{center}
+\begin{tikzpicture}
+\sbStyleLien{very thick, >={Triangle[length=3mm,width=3mm]}}
+\sbEntree{E}
+\sbComp{comp}{E}
+\sbRelier{E}{comp}
+\node at ($(E.west)!0.5!(comp.west)+(-1,0.3)$) {Consigne};
+\sbStyleBloc{fill=schema_PID,
+    line width=1.2pt}
+\sbBloc[4]{reg}{Correcteur}{comp}
+\sbRelier[Erreur]{comp}{reg}
+\sbStyleBloc{
+	fill=schema_action,
+    line width=1.2pt
+}
+\sbBloc[4]{sys}{Moteur}{reg}
+\sbStyleBlocDefaut
+\sbRelier[PWM]{reg}{sys}
+\sbSortie{S}{sys}
+\sbRelier{sys}{S}
+\node at ($(sys.east)!0.5!(S.west)+(1,0.3)$) {Vitesse};
+\sbDecaleNoeudy[5]{S}{U}
+\sbStyleBloc{fill=schema_feed,
+    line width=1.2pt}
+\sbBlocr{cap}{Codeur}{U}
+\sbStyleBlocDefaut
+\sbRelieryx{sys-S}{cap}
+\sbRelierxy[Mesure]{cap}{comp}
+\sbStyleLienDefaut
+\end{tikzpicture}
+\end{center}
+
+\textit{Le correcteur n'est pas indispensable, mais permet de meilleures performances de l'asservissement. Un \textbf{étage de puissance} est nécessaire entre la sortie PWM et le moteur.}
+
+\medskip
+
+Le \textbf{codeur incrémental}, relié à une entrée numérique du microcontroleur, mesure la vitesse réelle du moteur.
+
+Cette vitesse mesurée est ensuite comparée à une consigne de vitesse et produit un \textbf{signal d'erreur} : écart entre consigne et mesure.
+
+Ce signal d'erreur va permettre ensuite de générer la \textbf{consigne de tension} à appliquer au moteur (ici par l'intermédiaire d'un signal PWM).
+
+\subsection{Mesure de vitesse}
+
+Le codeur incrémental fournit un \textbf{signal rectangulaire} dont la \textbf{fréquence} (ou son inverse la période) est \textbf{proportionnelle} à la vitesse de rotation du moteur.
+
+Pour mesurer cette fréquence, il existe deux possibilités : 
+
+\begin{itemize}
+	\item mesurer l'écart entre deux fronts montants, ce qui revient à mesurer directement la période ;
+	\item mesurer le nombre de fronts montants dans un temps donné (souvent fixe).
+\end{itemize}
+
+\medskip
+
+Dans les deux cas, il est indispensable de mettre en \oe{}uvre un \textbf{système de mesure du temps} (\textit{Ticker} par exemple) sur le microcontrôleur.
+
+La première méthode nécessite une cadence élevée pour avoir une bonne précision de mesure sur la période, ce qui requiert un microcontrôleur souvent rapide, mais elle permet d'obtenir une mise à jour de l'information à chaque période.
+
+La seconde méthode est moins gourmande en fréquence de rafraichissement, mais elle sera moins précise et la mise à jour de l'information sera moins rapide.
+
+
+
+\subsection{Mise en \oe{}uvre}
+
+
+
 \newpage
 
 \strut % empty page
@@ -685,6 +758,8 @@ Faire valider votre application par un$\cdot$e encadrant$\cdot$e.
 %%%%%%%%%%%%%    Etape 13
 \section{Robot autonome - suiveur de ligne}
 
+Dans cette séance, vous allez devoir mettre en \oe{}uvre et intégrer tous les blocs que vous avez développés indépendamment les uns des autres afin de réaliser une plateforme robotique capable de suivre une ligne le plus rapidement possible (sur un circuit fermé).
+
 
 \begin{mdframed}[style=sidebar,frametitle={}]
 \large
@@ -693,6 +768,11 @@ Faire valider votre application par un$\cdot$e encadrant$\cdot$e.
 
 \textit{Vous pourrez également comparer les performances de votre robot avec ceux des autres équipes, sur un parcours identique.}
 
+\bigskip
+
+En bonus, vous pouvez ajouter une option supplémentaire à votre robot : ne pas rentrer dans les obstacles qui pourraient entraver sa ligne...
+
+\newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%    Etape 13
 \section{Etape B13 / Acquérir les signaux du capteur ultrason}
@@ -707,7 +787,7 @@ La maquette est équipée d'un capteur de distance à ultrasons. Le principe est
 
 Un \textbf{émetteur} génère une \textbf{impulsion sonore brève} (à une fréquence non audible). Cette onde est \textbf{réfléchie} par la surface à détecter. L'onde retour, appelée \textsl{écho} est reçue par un \textbf{récepteur}. On mesure alors le \textbf{temps} entre le moment où l'onde est émise et le moment où l'écho revient - souvent nommé temps de vol. Ces ondes se propageant à la vitesse du son (environ 340m/s), il est alors possible de revenir sur la distance parcourue par cette onde.
 
-\newpage
+
 \subsection{Travail à réaliser}
 
 On se propose de tester le code \textsl{dist\_us.cpp}. Ce fichier est disponible sur le site du LEnsE dans la rubrique \textit{Année / Première Année / Interfaçage Numérique S6 / Bloc 1 Systèmes embarqués / Robotique / Exemples MBED pour STM32}.
@@ -720,19 +800,6 @@ On se propose de tester le code \textsl{dist\_us.cpp}. Ce fichier est disponible
 
 \Quest Quelle est la limite de détection de ce capteur ?
 
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%    Mini Projet
-\section{Mini-Projet / Suivi de ligne et évitement d'obstacle}
-
-Maintenant que vous maitrisez les briques de base de la programmation embarquée, vous allez devoir mettre au point le programme complet permettant au robot :
-
-\begin{itemize}
-	\item de suivre une ligne noire sur un fond blanc, sur la plus grande distance possible
-	\item d'éviter les obstacles qui se dresseraient sur son chemin (s'arrêter à une distance raisonnable)
-	\item de contourner l'obstacle et de revenir sur la ligne
-\end{itemize}
 
 %\newpage
 %\strut % empty page
