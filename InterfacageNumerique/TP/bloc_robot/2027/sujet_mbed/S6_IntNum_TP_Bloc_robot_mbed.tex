@@ -612,6 +612,10 @@ NON & OUI & NON & 70\% & 70\% \\
 
 \bigskip
 
+Afin d'optimiser la détection des différents cas sur les capteurs de ligne, vous pouvez vous inspirer du code \textsl{main\_10\_switch.cpp} et en particulier la fonction \textsl{test\_line()}.
+
+\bigskip
+
 \textit{Jettez un coup d'oeil au cahier des charges requis pour l'étape 11...}
 
 \bigskip
@@ -762,26 +766,51 @@ Ce compteur peut-être ensuite comparé à une consigne de position et produit u
 
 Ce signal d'erreur va permettre ensuite de générer la \textbf{consigne de tension} à appliquer au moteur (ici par l'intermédiaire d'un signal PWM) afin qu'il atteigne sa position.
 
-\subsection{Travail à réaliser}
+\subsection{Compteur d'événements}
 
-On propose le code...
-
-\Manip Remplacer le contenu du fichier \textsl{main.cpp} de l'exemple de base par le code contenu dans le fichier précédent.
+On se propose d'étudier le code \textsl{main\_13\_count.cpp}.
 
 \Manip Tester le code sur la plateforme robot.
 
-\Quest Décrire le fonctionnement de ce script sous forme d'un chronogramme, à partir du moment où une nouvelle consigne de position est appliquée.
+\Quest Décrire le fonctionnement de ce script sous forme d'un algorigramme. 
 
-\Quest Proposer une méthode de calibration (validation) de ce procédé de positionnement des roues.
+\Quest A quoi correspondent les valeurs \textsc{cpt\_l} et \textsc{cpt\_r} affichées par le programme ? Sont-elles égales ? Est-ce cohérent ?
 
-\Manip Mettre en \oe{}uvre ce protocole.
+\Manip Modifier la vitesse de rotation des deux roues pour qu'elles tournent en sens inverse mais à la même vitesse.
+
+\Quest Les valeurs de \textsc{cpt\_l} et \textsc{cpt\_r} affichées par le programme sont-elles cohérentes ? égales ?
+
+\subsection{Signal d'erreur}
+
+On se propose d'étudier le code \textsl{main\_13\_error.cpp}.
+
+\Manip Tester le code sur la plateforme robot. Modifier la valeur de la position à atteindre (dans la fonction \textsl{move\_position()}.
+
+\Quest Décrire le fonctionnement de ce script sous forme d'un algorigramme. 
+
+\Quest A quoi correspondent les valeurs \textsc{error\_l} et \textsc{command\_l} affichées par le programme ? 
+
+\medskip
+
+\Manip Mettre en place le même système pour la roue gauche et tester votre programme.
+
+\Quest Combien faut-il parcourir d'encoches du codeur pour faire un quart de tour ? un demi-tour ?
+
+\subsection{Système bouclé}
+
+On se propose d'étudier le code \textsl{main\_13\_control.cpp}.
+
+\Manip Tester le code sur la plateforme robot. Modifier la valeur de la position à atteindre (dans la fonction \textsl{move\_position()}.
+
+\Quest Expliquer le fonctionnement de ce système d'asservissement.
+
+\Quest Comment faire avancer le robot sur 15 cm ? Comment faire faire demi-tour au robot ?
 
 
 \begin{mdframed}[style=sidebar,frametitle={}]
 \large
-Faire valider votre protocole de test ainsi que l'analyse de vos résultats \\ par un$\cdot$e encadrant$\cdot$e.
+Faire valider votre application par un$\cdot$e encadrant$\cdot$e.
 \end{mdframed}
-
 
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -815,10 +844,41 @@ On se propose de tester le code \textsl{dist\_us.cpp}. Ce fichier est disponible
 %%%%%%%%%%%%%    Etape 15
 \section{Etape 15 / Contourner un obstacle}
 
+On souhaite à présent mettre en place une fonction de contournement d'un obstacle détecté par le capteur mis en \oe{}uvre précédemment.
+
+Pour cela, nous allons nous servir du système d'asservissement de position du robot mis en place dans l'étape 13.
+
+On souhaite pouvoir contourner l'obstacle par sa gauche. L'objet fait 20 cm de largeur et 10 cm de longueur. L'obstacle devra être détecté à 15 cm.
+
+\Quest Quelle procédure devez-vous mettre en \oe{}uvre pour \textbf{contourner cet obstacle} et revenir sur la ligne ? Vous devrez en particulier lister les étapes et faire un schéma de principe.
+
+
+\Manip Réaliser l'application embarquée permettant de détecter l'obstacle (en ligne droite) et d'entrer dans la phase de contournement. Tester l'application sur la plateforme robotique.
+
+
+
+\begin{mdframed}[style=sidebar,frametitle={}]
+\large
+Faire valider votre application par un$\cdot$e encadrant$\cdot$e.
+\end{mdframed}
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%    Etape 16
 \section{Etape 16 / Suivre une ligne et éviter des obstacles}
+
+On souhaite désormais pouvoir combiner les deux approches : suivre une ligne et contourner un obstacle (afin de reprendre par la suite le suivi de ligne).
+
+\Quest Lister l'ensemble des étapes sous forme d'un algorigramme.
+
+\Manip Réaliser l'application embarquée permettant de remplir ce cahier des charges (en vous basant sur les étapes précédentes). Tester l'application sur la plateforme robotique.
+
+
+\begin{mdframed}[style=sidebar,frametitle={}]
+\large
+Faire valider votre application par un$\cdot$e encadrant$\cdot$e.
+\end{mdframed}
 
 
 %\newpage
