@@ -29,7 +29,7 @@
 \documentclass[a4paper,11pt,titlepage]{article} % The default font size is 10pt; 11pt and 12pt are alternatives
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\usepackage{opto_elec_villemejane}
+\usepackage{tp_villemejane_dys}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -55,12 +55,12 @@
 	\end{center}
 \end{minipage}\hfill
 
-\vspace{1cm}
+\vspace{0.5cm}
 
 {\large \bfseries Travaux Pratiques} \\[0.2cm]
 Semestre 6
 
-\vspace{2cm}
+\vspace{1cm}
 % Title
 \rule{\linewidth}{0.3mm} \\[0.4cm]
 { \huge \bfseries\color{violet_iogs} Keil uVision / STM32 / MBED-OS\\[0.4cm] }
@@ -98,7 +98,7 @@ Semestre 6
 \begin{center}
 \includegraphics[width=3cm]{./images/logocc}\\
 \small
-  © 2025 by LEnsE-IOGS 
+  © 2027 by LEnsE-IOGS 
 \end{center}
 \end{minipage}
 
@@ -185,9 +185,18 @@ Elles sont équipées d'un débogueur ST-LINK intégré, ce qui permet de progra
 
 \textsl{Le brochage de la carte Nucleo L476RG est fournie en annexe à ce document} : \hyperref[doc:nucleo_pins_476RG]{Brochage Nucléo L476RG}
 
+\vfill
 
-\cleardoublepage
+\section{Ressources}
 
+\subsection{Projet de base}
+
+Un exemple de base (en version archivée et pré-compilée) est disponible au téléchargement ici : 
+
+\href{https://lense.institutoptique.fr/ressources/mbed/hello-L476RG_pre.zip}{https://lense.institutoptique.fr/ressources/mbed/hello-L476RG\_pre.zip}
+
+
+\subsection{Bibliothèques MBED-OS 6}
 
 Une \textbf{série d'exemples de code} (ainsi qu'un projet de base) est disponible à l'adresse suivante : 
 
@@ -195,31 +204,16 @@ Une \textbf{série d'exemples de code} (ainsi qu'un projet de base) est disponib
 
 dans la section MBED\_os / boards / L476RG.
 
+
+\cleardoublepage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%    Premier programme
 \section{Etape 0 / Tester un premier programme}
 
-
-\subsection{Télécharger le projet de base}
-
 Avant de pouvoir programmer le microcontroleur présent sur les cartes Nucléo que nous allons utiliser, il faut au préalable \textbf{avoir un projet} pour \textsl{Keil uVision}.
 
-Un exemple de base (en version archivée et pré-compilée) est disponible au téléchargement ici : 
 
-\href{https://lense.institutoptique.fr/ressources/mbed/hello-L476RG_pre.zip}{https://lense.institutoptique.fr/ressources/mbed/hello-L476RG\_pre.zip}
-
-\Manip Télécharger le fichier précédent et décompresser l'archive dans un répertoire de votre ordinateur.
-
-\subsection{Changer le nom du projet (facultatif)}
-
-\Manip Dans le répertoire décompressé, renommer les fichiers (opération facultative) :
-
-\begin{itemize}
-	\item \textsl{hello-L476RG.uvprojx} en \textsl{nom\_de\_votre\_projet.uvprojx}
-	\item \textsl{hello-L476RG.uvoptx} en \textsl{nom\_de\_votre\_projet.uvoptx}
-\end{itemize}
-
-\Manip A l'aide d'un éditeur de texte (Notepad++ par exemple), ouvrir le fichier \textsl{nom\_de\_votre\_projet.uvprojx} puis remplacer toutes les occurences de \textsl{hello-L476RG} par \textsl{nom\_de\_votre\_projet}. (opération facultative)
+\Manip Télécharger le projet de base (section précédente) et décompresser l'archive dans un répertoire de votre ordinateur.
 
 
 \subsection{Lancer Keil uVision}
@@ -261,6 +255,7 @@ int main()
 
 Le langage utilisé par l'environnement MBED est un langage proche du C++. Le programme ainsi écrit doit nécessairement \textbf{être compilé} avant de pouvoir \textbf{être téléversé} sur la carte où il sera ensuite \textbf{exécuté}.
 
+\newpage
 \subsection{Structure du code}
 
 Un programme embarqué est constitué de \textbf{deux étapes principales} : 
@@ -511,6 +506,7 @@ void sw_ISR(void){
 
 Dans cet exemple, à chaque front descendant sur l'entrée \textsl{PA\_8}, la fonction \textsl{sw\_ISR()} est appelée. Elle lit alors l'état de la sortie \textsl{led1} pour ensuite l'inverser.
 
+\newpage
 \subsection{Travail à réaliser}
 
 On se propose de tester le code \textsl{interrupt\_on\_input.cpp}. Ce fichier est disponible sur le site du LEnsE dans la rubrique \textit{Année / Première Année / Interfaçage Numérique S6 / Bloc 1 Systèmes embarqués / Exemples MBED pour STM32}.
@@ -796,7 +792,15 @@ https://lense.institutoptique.fr/nucleo/
 
 
 \newpage
+
+\strut % empty page
+\titleformat{\section}
+  {\null}{}{0pt}{}
+  
+  
 \includepdf[pages=1, landscape=true, pagecommand={\section{\texorpdfstring{\hspace{-1em}}{PCB Robot}}}\label{doc:nucleo_pins_476RG}]{NucleoL476RG_pinout.pdf}
+
+\includepdf[pages=1-2, landscape=true, pagecommand={\section{\texorpdfstring{\hspace{-1em}}{Notions de langage C/C++}}}\label{doc:lang_C}]{../2026_lang_C.pdf}
 
 \end{document}
 
